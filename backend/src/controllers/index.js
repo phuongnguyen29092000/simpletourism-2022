@@ -1,0 +1,1 @@
+module.exports.typePlaceController = require('./typeplace.controller')
