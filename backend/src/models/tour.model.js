@@ -1,76 +1,88 @@
 const mongoose = require("mongoose");
 
-const tourSchema = mongoose.Schema({
-    name: {
-        type: String,
-        minlength: 0,
-        maxlength: 100,
-        required: [true, "Tour must have a name!"],
+const tourSchema = mongoose.Schema(
+  {
+    tourName: {
+      type: String,
+      minlength: 0,
+      maxlength: 100,
+      required: [true, "Tour must have a name!"],
+    },
+    countryName: {
+      type: String,
+      minlength: 0,
+      maxlength: 100,
+      required: [true, "Tour must have a country name!"],
+    },
+    continent: {
+      type: String,
+      enum: ["Châu Âu", "Châu Á"],
     },
     description: {
-        type: String,
-        minlength: 20,
-        maxlength: 1024,
-        required: [true, "Tour must have a description!"],
+      type: String,
+      minlength: 20,
+      maxlength: 1024,
+      required: [true, "Tour must have a description!"],
     },
     imageAvatar: {
-        type: String,
-        maxlength: 500,
-        trim: true,
+      type: String,
+      maxlength: 500,
+      trim: true,
+    },
+    imageSlide: {
+      type: [String],
     },
     price: {
-        type: Number,
-        require: true,
-        min: 0,
-        max: 100000000,
+      type: Number,
+      require: true,
+      min: 0,
+      max: 100000000,
     },
     timeStart: {
-        type: Date,
-        required: [true, "Tour must have a time start!"],
+      type: Date,
+      required: [true, "Tour must have a time start!"],
     },
     timeEnd: {
-        type: Date,
-        required: [true, "Tour must have a time end!"],
+      type: Date,
+      required: [true, "Tour must have a time end!"],
     },
     amount: {
-        type: Number,
-        require: true,
-        min: 0,
-        max: 50,
-        default: 50,
+      type: Number,
+      required: true,
+      min: 0,
+      max: 50,
+      default: 50,
     },
     hotelName: {
-        type: String,
-        minlength: 0,
-        maxlength: 100,
-        required: [true, "Tour must have a hotel name!"],
-    },
-    region: {
-        type: Number,
-        min: 1,
-        max: 3,
-        required: [true, "Tour must have a regions!"],
-    },
-    typePlace: {
-        type: String,
-        minlength: 0,
-        required: [true, "Tour must have a type place"],
-    },
-    discount: {
-        type: Number,
-        min: 0,
-        max: 1,
-        default: 0,
+      type: String,
+      minlength: 0,
+      maxlength: 100,
+      required: [true, "Tour must have a hotel name!"],
     },
     schedule: {
-        type: String,
-        minlength: 20,
-        maxlength: 1024,
-        required: true,
+      type: String,
+      minlength: 20,
+      maxlength: 1024,
+      required: true,
     },
-}, {
+    typePlace: {
+      type: mongoose.Schema.ObjectId,
+      ref: "TypePlace",
+    },
+    discount: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Discount",
+    },
+    owner: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      //required: [true, "Tour must belong to owner!"],
+    },
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
 const Tour = mongoose.model("Tour", tourSchema);
 
