@@ -1,0 +1,36 @@
+.sidebar-section{
+    width: 120px;
+    height: 100vh;
+}
+.sidebar-section::-webkit-scrollbar{
+    width: 5px;
+}
+.sidebar-wrapper{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid #22577E; */
+}
+.sidebar-wrapper .logo img{
+    width: 120px;
+}
+.sidebar-section .menu-list-item{
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.menu-item{
+    background-color: #5584AC;
+    padding: 20px;
+    /* border: 2px solid #FAFFAF; */
+}
+.menu-item .menu-item__icon img{
+    width: 40px;
+}
+.menu-item .menu-item__title{
+    color: #fff;
+}
+a{
+    text-decoration: none;
+}
+.icon-sidebar:hover{
+    fill: #FAFFAF !important;
+}

@@ -1,24 +1,23 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import './styles/common/sidebar.css'
+import SideBar from './components/SideBar';
+import Header from './containers/Header';
+import HomePage from './pages/HomePage';
+import { Provider } from 'react-redux'
+import store from './store';
 
 function App() {
   return (
+    <Provider store={store}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/admin" exact element={<SideBar />} />
+      </Routes>
+      {/* <Header/> */}
+      {/* <HomePage/> */}
     </div>
+    </Provider>
   );
 }
 

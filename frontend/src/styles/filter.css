@@ -1,0 +1,79 @@
+.filter-box{
+    padding:40px 0;
+    background-color: #dcdcdc87;
+}
+.filter-item-wrapper{
+    border: 1px solid rgba(0,0,0,.1);
+    /* padding: 5px 10px;    */
+    height: 46px;
+    margin: 5px 10px;
+    background-color: aliceblue;
+    box-sizing: border-box;
+}
+.filter-item-label{
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.arrow{
+    transition: 0.4s;
+}
+.filter-item-wrapper:hover .arrow{
+    transform: rotate(180deg);
+    transition: 0.4s;
+}
+.filter-detail{
+    position: absolute;
+    top:40px;
+    left: -1px;
+    background-color: aliceblue;
+    width: 130px;
+    border: 1px solid rgba(0,0,0,.1);
+    border-top: none;
+    z-index: 111;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.6s;
+    padding: 5px;
+    transition-delay: opacity 0.2s, visibility 0s;
+}
+.filter-detail * {
+    text-align: left;
+    box-sizing: border-box;
+}
+.filter-detail .filter-radio-item{
+    padding: 5px !important;
+}
+.filter-detail .filter-radio-item label{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 900;
+}
+.filter-label{
+    font-family: 'Dosis', sans-serif;
+    font-size: 18px;
+}
+.filter-item-label:not(:last-child):hover:after{
+    content: '';
+    position: absolute;
+    z-index: 5;
+    background-color: aliceblue;
+    width: 100%;
+    height: 2px;
+    bottom: -1px;
+    left: 0;
+}
+.filter-item-label:hover .filter-detail{
+    visibility: visible;
+    transition: 0.5s;
+    opacity: 1;
+    transition-delay: opacity 0s, visibility 0.2s;
+}
+.button-search{
+    background: #ffc107;
+    padding: 14px;
+    margin: 5px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 7%;
+}
