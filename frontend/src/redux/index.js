@@ -1,7 +1,8 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux';
 import listTour from './reducers/listTour'
 
-export default combineReducers = ({
-    //reducer
+const rootReducer = combineReducers({
     listTour
-})
+});
+
+export default rootReducer;
