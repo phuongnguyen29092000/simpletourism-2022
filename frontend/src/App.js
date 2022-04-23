@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage';
 import { Provider } from 'react-redux'
 import store from './store';
 import { BrowserRouter } from 'react-router-dom';
+import OwnerRoutes from './route/ownerRoutes';
+import './styles/common/layout.scss'
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/admin" exact element={<SideBar />} />
           </Routes>
+        <OwnerRoutes/>
           {/* <Header /> */}
           {/* <HomePage/> */}
         </div>

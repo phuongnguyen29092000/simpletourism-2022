@@ -6,6 +6,7 @@ import IconCustomer from '../../assets/icons/icon-customer.svg'
 import IconAccount from '../../assets/icons/icon-account.svg'
 import logo from '../../public/logoTest.png';
 import { ROUTE_ADD_TOUR, ROUTE_LIST_CUSTOMER, ROUTE_LIST_TICKET, ROUTE_LIST_TOUR, ROUTE_OWNER_ACCOUNT } from '../../route/type';
+import { Link } from 'react-router-dom';
 function SideBar(props) {
     return (
         <div className='sidebar-section'>
@@ -14,7 +15,7 @@ function SideBar(props) {
                     <img src={logo} />
                 </div>
                 <div className='menu-list-item'>
-                    <a href={ROUTE_ADD_TOUR}>
+                    <Link to={ROUTE_ADD_TOUR}>
                         <div className='menu-item add-tour'>
                             <div className='menu-item__icon'>
                                 <img src={IconAddTour} />
@@ -23,8 +24,8 @@ function SideBar(props) {
                                 </div>
                             </div>
                         </div>
-                    </a>
-                    <a href={ROUTE_LIST_TOUR}>
+                    </Link>
+                    <Link to={ROUTE_LIST_TOUR}>
                         <div className='menu-item list-tour'>
                             <div className='menu-item__icon'>
                                 <img src={IconListTour} />
@@ -33,8 +34,8 @@ function SideBar(props) {
                                 </div>
                             </div>
                         </div>
-                    </a>
-                    <a href={ROUTE_LIST_TICKET}>
+                    </Link>
+                    <Link to={ROUTE_LIST_TICKET}>
                         <div className='menu-item list-ticket'>
                             <div className='menu-item__icon'>
                                 <img src={IconTicket} />
@@ -43,8 +44,8 @@ function SideBar(props) {
                                 </div>
                             </div>
                         </div>
-                    </a>
-                    <a href={ROUTE_LIST_CUSTOMER}>
+                    </Link>
+                    <Link to={ROUTE_LIST_CUSTOMER}>
                         <div className='menu-item list-customer'>
                             <div className='menu-item__icon'>
                                 <img src={IconCustomer} />
@@ -53,9 +54,9 @@ function SideBar(props) {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
-                <a href={ROUTE_OWNER_ACCOUNT}>
+                <Link to={ROUTE_OWNER_ACCOUNT}>
                     <div className='menu-item account'>
                         <div className='menu-item__icon'>
                             <img src={IconAccount} />
@@ -64,7 +65,7 @@ function SideBar(props) {
                             </div>
                         </div>
                     </div>
-                </a>
+                </Link>
             </div>
         </div>
     );

@@ -24,6 +24,7 @@
     "axios": "^0.24.0",
     "chart.js": "^3.7.0",
     "date-fns": "^2.28.0",
+    "node-sass": "^7.0.1",
     "noty": "^3.2.0-beta-deprecated",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
