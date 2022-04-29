@@ -1,22 +1,35 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const slug = require("mongoose-slug-generator");
 
-const typePlaceSchema = mongoose.Schema({
+const options = {
+  lang: "en",
+};
+mongoose.plugin(slug, options);
+
+const typePlaceSchema = mongoose.Schema(
+  {
     name: {
-        type: String,
-        minlength: 0,
-        maxlength: 50,
-        required: true,
+      type: String,
+      minlength: 0,
+      maxlength: 50,
+      required: true,
     },
     description: {
-        type: String,
-        minlength: 0,
-        maxlength: 1024,
-        required: true
-    }
-}, {
-    timestamps: true
-})
+      type: String,
+      minlength: 0,
+      maxlength: 1024,
+      required: true,
+    },
+    slug: {
+      type: String,
+      slug: "name",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const TypePlace = mongoose.model('TypePlace', typePlaceSchema)
+const TypePlace = mongoose.model("TypePlace", typePlaceSchema);
 
-module.exports = TypePlace
+module.exports = TypePlace;

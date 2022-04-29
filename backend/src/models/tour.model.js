@@ -16,7 +16,7 @@ const tourSchema = mongoose.Schema(
     },
     continent: {
       type: String,
-      enum: ["Châu Âu", "Châu Á"],
+      enum: ["Asia", "Europe"],
     },
     description: {
       type: String,

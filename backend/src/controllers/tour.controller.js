@@ -2,7 +2,7 @@ const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
 
 const getAllTour = catchAsync(async (req, res) => {
-  const tours = await TourService.getAllTour();
+  const tours = await TourService.getAllTour(req.query);
   if (!tours) {
     res.status(404).send("Tours Not Found!");
   } else {
