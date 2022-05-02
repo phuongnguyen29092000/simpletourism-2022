@@ -1,7 +1,21 @@
 const { Tour } = require("../models");
+const APIFeatures = require("../utils/apiFeatures");
 
-const getAllTour = async () => {
-  const tours = await Tour.find();
+const getAllTour = async (queryString) => {
+  let res = [];
+  var typePlace;
+  if (queryString.typePlace) typePlace = queryString.typePlace;
+  const features = new APIFeatures(Tour.find(), queryString);
+  features.filter();
+  features.sort();
+  features.fieldLimit();
+  features.paginate();
+  features.discount();
+  const tours = await features.query;
+  if (typePlace !== undefined) {
+    res = features.typePlace(typePlace, tours);
+    return res;
+  }
   return tours;
 };
 

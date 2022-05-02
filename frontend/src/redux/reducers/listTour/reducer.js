@@ -2,10 +2,10 @@ import * as types from './types'
 
 const initialState = {
   listTour: [],
-  totalTour:0,
+  totalTour: 0,
   loading: false,
 }
-export const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_TOUR: {
       return {
@@ -27,6 +27,8 @@ export const reducer = (state = initialState, action) => {
         loading: false,
       }
     }
+    default:
+      return state
     }
 }
 export default reducer

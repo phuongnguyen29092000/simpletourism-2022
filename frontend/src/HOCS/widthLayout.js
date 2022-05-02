@@ -9,18 +9,18 @@ const WidthLayout = ({
 }) => {
     const [keySearch, setKeySearch] = useState('')
     return (
-        <div className='App'>
+        <div className='layout-app'>
             <SideBar/>
             <div className='component'>
                 {
                     showHeader && (
                         <div>COMMON HEADER
-                            <CommonHeder
+                            {/* <CommonHeder
                                 keySearch = {keySearch}
                                 setKeySearch = {setKeySearch}
                                 name = {name}
                                 isSearch = {showHeaderSearch}
-                            />
+                            /> */}
                         </div> //bo sung
                     )
                 }
