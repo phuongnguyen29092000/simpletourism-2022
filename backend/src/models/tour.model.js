@@ -70,13 +70,13 @@ const tourSchema = mongoose.Schema(
       ref: "TypePlace",
     },
     discount: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Discount",
+      type: Number,
+      default: 0,
     },
     owner: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
-      //required: [true, "Tour must belong to owner!"],
+      required: [true, "Tour must belong to owner!"],
     },
   },
   {
