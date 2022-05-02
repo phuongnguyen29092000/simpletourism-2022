@@ -12,7 +12,6 @@ const getAllTour = async (queryString) => {
   features.paginate();
   features.discount();
   const tours = await features.query;
-  console.log(tours);
   if (typePlace !== undefined) {
     res = features.typePlace(typePlace, tours);
     return res;
