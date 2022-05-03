@@ -6,12 +6,10 @@ const feedbackSchema = mongoose.Schema({
         ref: "Tour",
         required: [true, "Feedback must belong to a tour!"],
     },
-    email: {
-        type: String,
-        required: [true, "Feedback must have a email!"],
-        unique: true,
-        trim: true,
-        lowercase: true,
+    idUser: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+        required: true,
     },
     rating: {
         type: Number,

@@ -1,0 +1,1 @@
+module.exports = ['Châu Á', 'Châu Âu', 'Châu Mỹ', 'Châu Đại Dương', 'Châu Phi']

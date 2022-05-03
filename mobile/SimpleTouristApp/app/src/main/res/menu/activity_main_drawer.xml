@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_domestic"
+
+            android:icon="@drawable/ic_baseline_house_24"
+
+            android:title="@string/menu_domestic" />
+        <item
+            android:id="@+id/nav_foreign"
+            android:icon="@drawable/ic_baseline_airplanemode_active_24"
+            android:title="@string/menu_foreign" />
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_baseline_library_books_24"
+            android:title="@string/menu_news" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/menu_login" />
+    </group>
+</menu>

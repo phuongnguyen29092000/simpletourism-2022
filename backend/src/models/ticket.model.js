@@ -6,12 +6,10 @@ const ticketSchema = mongoose.Schema({
         ref: "Tour",
         required: [true, "Ticket must have an id tour!"],
     },
-    email: {
-        type: String,
+    idUser: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
         required: true,
-        unique: true,
-        trim: true,
-        lowercase: [true, "Ticket must have an email!"],
     },
     name: {
         type: String,
