@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#3fff"
+        android:gravity="center"
+        android:padding="10dp">
+
+
+        <EditText
+            android:id="@+id/edt_fullname"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Họ và tên"
+            android:textColorHint="#656361"
+            android:background="@drawable/custombtn1"
+            />
+        <EditText
+            android:id="@+id/edt_email"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Email "
+            android:textColorHint="#656361"
+            android:background="@drawable/custombtn1"
+            />
+        <EditText
+            android:id="@+id/edt_phone"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Sô điện thoại"
+            android:textColorHint="#656361"
+            android:background="@drawable/custombtn1"
+            />
+        <EditText
+            android:id="@+id/edt_password"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:textColorHint="#656361"
+            android:background="@drawable/custombtn1"
+            />
+        <EditText
+            android:id="@+id/edt_confirm_password"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Xác nhận mật khẩu"
+            android:inputType="textPassword"
+            android:textColorHint="#656361"
+            android:background="@drawable/custombtn1"/>
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/custombtn2" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
