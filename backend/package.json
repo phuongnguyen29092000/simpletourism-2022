@@ -28,6 +28,7 @@
         "npm": "^8.7.0",
         "passport": "^0.5.2",
         "passport-google-oauth20": "^2.0.0",
+        "paypal-rest-sdk": "^1.8.1",
         "validator": "^13.7.0"
     },
     "devDependencies": {
