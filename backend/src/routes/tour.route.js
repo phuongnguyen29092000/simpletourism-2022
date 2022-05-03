@@ -1,13 +1,20 @@
 const express = require("express");
 
 const { TourController } = require("../controllers");
+const upLoadImage = require("../middlewares/imgUpload");
 
 const router = express.Router();
 
 router
   .route("/")
   .get(TourController.getAllTour)
-  .post(TourController.createTour);
+  .post(
+    upLoadImage.fields([
+      { name: "imageAvatar", maxCount: 1 },
+      { name: "imageSlides", maxCount: 5 },
+    ]),
+    TourController.createTour
+  );
 
 router
   .route("/:id")

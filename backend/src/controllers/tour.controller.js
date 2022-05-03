@@ -34,7 +34,19 @@ const deleteTour = catchAsync(async (req, res) => {
 });
 
 const createTour = catchAsync(async (req, res) => {
-  const tour = await TourService.createTour(req.body);
+  const imageAvatarPath = req.files.imageAvatar[0].path;
+  const imageSlides = req.files.imageSlides;
+  const imageSlidesPath = [];
+  imageSlides.forEach((element) => {
+    imageSlidesPath.push(element.path);
+  });
+  const tour = await TourService.createTour(
+    Object.assign(
+      req.body,
+      { imageAvatar: imageAvatarPath },
+      { imageSlide: imageSlidesPath }
+    )
+  );
   if (!tour) {
     res.status(400).send("Can not create new tour, please try later!");
   } else {
