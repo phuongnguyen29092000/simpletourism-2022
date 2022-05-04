@@ -1,7 +1,6 @@
 const express = require("express");
 
 const { TourController } = require("../controllers");
-const { uploadAvatar, uploadImageSlide } = require('../middlewares/fileUpload')
 
 const router = express.Router();
 

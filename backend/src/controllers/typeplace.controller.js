@@ -4,7 +4,7 @@ const { typePlaceService } = require('../services')
 
 /* create new type place */
 const createTypePlace = catchAsync(async(req, res) => {
-    // console.log(req.body);
+    // console.log(req.body.name);
     const typePlace = await typePlaceService.createTypePlace(req.body)
     res.status(httpStatus.CREATED).send(typePlace)
 })
