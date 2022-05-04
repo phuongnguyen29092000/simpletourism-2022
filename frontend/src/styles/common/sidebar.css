@@ -20,6 +20,7 @@
 .menu-item{
     background-color: #5584AC;
     padding: 20px;
+    font-size: 12px;
     /* border: 2px solid #FAFFAF; */
 }
 .menu-item .menu-item__icon img{
@@ -30,6 +31,11 @@
 }
 a{
     text-decoration: none;
+}
+.menu-item.accout{
+    position: fixed;
+    bottom: 0;
+    width: 120px;
 }
 .icon-sidebar:hover{
     fill: #FAFFAF !important;

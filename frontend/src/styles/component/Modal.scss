@@ -1,0 +1,53 @@
+.modal-header{
+    height: 75px;
+    padding: 20px;
+    border-bottom: 1px solid gray;
+    background-color: #5584AC;
+    h3{
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        width: fit-content;
+    }
+}
+.modal-body{
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    &::-webkit-scrollbar-track
+    {
+        background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: #878787;
+    }
+    .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+        padding: 5px !important;
+        width: 100px !important;
+    }
+}
+.modal-footer{
+    height: 75px;
+    padding: 20px;
+    border-top: 1px solid gray;
+    background-color: #5584AC;
+    text-align: end;
+    .btn-footer{
+        &__action{
+            background-color: #ebebeb;
+            color: #5584AC;
+            margin-left: 10px;
+            &:hover{
+                background-color: #d6d6d6;
+            }
+        }
+    }
+}
+.add-tour-modal{
+
+}

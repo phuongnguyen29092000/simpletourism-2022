@@ -1,9 +1,8 @@
 import React from 'react';
 // import {useNavigate  } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form';
-import { Checkbox, Grid } from '@material-ui/core';
 import Slider from '@mui/material/Slider';
-import { Container } from '@mui/material';
+import { Checkbox, Container, Grid } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import '../../styles/filter.css';
 import RegardPrice from '../../LogicResolve/RegardPrice';

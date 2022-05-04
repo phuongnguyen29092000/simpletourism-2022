@@ -1,0 +1,20 @@
+.common-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #dfdfdf;
+    padding: 0 40px;
+    height: 80px;
+    .page-name{
+        h1{
+            color: #5584ac;
+        }
+    }
+    &__search-box{
+        input{
+            padding: 10px;
+        }
+    }
+}

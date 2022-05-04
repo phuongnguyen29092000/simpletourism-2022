@@ -1,5 +1,6 @@
 const { Tour } = require("../models");
 const APIFeatures = require("../utils/apiFeatures");
+const upLoadImage = require("../middlewares/imgUpload");
 
 const getAllTour = async(queryString) => {
     let res = [];
