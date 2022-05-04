@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const feedbackSchema = mongoose.Schema({
-    idTour: {
+    tour: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Tour",
         required: [true, "Feedback must belong to a tour!"],
     },
-    idUser: {
+    customer: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User",
         required: true,

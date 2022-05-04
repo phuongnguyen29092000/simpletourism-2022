@@ -38,7 +38,7 @@ const tourSchema = mongoose.Schema({
         type: Number,
         require: true,
         min: 0,
-        max: 100000000,
+        max: 500000000,
     },
     timeStart: {
         type: Date,
