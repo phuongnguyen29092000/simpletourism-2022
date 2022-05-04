@@ -12,7 +12,9 @@ router
   .post(
     upLoadImage.fields([
       { name: "imageAvatar", maxCount: 1 },
-      { name: "imageSlides", maxCount: 5 },
+      { name: "imageSlide1", maxCount: 1 },
+      { name: "imageSlide2", maxCount: 1 },
+      { name: "imageSlide3", maxCount: 1 },
     ]),
     TourController.createTour
   );

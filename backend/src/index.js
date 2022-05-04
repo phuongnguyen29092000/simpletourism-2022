@@ -99,6 +99,7 @@ app.post("/pay", (req, res, next) => {
     } else {
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === "approval_url") {
+          console.log(payment.links[i].href);
           res.redirect(payment.links[i].href);
         }
       }
