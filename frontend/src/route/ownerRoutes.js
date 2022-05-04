@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import ListTour from '../components/ListTour';
 import ManageTicket from '../components/ManageTicket';
+import ListTour from '../containers/ListTour';
+import ListTicket from '../containers/ListTicket';
 import WidthLayout from '../HOCS/widthLayout';
-import { ROUTE_ADD_TOUR, ROUTE_LIST_TICKET, ROUTE_LIST_TOUR } from './type';
+import { ROUTE_LIST_TICKET, ROUTE_LIST_TOUR } from './type';
 
 function OwnerRoutes(props) {
     return (
@@ -21,7 +22,7 @@ function OwnerRoutes(props) {
                 path={ROUTE_LIST_TICKET}
                 exact
                 element={WidthLayout({
-                    Component: ManageTicket,
+                    Component: ListTicket,
                     name: 'MANAGE TICKER'
                 })}
                 showHeaderSearch={false}

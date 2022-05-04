@@ -10,8 +10,7 @@ export default store;
 // import rootReducer from '../redux';
 
 // // initialState
-// const initialState = {}
 
 // // Create store
-// const store = createStore(rootReducer, initialState);
+// const store = createStore(rootReducer);
 // export default store

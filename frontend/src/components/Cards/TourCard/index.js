@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
 function TourCard(props) {
     const StyledRating = styled(Rating)({
