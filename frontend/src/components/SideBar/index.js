@@ -4,8 +4,10 @@ import IconListTour from '../../assets/icons/icon-list-tour.svg'
 import IconTicket from '../../assets/icons/icon-ticket.svg'
 import IconCustomer from '../../assets/icons/icon-customer.svg'
 import IconAccount from '../../assets/icons/icon-account.svg'
+import IconNews from '../../assets/icons/icon-news.svg'
+import IconStatistic from '../../assets/icons/icon-statistic.svg'
 import logo from '../../public/logoTest.png';
-import { ROUTE_ADD_TOUR, ROUTE_LIST_CUSTOMER, ROUTE_LIST_TICKET, ROUTE_LIST_TOUR, ROUTE_OWNER_ACCOUNT } from '../../route/type';
+import { ROUTE_LIST_CUSTOMER, ROUTE_LIST_TICKET, ROUTE_LIST_TOUR, ROUTE_OWNER_ACCOUNT, ROUTE_OWNER_NEWS } from '../../route/type';
 import { Link } from 'react-router-dom';
 function SideBar(props) {
     return (
@@ -15,22 +17,12 @@ function SideBar(props) {
                     <img src={logo} />
                 </div>
                 <div className='menu-list-item'>
-                    <Link to={ROUTE_ADD_TOUR}>
-                        <div className='menu-item add-tour'>
-                            <div className='menu-item__icon'>
-                                <img src={IconAddTour} />
-                                <div className='menu-item__title'>
-                                    Add tour
-                                </div>
-                            </div>
-                        </div>
-                    </Link>
                     <Link to={ROUTE_LIST_TOUR}>
                         <div className='menu-item list-tour'>
                             <div className='menu-item__icon'>
                                 <img src={IconListTour} />
                                 <div className='menu-item__title'>
-                                    List tour
+                                    TOUR
                                 </div>
                             </div>
                         </div>
@@ -40,17 +32,37 @@ function SideBar(props) {
                             <div className='menu-item__icon'>
                                 <img src={IconTicket} />
                                 <div className='menu-item__title'>
-                                    List ticket
+                                    VÉ
                                 </div>
                             </div>
                         </div>
                     </Link>
-                    <Link to={ROUTE_LIST_CUSTOMER}>
+                    <Link to={ROUTE_OWNER_NEWS}>
                         <div className='menu-item list-customer'>
                             <div className='menu-item__icon'>
                                 <img src={IconCustomer} />
                                 <div className='menu-item__title'>
-                                    Customer
+                                    KHÁCH HÀNG
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to={ROUTE_OWNER_NEWS}>
+                        <div className='menu-item account'>
+                            <div className='menu-item__icon'>
+                                <img src={IconNews} />
+                                <div className='menu-item__title'>
+                                    TIN TỨC
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to={ROUTE_OWNER_NEWS}>
+                        <div className='menu-item account'>
+                            <div className='menu-item__icon'>
+                                <img src={IconStatistic} />
+                                <div className='menu-item__title'>
+                                    THỐNG KÊ
                                 </div>
                             </div>
                         </div>
@@ -61,7 +73,7 @@ function SideBar(props) {
                         <div className='menu-item__icon'>
                             <img src={IconAccount} />
                             <div className='menu-item__title'>
-                                Account
+                                TÀI KHOẢN
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,78 @@
+.ticket-manager{
+    height: calc(100vh - 80px);
+    padding: 10px 30px;
+    &__add-ticket{
+        text-align: left;
+        margin-bottom: 20px;
+        .btn-add{
+            .btn-add-ticket{
+                background-color: #318FB5;
+            }
+        }
+    }
+    &__listticket{
+        overflow-x: auto;
+        table{
+            width: 100%;
+            border-radius: 5px;
+            border-collapse: collapse;
+            overflow: hidden;
+            thead{
+                background-color: #22577E;
+                color: #fff;
+                th{
+                    padding: 10px;
+                    text-align: left;
+                    border-right: 1px solid #fff;
+                }
+                .th-1{
+                    min-width: 200px;
+                }
+                .th-2{
+                    min-width: 90px;
+                }
+            }
+            tbody{
+                tr{
+                    background-color: #f6f6f6cf;
+                    border-bottom: 2px solid #fff;
+                    td{
+                        padding: 5px 10px;
+                        text-align: left;
+                        line-height: 1;
+                        font-size: 14px;
+                        svg{
+                            color: #fff;
+                        }
+                        .action-col{
+                            display: flex;
+                            // justify-content: space-around;
+                            align-items: center;
+                            .btn-action{
+                                padding: 5px;
+                                cursor: pointer;
+                                border-radius: 4px;
+                                margin-left:5px;
+                            }
+                            .btn-edit{
+                                background-color: #01579b;
+                                &:hover{
+                                    background-color: #0288d1;
+                                }
+                            }
+                            .btn-delete{
+                                background-color: #E04D01;
+                                &:hover{
+                                    background-color: #FF7700;
+                                }
+                            }
+                        }
+                    }
+                    &:hover{
+                        background-color: #e0fffdf6;
+                    }
+                }
+            }
+        }
+    }
+}

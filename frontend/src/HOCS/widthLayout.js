@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
+import CommonHeader from '../components/common/CommonHeader'
 
 const WidthLayout = ({
     Component,
@@ -14,13 +15,13 @@ const WidthLayout = ({
             <div className='component'>
                 {
                     showHeader && (
-                        <div>COMMON HEADER
-                            {/* <CommonHeder
+                        <div>
+                            <CommonHeader
                                 keySearch = {keySearch}
                                 setKeySearch = {setKeySearch}
                                 name = {name}
                                 isSearch = {showHeaderSearch}
-                            /> */}
+                            />
                         </div> //bo sung
                     )
                 }

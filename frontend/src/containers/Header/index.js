@@ -1,11 +1,10 @@
-import { TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { SearchOutlined } from '@material-ui/icons';
+import { SearchOutlined } from '@mui/icons-material/SearchOutlined';
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import LoginIcon from '@mui/icons-material/Login';
 // import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import { MenuList, Paper } from '@mui/material';
+import { MenuList, Paper, TextField } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';

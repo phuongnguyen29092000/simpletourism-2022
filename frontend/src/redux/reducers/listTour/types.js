@@ -1,3 +1,12 @@
 export const GET_TOUR = 'GET_TOUR'
 export const GET_TOUR_SUCCESS = 'GET_TOUR_SUCCESS'
 export const GET_TOUR_FAIL = 'GET_TOUR_FAIL'
+
+export const ADD_TOUR = 'ADD_TOUR'
+export const ADD_TOUR_SUCCESS = 'ADD_TOUR_SUCCESS'
+export const ADD_TOUR_FAIL = 'ADD_TOUR_FAIL'
+
+export const DELETE_TOUR = 'DELETE_TOUR'
+export const DELETE_TOUR_SUCCESS = 'DELETE_TOUR_SUCCESS'
+export const DELETE_TOUR_FAIL = 'DELETE_TOUR_FAIL'
+
