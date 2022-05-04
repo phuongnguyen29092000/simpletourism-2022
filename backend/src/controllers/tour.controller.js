@@ -35,11 +35,13 @@ const deleteTour = catchAsync(async (req, res) => {
 
 const createTour = catchAsync(async (req, res) => {
   const imageAvatarPath = req.files.imageAvatar[0].path;
-  const imageSlides = req.files.imageSlides;
+  const imageSlide1 = req.files.imageSlide1[0].path;
+  const imageSlide2 = req.files.imageSlide2[0].path;
+  const imageSlide3 = req.files.imageSlide3[0].path;
   const imageSlidesPath = [];
-  imageSlides.forEach((element) => {
-    imageSlidesPath.push(element.path);
-  });
+  imageSlidesPath.push(imageSlide1);
+  imageSlidesPath.push(imageSlide2);
+  imageSlidesPath.push(imageSlide3);
   const tour = await TourService.createTour(
     Object.assign(
       req.body,
