@@ -1,9 +1,11 @@
 const httpStatus = require('http-status');
+const validator = require('validator')
 const catchAsync = require('../utils/catchAsync')
-const { ticketService } = require('../services')
+const { ticketService, userService } = require('../services')
 
 const bookTicket = catchAsync(async(req, res) => {
-    const ticket = await ticketService.bookTicket(req.body)
+    console.log(req.params.tourId);
+    const ticket = await ticketService.bookTicket(req.params.tourId, req.body)
 
     if (!ticket) res.status(httpStatus.BAD_REQUEST).json({
         status: 400,
@@ -49,6 +51,21 @@ const getTicketById = catchAsync(async(req, res) => {
     })
 })
 
+const getTicketPerTour = catchAsync(async(req, res) => {
+    const tickets = await ticketService.getTicketPerTour(req.params.idTour)
+
+    if (tickets.length == 0) res.status(httpStatus.NOT_FOUND).json({
+        status: 404,
+        message: "Không tìm thấy vé"
+    })
+
+    res.status(httpStatus.OK).json({
+        status: 200,
+        message: "OK",
+        tickets: tickets
+    })
+})
+
 const updateTicketById = catchAsync(async(req, res) => {
     const ticket = await ticketService.updateTicketById(req.params.id, req.body)
 
@@ -77,5 +94,6 @@ module.exports = {
     getAllTicket,
     getTicketById,
     updateTicketById,
-    deleteTicketById
+    deleteTicketById,
+    getTicketPerTour
 }

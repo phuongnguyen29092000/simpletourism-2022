@@ -1,16 +1,39 @@
-const { Ticket } = require('../models')
+const { Ticket, Tour } = require('../models')
 
-const bookTicket = async(ticketBody) => {
-    const ticket = await Ticket.create(ticketBody)
+const bookTicket = async(tour, ticketBody) => {
+    console.log(tour, ticketBody);
+    const ticket = await Ticket.create({...ticketBody, tour })
     return ticket
 }
 
 const getAllTicket = async(page, perPage) => {
     const tickets = await Ticket.find()
-        .skip((perPage * page) - perPage)
-        .limit(perPage)
+        // .skip((perPage * page) - perPage)
+        // .limit(perPage)
 
     return tickets
+}
+
+const getTicketPerTour = async(idTour) => {
+    let ticketPerTour = []
+    const tickets = await Ticket.find().populate({ path: 'tour' })
+    tickets.forEach(ticket => {
+        if (ticket.tour._id == idTour) {
+            ticketPerTour.push({
+                id: ticket._id,
+                cusomterId: ticket.customer,
+                ownerId: ticket.owner,
+                phone: ticket.phone,
+                tourName: ticket.tour.tourName,
+                totalPrice: parseInt(ticket.paymentPrice * ticket.numberPeople),
+                numberPeople: ticket.numberPeople,
+                status: ticket.status,
+                createdAt: ticket.createdAt,
+                updatedAt: ticket.updatedAt
+            })
+        }
+    });
+    return ticketPerTour
 }
 
 const getTicketById = async(id) => {
@@ -36,5 +59,6 @@ module.exports = {
     getAllTicket,
     getTicketById,
     updateTicketById,
-    deleteTicketById
+    deleteTicketById,
+    getTicketPerTour
 }
