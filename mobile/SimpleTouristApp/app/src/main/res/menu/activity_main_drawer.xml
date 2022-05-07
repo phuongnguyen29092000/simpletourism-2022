@@ -15,9 +15,9 @@
 
             android:title="@string/menu_domestic" />
         <item
-            android:id="@+id/nav_foreign"
+            android:id="@+id/nav_international"
             android:icon="@drawable/ic_baseline_airplanemode_active_24"
-            android:title="@string/menu_foreign" />
+            android:title="@string/menu_international" />
         <item
             android:id="@+id/nav_news"
             android:icon="@drawable/ic_baseline_library_books_24"
