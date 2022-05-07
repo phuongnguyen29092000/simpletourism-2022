@@ -1,0 +1,59 @@
+.create-tour-formbody{
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    .form-group{
+        margin-top: 10px;
+        box-sizing: content-box;
+        input, select{
+            height: 30px;
+        }
+        .image-select{
+            width: 0;
+            height: 0;
+        }
+    }
+    .col-1{
+        width: 50%;
+    }
+    .col-2{
+        width: 100%;
+        display: flex;
+        textarea{
+            width: calc(100% - 80px);
+        }
+    }
+    label {
+        color: cadetblue;
+        margin: 10px 0 5px 0;
+        width: 74px;
+        font-size: 14px;
+        display: inline-block;
+    }
+    .select-day{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        .select-day-modal{
+            display: flex;
+            width: 50%;
+        }
+    }
+    .image-slide{
+        display: flex;
+        &__item{
+            width: 140px;
+            height: 140px;  
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid gray;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
