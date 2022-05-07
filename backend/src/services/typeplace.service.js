@@ -10,8 +10,6 @@ const createTypePlace = async(typePlaceBody) => {
 
 const getAllTypePlace = async() => {
     return await TypePlace.find()
-        // .skip((perPage * page) - perPage)
-        // .limit(perPage)
 }
 
 const getTypePlaceById = async(id) => {

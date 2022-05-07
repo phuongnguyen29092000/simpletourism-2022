@@ -3,6 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/activity_main_logged.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/app_bar_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/app_bar_main_logged.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/content_main_activity_logged.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/detail_tour.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/domestic_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/fragment_account.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/international_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/layout/login_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/menu/activity_main_drawer_logged.xml" value="0.25" />
+        <entry key="..\:/My Sefl/DACN/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/Users/84978/AndroidStudioProjects/SimpleTouristApp/app/src/main/res/drawable-v21/ic_menu_camera.xml" value="0.174" />
         <entry key="..\:/Users/84978/AndroidStudioProjects/SimpleTouristApp/app/src/main/res/drawable-v21/ic_menu_gallery.xml" value="0.174" />
         <entry key="..\:/Users/84978/AndroidStudioProjects/SimpleTouristApp/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" value="0.174" />

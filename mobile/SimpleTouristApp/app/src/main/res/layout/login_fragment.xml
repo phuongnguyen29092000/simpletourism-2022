@@ -21,23 +21,26 @@
             android:background="@drawable/circle"
             android:gravity="center"
             android:textColor="#291B1B"/>
+
         <EditText
-            android:layout_marginTop="15dp"
-            android:gravity="center"
+            android:id="@+id/edt_email_login"
             android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:hint="Username"
-            android:textColorHint="#656361"
+            android:layout_height="48dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/custombtn1"
-            />
-        <EditText
-            android:layout_marginTop="15dp"
             android:gravity="center"
+            android:hint="Username"
+            android:textColorHint="#656361" />
+
+        <EditText
+            android:id="@+id/edt_password_login"
             android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custombtn1"
+            android:gravity="center"
             android:hint="Password"
-            android:textColorHint="#656361"
-            android:background="@drawable/custombtn1"/>
+            android:textColorHint="#656361" />
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,17 +50,19 @@
             android:layout_marginTop="15dp"
             android:buttonTint="#1C1B1A"
             />
+
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:text="Signin"
-            android:textAllCaps="false"
+            android:layout_height="48dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/custombtn2" />
+            android:background="@drawable/custombtn2"
+            android:text="Sign in"
+            android:textAllCaps="false" />
         <View
             android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="#3fff"
+            android:layout_height="1dp"
+            android:background="#050505"
             android:layout_marginTop="15dp"/>
         <TextView
             android:layout_width="wrap_content"

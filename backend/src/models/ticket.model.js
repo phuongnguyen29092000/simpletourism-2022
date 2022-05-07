@@ -1,27 +1,32 @@
 const mongoose = require("mongoose");
 
 const ticketSchema = mongoose.Schema({
-    idTour: {
+    tour: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Tour",
         required: [true, "Ticket must have an id tour!"],
     },
-    idUser: {
+    customer: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User",
         required: true,
     },
-    name: {
-        type: String,
+    owner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
         required: true,
-        trim: true,
-        lowercase: [true, "Ticket must include customer's name!"],
     },
     phone: {
         type: String,
         minlength: 0,
         maxlength: 10,
         required: [true, "Ticket must have a customer's phone number!"],
+    },
+    paymentPrice: {
+        type: Number,
+        require: true,
+        min: 0,
+        max: 100000000,
     },
     numberPeople: {
         type: Number,
@@ -32,7 +37,7 @@ const ticketSchema = mongoose.Schema({
     status: {
         type: Number,
         min: 0,
-        max: 3,
+        max: 2,
         default: 0,
     },
 }, {

@@ -14,21 +14,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.adapter.TourAdapter;
-import com.example.simpletouristapp.api.ToursApi;
 import com.example.simpletouristapp.databinding.DomesticFragmentBinding;
-import com.example.simpletouristapp.model.Tour;
-import com.example.simpletouristapp.model.TourResponse;
-import com.example.simpletouristapp.model.TypePlace;
+import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.service.ToursApiService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DomesticFragment extends Fragment {
 
@@ -57,12 +49,12 @@ public class DomesticFragment extends Fragment {
 
         toursApiService = new ToursApiService();
 
-        Call<TourResponse> call = toursApiService.getToursApi();
-        call.enqueue(new Callback<TourResponse>() {
+        Call<ToursResponse> call = toursApiService.getToursApi();
+        call.enqueue(new Callback<ToursResponse>() {
             @Override
-            public void onResponse(Call<TourResponse> call, Response<TourResponse> response) {
+            public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
                 Log.d("TAG",response.code()+"");
-                TourResponse tourResponse = response.body();
+                ToursResponse tourResponse = response.body();
 //                Integer totalResult = tourResponse.totalResult;
                 TourAdapter tourAdapter = new TourAdapter(getContext(),tourResponse.getData());
                 rvTour.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -70,7 +62,7 @@ public class DomesticFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TourResponse> call, Throwable t) {
+            public void onFailure(Call<ToursResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG",t.getMessage());
             }

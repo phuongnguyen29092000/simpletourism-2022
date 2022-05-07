@@ -20,6 +20,16 @@ const getAllTour = async (queryString) => {
   return tours;
 };
 
+const getDomesticTour = async () => {
+  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } });
+  return tours;
+};
+
+const getInternationalTour = async () => {
+  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } });
+  return tours;
+};
+
 const getTour = async (id) => {
   const tour = await Tour.findById(id);
   return tour;
@@ -58,6 +68,8 @@ const updateTour = async (id, tour) => {
 
 module.exports = {
   getAllTour,
+  getDomesticTour,
+  getInternationalTour,
   getTour,
   deleteTour,
   createTour,
