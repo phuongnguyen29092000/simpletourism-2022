@@ -1,4 +1,4 @@
-package com.example.simpletouristapp.ui.foreign;
+package com.example.simpletouristapp.ui.international;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,22 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.simpletouristapp.databinding.InternationalFragmentBinding;
+import com.example.simpletouristapp.databinding.NewsFragmentBinding;
+import com.example.simpletouristapp.ui.news.NewsViewModel;
 
-import com.example.simpletouristapp.databinding.ForeignFragmentBinding;
 
-public class ForeignFragment extends Fragment {
+public class InternationalFragment extends Fragment {
 
-    private ForeignFragmentBinding binding;
+    private InternationalFragmentBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ForeignViewModel domesticViewModel =
-                new ViewModelProvider(this).get(ForeignViewModel.class);
+        NewsViewModel domesticViewModel =
+                new ViewModelProvider(this).get(NewsViewModel.class);
 
-        binding = ForeignFragmentBinding.inflate(inflater, container, false);
+        binding = InternationalFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textForeign;
+        final TextView textView = binding.textInternational;
         domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

@@ -31,10 +31,10 @@
             app:destination="@id/nav_domestic" />
     </fragment>
     <fragment
-        android:id="@+id/nav_foreign"
-        android:name="com.example.simpletouristapp.ui.foreign.ForeignFragment"
-        android:label="@string/menu_foreign"
-        tools:layout="@layout/foreign_fragment" />
+        android:id="@+id/nav_international"
+        android:name="com.example.simpletouristapp.ui.international.InternationalFragment"
+        android:label="@string/menu_international"
+        tools:layout="@layout/international_fragment" />
     <fragment
         android:id="@+id/nav_news"
         android:name="com.example.simpletouristapp.ui.news.NewsFragment"
