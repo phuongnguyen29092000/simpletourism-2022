@@ -1,14 +1,17 @@
 package com.example.simpletouristapp.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.R;
@@ -39,13 +42,22 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     public void onBindViewHolder(@NonNull TourViewHolder holder, int position) {
         Tour tour = tours.get(position);
         try {
-            Picasso.get().load("http://192.168.1.12:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
+            Picasso.get().load("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
 
         }catch (Exception e){
             Log.d("error",e.getMessage());
         }
         holder.nameTour.setText(tour.getNameTour());
         holder.price.setText(Integer.toString(tour.getPrice()) + "đ");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("IdTour", tour.getId());
+                Navigation.findNavController(view).navigate(R.id.action_domestic_to_detailTour,bundle);
+                Toast.makeText(context, tour.getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
 //        Picasso.get().load("http://192.168.1.12:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
 //        holder.nameTour.setText(tour.getNameTour());
 //        holder.price.setText(Integer.toString(tour.getPrice()) + "đ");

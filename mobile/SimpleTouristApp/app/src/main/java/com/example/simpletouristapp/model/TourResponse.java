@@ -5,29 +5,18 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class TourResponse {
-    @SerializedName("totalResult")
-    public Integer totalResult;
     @SerializedName("data")
-    public List<Tour> data;
+    public Tour data;
 
-    public TourResponse(Integer totalResult, List<Tour> data) {
-        this.totalResult = totalResult;
+    public TourResponse(Tour data) {
         this.data = data;
     }
 
-    public Integer getTotalResult() {
-        return totalResult;
-    }
-
-    public void setTotalResult(Integer totalResult) {
-        this.totalResult = totalResult;
-    }
-
-    public List<Tour> getData() {
+    public Tour getData() {
         return data;
     }
 
-    public void setData(List<Tour> data) {
+    public void setData(Tour data) {
         this.data = data;
     }
 }
