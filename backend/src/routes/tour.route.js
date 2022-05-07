@@ -6,6 +6,9 @@ const upLoadImage = require("../middlewares/imgUpload");
 
 const router = express.Router();
 
+router.route("/trong-nuoc").get(TourController.getDomesticTour);
+router.route("/quoc-te").get(TourController.getInternationalTour);
+
 router
   .route("/")
   .get(TourController.getAllTour)

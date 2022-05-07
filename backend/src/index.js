@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 var cookieParser = require("cookie-parser");
 var paypal = require("paypal-rest-sdk");
+var handlebars = require("express-handlebars");
 
 const routes = require("./routes");
 const database = require("./config/database");
@@ -12,6 +13,10 @@ database.connect();
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+app.engine("handlebars", handlebars.engine());
+app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "./views"));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
@@ -51,7 +56,9 @@ app.use(morgan("combined"));
 // );
 
 // app.get("/auth/google/callback", passport.authenticate("google"));
-
+app.get("/payment", (req, res) => {
+  res.render("payment");
+});
 // test paypal
 paypal.configure({
   mode: "sandbox", //sandbox or live
@@ -100,7 +107,8 @@ app.post("/pay", (req, res, next) => {
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === "approval_url") {
           console.log(payment.links[i].href);
-          res.redirect(payment.links[i].href);
+          //res.redirect(payment.links[i].href);
+          res.send(payment.links[i].href);
         }
       }
     }

@@ -1,5 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
+const { TourController } = require(".");
 
 const getAllTour = catchAsync(async (req, res) => {
   const tours = await TourService.getAllTour(req.query);
@@ -14,6 +15,36 @@ const getAllTour = catchAsync(async (req, res) => {
       totalResult: tours.length,
       data: tours,
     });
+  }
+});
+
+const getDomesticTour = catchAsync(async (req, res) => {
+  const tours = await TourService.getDomesticTour();
+  if (!tours) {
+    res.status(404).json({
+      status: 404,
+      message: "Domestic Tour Not Found!",
+    });
+  } else {
+    res.status(200).json({
+      stattus: 200,
+      totalResult: tours.length,
+      data: tours,
+    });
+  }
+});
+
+const getInternationalTour = catchAsync(async (req, res) => {
+  const tours = await TourService.getInternationalTour();
+  if (!tours) {
+    res.stattus(404).json({
+      status: 404,
+      message: "International Tours Not Found!",
+    });
+  } else {
+    res
+      .status(300)
+      .json({ status: 300, totalResult: tours.length, data: tours });
   }
 });
 
@@ -87,6 +118,8 @@ const updateTour = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllTour,
+  getDomesticTour,
+  getInternationalTour,
   getTour,
   deleteTour,
   createTour,
