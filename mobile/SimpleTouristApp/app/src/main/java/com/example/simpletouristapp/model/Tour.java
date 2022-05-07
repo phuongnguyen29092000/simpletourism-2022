@@ -3,6 +3,7 @@ package com.example.simpletouristapp.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Tour {
@@ -21,9 +22,9 @@ public class Tour {
     @SerializedName("price")
     private int price;
     @SerializedName("timeStart")
-    private String timeStart;
+    private Date timeStart;
     @SerializedName("timeEnd")
-    private String timeEnd;
+    private Date timeEnd;
     @SerializedName("amount")
     private int amount;
     @SerializedName("hotelName")
@@ -53,7 +54,8 @@ public class Tour {
 //    }
 
 
-    public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar, int price, String timeStart, String timeEnd, int amount, String nameHotel, String schedule, ArrayList<String> imageSlide, TypePlace typePlace) {
+    public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar, int price
+            , Date timeStart, Date timeEnd, int amount, String nameHotel, String schedule, ArrayList<String> imageSlide, TypePlace typePlace) {
         this.id = id;
         this.nameTour = nameTour;
         this.nameCountry = nameCountry;
@@ -134,19 +136,19 @@ public class Tour {
     public void setPrice(int price) {
         this.price = price;
     }
-    public String getTimeStart() {
+    public Date getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(String timeStart) {
+    public void setTimeStart(Date timeStart) {
         this.timeStart = timeStart;
     }
 
-    public String getTimeEnd() {
+    public Date getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(String timeEnd) {
+    public void setTimeEnd(Date timeEnd) {
         this.timeEnd = timeEnd;
     }
 
