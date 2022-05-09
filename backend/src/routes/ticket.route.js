@@ -8,7 +8,7 @@ router.get('/', ticketController.getAllTicket)
 
 router.get('/:id', ticketController.getTicketById)
 
-router.post('/create', ticketController.bookTicket)
+router.post('/create/:tourId', ticketController.bookTicket)
 
 router.put('/:id', ticketController.updateTicketById)
 
