@@ -5,11 +5,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getAllTour, addTour} from '../../../redux/reducers/listTour/action'
 import { format } from 'date-fns';
 
-const AddTourModal = ({ open, handleClose }) => {
+const AddTourModal = ({ open, handleClose, tour }) => {
     const dispatch = useDispatch()
     const [submit, setSubmit] = useState(false)
     const {listTour} = useSelector((store)=>store.listTour)
-    console.log(listTour)
+    console.log(tour)
     useEffect(()=>{
         dispatch(getAllTour())
     },[])
@@ -44,7 +44,7 @@ const AddTourModal = ({ open, handleClose }) => {
                         </div>
                     </div>
                     <div className='modal-body'>
-                        <TourForm handleAddTour={handleAddTour} submit={submit} setSubmit={setSubmit}/>
+                        <TourForm handleAddTour={handleAddTour} submit={submit} setSubmit={setSubmit} tour={tour}/>
                     </div>
                     <div className='modal-footer'>
                         <div className='btn-footer'>
