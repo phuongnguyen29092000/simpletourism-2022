@@ -4,7 +4,7 @@ const { ticketController } = require('../controllers')
 
 const router = express.Router()
 
-router.get('/', ticketController.getAllTicket)
+router.get('/:idCompany', ticketController.getAllTicketCompany)
 
 router.get('/:id', ticketController.getTicketById)
 

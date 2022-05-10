@@ -1,17 +1,21 @@
 const { Ticket, Tour } = require('../models')
 
-const bookTicket = async(tour, ticketBody) => {
-    console.log(tour, ticketBody);
-    const ticket = await Ticket.create({...ticketBody, tour })
+const bookTicket = async(ticketBody) => {
+    const ticket = await Ticket.create(ticketBody)
     return ticket
 }
 
-const getAllTicket = async(page, perPage) => {
+const getAllTicket = async(idCompany) => {
+    let ticketsPerCompany = []
+    const tours = await Tour.find()
+    const tourPerCompany = tours.filter((tour) => tour.owner.toString() == idCompany.toString());
+    const arrayId = tourPerCompany.map((tour) => tour._id.toString())
     const tickets = await Ticket.find()
-        // .skip((perPage * page) - perPage)
-        // .limit(perPage)
-
-    return tickets
+    tickets.forEach((ticket) => {
+        if (arrayId.includes(ticket.tour.toString()))
+            ticketsPerCompany.push(ticket)
+    })
+    return ticketsPerCompany
 }
 
 const getTicketPerTour = async(idTour) => {
