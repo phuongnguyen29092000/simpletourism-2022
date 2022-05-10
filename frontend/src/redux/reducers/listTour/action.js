@@ -1,19 +1,16 @@
 import * as types from './types'
 import API from '../../../api/ListTourAPI'
-import { format } from 'date-fns'
 
-// import API from
 const getAllTour = (callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.GET_TOUR})
         API.getAllTour()
-        .then((response)=>response.json())
-        .then((result=>{
-            // if(result.status)
-            if(result.data){
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
                 dispatch({
                     type: types.GET_TOUR_SUCCESS,
-                    payload: {...result}
+                    payload: {...result.data}
                 })
                 callback()
             }else{
@@ -21,7 +18,7 @@ const getAllTour = (callback = ()=>{}) => {
                     type: types.GET_TOUR_FAIL
                 })
             }
-        }))
+        })
         .catch((error)=>{
             dispatch({
                 type: types.GET_TOUR_FAIL
@@ -35,8 +32,8 @@ const addTour = (data, callback=()=>{}) =>{
     return (dispatch) => {
         dispatch({type: types.ADD_TOUR})
         API.addTour(data)
-        .then((response)=>response.json())
-        .then((result=>{
+        // .then((response)=>response.json())
+        .then((result)=>{
             // if(result.status)
             if(result.data){
                 dispatch({
@@ -49,7 +46,7 @@ const addTour = (data, callback=()=>{}) =>{
                     type: types.ADD_TOUR_FAIL
                 })
             }
-        }))
+        })
         .catch((error)=>{
             dispatch({
                 type: types.ADD_TOUR_FAIL
@@ -62,10 +59,10 @@ const deleteTour = (id, callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.DELETE_TOUR})
         API.deleteTour(id)
-        .then((response)=>response.json())
-        .then((result=>{
+        // .then((response)=>response.json())
+        .then((result)=>{
             // if(result.status)
-            if(result){
+            if(result.status === 200){
                 dispatch({
                     type: types.DELETE_TOUR_SUCCESS,
                     payload: {...result}
@@ -76,7 +73,7 @@ const deleteTour = (id, callback = ()=>{}) => {
                     type: types.DELETE_TOUR_FAIL
                 })
             }
-        }))
+        })
         .catch((error)=>{
             dispatch({
                 type: types.DELETE_TOUR_FAIL

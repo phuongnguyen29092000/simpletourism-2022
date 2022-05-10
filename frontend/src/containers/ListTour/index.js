@@ -6,22 +6,21 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import AddTourModal from '../../components/modal/addTourModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteTour, getAllTour } from '../../redux/reducers/listTour/action'
-import { format } from 'date-fns'
-import { useTheme } from '@mui/material/styles';
+import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 
 function ListTour(props) {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false) 
+    const [openUpdate, setOpenUpdate] = useState(false) 
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
     const [tourDelete, setTourDelete] = useState({})
+    const [tourUpdate, setTourUpdate] = useState('')
     const dispatch = useDispatch()
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+    
     let { listTour } = useSelector((store) => store.listTour)
-
+    
     useEffect(() => {
         if (listTour.length === 0) dispatch(getAllTour())
-    }, [listTour])
+    }, [])
 
     const handleDelete = () => {
         dispatch(deleteTour(tourDelete.id,()=>setOpenConfirmModal(false)))
@@ -30,7 +29,9 @@ function ListTour(props) {
     const handleClose = () => {
         setOpen(!open);
     }
-
+    const handleCloseUpdate = () => {
+        setOpenUpdate(!openUpdate);
+    }
     return (
         <div className='tour-manager'>
             <div className='tour-manager__add-tour'>
@@ -52,16 +53,19 @@ function ListTour(props) {
                     <tbody>
                         {
                             listTour && listTour.map((_tour, index) => (
-                                <tr>
+                                <tr key={index}>
                                     <td>{_tour.tourName}</td>
                                     <td>{_tour.amount}</td>
                                     <td>{_tour.price}</td>
                                     <td>{_tour.timeStart}</td>
-                                    <td>{_tour.timeStart}</td>
                                     <td>{_tour.timeEnd}</td>
+                                    <td>{_tour.countryName}</td>
                                     <td>
                                         <div className='action-col'>
-                                            <div className='btn-action btn-edit'>
+                                            <div className='btn-action btn-edit' onClick={()=>{
+                                                setTourUpdate(_tour)
+                                                setOpenUpdate(true)
+                                            }}>
                                                 <EditIcon fontSize='15px' />
                                             </div>
                                             <div className='btn-action btn-delete' onClick={()=>{
@@ -82,29 +86,14 @@ function ListTour(props) {
                 </table>
             </div>
             <AddTourModal open={open} handleClose={handleClose} />
-            <Dialog
-                fullScreen={fullScreen}
-                open={openConfirmModal}
-                onClose={()=>setOpenConfirmModal(false)}
-                aria-labelledby="responsive-dialog-title"
-            >
-                <DialogTitle id="responsive-dialog-title">
-                    {"Xác nhận"}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {`Bạn muốn xóa tour ${tourDelete.tourName}`}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleDelete}>
-                        Xác nhận
-                    </Button>
-                    <Button onClick={()=>setOpenConfirmModal(false)} autoFocus>
-                        Hủy
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <AddTourModal open={openUpdate} handleClose={handleCloseUpdate} tour={tourUpdate} />
+            <ConfirmModal 
+                handleAction={handleDelete} 
+                content={`Bạn muốn xóa tour ${tourDelete.tourName}`} 
+                setOpenConfirmModal = {setOpenConfirmModal}
+                title= "Xác nhận"
+                openConfirmModal={openConfirmModal}
+            />
         </div>
     );
 }
