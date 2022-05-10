@@ -11,11 +11,6 @@ const ticketSchema = mongoose.Schema({
         ref: "User",
         required: true,
     },
-    owner: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "User",
-        required: true,
-    },
     phone: {
         type: String,
         minlength: 0,

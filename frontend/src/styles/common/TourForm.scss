@@ -15,6 +15,9 @@
     }
     .col-1{
         width: 50%;
+        .country-select{
+            max-width: 200px;
+        }
     }
     .col-2{
         width: 100%;

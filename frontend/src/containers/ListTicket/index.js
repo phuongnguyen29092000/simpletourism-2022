@@ -1,14 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import AddTourModal from '../../components/modal/addTourModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteTicket, getAllTicket } from '../../redux/reducers/listTicket/action'
+import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 
 function ListTicket(props) {
+    const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
-
+    const [ticketDelete, setTicketDelete] = useState({})
+    const [openConfirmModal, setOpenConfirmModal] = useState(false)
+    let {list_ticket} = useSelector((store) => store.listTicket)
     const handleClose = ()=>{
         setOpen(!open);
     }
+    useEffect(()=>{
+        if(list_ticket.length === 0) dispatch(getAllTicket())
+    },[list_ticket])
+
+    const handleDelete = () => {
+        dispatch(deleteTicket(ticketDelete.id,()=>setOpenConfirmModal(false)))
+    }
+    console.log(list_ticket)
     return (
         <div className='ticket-manager'>
             <div className='ticket-manager__listticket'>
@@ -37,7 +51,11 @@ function ListTicket(props) {
                                     <div className='btn-action btn-edit'>
                                         <EditIcon fontSize='15px'/>
                                     </div>
-                                    <div className='btn-action btn-delete'>
+                                    <div className='btn-action btn-delete' 
+                                        onClick={()=>{
+                                            // setTicketDelete({id: _tour._id, tourName: _tour.tourName})
+                                            // setOpenConfirmModal(true)
+                                        }}>
                                         <DeleteOutlineIcon fontSize='15px'/>
                                     </div>
                                 </div>
@@ -47,6 +65,13 @@ function ListTicket(props) {
                 </table>
             </div>
             <AddTourModal open={open} handleClose={handleClose}/>
+            <ConfirmModal 
+                handleAction={handleDelete} 
+                content={`Bạn muốn xóa ticket`} 
+                setOpenConfirmModal = {setOpenConfirmModal}
+                title= "Xác nhận"
+                openConfirmModal={openConfirmModal}
+            />
         </div>
     );
 }

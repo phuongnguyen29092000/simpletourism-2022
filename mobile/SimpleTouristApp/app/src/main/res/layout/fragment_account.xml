@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.account.AccountFragment">
+    tools:context=".ui.account.AccountFragment"
+    android:background="@color/black_200">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -27,83 +28,59 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="25dp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#3fff"
-            android:layout_marginTop="15dp"/>
 
         <Button
-            style="@style/Widget.Material3.MaterialTimePicker.Button"
+            android:id="@+id/btn_profile"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@drawable/custombtn3"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="24sp"
             android:text="Thông tin cá nhân"
+            android:backgroundTint="@color/white"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:textAlignment="center"
             android:textColor="#576567"
-            android:textSize="24sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#3fff"
-            />
+            android:textSize="20sp" />
         <Button
-            style="@style/Widget.Material3.MaterialTimePicker.Button"
+            android:id="@+id/btn_change_password"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@drawable/custombtn3"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="24sp"
             android:text="Đổi mật khẩu"
             android:textAlignment="center"
             android:textColor="#576567"
-            android:textSize="24sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#3fff"
-            />
+            android:textSize="20sp"
+            android:backgroundTint="@color/white"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>
         <Button
-            style="@style/Widget.Material3.MaterialTimePicker.Button"
+            android:id="@+id/btn_history"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@drawable/custombtn3"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="24sp"
+            android:backgroundTint="@color/white"
             android:text="Lịch sử đặt tour"
             android:textAlignment="center"
             android:textColor="#576567"
-            android:textSize="24sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#3fff"
-            />
+            android:textSize="20sp"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>
         <Button
-            style="@style/Widget.Material3.MaterialTimePicker.Button"
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@drawable/custombtn3"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:fontFamily="sans-serif-medium"
+            android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="24sp"
+            android:backgroundTint="@color/white"
             android:text="Đăng xuất"
             android:textAlignment="center"
             android:textColor="#576567"
-            android:textSize="24sp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#3fff"
-            />
+            android:textSize="20sp"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+
 
 
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

@@ -1,44 +1,19 @@
-const getAllTour = () => {
-    // const token = getAccessToken()
-    let myHeaders = new Headers()
-    // myHeaders.append('Authorization', `Bearer ${token}`)
-  
-    let requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-    }
-  
-    return fetch(`http://localhost:4000/tour`, requestOptions)
-}
-const addTour = (data) => {
-    // const token = getAccessToken()
-    let myHeaders = new Headers()
-    // myHeaders.append('Authorization', `Bearer ${token}`)
-  
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify(data),
-    }
+import axiosClient from "./axiosClient";
 
-    return fetch('http://localhost:4000/tour', requestOptions)
+const addTour = (data) => {
+  const url = '/tour';
+  return axiosClient.post(url, data)
+}
+
+const getAllTour = () => {
+  const url = '/tour';
+  return axiosClient.get(url)
 }
 
 const deleteTour = (id) => {
-    // const token = getAccessToken()
-    let myHeaders = new Headers()
-    // myHeaders.append('Authorization', `Bearer ${token}`)
-    myHeaders.append({'content-type': 'multipart/form-data'})
-  
-    let requestOptions = {
-      method: 'DELETE',
-      headers: myHeaders,
-      body: JSON.stringify(),
-    }
-
-    return fetch(`http://localhost:4000/tour/${id}`, requestOptions)
+  const url = `/tour/${id}`;
+  return axiosClient.delete(url);
 }
-
 
 
 export default {

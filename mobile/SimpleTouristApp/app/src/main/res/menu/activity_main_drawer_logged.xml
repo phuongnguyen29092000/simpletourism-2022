@@ -23,8 +23,8 @@
             android:icon="@drawable/ic_baseline_library_books_24"
             android:title="@string/menu_news" />
         <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_baseline_login_24"
-            android:title="@string/menu_login" />
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_baseline_account_circle_24"
+            android:title="@string/account" />
     </group>
 </menu>
