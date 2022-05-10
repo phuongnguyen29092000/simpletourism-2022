@@ -21,17 +21,21 @@ const getAllTour = async (queryString) => {
 };
 
 const getDomesticTour = async () => {
-  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } });
+  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } }).populate({
+    path: "typePlace",
+  });
   return tours;
 };
 
 const getInternationalTour = async () => {
-  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } });
+  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } }).populate({
+    path: "typePlace",
+  });
   return tours;
 };
 
 const getTour = async (id) => {
-  const tour = await Tour.findById(id);
+  const tour = await Tour.findById(id).populate({ path: "typePlace" });
   return tour;
 };
 
@@ -62,8 +66,21 @@ const createTour = async (tour) => {
 };
 
 const updateTour = async (id, tour) => {
-  const updatedTour = await Tour.findByIdAndUpdate(id, tour, { new: true });
+  const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
+    new: true,
+  }).populate({ path: "typePlace" });
   return updatedTour;
+};
+
+const getTourByOwner = async (idOwner) => {
+  const tours = await Tour.find({
+    owner: { $eq: idOwner },
+  })
+    .populate({
+      path: "typePlace",
+    })
+    .select("-owner -__v");
+  return tours;
 };
 
 module.exports = {
@@ -74,4 +91,5 @@ module.exports = {
   deleteTour,
   createTour,
   updateTour,
+  getTourByOwner,
 };

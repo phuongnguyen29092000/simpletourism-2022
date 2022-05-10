@@ -29,4 +29,7 @@ router
     .delete(TourController.deleteTour)
     .patch(TourController.updateTour);
 
+router.route("/owner/:ownerId").get(TourController.getTourByOwner);
+
 module.exports = router;
+

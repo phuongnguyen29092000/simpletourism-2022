@@ -43,8 +43,8 @@ const getInternationalTour = catchAsync(async (req, res) => {
     });
   } else {
     res
-      .status(300)
-      .json({ status: 300, totalResult: tours.length, data: tours });
+      .status(200)
+      .json({ status: 200, totalResult: tours.length, data: tours });
   }
 });
 
@@ -116,6 +116,22 @@ const updateTour = catchAsync(async (req, res) => {
   }
 });
 
+const getTourByOwner = catchAsync(async (req, res) => {
+  const tours = await TourService.getTourByOwner(req.params.ownerId);
+  if (!tours) {
+    res.status(404).json({
+      status: 404,
+      message: "Tours Not Found!",
+    });
+  } else {
+    res.status(200).json({
+      status: 200,
+      totalResult: tours.length,
+      data: tours,
+    });
+  }
+});
+
 module.exports = {
   getAllTour,
   getDomesticTour,
@@ -124,4 +140,5 @@ module.exports = {
   deleteTour,
   createTour,
   updateTour,
+  getTourByOwner,
 };
