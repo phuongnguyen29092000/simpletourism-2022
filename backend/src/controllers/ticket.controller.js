@@ -86,9 +86,9 @@ const updateTicketById = catchAsync(async(req, res) => {
 
 const deleteTicketById = catchAsync(async(req, res) => {
     await ticketService.deleteTicketById(req.params.id)
-    res.status(httpStatus.NO_CONTENT).send({
+    res.status(httpStatus.NO_CONTENT).json({
         status: 204,
-        message: "Xóa thành công!"
+        message: "Xóa vé thành công!"
     })
 })
 

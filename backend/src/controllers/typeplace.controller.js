@@ -59,10 +59,11 @@ const updateTypePlacesById = catchAsync(async(req, res) => {
 /* delete type place by params id */
 const deleteTypePlaceById = catchAsync(async(req, res) => {
     await typePlaceService.deleteTypePlaceById(req.params.id)
-    res.status(httpStatus.NO_CONTENT).send()
+    res.status(httpStatus.NO_CONTENT).json({
+        status: 204,
+        message: "Xóa loại địa hình thành công!"
+    })
 })
-
-
 module.exports = {
     createTypePlace,
     getAllTypePlace,
