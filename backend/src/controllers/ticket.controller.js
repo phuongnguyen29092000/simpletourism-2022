@@ -1,11 +1,16 @@
 const httpStatus = require('http-status');
 const validator = require('validator')
 const catchAsync = require('../utils/catchAsync')
-const { ticketService, userService } = require('../services')
+const { ticketService, userService, TourService } = require('../services')
 
 const bookTicket = catchAsync(async(req, res) => {
-    console.log(req.params.tourId);
-    const ticket = await ticketService.bookTicket(req.params.tourId, req.body)
+    const tour = req.params.tourId
+    const { price, discount } = await TourService.getTour(tour)
+    let paymentPrice = 0
+    if (!discount) paymentPrice = price
+    else paymentPrice = parseInt(price * (1 - discount))
+    const ticketBody = {...req.body, tour, paymentPrice }
+    const ticket = await ticketService.bookTicket(ticketBody)
 
     if (!ticket) res.status(httpStatus.BAD_REQUEST).json({
         status: 400,
@@ -19,10 +24,8 @@ const bookTicket = catchAsync(async(req, res) => {
     })
 })
 
-const getAllTicket = catchAsync(async(req, res) => {
-    const perPage = 6;
-    let page = parseInt(req.query.page) || 1;
-    const tickets = await ticketService.getAllTicket(page, perPage)
+const getAllTicketCompany = catchAsync(async(req, res) => {
+    const tickets = await ticketService.getAllTicket(req.params.idCompany)
 
     if (tickets.length == 0) res.status(httpStatus.NOT_FOUND).json({
         status: 404,
@@ -91,7 +94,7 @@ const deleteTicketById = catchAsync(async(req, res) => {
 
 module.exports = {
     bookTicket,
-    getAllTicket,
+    getAllTicketCompany,
     getTicketById,
     updateTicketById,
     deleteTicketById,
