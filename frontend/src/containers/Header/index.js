@@ -39,39 +39,6 @@ const pagesUser = [{
     path: '/tin-tuc'
 }];
 
-const pagesAdmin = [
-    {
-        title: 'QUẢN LÍ NHÂN VIÊN',
-        path: '/quan-li-nhan-vien'
-    },
-    {
-        title: 'THÊM NHÂN VIÊN',
-        path: '/them-nhan-vien'
-    },
-    {
-        title: 'THỐNG KÊ',
-        path: '/thong-ke'
-    },
-    {
-        title: 'ĐỔI MẬT KHẨU',
-        path: '/doi-mat-khau'
-    },
-];
-const pagesManager = [
-    {
-        title: 'QUẢN LÍ TOUR',
-        path: '/quan-li-tour'
-    },
-    {
-        title: 'THÊM TOUR',
-        path: '/them-tour'
-    },
-    {
-        title: 'QUẢN LÍ VÉ',
-        path: '/quan-li-ve'
-    },
-];
-
 let menuList = [{
     title: 'QUẢN LÍ TOUR',
     path: '/admin'
@@ -111,7 +78,7 @@ const paperStyle = {
     borderRadius: '0',
     zIndex: 1000,
 };
-
+// highlight menu active
 const getCurrentUrl = (url) => {
     const index_1 = url.indexOf("/", 8);
     let index_2 = url.indexOf("/", index_1 + 1);
@@ -130,24 +97,6 @@ const Header = () => {
         color: 'transparent'
     });
     menuList = [...pagesUser];
-    // React.useEffect(async () => {
-    //     let token = localStorage.getItem("token");
-    //     if (token) {
-    //         const info = await APIClient.checkLoginToken();
-    //         if (info.role === "admin" || info.role === "manage")
-    //             dispatch(actions.setLogin({
-    //                 role: info.role,
-    //                 name: info.name
-    //             }));
-    //         else if(info.role === "user") dispatch(actions.setLogin({
-    //             role: "user",
-    //             name: 'user'
-    //         }));
-    //         if (state.account.role === 'admin') menuList = pagesAdmin;
-    //         if (state.account.role === 'manage') menuList = pagesManager;
-    //     }
-    //     else menuList = pagesUser;
-    // }, [state.account.role]);
 
     let url = window.location.href;
 
@@ -183,28 +132,8 @@ const Header = () => {
         setOpenSideBar(!openSideBar)
     };
     const search = (e) => {
-        // if (e.keyCode == 13) {
-        //     dispatch(actions.setSearch(e.target.value));
-        //     navigate(`/cua-hang?search=${e.target.value}`);
-        //     document.getElementById('search-field').value = '';
-        //     setSearchBox(false);
-        // }
     }
 
-    const handleSwitchLoginPage = async () => {
-        // navigate('/dang-nhap');
-    }
-    const handleLogout = async () => {
-        // localStorage.removeItem("token");
-        // dispatch(actions.setLogin({
-        //     role: 'user',
-        //     name: ''
-        // }));
-        // const res = await axios.post(
-        //     'http://localhost:3001/auth/logout'
-        // )
-        // navigate('/');
-    }
     return (
         <AppBar position="fixed" className={classes.root} style={{ height: `${nav.height}`, backgroundColor: `${nav.color}` }}>
             <Container maxWidth="xl">
@@ -215,19 +144,36 @@ const Header = () => {
                         {/* </Link> */}
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '60px' }}>
-                        {menuList.map((page, index) => (
-                            // <Link style={{ textDecoration: 'none' }} to={page.path} key={index}>
+                            <Link style={{ textDecoration: 'none' }} to='/'>
                                 <Button
                                     className={classes.item}
-                                    key={index}
                                     sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
                                 >
-                                    <span className={getCurrentUrl(url) === page.path ? classes.activeTab : 'link-tab'}>
-                                        {page.title}
+                                    <span className= 'link-tab'>
+                                        TRANG CHỦ
                                     </span>
                                 </Button>
-                            // </Link>
-                        ))}
+                            </Link>
+                            <Link style={{ textDecoration: 'none' }} to='/news'>
+                                <Button
+                                    className={classes.item}
+                                    sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                >
+                                    <span className= 'link-tab'>
+                                        TIN TỨC
+                                    </span>
+                                </Button>
+                            </Link>
+                            <Link style={{ textDecoration: 'none' }} to='/contact'>
+                                <Button
+                                    className={classes.item}
+                                    sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                >
+                                    <span className= 'link-tab'>
+                                        LIÊN HỆ
+                                    </span>
+                                </Button>
+                            </Link>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -262,48 +208,6 @@ const Header = () => {
                     </Box>
                     <ClickAwayListener onClickAway={handleClickCloseSearch}>
                         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'end', position: 'relative', width: '50px' }}>
-                            {/* {
-                                state.account.role == "user" &&
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    onClick={handleOpenSearchField}
-                                    color="inherit"
-                                >
-                                    <SearchOutlined style={{ color: 'gray' }} />
-                                </IconButton>
-                            }
-                            {
-                                state.account.role == "user" &&
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    color="inherit"
-                                    onClick={handleSwitchLoginPage}
-                                >
-                                    <LoginIcon style={{ color: 'gray' }} />
-                                </IconButton>
-                            } */}
-                            {/* {
-                                state.account.role != "user" &&
-                                <div style={{ color: 'blue', display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                    {`Chào, ${state.account.name}!`} &nbsp;
-                                    <AccountCircleIcon color='disabled' fontSize='large' />
-                                </div>
-                            } */}
-                            {/* {
-                                state.account.role != "user" &&
-                                <Link to="/dang-nhap">
-                                    <IconButton
-                                        size="large"
-                                        aria-label="account of current user"
-                                        color="inherit"
-                                        onClick={handleLogout}
-                                    >
-                                        <LogoutIcon style={{ color: 'gray' }} />
-                                    </IconButton>
-                                </Link>
-                            } */}
                             <TextField
                                 id='search-field'
                                 component="div"
