@@ -63,6 +63,22 @@ const getTour = catchAsync(async (req, res) => {
   }
 });
 
+const getOutStandingTours = catchAsync(async (req, res) => {
+  const outstandingTour = await TourService.getOutstandingTour();
+  if (!outstandingTour) {
+    res.status(404).json({
+      status: 404,
+      message: "Tour Not Found!",
+    });
+  } else {
+    res.status(200).json({
+      status: 200,
+      totalResult: outstandingTour.length,
+      data: outstandingTour,
+    });
+  }
+});
+
 const deleteTour = catchAsync(async (req, res) => {
   const deletedTour = await TourService.deleteTour(req.params.id);
   if (deletedTour !== 1) {
@@ -141,4 +157,5 @@ module.exports = {
   createTour,
   updateTour,
   getTourByOwner,
+  getOutStandingTours,
 };
