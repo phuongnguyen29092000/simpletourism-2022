@@ -21,7 +21,8 @@ export const reducer = (state = initialState, action) => {
     case types.GET_TICKET_SUCCESS: {
       return {
         ...state,
-        list_ticket: action.payload.data,
+        ////
+        list_ticket: action.payload,
         loading: false,
       }
     }
