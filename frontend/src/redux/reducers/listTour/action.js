@@ -36,7 +36,7 @@ const addTour = (data, callback=()=>{}) =>{
         // .then((response)=>response.json())
         .then((result)=>{
             // if(result.status)
-            if(result.data){
+            if(result.status === 201){
                 dispatch({
                     type: types.ADD_TOUR_SUCCESS,
                     payload: {...data}
@@ -63,7 +63,7 @@ const deleteTour = (id, callback = ()=>{}) => {
         // .then((response)=>response.json())
         .then((result)=>{
             // if(result.status)
-            if(result.status === 200){
+            if(result.status === 204){
                 dispatch({
                     type: types.DELETE_TOUR_SUCCESS,
                     payload: {...result}
