@@ -1,3 +1,4 @@
+import { Box, Container, Grid } from '@mui/material';
 import React from 'react';
 import TourCard from '../Cards/TourCard'
 
@@ -53,17 +54,17 @@ const ListCard = ({ data }) => {
                             <Grid container spacing={1}>
                                 <Grid container item xs={12} md={9} spacing={2}>
                                     {
-                                        data.tours.map((tour, index) => (
+                                        data.map((tour, index) => (
                                             <Grid item key={index} md={4} xs={12} sm={6}>
                                                 <TourCard
-                                                    _id={tour._id}
-                                                    link={`/tour/${tour._id}`}
-                                                    name={tour.name}
-                                                    description={tour.description}
-                                                    image={`http://localhost:3001/${tour.imageUrl.slice(6)}`}
-                                                    price={tour.price}
-                                                    discount={tour.discount}
-                                                    rating={tour.rating}
+                                                    _id = {tour._id}
+                                                    tourName = {tour.tourName}
+                                                    description = {tour.description}
+                                                    imageAvatar = {ConvertToImageURL(tour.imageAvatar)}
+                                                    // rating
+                                                    price = {tour.price}
+                                                    discount = {tour?.discount}
+                                                    
                                                 />
                                             </Grid>
                                         ))
@@ -74,7 +75,7 @@ const ListCard = ({ data }) => {
                                         </Stack>
                                     </Grid> */}
                                 </Grid>
-                                <Grid item xs={12} md={3}>
+                                {/* <Grid item xs={12} md={3}>
                                     <h4>TRẢI NGHIỆM DU LỊCH</h4>
                                     {
                                         newsList && newsList.news.map((item, index) => (
@@ -110,7 +111,7 @@ const ListCard = ({ data }) => {
                                         ))
                                     }
                                     <Divider style={{ margin: '5px 0' }} />
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                         </Box>
                     </Container>

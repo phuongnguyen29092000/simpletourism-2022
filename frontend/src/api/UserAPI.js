@@ -9,7 +9,7 @@ const getAllTourDomestic = () => {
     return axiosClient.get(url)
 }
 const getAllTourInternational = () => {
-    const url ='/tour/nuoc-ngoai'
+    const url ='/tour/quoc-te'
     return axiosClient.get(url)
 }
 const getTourById = (id) => {

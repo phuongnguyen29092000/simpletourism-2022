@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ListCard from '../../components/ListCard';
-import {getAllTourDomestic} from '../../redux/reducers/user/action'
+import {getAllTourInternational} from '../../redux/reducers/user/action'
 
 const TourDomestic = () => {
     const dispatch = useDispatch()
-    const {listTourDomestic} = useSelector((store) => store.user)
-    console.log(listTourDomestic)
+    const {listTourInternational} = useSelector((store) => store.user)
     useEffect(()=>{
-        if(listTourDomestic.length === 0) dispatch(getAllTourDomestic())
-    },[listTourDomestic])
+        if(listTourInternational.length === 0) dispatch(getAllTourInternational())
+    },[listTourInternational])
     return (
         <div className='tour-list tour-domestic'>
             {
-                listTourDomestic && (
-                    <ListCard data = {listTourDomestic}/>
+                listTourInternational && (
+                    <ListCard data = {listTourInternational}/>
                 )
             }
         </div>
