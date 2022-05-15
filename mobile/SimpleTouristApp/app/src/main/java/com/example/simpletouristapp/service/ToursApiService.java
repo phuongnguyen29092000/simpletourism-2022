@@ -3,6 +3,9 @@ package com.example.simpletouristapp.service;
 import com.example.simpletouristapp.api.ToursApi;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
+import com.example.simpletouristapp.model.TypePlace;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -24,5 +27,21 @@ public class ToursApiService {
     }
 
     public Call<TourResponse> getTourByIdAPi(String tourId){ return toursApi.getTourById(tourId); }
+
+    public Call<ToursResponse> getDomesticToursApi(){
+        return toursApi.getDomesticTours();
+    }
+
+    public Call<ToursResponse> getInternationalToursApi(){
+        return toursApi.getInternationalTours();
+    }
+
+    public Call<List<TypePlace>> getTypePlacesApi(){
+        return toursApi.getTypePlace();
+    }
+
+    public Call<ToursResponse> getToursByTypePlace(String typePlace){
+        return toursApi.getToursByTypePlace(typePlace);
+    }
 
 }
