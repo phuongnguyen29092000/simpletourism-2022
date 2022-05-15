@@ -6,6 +6,8 @@ const cors = require("cors");
 var cookieParser = require("cookie-parser");
 var paypal = require("paypal-rest-sdk");
 var handlebars = require("express-handlebars");
+const cookieSession = require('cookie-session');
+require('./utils/passport.setup')
 
 const routes = require("./routes");
 const database = require("./config/database");
@@ -21,106 +23,81 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(
-  express.urlencoded({
-    extended: true,
-  })
+    express.urlencoded({
+        extended: true,
+    })
 );
 
 app.use(cors());
 app.options("*", cors());
 app.use(express.json());
 app.use(morgan("combined"));
+app.use(cookieSession({ name: 'session', keys: ['simple', 'tourist'], maxAge: 10 }))
 
-// const passport = require("passport");
-// const GoogleStrategy = require("passport-google-oauth20").Strategy;
-// const ggClient = require("./config/OAuth");
+const passport = require("passport");
 
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: ggClient.googleClientId,
-//       clientSecret: ggClient.googleClientSecret,
-//       callbackURL: "/auth/google/callback",
-//     },
-//     (accessToken) => {
-//       console.log(accessToken);
-//     }
-//   )
-// );
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.get(
-//   "/auth/google",
-//   passport.authenticate("google", {
-//     scope: ["profile", "email"],
-//   })
-// );
-
-// app.get("/auth/google/callback", passport.authenticate("google"));
 app.get("/payment", (req, res) => {
-  res.render("payment");
+    res.render("payment");
 });
 // test paypal
 paypal.configure({
-  mode: "sandbox", //sandbox or live
-  client_id:
-    "AZCqU5NL0w8YjqRd0PxXtQYxjTx2uTtbE-kFbP0zg_Iv_bAtjlz7bf0Q1uX0I_2go1hFBWmmS48o31cl",
-  client_secret:
-    "EHfxmdV87ysZ5nndsEYSIJxRjjhmhD59MTbwR80XojA6mLKncybHwHUFUKQPqE8J52LghpjKlwu_OYZt",
+    mode: "sandbox", //sandbox or live
+    client_id: "AZCqU5NL0w8YjqRd0PxXtQYxjTx2uTtbE-kFbP0zg_Iv_bAtjlz7bf0Q1uX0I_2go1hFBWmmS48o31cl",
+    client_secret: "EHfxmdV87ysZ5nndsEYSIJxRjjhmhD59MTbwR80XojA6mLKncybHwHUFUKQPqE8J52LghpjKlwu_OYZt",
 });
 
 app.post("/pay", (req, res, next) => {
-  var create_payment_json = {
-    intent: "sale",
-    payer: {
-      payment_method: "paypal",
-    },
-    redirect_urls: {
-      return_url: "http://localhost:3000/payment/success",
-      cancel_url: "http://localhost:3000/payment/failure",
-    },
-    transactions: [
-      {
-        item_list: {
-          items: [
-            {
-              name: "item",
-              sku: "item",
-              price: "1.00",
-              currency: "USD",
-              quantity: 1,
+    var create_payment_json = {
+        intent: "sale",
+        payer: {
+            payment_method: "paypal",
+        },
+        redirect_urls: {
+            return_url: "http://localhost:3000/payment/success",
+            cancel_url: "http://localhost:3000/payment/failure",
+        },
+        transactions: [{
+            item_list: {
+                items: [{
+                    name: "item",
+                    sku: "item",
+                    price: "1.00",
+                    currency: "USD",
+                    quantity: 1,
+                }, ],
             },
-          ],
-        },
-        amount: {
-          currency: "USD",
-          total: "1.00",
-        },
-        description: "This is the payment description.",
-      },
-    ],
-  };
+            amount: {
+                currency: "USD",
+                total: "1.00",
+            },
+            description: "This is the payment description.",
+        }, ],
+    };
 
-  paypal.payment.create(create_payment_json, function (error, payment) {
-    if (error) {
-      throw error;
-    } else {
-      for (let i = 0; i < payment.links.length; i++) {
-        if (payment.links[i].rel === "approval_url") {
-          console.log(payment.links[i].href);
-          //res.redirect(payment.links[i].href);
-          res.send(payment.links[i].href);
+    paypal.payment.create(create_payment_json, function(error, payment) {
+        if (error) {
+            throw error;
+        } else {
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === "approval_url") {
+                    console.log(payment.links[i].href);
+                    //res.redirect(payment.links[i].href);
+                    res.send(payment.links[i].href);
+                }
+            }
         }
-      }
-    }
-  });
+    });
 });
 
 app.use("/", routes);
 
 app.all("*", (req, res) => {
-  res.status(404).json({
-    message: `Can't find ${req.originalUrl} on this server!`,
-  });
+    res.status(404).json({
+        message: `Can't find ${req.originalUrl} on this server!`,
+    });
 });
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
