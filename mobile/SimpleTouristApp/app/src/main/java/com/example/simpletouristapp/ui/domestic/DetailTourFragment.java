@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.DetailTourBinding;
 import com.example.simpletouristapp.model.Tour;
@@ -22,6 +25,8 @@ import com.example.simpletouristapp.service.ToursApiService;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,12 +36,13 @@ public class DetailTourFragment extends Fragment {
     private String tourId;
     private DetailTourBinding binding;
     private ToursApiService toursApiService;
-    private ImageView imageDetail;
+    private ImageSlider imageSliderDetail;
     private TextView tvPrice;
     private TextView tvTime;
     private TextView tvHotel;
     private TextView tvAmount;
     private TextView tvAmountRemain;
+    private List<SlideModel> slideModelList;
     private Fragment detailFragment;
 
 
@@ -58,13 +64,15 @@ public class DetailTourFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageDetail = (ImageView) view.findViewById(R.id.image_detail);
+        imageSliderDetail = (ImageSlider) view.findViewById(R.id.image_slide_detail);
 
         tvPrice = (TextView) view.findViewById(R.id.tv_detail_price);
         tvTime = (TextView) view.findViewById(R.id.tv_time_detail);
         tvHotel = (TextView) view.findViewById(R.id.tv_hotel_detail);
         tvAmount = (TextView) view.findViewById(R.id.tv_amount_detail);
         tvAmountRemain = (TextView) view.findViewById(R.id.tv_amount_remain_detail);
+
+        slideModelList = new ArrayList<>();
 
         toursApiService = new ToursApiService();
         Call<TourResponse> call = toursApiService.getTourByIdAPi(tourId);
@@ -76,10 +84,15 @@ public class DetailTourFragment extends Fragment {
                     Tour tour = tourResponse.data;
                     String pattern = "dd/MM/yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                    Picasso.get().load("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7)).into(imageDetail);
+
 //                    Toolbar toolbar = view.findViewById(R.id.toolbar);
 //                    toolbar.setTag("abc");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(tour.getNameTour());
+                    for (String slide: tour.getImageSlide()
+                         ) {
+                        slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + slide.substring(7),null));
+                    }
+                    imageSliderDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
                     tvPrice.setText(Integer.toString(tour.getPrice()) + "đ");
                     tvTime.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     tvHotel.setText(tour.getNameHotel());

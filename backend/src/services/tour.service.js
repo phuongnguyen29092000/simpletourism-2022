@@ -5,13 +5,13 @@ const upLoadImage = require("../middlewares/imgUpload");
 const getAllTour = async (queryString) => {
   let res = [];
   var typePlace;
-  if (queryString.typePlace) typePlace = queryString.typePlace;
+  if (queryString.typeplace) typePlace = queryString.typeplace;
   const features = new APIFeatures(Tour.find(), queryString);
   features.filter();
   features.sort();
   features.fieldLimit();
-  features.paginate();
   features.discount();
+  features.paginate();
   const tours = await features.query;
   if (typePlace !== undefined) {
     res = features.typePlace(typePlace, tours);
@@ -21,18 +21,30 @@ const getAllTour = async (queryString) => {
 };
 
 const getDomesticTour = async () => {
-  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } });
+  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } }).populate({
+    path: "typePlace",
+  });
   return tours;
 };
 
 const getInternationalTour = async () => {
-  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } });
+  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } }).populate({
+    path: "typePlace",
+  });
   return tours;
 };
 
 const getTour = async (id) => {
-  const tour = await Tour.findById(id);
+  const tour = await Tour.findById(id).populate({ path: "typePlace" });
   return tour;
+};
+
+const getOutstandingTour = async () => {
+  const allTours = await Tour.find()
+    .populate({ path: "typePlace" })
+    .sort({ ratingsAverage: -1 });
+  const outstandingTour = allTours.splice(0, 6);
+  return outstandingTour;
 };
 
 const deleteTour = async (id) => {
@@ -62,8 +74,23 @@ const createTour = async (tour) => {
 };
 
 const updateTour = async (id, tour) => {
-  const updatedTour = await Tour.findByIdAndUpdate(id, tour, { new: true });
-  return updatedTour;
+  // const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
+  //   new: true,
+  // }).populate({ path: "typePlace" });
+  // return updatedTour;
+  const tours = await Tour.updateMany({ continent: { $eq: "Europe" } }, tour);
+  return tours;
+};
+
+const getTourByOwner = async (idOwner) => {
+  const tours = await Tour.find({
+    owner: { $eq: idOwner },
+  })
+    .populate({
+      path: "typePlace",
+    })
+    .select("-owner -__v");
+  return tours;
 };
 
 module.exports = {
@@ -74,4 +101,6 @@ module.exports = {
   deleteTour,
   createTour,
   updateTour,
+  getTourByOwner,
+  getOutstandingTour,
 };

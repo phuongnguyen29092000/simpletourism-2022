@@ -75,8 +75,8 @@ app.post("/pay", (req, res, next) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:4000/payment/success",
-      cancel_url: "http://localhost:4000/payment/failure",
+      return_url: "http://localhost:3000/payment/success",
+      cancel_url: "http://localhost:3000/payment/failure",
     },
     transactions: [
       {

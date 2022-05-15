@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { TourController } = require("../controllers");
+const { TourController, ticketController } = require("../controllers");
 
 const upLoadImage = require("../middlewares/imgUpload");
 
@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.route("/trong-nuoc").get(TourController.getDomesticTour);
 router.route("/quoc-te").get(TourController.getInternationalTour);
+router.route("/tour-noi-bat").get(TourController.getOutStandingTours);
+router.route("/:idTour/tickets").get(ticketController.getTicketPerTour);
 
 router
   .route("/")
@@ -27,5 +29,7 @@ router
   .get(TourController.getTour)
   .delete(TourController.deleteTour)
   .patch(TourController.updateTour);
+
+router.route("/owner/:ownerId").get(TourController.getTourByOwner);
 
 module.exports = router;

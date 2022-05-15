@@ -1,1 +1,1 @@
-module.exports = ['Châu Á', 'Châu Âu', 'Châu Mỹ', 'Châu Đại Dương', 'Châu Phi']
+module.exports = ["asia", "europe", "americas", "africa", "australia"];
