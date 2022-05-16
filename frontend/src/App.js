@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import store from './store';
 import { BrowserRouter } from 'react-router-dom'
 import OwnerRoutes from './route/ownerRoutes'
+import UserRoutes from './route/userRoutes'
 import './styles/common/layout.scss'
 import './styles/common/TourForm.scss'
 import './styles/component/CommonHeader.scss'
@@ -21,9 +22,10 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Routes>
-            <Route path="/" exact element={<SideBar />} />
+            {/* <Route path="/" exact element={<SideBar />} /> */}
           </Routes>
         <OwnerRoutes/>
+        <UserRoutes/>
           {/* <Header /> */}
           {/* <HomePage/> */}
         </div>

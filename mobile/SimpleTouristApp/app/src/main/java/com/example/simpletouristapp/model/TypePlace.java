@@ -9,11 +9,22 @@ public class TypePlace {
     private String name;
     @SerializedName("description")
     private String description;
+    @SerializedName("slug")
+    private String slug;
 
-    public TypePlace(String _id, String name, String description) {
+    public TypePlace(String _id, String name, String description, String slug) {
         this._id = _id;
         this.name = name;
         this.description = description;
+        this.slug = slug;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public String get_id() {

@@ -8,8 +8,8 @@ const bookTicket = async(ticketBody) => {
 const getAllTicket = async(idCompany) => {
     let ticketsPerCompany = []
     const tours = await Tour.find()
-    const tourPerCompany = tours.filter((tour) => tour.owner.toString() == idCompany.toString());
-    const arrayId = tourPerCompany.map((tour) => tour._id.toString())
+    const arrayId = tours.filter((tour) => tour.owner.toString() == idCompany.toString()).map((tour) => tour._id.toString());
+    // const arrayId = tourPerCompany.map((tour) => tour._id.toString())
     const tickets = await Ticket.find()
     tickets.forEach((ticket) => {
         if (arrayId.includes(ticket.tour.toString()))
