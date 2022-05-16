@@ -1,13 +1,13 @@
 const catchAsync = require("../utils/catchAsync");
 const { FeedbackService } = require("../services");
+const ApiError = require("../utils/ApiError");
 
-const createFeedback = catchAsync(async (req, res) => {
+const createFeedback = catchAsync(async (req, res, next) => {
   const feedback = await FeedbackService.createFeedback(req.body);
   if (!feedback) {
-    res.status(400).json({
-      status: 400,
-      message: "Can not Create new Feedback for this tour!",
-    });
+    return next(
+      new ApiError("Can Not Create New Feedback For This Tour!", 400)
+    );
   } else {
     res.status(201).json({
       status: 201,
@@ -16,13 +16,10 @@ const createFeedback = catchAsync(async (req, res) => {
   }
 });
 
-const getAllFeedback = catchAsync(async (req, res) => {
+const getAllFeedback = catchAsync(async (req, res, next) => {
   const feedbacks = await FeedbackService.getAllFeedback();
-  if (!feedbacks) {
-    res.status(400).json({
-      status: 400,
-      message: "Feedback Not Found!",
-    });
+  if (!feedbacks || feedbacks.length === 0) {
+    return next(new ApiError("Feedback Not Found!", 404));
   } else {
     res.status(200).json({
       status: 200,
@@ -32,13 +29,15 @@ const getAllFeedback = catchAsync(async (req, res) => {
   }
 });
 
-const getFeedbackOfTour = catchAsync(async (req, res) => {
+const getFeedbackOfTour = catchAsync(async (req, res, next) => {
   const feedbacks = await FeedbackService.getFeedbackOfTour(req.params.tourId);
-  if (!feedbacks) {
-    res.status(400).json({
-      status: 400,
-      message: "Feedback Not Found!",
-    });
+  if (!feedbacks || feedbacks.length === 0) {
+    return next(
+      new ApiError(
+        `That Tour With Id ${req.params.tourId} Do Not Have Any Feedback!`,
+        404
+      )
+    );
   } else {
     res.status(200).json({
       status: 200,

@@ -23,13 +23,15 @@ class APIFeatures {
     this.query = this.query
       .find(JSON.parse(queryStr))
       .populate({ path: "typePlace" });
+
     return this;
   }
 
   typePlace(typePlaceQuery, tours) {
+    const arrTypePlace = typePlaceQuery.split(",");
     const res = [];
     tours.forEach((item) => {
-      if (item.typePlace.slug === typePlaceQuery) {
+      if (arrTypePlace.includes(item.typePlace.slug)) {
         res.push(item);
       }
     });
