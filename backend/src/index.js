@@ -6,6 +6,11 @@ const cors = require("cors");
 var cookieParser = require("cookie-parser");
 var paypal = require("paypal-rest-sdk");
 var handlebars = require("express-handlebars");
+const cookieSession = require("cookie-session");
+require("./utils/passport.setup");
+
+const ApiError = require("./utils/ApiError");
+const globalErrorHandler = require("./controllers/error.controller");
 
 const routes = require("./routes");
 const database = require("./config/database");
@@ -30,32 +35,15 @@ app.use(cors());
 app.options("*", cors());
 app.use(express.json());
 app.use(morgan("combined"));
+app.use(
+  cookieSession({ name: "session", keys: ["simple", "tourist"], maxAge: 10 })
+);
 
-// const passport = require("passport");
-// const GoogleStrategy = require("passport-google-oauth20").Strategy;
-// const ggClient = require("./config/OAuth");
+const passport = require("passport");
 
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: ggClient.googleClientId,
-//       clientSecret: ggClient.googleClientSecret,
-//       callbackURL: "/auth/google/callback",
-//     },
-//     (accessToken) => {
-//       console.log(accessToken);
-//     }
-//   )
-// );
+app.use(passport.initialize());
+app.use(passport.session());
 
-// app.get(
-//   "/auth/google",
-//   passport.authenticate("google", {
-//     scope: ["profile", "email"],
-//   })
-// );
-
-// app.get("/auth/google/callback", passport.authenticate("google"));
 app.get("/payment", (req, res) => {
   res.render("payment");
 });
@@ -117,10 +105,10 @@ app.post("/pay", (req, res, next) => {
 
 app.use("/", routes);
 
-app.all("*", (req, res) => {
-  res.status(404).json({
-    message: `Can't find ${req.originalUrl} on this server!`,
-  });
+app.all("*", (req, res, next) => {
+  next(new ApiError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

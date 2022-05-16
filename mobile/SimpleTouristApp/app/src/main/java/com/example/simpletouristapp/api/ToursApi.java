@@ -9,12 +9,19 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ToursApi {
     @GET("tour")
     Call<ToursResponse> getTours();
+    @GET("tour/trong-nuoc")
+    Call<ToursResponse> getDomesticTours();
+    @GET("tour/quoc-te")
+    Call<ToursResponse> getInternationalTours();
     @GET("tour/{id}")
     Call<TourResponse> getTourById(@Path("id") String tourId);
     @GET("typeplace")
     Call<List<TypePlace>> getTypePlace();
+    @GET("tour")
+    Call<ToursResponse> getToursByTypePlace(@Query("typePlace") String typePlace);
 }

@@ -5,14 +5,15 @@ const upLoadImage = require("../middlewares/imgUpload");
 const getAllTour = async (queryString) => {
   let res = [];
   var typePlace;
-  if (queryString.typePlace) typePlace = queryString.typePlace;
+  if (queryString.typeplace) typePlace = queryString.typeplace;
   const features = new APIFeatures(Tour.find(), queryString);
   features.filter();
   features.sort();
   features.fieldLimit();
-  features.paginate();
   features.discount();
+  features.paginate();
   const tours = await features.query;
+  if (!tours) console.log(tours);
   if (typePlace !== undefined) {
     res = features.typePlace(typePlace, tours);
     return res;
@@ -37,6 +38,14 @@ const getInternationalTour = async () => {
 const getTour = async (id) => {
   const tour = await Tour.findById(id).populate({ path: "typePlace" });
   return tour;
+};
+
+const getOutstandingTour = async () => {
+  const allTours = await Tour.find()
+    .populate({ path: "typePlace" })
+    .sort({ ratingsAverage: -1 });
+  const outstandingTour = allTours.splice(0, 6);
+  return outstandingTour;
 };
 
 const deleteTour = async (id) => {
@@ -66,10 +75,12 @@ const createTour = async (tour) => {
 };
 
 const updateTour = async (id, tour) => {
-  const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
-    new: true,
-  }).populate({ path: "typePlace" });
-  return updatedTour;
+  // const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
+  //   new: true,
+  // }).populate({ path: "typePlace" });
+  // return updatedTour;
+  const tours = await Tour.updateMany({ continent: { $eq: "Europe" } }, tour);
+  return tours;
 };
 
 const getTourByOwner = async (idOwner) => {
@@ -92,4 +103,5 @@ module.exports = {
   createTour,
   updateTour,
   getTourByOwner,
+  getOutstandingTour,
 };

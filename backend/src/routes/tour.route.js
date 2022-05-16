@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.route("/trong-nuoc").get(TourController.getDomesticTour);
 router.route("/quoc-te").get(TourController.getInternationalTour);
+router.route("/tour-noi-bat").get(TourController.getOutStandingTours);
 router.route("/:idTour/tickets").get(ticketController.getTicketPerTour);
 
 router
@@ -32,4 +33,3 @@ router
 router.route("/owner/:ownerId").get(TourController.getTourByOwner);
 
 module.exports = router;
-

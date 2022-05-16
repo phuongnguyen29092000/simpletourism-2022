@@ -7,7 +7,14 @@ class APIFeatures {
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ["page", "sort", "limit", "fields", "typePlace"];
+    const excludedFields = [
+      "page",
+      "sort",
+      "limit",
+      "fields",
+      "typeplace",
+      "discount",
+    ];
     excludedFields.forEach((element) => delete queryObj[element]);
 
     let queryStr = JSON.stringify(queryObj);
@@ -16,13 +23,15 @@ class APIFeatures {
     this.query = this.query
       .find(JSON.parse(queryStr))
       .populate({ path: "typePlace" });
+
     return this;
   }
 
   typePlace(typePlaceQuery, tours) {
+    const arrTypePlace = typePlaceQuery.split(",");
     const res = [];
     tours.forEach((item) => {
-      if (item.typePlace.slug === typePlaceQuery) {
+      if (arrTypePlace.includes(item.typePlace.slug)) {
         res.push(item);
       }
     });
@@ -30,9 +39,9 @@ class APIFeatures {
   }
 
   discount() {
-    if (this.queryString.discount) {
+    if (this.queryString.discount === "true") {
       this.query = this.query
-        .find({ discount: { $ne: null } })
+        .find({ discount: { $gt: 0 } })
         .populate({ path: "typePlace" });
     }
     return this;

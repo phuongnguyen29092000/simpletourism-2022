@@ -2,8 +2,10 @@ const express = require("express");
 
 const typePlaceRoute = require("./typeplace.route");
 const tourRoute = require("./tour.route");
-const userRoute = require('./user.route')
-const ticketRoute = require('./ticket.route')
+const userRoute = require("./user.route");
+const ticketRoute = require("./ticket.route");
+const feedbackRoute = require("./feedback.route");
+const authRoute = require('./auth.route')
 
 const router = express.Router();
 
@@ -22,6 +24,14 @@ const defaultRoutes = [{
     {
         path: "/ticket",
         route: ticketRoute,
+    },
+    {
+        path: "/feedback",
+        route: feedbackRoute,
+    },
+    {
+        path: "/auth",
+        route: authRoute,
     },
 ];
 
