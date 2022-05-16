@@ -7,6 +7,9 @@ var cookieParser = require("cookie-parser");
 var paypal = require("paypal-rest-sdk");
 var handlebars = require("express-handlebars");
 
+const ApiError = require("./utils/ApiError");
+const globalErrorHandler = require("./controllers/error.controller");
+
 const routes = require("./routes");
 const database = require("./config/database");
 database.connect();
@@ -117,10 +120,10 @@ app.post("/pay", (req, res, next) => {
 
 app.use("/", routes);
 
-app.all("*", (req, res) => {
-  res.status(404).json({
-    message: `Can't find ${req.originalUrl} on this server!`,
-  });
+app.all("*", (req, res, next) => {
+  next(new ApiError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));
