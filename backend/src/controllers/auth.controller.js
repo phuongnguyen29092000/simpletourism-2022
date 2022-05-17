@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync')
 const passport = require("passport");
 
 const { User } = require('../models')
-const { userService, tokenService } = require('../services')
+const { userService, tokenService, authService } = require('../services')
 
 const loginGoogle = passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/userinfo.profile',
@@ -14,7 +14,6 @@ const loginGoogle = passport.authenticate('google', {
 })
 
 const loginSuccess = catchAsync(async(req, res) => {
-    // console.log(await tokenService.generateAccessRefreshToken('sdfdsfdsfdsfd'))
     let user
     if (req.userProfile) {
         if (!await User.isEmailTaken(req.userProfile.emails[0].value)) {
@@ -47,11 +46,23 @@ const loginFail = catchAsync(async(req, res) => {
 })
 
 const logout = catchAsync(async(req, res) => {
-    req.session = null
-    req.logout()
+    await authService.logout(req.body.refreshToken);
     res.status(httpStatus.OK).json({
         status: 200,
-        message: "Đăng xuất thành công",
+        message: "Đăng xuất thành công"
+    })
+})
+
+const refreshTokens = catchAsync(async(req, res) => {
+    const tokenAuth = await authService.refreshAuth(req.body.refreshToken)
+    if (!tokenAuth) res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+        status: 500,
+        message: "Lỗi server"
+    })
+    else res.stauts(httpStatus.OK).json({
+        status: 200,
+        message: "OK",
+        tokenAuth: {...tokenAuth }
     })
 })
 
@@ -59,5 +70,6 @@ module.exports = {
     loginGoogle,
     loginSuccess,
     loginFail,
-    logout
+    logout,
+    refreshTokens
 }
