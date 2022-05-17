@@ -21,6 +21,7 @@ import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlace;
 import com.example.simpletouristapp.service.ToursApiService;
+import com.google.android.material.chip.Chip;
 
 import java.util.List;
 
@@ -32,15 +33,10 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
 
     private Context context;
     private List<TypePlace> typePlaces;
-    private boolean isSelected = true;
 
-    private RecyclerView rvDomesticTour;
-    private ToursApiService toursApiService;
-
-    public TypePlaceAdapter(Context context, List<TypePlace> typePlaces, RecyclerView rvDomesticTour) {
+    public TypePlaceAdapter(Context context, List<TypePlace> typePlaces) {
         this.context = context;
         this.typePlaces = typePlaces;
-        this.rvDomesticTour = rvDomesticTour;
     }
 
 
@@ -49,7 +45,7 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
     @Override
     public TypePlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_type_place, parent, false);
+        View view = inflater.inflate(R.layout.item_chip_type_place, parent, false);
         return new TypePlaceViewHolder(view);
     }
 
@@ -58,51 +54,7 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
     public void onBindViewHolder(@NonNull TypePlaceViewHolder holder, int position) {
         TypePlace typePlace = typePlaces.get(position);
 
-        holder.btnTypePlace.setText(typePlace.getName());
-
-        if(!isSelected){
-            holder.btnTypePlace.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.white)));
-        }
-        holder.itemView.getId();
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("NewApi")
-            @Override
-            public void onClick(View view) {
-
-                isSelected = false;
-                holder.btnTypePlace.setBackgroundTintList(ColorStateList.valueOf(context.getColor(R.color.blue)));
-                toursApiService = new ToursApiService();
-                try {
-                    Call<ToursResponse> call = toursApiService.getToursByTypePlace(typePlace.getSlug());
-                    call.enqueue(new Callback<ToursResponse>() {
-                        @Override
-                        public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
-                            if(response.code() == 200){
-                                Log.d("TAG",response.code()+""+view.getId());
-                                ToursResponse tourResponse = response.body();
-                                TourAdapter tourAdapter = new TourAdapter(context,tourResponse.getData());
-                                rvDomesticTour.setLayoutManager(new GridLayoutManager(context,2));
-                                rvDomesticTour.setAdapter(tourAdapter);
-                            }else {
-                                TourAdapter tourAdapter = new TourAdapter(context,null);
-                                rvDomesticTour.setLayoutManager(new GridLayoutManager(context,2));
-                                rvDomesticTour.setAdapter(tourAdapter);
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<ToursResponse> call, Throwable t) {
-                            Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.d("TAG",t.getMessage());
-                        }
-                    });
-                }catch (Exception e){
-                    Log.d("ERROR",e.getMessage());
-                }
-
-            }
-        });
+        holder.checkTypePlace.setText(typePlace.getName());
     }
 
     @Override
@@ -111,13 +63,11 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
     }
 
     public class TypePlaceViewHolder extends RecyclerView.ViewHolder{
-        private Button btnTypePlace;
-        private boolean isSelected;
+        private Chip checkTypePlace;
 
         public TypePlaceViewHolder(@NonNull View itemView){
             super(itemView);
-            btnTypePlace = itemView.findViewById(R.id.btn_type_place);
-            isSelected = false;
+            checkTypePlace = itemView.findViewById(R.id.item_type_place);
         }
     }
 }

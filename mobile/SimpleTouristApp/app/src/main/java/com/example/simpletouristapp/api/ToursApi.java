@@ -3,6 +3,7 @@ package com.example.simpletouristapp.api;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlace;
+import com.example.simpletouristapp.model.TypePlaceResponse;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface ToursApi {
     @GET("tour/{id}")
     Call<TourResponse> getTourById(@Path("id") String tourId);
     @GET("typeplace")
-    Call<List<TypePlace>> getTypePlace();
+    Call<TypePlaceResponse> getTypePlace();
     @GET("tour")
     Call<ToursResponse> getToursByTypePlace(@Query("typePlace") String typePlace);
 }

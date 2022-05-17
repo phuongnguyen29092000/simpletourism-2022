@@ -11,9 +11,11 @@ import android.view.Menu;
 import android.widget.SearchView;
 
 import com.example.simpletouristapp.ui.domestic.DomesticFragment;
+import com.example.simpletouristapp.ui.home.FilterFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -94,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
+        }
+        if(id == R.id.action_filter){
+            FilterFragment filterFragment = new FilterFragment();
+            filterFragment.show(getSupportFragmentManager(),"Filter");
         }
 
         return super.onOptionsItemSelected(item);
