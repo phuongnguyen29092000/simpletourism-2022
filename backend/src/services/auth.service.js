@@ -1,9 +1,10 @@
 const httpStatus = require('http-status')
+const ApiError = require('../utils/ApiError')
+
+const { tokenTypes } = require('../config/tokens')
 const tokenService = require('./token.service')
 const userService = require('./user.service')
 const Token = require('../models/token.model')
-const ApiError = require('../utils/ApiError')
-const { tokenTypes } = require('../config/tokens')
 
 const logout = async(refreshToken) => {
     const refreshTokenInfo = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH });

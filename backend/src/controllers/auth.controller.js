@@ -25,6 +25,7 @@ const loginSuccess = catchAsync(async(req, res) => {
             }
             user = await userService.createUser(userInfo)
         } else user = await userService.getUserByEmail(req.userProfile.emails[0].value)
+
         const tokenAuth = await tokenService.generateAccessRefreshToken(user._id.toString())
         res.status(httpStatus.OK).json({
             status: 200,
@@ -66,10 +67,27 @@ const refreshTokens = catchAsync(async(req, res) => {
     })
 })
 
+const getRole = catchAsync(async(req, res) => {
+    if (!req.role) res.status(httpStatus.FORBIDDEN).json({
+        status: 403,
+        message: "Không có quyền truy cập"
+    })
+    res.status(200).json({
+        status: 200,
+        message: "OK",
+        userInfo: {
+            role: req.role,
+            userName: req.userName,
+            email: req.email
+        }
+    })
+
+})
 module.exports = {
     loginGoogle,
     loginSuccess,
     loginFail,
     logout,
-    refreshTokens
+    refreshTokens,
+    getRole
 }
