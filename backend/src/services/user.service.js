@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
-const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
 const nodeMailer = require('nodemailer');
+const { User } = require('../models');
 
 const adminEmail = process.env.EMAIL;
 const adminPassword = process.env.EMAILPASS;

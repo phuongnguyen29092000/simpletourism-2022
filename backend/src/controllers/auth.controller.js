@@ -1,8 +1,9 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync')
 const passport = require("passport");
-const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client("532225885079-87pe29jp4nn410gt6ipmmk5nbo8j1g74.apps.googleusercontent.com");
+
+const { User } = require('../models')
+const { userService, tokenService } = require('../services')
 
 const loginGoogle = passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/userinfo.profile',
@@ -13,27 +14,26 @@ const loginGoogle = passport.authenticate('google', {
 })
 
 const loginSuccess = catchAsync(async(req, res) => {
-    // const ticket = await client.verifyIdToken({
-    //     idToken: req.accessTokenAuth,
-    //     audience: "532225885079-87pe29jp4nn410gt6ipmmk5nbo8j1g74.apps.googleusercontent.com"
-    // });
-    // const payload = ticket.getPayload();
-    // console.log(payload);
-    if (req.userProfile)
+    // console.log(await tokenService.generateAccessRefreshToken('sdfdsfdsfdsfd'))
+    let user
+    if (req.userProfile) {
+        if (!await User.isEmailTaken(req.userProfile.emails[0].value)) {
+            const userInfo = {
+                googleId: req.userProfile.id,
+                userName: req.userProfile.displayName,
+                email: req.userProfile.emails[0].value,
+                photoUrl: req.userProfile.photos[0].value,
+            }
+            user = await userService.createUser(userInfo)
+        } else user = await userService.getUserByEmail(req.userProfile.emails[0].value)
+        const tokenAuth = await tokenService.generateAccessRefreshToken(user._id.toString())
         res.status(httpStatus.OK).json({
             status: 200,
             message: "Đăng nhập thành công!",
-            profile: {
-                id: req.userProfile.id,
-                displayName: req.userProfile.displayName,
-                name: req.userProfile.name,
-                email: req.userProfile.emails[0].value,
-                photoUrl: req.userProfile.photos[0].value,
-                accessToken: req.accessTokenAuth,
-                refreshToken: req.refreshTokenAuth
-            }
+            profile: user,
+            tokenAuth: tokenAuth
         })
-    else res.status(httpStatus.UNAUTHORIZED).json({
+    } else res.status(httpStatus.UNAUTHORIZED).json({
         status: 401,
         message: "Không tìm thấy thông tin tài khoản"
     })
