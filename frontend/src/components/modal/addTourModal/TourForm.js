@@ -12,6 +12,9 @@ import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTypePlace} from '../../../redux/reducers/typePlace/action'
 import TypePlaceAPI from '../../../api/TypePlaceAPI';
+import { CONTINENTS } from '../../../Constants/dataForm';
+import ConvertToImageURL from '../../../LogicResolve/ConvertToImageURL';
+
 const Continents = [
     {
         value:'Asia',
@@ -42,10 +45,6 @@ const Continents = [
 
 const Discounts = ["10", "20", "30", "40", "50", "60", "70"]
 
-const ConvertToImageURL = (url) => {
-    if (url) return `http://localhost:4000/${url.slice(6)}`
-    else return "";
-}
 function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
     console.log(tour)
     const {
@@ -72,7 +71,7 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
     useEffect(()=>{
         if(listTypePlace.length === 0) dispatch(getTypePlace())
         // setTypePlaces(listTypePlace)
-    },[])
+    },[listTypePlace])
     useEffect(()=>{
         TypePlaceAPI.getCountries()
         .then((result) => {
@@ -199,7 +198,7 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
                     <select {...register("continent", { required: "* Chọn châu lục" })} placeholder='category' defaultValue={tour && tour.continent}>
                         <option value="" hidden>Choose...</option>
                         {
-                            Continents.map((item, index) => (
+                            CONTINENTS.map((item, index) => (
                                 <option value={item.value} key={index} selected={tour ? tour.continent === item.value : false}>{item.label}</option>
                             ))
                         }

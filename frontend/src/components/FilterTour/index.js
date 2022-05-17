@@ -1,37 +1,52 @@
-import React from 'react';
-// import {useNavigate  } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import {useNavigate  } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form';
 import Slider from '@mui/material/Slider';
 import { Checkbox, Container, Grid } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import '../../styles/filter.css';
 import RegardPrice from '../../LogicResolve/RegardPrice';
+import { CONTINENTS } from '../../Constants/dataForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTypePlace } from '../../redux/reducers/typePlace/action';
+import Button from '@mui/material/Button';
+import { ROUTE_TOUR_FILTER } from '../../route/type';
+// http://localhost:4000/tour?typeplace=dao&price[gt]=4000000&price[lt]=5000000&continent=asia&page=1&limit=5&discount=true
+function FilterTour() {
+    let navigate = useNavigate();
+    let {listTypePlace} = useSelector((store) => store.typePlace)
+    const dispatch = useDispatch()
 
-function FilterTour({text, min = 0, max = 3000000, load, onLoad}) {
-    // let navigate = useNavigate();
-    const minValue = min;
-    const maxValue = max;
+    useEffect(()=>{
+        if(listTypePlace.length === 0) dispatch(getTypePlace())
+        console.log(listTypePlace)
+        // setTypePlaces(listTypePlace)
+    },[listTypePlace])
     const {
         register,
         handleSubmit,
         reset,
         control,
     } = useForm();
-    const handleLoad= ()=>{
-        if(onLoad){
-            onLoad(!load);
-        }
-    }
+
     const onHandleSubmit = (data) => {
-        // navigate(`/cua-hang?region=${data.region}&type=${data.type}&min=${data.price[0]}&max=${data.price[1]}&dis=${data.discount}`);
-        // handleLoad();
-        // reset();
+        let param = ''
+        for (let option in data){
+            if(data[option]) {
+                if(option == 'price') {
+                    param = param + `price[gt]=${data[option][0]}&price[lt]=${data[option][1]}&`;
+                }else param = param + `${option}=${data[option]}&`;
+            }
+        }
+        param = param.slice(0,-1);
+        navigate(`${ROUTE_TOUR_FILTER}?${param}`);
+        reset();
     };
     return (
         <div className='filter-box'>
             <Container>
                 <h1 style={{ margin: 0, marginBottom: '20px', fontFamily: "'Roboto Mono', monospace", fontWeight: 'initial', color: 'black' }}>
-                    {text}
+                    Bạn đang tìm kiếm ?
                 </h1>
                 <form action='' onSubmit={handleSubmit(onHandleSubmit)}>
                     <Grid
@@ -43,12 +58,17 @@ function FilterTour({text, min = 0, max = 3000000, load, onLoad}) {
                     >
                         <div className='filter-item-wrapper'>
                             <div className='filter-item-label'>
-                                <label className='filter-label'>Vùng miền</label>
+                                <label className='filter-label'>Châu lục</label>
                                 <KeyboardArrowDownIcon className='arrow' />
                                 <div className='filter-detail'>
-                                    <div className='filter-radio-item'><input type="radio" id="bac" value="bac" {...register("region")} /><label htmlFor='bac'>Miền Bắc</label></div>
-                                    <div className='filter-radio-item'><input type="radio" id="trung" value="trung" {...register("region")} /><label htmlFor='trung'>Miền Trung</label></div>
-                                    <div className='filter-radio-item'><input type="radio" id="nam" value="nam" {...register("region")} /><label htmlFor='nam'>Miền Nam</label></div>
+                                    {
+                                        CONTINENTS.map((cont, index) => (
+                                            <div className='filter-radio-item' key={index}>
+                                                <input type="radio" id={cont.value} value={cont.value} {...register("continent")} />
+                                                <label htmlFor={cont.value}>{cont.label}</label>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
                             </div>
 
@@ -58,11 +78,14 @@ function FilterTour({text, min = 0, max = 3000000, load, onLoad}) {
                                 <label className='filter-label'>Loại hình</label>
                                 <KeyboardArrowDownIcon className='arrow' />
                                 <div className='filter-detail'>
-                                    <div className='filter-radio-item'><input type="radio" id="nui" value="Núi" {...register("type")} /><label htmlFor='nui'>Núi</label></div>
-                                    <div className='filter-radio-item'><input type="radio" id="bien" value="Biển" {...register("type")} /><label htmlFor='bien'>Biển</label></div>
-                                    <div className='filter-radio-item'><input type="radio" id="dao" value="Đảo" {...register("type")} /><label htmlFor='dao'>Đảo</label></div>
-                                    <div className='filter-radio-item'><input type="radio" id="vanhoa" value="Văn Hóa" {...register("type")} /><label htmlFor='vanhoa'>Văn hóa</label></div>
-                                    <div className='filter-radio-item'><input type="radio" id="songnuoc" value="Sông Nước" {...register("type")} /><label htmlFor='songnuoc'>Sông nước</label></div>
+                                    {
+                                        listTypePlace?.map((typeplace, index) => (
+                                            <div className='filter-radio-item' key={index}>
+                                                <input type="radio" id={typeplace._id} value={typeplace.slug} {...register("typeplace")} />
+                                                <label htmlFor={typeplace._id}>{typeplace.name}</label>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -74,7 +97,7 @@ function FilterTour({text, min = 0, max = 3000000, load, onLoad}) {
                                     <Controller
                                         name="price"
                                         control={control}
-                                        defaultValue={[minValue, maxValue]}
+                                        defaultValue={[0, 50000000]}
                                         render={({ field }) => (
                                             <Slider
                                                 {...field}
@@ -85,8 +108,8 @@ function FilterTour({text, min = 0, max = 3000000, load, onLoad}) {
                                                 valueLabelFormat={
                                                     (value) => `${RegardPrice(value)}`
                                                 }
-                                                max={maxValue}
-                                                min={minValue}
+                                                max={50000000}
+                                                min={0}
                                             />
                                         )}
                                     />
@@ -114,7 +137,7 @@ function FilterTour({text, min = 0, max = 3000000, load, onLoad}) {
                                 </section>
                             </div>
                         </div>
-                        <button type='submit' className='button-search' style={{ cursor: 'pointer' }}>Tìm kiếm</button>
+                        <Button variant="contained" type='submit' className='button-search' style={{ cursor: 'pointer' }}>Tìm kiếm</Button>
                     </Grid>
                 </form>
             </Container>

@@ -46,11 +46,11 @@
     padding: 5px !important;
 }
 .filter-detail .filter-radio-item label{
-    font-family: 'Open Sans Condensed', sans-serif;
+    /* font-family: 'Open Sans Condensed', sans-serif; */
     font-weight: 900;
 }
 .filter-label{
-    font-family: 'Dosis', sans-serif;
+    /* font-family: 'Dosis', sans-serif; */
     font-size: 18px;
 }
 .filter-item-label:not(:last-child):hover:after{

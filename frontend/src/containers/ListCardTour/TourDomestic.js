@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ListCard from '../../components/ListCard';
-import {getAllTourDomestic} from '../../redux/reducers/user/action'
+import SpinnerLoading from '../../components/SpinnerLoading';
+import {getAllTourDomestic} from '../../redux/reducers/listTour/action'
 
 const TourDomestic = () => {
     const dispatch = useDispatch()
-    const {listTourDomestic} = useSelector((store) => store.user)
-    console.log(listTourDomestic)
+    const {listTourDomestic, loading} = useSelector((store) => store.listTour)
+    console.log(loading)
     useEffect(()=>{
         if(listTourDomestic.length === 0) dispatch(getAllTourDomestic())
     },[listTourDomestic])
     return (
         <div className='tour-list tour-domestic'>
             {
+               !loading ?
                 listTourDomestic && (
                     <ListCard data = {listTourDomestic}/>
-                )
+                ) 
+                :
+                <SpinnerLoading/>
             }
         </div>
     );

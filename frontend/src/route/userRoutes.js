@@ -2,9 +2,10 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import TourDomestic from '../containers/ListCardTour/TourDomestic';
 import TourInternational from '../containers/ListCardTour/TourInternational';
+import TourResult from '../containers/ListCardTour/TourResult';
 import userLayout from '../HOCS/userLayout';
 import HomePage from '../pages/HomePage'
-import { ROUTE_HOME, ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_INTERNATIONAL} from './type';
+import { ROUTE_HOME, ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_FILTER, ROUTE_TOUR_INTERNATIONAL} from './type';
 
 const userRoutes = () => {
     return (
@@ -36,6 +37,12 @@ const userRoutes = () => {
                 exact
                 element = {userLayout({
                     Component: TourInternational
+                })}
+            />
+            <Route
+                path={ROUTE_TOUR_FILTER}
+                element = {userLayout({
+                    Component: TourResult
                 })}
             />
         </Routes>

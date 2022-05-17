@@ -1,12 +1,23 @@
 import { Box, Container, Grid } from '@mui/material';
-import React from 'react';
-import TourCard from '../Cards/TourCard'
+import React, { useEffect, useState } from 'react';
+import TourCard from '../Cards/TourCard';
+import PaginationCustom from '../common/PaginationCustom';
+import ConvertToImageURL from '../../LogicResolve/ConvertToImageURL';
 
-const ListCard = ({ data }) => {
-    const ConvertToImageURL = (url) => {
-        if (url) return `http://localhost:4000/${url.slice(6)}`
-        else return "";
+const ListCard = ({data}) => {
+    const [page, setPage] = useState(1)
+    console.log(page)
+    const [dataListCard, setDataListCard] = useState([])
+    const handleOnChange = (e, value) => {
+        let start = (value-1)*6; 
+        let end = start + 6 < data.length ? start + 6 : data.length;
+        console.log(start, end)
+        setDataListCard([...data.slice(start, end)])
+        setPage(value)
     }
+    useEffect(() => {
+        setDataListCard([...data.slice(0,6)])
+    },[data])
     return (
         <div className='list-card-tour'>
             {data &&
@@ -54,7 +65,7 @@ const ListCard = ({ data }) => {
                             <Grid container spacing={1}>
                                 <Grid container item xs={12} md={9} spacing={2}>
                                     {
-                                        data.map((tour, index) => (
+                                        dataListCard.map((tour, index) => (
                                             <Grid item key={index} md={4} xs={12} sm={6}>
                                                 <TourCard
                                                     _id = {tour._id}
@@ -64,16 +75,11 @@ const ListCard = ({ data }) => {
                                                     // rating
                                                     price = {tour.price}
                                                     discount = {tour?.discount}
-                                                    
                                                 />
                                             </Grid>
                                         ))
                                     }
-                                    {/* <Grid item xs={12}>
-                                        <Stack spacing={2} sx={{ marginTop: '40px' }}>
-                                            <Pagination count={Math.ceil(data.totalTourRegion / 6)} page={pageNumber} onChange={handleChangePage} sx={{ display: 'flex', justifyContent: 'center' }} />
-                                        </Stack>
-                                    </Grid> */}
+                                    <PaginationCustom total={data.length} limit={6} page={page} onChange={handleOnChange}/>
                                 </Grid>
                                 {/* <Grid item xs={12} md={3}>
                                     <h4>TRẢI NGHIỆM DU LỊCH</h4>

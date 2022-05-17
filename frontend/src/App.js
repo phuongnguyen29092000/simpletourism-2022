@@ -15,6 +15,7 @@ import './styles/component/CommonHeader.scss'
 import './styles/component/ListTour.scss'
 import './styles/component/ListTicket.scss'
 import './styles/component/Modal.scss'
+import './styles/component/OutstandingTour.scss'
 
 function App() {
   return (

@@ -83,8 +83,119 @@ const deleteTour = (id, callback = ()=>{}) => {
     }
 }
 
+const getAllTourDomestic = (callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.GET_TOUR_DOMESTIC})
+        API.getAllTourDomestic()
+        // .then((response)=>response.json())
+        .then((result)=>{
+            console.log(result)
+            if(result.status === 200){
+                console.log(result.data.data)
+                dispatch({
+                    type: types.GET_TOUR_DOMESTIC_SUCCESS,
+                    payload: [...result.data.data]
+                })
+                callback()
+            }else{
+                dispatch({
+                    type: types.GET_TOUR_DOMESTIC_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.GET_TOUR_DOMESTIC_FAIL
+            })
+        })
+    }
+}
+
+const getAllTourInternational = (callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.GET_TOUR_INTERNATIONAL})
+        API.getAllTourInternational()
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                console.log(result.data.data)
+                dispatch({
+                    type: types.GET_TOUR_INTERNATIONAL_SUCCESS,
+                    payload: [...result.data.data]
+                })
+                callback()
+            }else{
+                dispatch({
+                    type: types.GET_TOUR_INTERNATIONAL_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.GET_TOUR_INTERNATIONAL_FAIL
+            })
+        })
+    }
+}
+
+const filterTour = (param, callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.FILTER_TOUR})
+        API.filterTour(param)
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                dispatch({
+                    type: types.FILTER_TOUR_SUCCESS,
+                    payload: [...result.data.data]
+                })
+                callback()
+            }else{
+                dispatch({
+                    type: types.FILTER_TOUR_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.FILTER_TOUR_FAIL
+            })
+        })
+    }
+}
+
+const getOutstandingTour = (callback=()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.GET_OUTSTANDING_TOUR})
+        API.getOutstandingTour()
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                dispatch({
+                    type: types.GET_OUTSTANDING_TOUR_SUCCESS,
+                    payload: [...result.data.data]
+                })
+                callback()
+            }else{
+                dispatch({
+                    type: types.GET_OUTSTANDING_TOUR_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.GET_OUTSTANDING_TOUR_FAIL
+            })
+        })
+    }
+}
+
 export {
     getAllTour,
     addTour,
-    deleteTour
+    deleteTour,
+    getAllTourDomestic,
+    getAllTourInternational,
+    filterTour,
+    getOutstandingTour
 }
