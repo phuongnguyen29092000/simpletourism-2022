@@ -12,7 +12,6 @@
     <item
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_baseline_filter_alt_24"
-        app:actionViewClass="android.widget.DialerFilter"
         android:title="@string/action_filter"
         app:showAsAction="ifRoom|collapseActionView"
         />

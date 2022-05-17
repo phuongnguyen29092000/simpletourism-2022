@@ -4,6 +4,7 @@ import com.example.simpletouristapp.api.ToursApi;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlace;
+import com.example.simpletouristapp.model.TypePlaceResponse;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class ToursApiService {
         return toursApi.getInternationalTours();
     }
 
-    public Call<List<TypePlace>> getTypePlacesApi(){
+    public Call<TypePlaceResponse> getTypePlacesApi(){
         return toursApi.getTypePlace();
     }
 
