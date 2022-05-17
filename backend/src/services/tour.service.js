@@ -75,12 +75,10 @@ const createTour = async (tour) => {
 };
 
 const updateTour = async (id, tour) => {
-  // const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
-  //   new: true,
-  // }).populate({ path: "typePlace" });
-  // return updatedTour;
-  const tours = await Tour.updateMany({ continent: { $eq: "Europe" } }, tour);
-  return tours;
+  const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
+    new: true,
+  }).populate({ path: "typePlace" });
+  return updatedTour;
 };
 
 const getTourByOwner = async (idOwner) => {
