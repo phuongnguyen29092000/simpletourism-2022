@@ -42,13 +42,14 @@ const getInternationalTour = catchAsync(async (req, res, next) => {
 });
 
 const getTour = catchAsync(async (req, res, next) => {
-  const tour = await TourService.getTour(req.params.id);
+  const { tour, similarTour } = await TourService.getTour(req.params.id);
   if (!tour) {
     return next(new ApiError(`Tour Not Found With Id ${req.params.id} !`, 404));
   } else {
     res.status(200).json({
       status: 200,
-      data: tour,
+      tour: tour,
+      similarTour: similarTour,
     });
   }
 });

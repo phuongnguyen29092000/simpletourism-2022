@@ -37,15 +37,22 @@ const getInternationalTour = async () => {
 
 const getTour = async (id) => {
   const tour = await Tour.findById(id).populate({ path: "typePlace" });
-  const similarTour = (
-    await Tour.find({ typePlace: { $eq: tour.typePlace } }).populate({
-      path: "typePlace",
-    })
-  ).filter((ele) => {
-    return ele._id != id;
-  });
-  console.log(similarTour);
-  return tour;
+  if (tour) {
+    const similarTour = (
+      await Tour.find({ typePlace: { $eq: tour.typePlace } }).populate({
+        path: "typePlace",
+      })
+    )
+      .filter((ele) => {
+        return ele._id != id;
+      })
+      .slice(0, 6);
+    return {
+      tour,
+      similarTour,
+    };
+  }
+  return { tour };
 };
 
 const getOutstandingTour = async () => {
