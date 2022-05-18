@@ -33,13 +33,13 @@ const tourSchema = mongoose.Schema(
     imageSlide: [
       {
         type: String,
-        require: true,
+        required: false,
         index: true,
       },
     ],
     price: {
       type: Number,
-      require: true,
+      required: true,
       min: 0,
       max: 500000000,
     },
@@ -86,18 +86,17 @@ const tourSchema = mongoose.Schema(
     owner: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
-      //required: [true, "Tour must belong to owner!"],
+      required: [true, "Tour must belong to owner!"],
     },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
 );
 
-tourSchema.virtual("actualPrice").get(function () {
-  return this.price * (1 - this.discount);
+tourSchema.pre("save", function (next) {
+  this.actualPrice = this.price * (1 - this.discount);
+  next();
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
