@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/nav_filter">
+
+    <fragment
+        android:id="@+id/nav_filter"
+        android:name="com.example.simpletouristapp.FilterResultFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_filter_result">
+        <action
+            android:id="@+id/action_nav_filter_to_nav_detail_tour"
+            app:destination="@id/nav_detail_tour" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_detail_tour"
+        android:name="com.example.simpletouristapp.ui.domestic.DetailTourFragment"
+        android:label="@string/detail_tour"
+        tools:layout="@layout/detail_tour" >
+
+
+        <action
+            android:id="@+id/action_nav_detail_tour_to_nav_filter"
+            app:destination="@id/nav_filter" />
+    </fragment>
+</navigation>

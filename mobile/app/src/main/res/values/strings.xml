@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">SimpleTouristApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_search">Search</string>
+
+    <string name="menu_home">Trang chủ</string>
+    <string name="menu_domestic">Trong nước</string>
+    <string name="detail_tour">Chi tiết tour</string>
+    <string name="menu_international">Ngoài nước</string>
+    <string name="menu_news">Tin tức</string>
+    <string name="menu_login">Đăng nhập</string>
+    <string name="popular_title">Các địa điểm phổ biến</string>
+    <string name="account">Thông tin cá nhân</string>
+    <string name="profile_title">Thông tin cá nhân</string>
+    <string name="change_password_title">Đổi mật khẩu</string>
+    <string name="history_title">Lịch sử đặt tour</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_logged">MainActivityLogged</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string-array name="contient">
+        <item>Châu Á</item>
+        <item>Châu Âu</item>
+        <item>Châu Mỹ</item>
+        <item>Châu Phi</item>
+        <item>Châu Úc</item>
+    </string-array>
+    <string-array name="sort_by">
+        <item>Giá</item>
+        <item>Rating</item>
+    </string-array>
+    <string name="title_activity_filter_result">FilterResultActivity</string>
+
+</resources>
