@@ -37,7 +37,22 @@ const getInternationalTour = async () => {
 
 const getTour = async (id) => {
   const tour = await Tour.findById(id).populate({ path: "typePlace" });
-  return tour;
+  if (tour) {
+    const similarTour = (
+      await Tour.find({ typePlace: { $eq: tour.typePlace } }).populate({
+        path: "typePlace",
+      })
+    )
+      .filter((ele) => {
+        return ele._id != id;
+      })
+      .slice(0, 6);
+    return {
+      tour,
+      similarTour,
+    };
+  }
+  return { tour };
 };
 
 const getOutstandingTour = async () => {
@@ -75,7 +90,7 @@ const createTour = async (tour) => {
 };
 
 const updateTour = async (id, tour) => {
-  const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
+  const updatedTour = await Tour.findOneAndUpdate({ _id: id }, tour, {
     new: true,
   }).populate({ path: "typePlace" });
   return updatedTour;

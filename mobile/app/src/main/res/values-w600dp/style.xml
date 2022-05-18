@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/material_dynamic_primary0</item>
+    </style>
+    <style name="DialogFilter" parent="Theme.AppCompat.Light.DialogWhenLarge">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">#95D1CC</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/Theme.AppCompat.Dialog</item>
+    </style>
+</resources>
