@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -29,6 +31,10 @@ import com.example.simpletouristapp.model.TypePlaceResponse;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.example.simpletouristapp.ui.news.NewsViewModel;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +45,8 @@ public class FilterFragment extends DialogFragment {
     private RecyclerView rvTypePlace;
     private ToursApiService toursApiService;
     private TypePlaceAdapter typePlaceAdapter;
+    private Set<String> selectedTypePlace;
+    private HashMap<String, String> params;
 
     static FilterFragment newInstance() {
         return new FilterFragment();
@@ -69,22 +77,67 @@ public class FilterFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        selectedTypePlace = new HashSet<>();
+        params = new HashMap<>();
+        HashMap<String,String> continents = new HashMap<String, String>();
+        final String[] typePlace = {""};
+        final String[] continent = {""};
+        final String[] sort = {""};
+
+        continents.put("Châu Á","asia");
+        continents.put("Châu Âu","europe");
+        continents.put("Châu Mỹ","americas");
+        continents.put("Châu Phi","africa");
+        continents.put("Châu Úc","australia");
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.contient, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerContinent.setAdapter(adapter);
+
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),R.array.sort_by, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerSort.setAdapter(adapter1);
+
+        binding.spinnerContinent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Adapter adapter2 = adapterView.getAdapter();
+                continent[0] = (String) adapter2.getItem(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        binding.spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Adapter adapter2 = adapterView.getAdapter();
+                sort[0] = (String) adapter2.getItem(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
         binding.dialogClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
             }
         });
+
         binding.seekbarPriceMin.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                binding.priceMin.setText(String.valueOf(i));
+                binding.priceMin.setText(String.valueOf(i)+"đ");
+
             }
 
             @Override
@@ -97,6 +150,7 @@ public class FilterFragment extends DialogFragment {
 
             }
         });
+
         binding.seekbarPriceMax.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -110,9 +164,9 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
+
         rvTypePlace = binding.rvTypePlace;
         toursApiService = new ToursApiService();
 
@@ -122,7 +176,7 @@ public class FilterFragment extends DialogFragment {
             public void onResponse(Call<TypePlaceResponse> call, Response<TypePlaceResponse> response) {
                 if(response.code() == 200){
                     TypePlaceResponse typePlaceResponse = response.body();
-                    typePlaceAdapter = new TypePlaceAdapter(getActivity(),typePlaceResponse.getTypePlaces());
+                    typePlaceAdapter = new TypePlaceAdapter(getActivity(),typePlaceResponse.getTypePlaces(),selectedTypePlace);
                     rvTypePlace.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
                     rvTypePlace.setAdapter(typePlaceAdapter);
                 }
@@ -132,6 +186,33 @@ public class FilterFragment extends DialogFragment {
             public void onFailure(Call<TypePlaceResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG",t.getMessage());
+            }
+        });
+
+        binding.dialogAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(String i : continents.keySet()){
+                    if(i.equals(continent[0])){
+                        params.put("continent",continents.get(i));
+                    }
+                }
+                for (String place: selectedTypePlace){
+                    typePlace[0] += place + ",";
+                }
+                params.put("typeplace",typePlace[0].replaceAll(",$",""));
+                if(sort[0].equals("Giá")){
+                    params.put("sort","price");
+                }else {
+                    params.put("sort","rating");
+                }
+                params.put("priceMin",binding.priceMin.getText().toString().substring(0, binding.priceMin.getText().toString().lastIndexOf("đ")));
+                params.put("priceMax",binding.priceMax.getText().toString().substring(0, binding.priceMax.getText().toString().lastIndexOf("đ")));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("params", params);
+                FilterResultFragment filterResultFragment = new FilterResultFragment();
+                filterResultFragment.setArguments(bundle);
+                filterResultFragment.show(getParentFragmentManager(),"FilterResult");
             }
         });
     }

@@ -72,7 +72,7 @@ public class DomesticFragment extends Fragment {
                 Log.d("TAG",response.code()+"");
                 ToursResponse tourResponse = response.body();
 //                Integer totalResult = tourResponse.totalResult;
-                tourAdapter = new TourAdapter(getContext(),tourResponse.getData());
+                tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"domestic");
                 tourAdapter.initData();
                 rvDomesticTour.setLayoutManager(new GridLayoutManager(getContext(),2));
                 rvDomesticTour.setAdapter(tourAdapter);

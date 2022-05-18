@@ -89,14 +89,15 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/continent" />
+
             <Spinner
                 android:id="@+id/spinner_continent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="19dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                />
+                android:contentDescription="@string/menu_domestic" />
             <TextView
                 android:id="@+id/type_place"
                 android:layout_width="match_parent"
@@ -159,65 +160,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="3">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:text="Giá"
-                        android:textColor="@android:color/black"
-                        android:textSize="20dp"
-                        android:layout_weight="1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@android:color/darker_gray"
-                        app:layout_constraintTop_toBottomOf="@+id/price" />
-                    <EditText
-                        android:id="@+id/editText2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="xx"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editText" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:text="Hoặc"
-                        android:textColor="@android:color/black"
-                        android:textSize="25dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -257,7 +205,7 @@
                             android:id="@+id/price_min"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="26dp"
+                            android:layout_marginEnd="40dp"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             android:text="0đ"
@@ -299,12 +247,14 @@
                             android:layout_marginEnd="16dp"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
+                            android:max="10000000"
+                            android:progress="1"
                             android:layout_weight="3"/>
                         <TextView
                             android:id="@+id/price_max"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="26dp"
+                            android:layout_marginEnd="40dp"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
                             android:text="0đ"

@@ -1,14 +1,13 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
 const { TourController } = require(".");
+const ApiError = require("../utils/ApiError");
 
-const getAllTour = catchAsync(async (req, res) => {
+const getAllTour = catchAsync(async (req, res, next) => {
+  //console.log(req.query);
   const tours = await TourService.getAllTour(req.query);
   if (!tours || tours.length === 0) {
-    res.status(404).json({
-      status: 404,
-      message: "Tour Not Found!",
-    });
+    return next(new ApiError("Tour Not Found!", 404));
   } else {
     res.status(200).json({
       status: 200,
@@ -18,13 +17,10 @@ const getAllTour = catchAsync(async (req, res) => {
   }
 });
 
-const getDomesticTour = catchAsync(async (req, res) => {
+const getDomesticTour = catchAsync(async (req, res, next) => {
   const tours = await TourService.getDomesticTour();
-  if (!tours) {
-    res.status(404).json({
-      status: 404,
-      message: "Domestic Tour Not Found!",
-    });
+  if (!tours || tours.length === 0) {
+    return next(new ApiError("Tour Not Found!", 404));
   } else {
     res.status(200).json({
       stattus: 200,
@@ -34,13 +30,10 @@ const getDomesticTour = catchAsync(async (req, res) => {
   }
 });
 
-const getInternationalTour = catchAsync(async (req, res) => {
+const getInternationalTour = catchAsync(async (req, res, next) => {
   const tours = await TourService.getInternationalTour();
-  if (!tours) {
-    res.stattus(404).json({
-      status: 404,
-      message: "International Tours Not Found!",
-    });
+  if (!tours || tours.length === 0) {
+    return next(new ApiError("Tour Not Found!", 404));
   } else {
     res
       .status(200)
@@ -48,13 +41,10 @@ const getInternationalTour = catchAsync(async (req, res) => {
   }
 });
 
-const getTour = catchAsync(async (req, res) => {
+const getTour = catchAsync(async (req, res, next) => {
   const tour = await TourService.getTour(req.params.id);
   if (!tour) {
-    res.status(404).json({
-      status: 404,
-      message: "Tour not found with that id!",
-    });
+    return next(new ApiError(`Tour Not Found With Id ${req.params.id} !`, 404));
   } else {
     res.status(200).json({
       status: 200,
@@ -63,13 +53,10 @@ const getTour = catchAsync(async (req, res) => {
   }
 });
 
-const getOutStandingTours = catchAsync(async (req, res) => {
+const getOutStandingTours = catchAsync(async (req, res, next) => {
   const outstandingTour = await TourService.getOutstandingTour();
-  if (!outstandingTour) {
-    res.status(404).json({
-      status: 404,
-      message: "Tour Not Found!",
-    });
+  if (!outstandingTour || outstandingTour.length === 0) {
+    return next(new ApiError("Tour Not Found!", 404));
   } else {
     res.status(200).json({
       status: 200,
@@ -79,16 +66,18 @@ const getOutStandingTours = catchAsync(async (req, res) => {
   }
 });
 
-const deleteTour = catchAsync(async (req, res) => {
+const deleteTour = catchAsync(async (req, res, next) => {
   const deletedTour = await TourService.deleteTour(req.params.id);
   if (deletedTour !== 1) {
-    res.status(400).send("Can not delete tour with that id!");
+    return next(
+      new ApiError(`Can Not Delete Tour With Id ${req.params.id}`, 400)
+    );
   } else {
     res.status(204).send();
   }
 });
 
-const createTour = catchAsync(async (req, res) => {
+const createTour = catchAsync(async (req, res, next) => {
   const imageAvatarPath = req.files.imageAvatar[0].path;
   const imageSlide1 = req.files.imageSlide1[0].path;
   const imageSlide2 = req.files.imageSlide2[0].path;
@@ -105,10 +94,7 @@ const createTour = catchAsync(async (req, res) => {
     )
   );
   if (!tour) {
-    res.status(400).json({
-      status: 400,
-      message: "Can not create new tour, please try later!",
-    });
+    return next(new ApiError("Can Not Create New Tour, Try Again!", 400));
   } else {
     res.status(201).json({
       status: 201,
@@ -117,13 +103,15 @@ const createTour = catchAsync(async (req, res) => {
   }
 });
 
-const updateTour = catchAsync(async (req, res) => {
+const updateTour = catchAsync(async (req, res, next) => {
   const tour = await TourService.updateTour(req.params.id, req.body);
   if (!tour) {
-    res.status(400).json({
-      status: 400,
-      message: "Can not update tour, please try later!",
-    });
+    return next(
+      new ApiError(
+        `Can Not Update Tour With Id ${req.params.id}, Try Again!`,
+        400
+      )
+    );
   } else {
     res.status(200).json({
       status: 200,
@@ -132,13 +120,12 @@ const updateTour = catchAsync(async (req, res) => {
   }
 });
 
-const getTourByOwner = catchAsync(async (req, res) => {
+const getTourByOwner = catchAsync(async (req, res, next) => {
   const tours = await TourService.getTourByOwner(req.params.ownerId);
-  if (!tours) {
-    res.status(404).json({
-      status: 404,
-      message: "Tours Not Found!",
-    });
+  if (!tours || tours.length === 0) {
+    return next(
+      new ApiError(`Tour Not Found With Owner Id ${req.params.ownerId}!`, 404)
+    );
   } else {
     res.status(200).json({
       status: 200,

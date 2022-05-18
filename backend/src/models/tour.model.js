@@ -91,8 +91,14 @@ const tourSchema = mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+tourSchema.virtual("actualPrice").get(function () {
+  return this.price * (1 - this.discount);
+});
 
 const Tour = mongoose.model("Tour", tourSchema);
 

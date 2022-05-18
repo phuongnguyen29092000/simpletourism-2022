@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_nav_detail_tour_to_nav_international"
             app:destination="@id/nav_international" />
+        <action
+            android:id="@+id/action_nav_detail_tour_to_nav_filter"
+            app:destination="@id/nav_filter" />
     </fragment>
     <fragment
         android:id="@+id/nav_international"
@@ -52,4 +55,14 @@
         android:name="com.example.simpletouristapp.ui.login.LoginFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/login_fragment" />
+
+    <fragment
+        android:id="@+id/nav_filter"
+        android:name="com.example.simpletouristapp.ui.home.FilterResultFragment"
+        android:label="Filter"
+        tools:layout="@layout/filter_result_fragment" >
+        <action
+            android:id="@+id/action_nav_filter_to_nav_detail_tour"
+            app:destination="@id/nav_detail_tour" />
+    </fragment>
 </navigation>

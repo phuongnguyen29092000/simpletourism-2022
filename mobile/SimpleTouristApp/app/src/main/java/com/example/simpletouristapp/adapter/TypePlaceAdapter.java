@@ -2,28 +2,24 @@ package com.example.simpletouristapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.R;
-import com.example.simpletouristapp.databinding.DomesticFragmentBinding;
-import com.example.simpletouristapp.model.Tour;
-import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlace;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.google.android.material.chip.Chip;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,10 +29,12 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
 
     private Context context;
     private List<TypePlace> typePlaces;
+    private Set<String> selectedTypePlace;
 
-    public TypePlaceAdapter(Context context, List<TypePlace> typePlaces) {
+    public TypePlaceAdapter(Context context, List<TypePlace> typePlaces, Set<String> selectedTypePlace) {
         this.context = context;
         this.typePlaces = typePlaces;
+        this.selectedTypePlace = selectedTypePlace;
     }
 
 
@@ -55,6 +53,25 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
         TypePlace typePlace = typePlaces.get(position);
 
         holder.checkTypePlace.setText(typePlace.getName());
+        holder.checkTypePlace.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    for (TypePlace typePlace: typePlaces){
+                        if(typePlace.getName().equals(compoundButton.getText().toString())){
+                            selectedTypePlace.add(typePlace.getSlug());
+                        }
+                    }
+
+                }else {
+                    for (TypePlace typePlace: typePlaces){
+                        if(typePlace.getName().equals(compoundButton.getText().toString())){
+                            selectedTypePlace.remove(typePlace.getSlug());
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override

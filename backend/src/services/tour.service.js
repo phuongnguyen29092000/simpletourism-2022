@@ -13,6 +13,7 @@ const getAllTour = async (queryString) => {
   features.discount();
   features.paginate();
   const tours = await features.query;
+  if (!tours) console.log(tours);
   if (typePlace !== undefined) {
     res = features.typePlace(typePlace, tours);
     return res;
@@ -74,12 +75,10 @@ const createTour = async (tour) => {
 };
 
 const updateTour = async (id, tour) => {
-  // const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
-  //   new: true,
-  // }).populate({ path: "typePlace" });
-  // return updatedTour;
-  const tours = await Tour.updateMany({ continent: { $eq: "Europe" } }, tour);
-  return tours;
+  const updatedTour = await Tour.findByIdAndUpdate(id, tour, {
+    new: true,
+  }).populate({ path: "typePlace" });
+  return updatedTour;
 };
 
 const getTourByOwner = async (idOwner) => {

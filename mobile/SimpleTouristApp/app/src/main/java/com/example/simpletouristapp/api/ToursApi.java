@@ -25,4 +25,7 @@ public interface ToursApi {
     Call<TypePlaceResponse> getTypePlace();
     @GET("tour")
     Call<ToursResponse> getToursByTypePlace(@Query("typePlace") String typePlace);
+    @GET("tour")
+    Call<ToursResponse> getToursFilter(@Query("continent") String continent,@Query("typeplace") String typePlace
+            ,@Query("sort") String sort,@Query("price[gte]") int priceMin,@Query("price[lte]") int priceMax);
 }

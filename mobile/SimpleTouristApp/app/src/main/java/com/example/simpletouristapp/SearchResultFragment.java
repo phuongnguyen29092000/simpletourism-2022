@@ -54,7 +54,7 @@ public class SearchResultFragment extends Fragment {
                 Log.d("TAG", response.code() + "");
                 ToursResponse tourResponse = response.body();
 //                Integer totalResult = tourResponse.totalResult;
-                tourAdapter = new TourAdapter(getContext(), tourResponse.getData());
+                tourAdapter = new TourAdapter(getContext(), tourResponse.getData(),"search");
                 tourAdapter.initData();
 
                 if (!getActivity().getIntent().getStringExtra("searchResult").isEmpty()) {

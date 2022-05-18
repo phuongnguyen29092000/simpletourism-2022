@@ -45,4 +45,8 @@ public class ToursApiService {
         return toursApi.getToursByTypePlace(typePlace);
     }
 
+    public Call<ToursResponse> getToursFilter(String continent, String typePlace, String sort, int priceMin, int priceMax){
+        return toursApi.getToursFilter(continent, typePlace, sort, priceMin, priceMax);
+    }
+
 }

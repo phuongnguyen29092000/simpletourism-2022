@@ -13,7 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.R;
@@ -32,10 +36,12 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     private Context context;
     private List<Tour> tours;
     private List<Tour> mTourAll;
+    private String fragment;
 
-    public TourAdapter(Context context, List<Tour> tours) {
+    public TourAdapter(Context context, List<Tour> tours,String fragment) {
         this.context = context;
         this.tours = tours;
+        this.fragment = fragment;
     }
 
     public void initData(){this.mTourAll = new ArrayList<Tour>(tours);}
@@ -64,17 +70,23 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdTour", tour.getId());
-                Log.d("tag",context.getClass() + " " + SearchResultFragment.class);
 //                Navigation.findNavController(view).navigate(R.id.action_nav_search_to_nav_detail_tour,bundle);
-                if(context.getClass() == SearchActivity.class){
+                if(fragment.equals("search")){
                     Navigation.findNavController(view).navigate(R.id.action_nav_search_to_nav_detail_tour,bundle);
                 }else {
-                    if(tour.getNameCountry().equals("Việt Nam")){
-                        Log.d("tag",context.getClass() + " " + SearchResultFragment.class);
+                    if(fragment.equals("domestic")){
                         Navigation.findNavController(view).navigate(R.id.action_domestic_to_detailTour,bundle);
                     }else {
-                        Log.d("tag",context.getClass() + " " + SearchResultFragment.class);
-                        Navigation.findNavController(view).navigate(R.id.action_international_to_detailTour,bundle);
+                        if(fragment.equals("international")){
+                            Navigation.findNavController(view).navigate(R.id.action_international_to_detailTour,bundle);
+                        }else {
+                            if(fragment.equals("filter")){
+                                NavHostFragment navHostFragment = (NavHostFragment) ((FragmentActivity) context).getSupportFragmentManager()
+                                        .findFragmentById(R.id.nav_host_fragment_content_main);
+                                NavController navCo = navHostFragment.getNavController();
+                                navCo.navigate(R.id.action_nav_filter_to_nav_detail_tour,bundle);
+                            }
+                        }
                     }
                 }
 
