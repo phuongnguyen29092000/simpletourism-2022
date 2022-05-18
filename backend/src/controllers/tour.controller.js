@@ -138,13 +138,13 @@ const getTourByOwner = catchAsync(async (req, res, next) => {
 });
 
 module.exports = {
-  getAllTour,
-  getDomesticTour,
-  getInternationalTour,
-  getTour,
-  deleteTour,
-  createTour,
-  updateTour,
-  getTourByOwner,
-  getOutStandingTours,
+    getAllTour,
+    getDomesticTour,
+    getInternationalTour,
+    getTour,
+    deleteTour,
+    createTour,
+    updateTour,
+    getTourByOwner,
+    getOutStandingTours,
 };

@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
-const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
 const nodeMailer = require('nodemailer');
+const { User } = require('../models');
 
 const adminEmail = process.env.EMAIL;
 const adminPassword = process.env.EMAILPASS;
@@ -15,18 +15,12 @@ const createUser = async(userBody) => {
     const user = await User.create(userBody)
     return user
 }
-const getAllUser = async() => {
-    return User.find({
+
+const getUserByRole = async(role, isAdmin = false) => {
+    if (isAdmin) return User.find({
         role: { $ne: 'admin' }
     })
-}
-
-const getAllCompany = async() => {
-    return User.find({ role: 'owner' });
-}
-
-const getAllCustomer = async() => {
-    return User.find({ role: 'customer' });
+    else return User.find({ role })
 }
 
 const getUserById = async(id) => {
@@ -71,9 +65,7 @@ const transporter = nodeMailer.createTransport({
 
 module.exports = {
     createUser,
-    getAllUser,
-    getAllCompany,
-    getAllCustomer,
+    getUserByRole,
     getUserById,
     getUserByEmail,
     updateUserById,

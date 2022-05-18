@@ -1,0 +1,12 @@
+### check authorization jwt 
+GET http://localhost:4000/tour
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODUxYmIzZjZlYWIxNGIxMjkxZjE2ZiIsImV4cCI6MTY1Mjg5NTY2MSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1Mjg5NTA2MX0.Tja3nQ__Xndi7Re8Og5qWnsbM8oNIaJE1MntuadVYCY
+
+### Logout 
+POST http://localhost:4000/auth/logout
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODUxYmIzZjZlYWIxNGIxMjkxZjE2ZiIsImV4cCI6MTY1Mjg5NTY2MSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1Mjg5NTA2MX0.Tja3nQ__Xndi7Re8Og5qWnsbM8oNIaJE1MntuadVYCY
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODUxYmIzZjZlYWIxNGIxMjkxZjE2ZiIsImV4cCI6MTY1NTQ4NzA2MSwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE2NTI4OTUwNjF9.0QnYRsa4FRDxhr-rvKU9rhroHMoq-ohHLU-kENdeHLI"
+}

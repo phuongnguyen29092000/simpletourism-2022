@@ -13,46 +13,19 @@ const createUser = catchAsync(async(req, res) => {
     })
 })
 
-/* get all user */
-const getAllUser = catchAsync(async(req, res) => {
-    const users = await userService.getAllUser()
+const getUserByRole = catchAsync(async(req, res) => {
+    let users
+    if (req.body.role == 'admin') users = await userService.getUserByRole(req.body.role, true)
+    else users = await userService.getUserByRole(req.body.role)
 
     if (!users) res.status(httpStatus.NOT_FOUND).json({
-        status: 404,
-        message: "Không tìm thấy người dùng",
-    })
-    else res.status(200).json({
-        status: 200,
-        message: "OK",
-        users: users
-    })
-})
-
-const getAllCompany = catchAsync(async(req, res) => {
-    const companys = await userService.getAllCompany()
-
-    if (!companys) res.status(httpStatus.NOT_FOUND).json({
         status: 404,
         message: "Không tìm thấy công ty",
     })
     else res.status(200).json({
         status: 200,
         message: "OK",
-        companys: companys
-    })
-})
-
-const getAllCustomer = catchAsync(async(req, res) => {
-    const customers = await userService.getAllCustomer()
-
-    if (!customers) res.status(httpStatus.NOT_FOUND).json({
-        status: 404,
-        message: "Không tìm thấy khách hàng",
-    })
-    else res.status(200).json({
-        status: 200,
-        message: "OK",
-        customers: customers
+        users: users
     })
 })
 
@@ -93,9 +66,7 @@ const deleteUserById = catchAsync(async(req, res) => {
 
 module.exports = {
     createUser,
-    getAllUser,
-    getAllCompany,
-    getAllCustomer,
+    getUserByRole,
     getUserById,
     updateUserById,
     deleteUserById,
