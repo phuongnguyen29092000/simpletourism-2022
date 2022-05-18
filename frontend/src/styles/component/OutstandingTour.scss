@@ -1,0 +1,33 @@
+  .hot-tour-slide-wrapper{
+    // margin-top: 120px;
+    padding-bottom: 50px;
+    height: 700px;
+    background-color: cadetblue;
+    background-image:url(https://images.pexels.com/photos/580151/pexels-photo-580151.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+    .container-slide-hot-tour .slick-list .slick-track .slick-slide > div {
+      margin: 0 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+    h2{
+      padding-top: 50px;
+    }
+    h4{
+      padding-bottom: 50px;
+    }
+    .card-hot-place{
+      transition: 1s;
+    }
+    .image-slide-place{
+      cursor: pointer;
+      transition: 1s;
+    }
+    .text-place-name{
+      position: absolute;
+      bottom: 10%;
+      left: -50%;
+      z-index: 10;
+      transition: 1s;
+      color: white;
+    }
+  }

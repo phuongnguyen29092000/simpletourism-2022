@@ -39,7 +39,7 @@ export const reducer = (state = initialState, action) => {
             }
         }
         case types.CREATE_FEEDBACK_SUCCESS: {
-            let listTemp = [...listFeedback]
+            let listTemp = [...state?.listFeedback]
             return {
                 ...state,
                 //xem lai
@@ -60,7 +60,7 @@ export const reducer = (state = initialState, action) => {
             }
         }
         case types.DELETE_FEEDBACK_SUCCESS: {
-            let listTemp = [...listFeedback]
+            let listTemp = [...state?.listFeedback]
             return {
                 ...state,
                 //xem lai
@@ -81,7 +81,7 @@ export const reducer = (state = initialState, action) => {
             }
         }
         case types.UPDATE_FEEDBACK_SUCCESS: {
-            let listTemp = [...listFeedback]
+            let listTemp = [...state?.listFeedback]
             let indexUpdate = listTemp?.find((fb) => fb._id === action.payload._id)
             listTemp = listTemp?.splice(indexUpdate, 1, action.payload)
             return {

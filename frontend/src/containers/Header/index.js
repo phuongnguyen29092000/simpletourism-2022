@@ -1,7 +1,4 @@
 import { SearchOutlined } from '@mui/icons-material/SearchOutlined';
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import LoginIcon from '@mui/icons-material/Login';
-// import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MenuList, Paper, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -14,12 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-// import axios from 'axios';
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import APIClient from '../../APIs/APIClient';
-// import { actions, useStore } from '../../store';
-import logo from '../../public/logoTest.png';
+import logo from '../../public/logo-spt.png';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -94,7 +88,6 @@ const Header = () => {
     const [searchBox, setSearchBox] = React.useState(false);
     const [nav, setNav] = React.useState({
         height: '90px',
-        color: 'transparent'
     });
     menuList = [...pagesUser];
 
@@ -105,13 +98,11 @@ const Header = () => {
             if (window.pageYOffset > 100) {
                 setNav({
                     height: '70px',
-                    color: 'white'
                 });
             }
             if (window.pageYOffset <= 100) {
                 setNav({
                     height: '90px',
-                    color: 'transparent'
                 });
             }
         }
@@ -135,45 +126,65 @@ const Header = () => {
     }
 
     return (
-        <AppBar position="fixed" className={classes.root} style={{ height: `${nav.height}`, backgroundColor: `${nav.color}` }}>
+        <AppBar position="fixed" className={classes.root} style={{ height: `${nav.height}`, backgroundColor: '#B1D0E0' }}>
             <Container maxWidth="xl">
                 <Toolbar sx={{ height: `${nav.height}` }}>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/* <Link style={{ textDecoration: 'none' }} to='/'> */}
-                            <img src={logo} height={nav.height} />
+                        <img src={logo} height={nav.height} style={{padding: '7px', borderRadius: '5px'}} />
                         {/* </Link> */}
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '60px' }}>
-                            <Link style={{ textDecoration: 'none' }} to='/'>
-                                <Button
-                                    className={classes.item}
-                                    sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
-                                >
-                                    <span className= 'link-tab'>
-                                        TRANG CHỦ
-                                    </span>
-                                </Button>
-                            </Link>
-                            <Link style={{ textDecoration: 'none' }} to='/news'>
-                                <Button
-                                    className={classes.item}
-                                    sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
-                                >
-                                    <span className= 'link-tab'>
-                                        TIN TỨC
-                                    </span>
-                                </Button>
-                            </Link>
-                            <Link style={{ textDecoration: 'none' }} to='/contact'>
-                                <Button
-                                    className={classes.item}
-                                    sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
-                                >
-                                    <span className= 'link-tab'>
-                                        LIÊN HỆ
-                                    </span>
-                                </Button>
-                            </Link>
+                        <Link style={{ textDecoration: 'none' }} to='/'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                            >
+                                <span className='link-tab'>
+                                    TRANG CHỦ
+                                </span>
+                            </Button>
+                        </Link>
+                        <Link style={{ textDecoration: 'none' }} to='/'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                            >
+                                <span className='link-tab'>
+                                    TRONG NƯỚC
+                                </span>
+                            </Button>
+                        </Link>
+                        <Link style={{ textDecoration: 'none' }} to='/'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                            >
+                                <span className='link-tab'>
+                                    QUỐC TẾ
+                                </span>
+                            </Button>
+                        </Link>
+                        <Link style={{ textDecoration: 'none' }} to='/news'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                            >
+                                <span className='link-tab'>
+                                    TIN TỨC
+                                </span>
+                            </Button>
+                        </Link>
+                        <Link style={{ textDecoration: 'none' }} to='/contact'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                            >
+                                <span className='link-tab'>
+                                    LIÊN HỆ
+                                </span>
+                            </Button>
+                        </Link>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -193,9 +204,9 @@ const Header = () => {
                             <MenuList>
                                 {menuList.map((page, index) => (
                                     // <Link style={{ textDecoration: 'none' }} to={page.path} key={index}>
-                                        <MenuItem key={index} onClick={handleOpenSideBar}>
-                                            <Typography textAlign="center" color="gray" component="div">{page.title}</Typography>
-                                        </MenuItem>
+                                    <MenuItem key={index} onClick={handleOpenSideBar}>
+                                        <Typography textAlign="center" color="gray" component="div">{page.title}</Typography>
+                                    </MenuItem>
                                     // </Link>
                                 ))}
                             </MenuList>
@@ -203,7 +214,7 @@ const Header = () => {
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
                         {/* <Link style={{ textDecoration: 'none' }} to='/'> */}
-                            <img src={logo} height={nav.height} />
+                        <img src={logo} height={nav.height} />
                         {/* </Link> */}
                     </Box>
                     <ClickAwayListener onClickAway={handleClickCloseSearch}>

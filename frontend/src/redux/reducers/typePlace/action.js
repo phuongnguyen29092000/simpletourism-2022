@@ -7,10 +7,11 @@ const getTypePlace = (callback = ()=>{}) => {
         API.getAllTypePlace()
         // .then((response)=>response.json())
         .then((result=>{
+            // console.log(result)
             if(result.status === 200){
                 dispatch({
                     type: types.GET_TYPEPLACE_SUCCESS,
-                    payload: [...result.data]
+                    payload: [...result.data.typePlaces]
                 })
                 callback()
             }else{
