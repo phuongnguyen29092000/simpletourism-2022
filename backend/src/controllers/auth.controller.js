@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync')
-const passport = require("passport");
+const passport = require("passport")
 
 const { User } = require('../models')
 const { userService, tokenService, authService } = require('../services')
@@ -47,7 +47,7 @@ const loginFail = catchAsync(async(req, res) => {
 })
 
 const logout = catchAsync(async(req, res) => {
-    await authService.logout(req.body.refreshToken);
+    await authService.logout(req.accessToken, req.body.refreshToken)
     res.status(httpStatus.OK).json({
         status: 200,
         message: "Đăng xuất thành công"
@@ -76,6 +76,7 @@ const getRole = catchAsync(async(req, res) => {
         status: 200,
         message: "OK",
         userInfo: {
+            userId: req.userId,
             role: req.role,
             userName: req.userName,
             email: req.email

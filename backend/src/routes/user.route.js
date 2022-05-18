@@ -1,22 +1,18 @@
 const express = require('express');
-const auth = require('../middlewares/auth')
 
 const { userController } = require('../controllers')
+const auth = require('../middlewares/auth')
 
 const router = express.Router();
 
-router.get('/', userController.getAllUser)
+router.get('/', auth('admin'), userController.getUserByRole)
 
-router.get('/companys', userController.getAllCompany)
+router.post('/create', auth('admin', 'owner', 'customer'), userController.createUser)
 
-router.get('/customers', userController.getAllCustomer)
+router.get('/:id', auth('admin', 'owner', 'customer'), userController.getUserById)
 
-router.post('/create', userController.createUser)
+router.put('/:id', auth('admin'), userController.updateUserById)
 
-router.get('/:id', userController.getUserById)
-
-router.put('/:id', userController.updateUserById)
-
-router.delete('/:id', userController.deleteUserById)
+router.delete('/:id', auth('admin'), userController.deleteUserById)
 
 module.exports = router;

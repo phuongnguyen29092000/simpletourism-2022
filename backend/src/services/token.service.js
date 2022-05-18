@@ -5,7 +5,7 @@ const moment = require('moment')
 
 const userService = require('./user.service')
 const { Token } = require('../models')
-const { tokenTypes } = require('../config/tokens')
+const tokenTypes = require('../config/tokens')
 
 const generateToken = (userId, expires, type, secret = process.env.JWT_SECRET) => {
     const payload = {
@@ -27,10 +27,10 @@ const saveToken = async(token, userId, expires, type) => {
 };
 
 const verifyToken = async(token, type) => {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET)
     const tokenInfo = await Token.findOne({ token, type, user: payload.id })
     if (!tokenInfo) {
-        throw new Error('Token not found')
+        throw new Error('Không tìm thấy token')
     }
     return tokenInfo
 }

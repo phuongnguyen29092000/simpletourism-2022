@@ -4,17 +4,16 @@ const tokenTypes = require('../config/tokens')
 
 const auth = (...roles) => {
     return async(req, res, next) => {
-        const token = req.headers['Authorization'].split(' ')[1]
+        const token = req.headers['authorization'].split(' ')[1]
         if (!token) {
             return res.status(httpStatus.UNAUTHORIZED).json({
                 status: 401,
                 message: "Không tìm thấy token"
             })
         }
-
         try {
             const payload = await tokenService.verifyToken(token, tokenTypes.ACCESS)
-            req.userId = payload.id
+            req.userId = payload.user.toString()
             const user = await userService.getUserById(req.userId)
             if (!user) return res.status(httpStatus.FORBIDDEN).json({
                 status: 403,
@@ -28,9 +27,13 @@ const auth = (...roles) => {
             req.role = user.role
             req.userName = user.userName
             req.email = user.email
+            req.accessToken = token
             next();
         } catch {
-            return res.status(httpStatus.FORBIDDEN).send("Forbidden")
+            return res.status(httpStatus.FORBIDDEN).json({
+                status: 403,
+                message: "FORBIDDEN"
+            })
         }
 
     }

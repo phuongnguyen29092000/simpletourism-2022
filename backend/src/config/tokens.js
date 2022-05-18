@@ -3,6 +3,4 @@ const tokenTypes = {
     REFRESH: 'refresh',
 };
 
-module.exports = {
-    tokenTypes,
-};
+module.exports = tokenTypes
