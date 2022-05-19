@@ -55,25 +55,25 @@ const createFeedback = (data, callback = ()=>{}) => {
 
 const updateFeedback = (data, callback = ()=>{}) => {
     return (dispatch) => {
-        dispatch({type: types.UPADTE_FEEDBACK})
+        dispatch({type: types.UPDATE_FEEDBACK})
         API.updateFeedback(data)
         // .then((response)=>response.json())
         .then((result=>{
             if(result.status === 200){
                 dispatch({
-                    type: types.UPADTE_FEEDBACK_SUCCESS,
+                    type: types.UPDATE_FEEDBACK_SUCCESS,
                     payload: [...result.data]
                 })
                 callback()
             }else{
                 dispatch({
-                    type: types.UPADTE_FEEDBACK_FAIL
+                    type: types.UPDATE_FEEDBACK_FAIL
                 })
             }
         }))
         .catch((error)=>{
             dispatch({
-                type: types.UPADTE_FEEDBACK_FAIL
+                type: types.UPDATE_FEEDBACK_FAIL
             })
         })
     }

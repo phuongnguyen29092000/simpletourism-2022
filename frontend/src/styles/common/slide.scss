@@ -1,0 +1,31 @@
+.tour-detail-wrapper{
+    .image-dot-slide{
+        width: 70px;
+        height: 70px;
+    }
+    .slick-dots{
+        bottom: -75px;
+        text-align: left;
+        li{
+            margin-right: 50px;
+        }
+    }
+    .slick-list{
+        img{
+            width: 100%;
+            aspect-ratio: 4/3;
+        }
+    }
+    .css-mhc70k-MuiGrid-root{
+        margin-left: 0;
+        width: 100%;
+    }
+}
+@media (max-width: 900px) {
+    .tour-slide-wrapper{
+        padding-left: 0 !important;
+    }
+    .tour-info-wrapper{
+        padding-left: 0 !important;
+    }
+}
