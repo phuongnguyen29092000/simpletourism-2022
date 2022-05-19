@@ -16,7 +16,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/side_nav_bar"
         android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -24,7 +23,8 @@
         <ImageView
             android:id="@+id/image_place"
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/txt_place"

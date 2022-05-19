@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -179,7 +180,7 @@ public class FilterFragment extends DialogFragment {
                 if(response.code() == 200){
                     TypePlaceResponse typePlaceResponse = response.body();
                     typePlaceAdapter = new TypePlaceAdapter(getActivity(),typePlaceResponse.getTypePlaces(),selectedTypePlace);
-                    rvTypePlace.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
+                    rvTypePlace.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
                     rvTypePlace.setAdapter(typePlaceAdapter);
                 }
             }
@@ -194,31 +195,41 @@ public class FilterFragment extends DialogFragment {
         binding.dialogAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(String i : continents.keySet()){
-                    if(i.equals(continent[0])){
-                        params.put("continent",continents.get(i));
-                    }
-                }
-                for (String place: selectedTypePlace){
-                    typePlace[0] += place + ",";
-                }
-                params.put("typeplace",typePlace[0].replaceAll(",$",""));
-                if(sort[0].equals("Giá")){
-                    params.put("sort","price");
+                String priceMin = binding.priceMin.getText().toString().substring(0, binding.priceMin.getText().toString().lastIndexOf("đ"));
+                String priceMax = binding.priceMax.getText().toString().substring(0, binding.priceMax.getText().toString().lastIndexOf("đ"));
+                if(Integer.parseInt(priceMin)>Integer.parseInt(priceMax)){
+                    binding.validatePrice.setText("Giá đầu phải nhỏ hơn giá cuối");
+                    binding.validatePrice.setVisibility(View.VISIBLE);
+
                 }else {
-                    params.put("sort","rating");
-                }
-                params.put("priceMin",binding.priceMin.getText().toString().substring(0, binding.priceMin.getText().toString().lastIndexOf("đ")));
-                params.put("priceMax",binding.priceMax.getText().toString().substring(0, binding.priceMax.getText().toString().lastIndexOf("đ")));
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("params", params);
+                    binding.validatePrice.setVisibility(View.GONE);
+                    for(String i : continents.keySet()){
+                        if(i.equals(continent[0])){
+                            params.put("continent",continents.get(i));
+                        }
+                    }
+                    for (String place: selectedTypePlace){
+                        typePlace[0] += place + ",";
+                    }
+                    params.put("typeplace",typePlace[0].replaceAll(",$",""));
+                    if(sort[0].equals("Giá")){
+                        params.put("sort","price");
+                    }else {
+                        params.put("sort","rating");
+                    }
+                    params.put("priceMin",priceMin);
+                    params.put("priceMax",priceMax);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("params", params);
 //                FilterResultFragment filterResultFragment = new FilterResultFragment();
 //                filterResultFragment.setArguments(bundle);
 //                filterResultFragment.show(getParentFragmentManager(),"FilterResult");
-                Intent intent = new Intent(getActivity(), FilterResultActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                typePlace[0] = "";
+                    Intent intent = new Intent(getActivity(), FilterResultActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    typePlace[0] = "";
+                }
+
             }
         });
     }

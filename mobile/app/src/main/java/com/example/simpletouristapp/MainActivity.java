@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 
 import com.example.simpletouristapp.ui.domestic.DomesticFragment;
 import com.example.simpletouristapp.ui.home.FilterFragment;

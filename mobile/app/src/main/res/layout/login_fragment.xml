@@ -1,78 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".ui.login.LoginFragment"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:transitionName="logo_image"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_logo"/>
+    <TextView
+        android:id="@+id/slogan_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Sign In to continue"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#3fff"
-        android:gravity="center"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Moon light"
-            android:background="@drawable/circle"
-            android:gravity="center"
-            android:textColor="#291B1B"/>
 
-        <EditText
-            android:id="@+id/edt_email_login"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custombtn1"
-            android:gravity="center"
             android:hint="Username"
-            android:textColorHint="#656361" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
-            android:id="@+id/edt_password_login"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custombtn1"
-            android:gravity="center"
-            android:hint="Password"
-            android:textColorHint="#656361" />
-        <CheckBox
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_email_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/validate_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Keep me Signed in "
-            android:textColor="#10100F"
-            android:hint="#1E1D1B"
-            android:layout_marginTop="15dp"
-            android:buttonTint="#1C1B1A"
-            />
+            android:textColor="#F13838"
+            android:visibility="gone"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Password"
+            app:passwordToggleEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_password_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/validate_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#F13838"
+            android:visibility="gone"/>
+
+        <Button
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="5dp"
+            android:background="#00000000"
+            android:elevation="0dp"
+            android:text="Quên mật khẩu?"
+            android:textColor="#000"/>
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custombtn2"
-            android:text="Sign in"
-            android:textAllCaps="false" />
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#050505"
-            android:layout_marginTop="15dp"/>
-        <TextView
-            android:layout_width="wrap_content"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forget Password"
-            android:textSize="18dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#121111"
-            />
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/custombtn1"
+            android:text="Sign in"
+            android:textColor="#fff"
+            app:backgroundTint="#5584AC" />
+
+        <Button
+            android:id="@+id/register"
+            style="@style/Widget.AppCompat.Light.ActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="5dp"
+            android:background="#00000000"
+            android:elevation="0dp"
+            android:text="Bạn chưa có tài khoản? Đăng ký"
+            android:textColor="#000"/>
 
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

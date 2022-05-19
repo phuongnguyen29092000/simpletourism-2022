@@ -264,6 +264,16 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/validate_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xxx"
+                        android:textColor="#ED2929"
+                        android:visibility="gone"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="20dp"/>
+
 
                 </LinearLayout>
             </LinearLayout>

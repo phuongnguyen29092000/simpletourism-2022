@@ -11,6 +11,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
 
 public class ToursApiService {
     private static final String BASE_URL = "http://192.168.1.49:4000/";
@@ -49,4 +50,7 @@ public class ToursApiService {
         return toursApi.getToursFilter(continent, typePlace, sort, priceMin, priceMax);
     }
 
+    public Call<ToursResponse> getOutStandingTours(){
+        return toursApi.getOutStandingTours();
+    }
 }
