@@ -26,6 +26,8 @@ import com.example.simpletouristapp.SearchResultFragment;
 import com.example.simpletouristapp.model.Tour;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -63,8 +65,11 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         }catch (Exception e){
             Log.d("error",e.getMessage());
         }
+        Locale lc = new Locale("nv","VN");
+        NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
         holder.nameTour.setText(tour.getNameTour());
-        holder.price.setText(Integer.toString(tour.getPrice()) + "đ");
+        holder.price.setText(nf.format(tour.getPrice()));
+        holder.tvDescription.setText(tour.getDescription());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,19 +86,16 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
                             Navigation.findNavController(view).navigate(R.id.action_international_to_detailTour,bundle);
                         }else {
                             if(fragment.equals("filter")){
-//                                NavHostFragment navHostFragment = (NavHostFragment) ((FragmentActivity) context).getSupportFragmentManager()
-//                                        .findFragmentById(R.id.nav_host_fragment_content_main);
-//                                NavController navCo = navHostFragment.getNavController();
                                 Navigation.findNavController(view).navigate(R.id.action_nav_filter_to_nav_detail_tour,bundle);
+                            }else {
+                                if (fragment.equals("out_standing_tour")){
+                                    Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_detail_tour,bundle);
+                                }
                             }
+
                         }
                     }
                 }
-
-
-
-
-
                 Toast.makeText(context, tour.getId(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -142,11 +144,13 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         private TextView nameTour;
         private TextView price;
         private ImageView imageTour;
+        private TextView tvDescription;
         public TourViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTour = itemView.findViewById(R.id.tv_name_tour);
             price = itemView.findViewById(R.id.tv_price);
             imageTour = itemView.findViewById(R.id.image_tour);
+            tvDescription = itemView.findViewById(R.id.tv_description);
         }
     }
 }

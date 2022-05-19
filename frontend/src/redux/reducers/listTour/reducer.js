@@ -176,7 +176,6 @@ export const reducer = (state = initialState, action) => {
         similarTour: action.payload.similarTour
       }
     }
-
     default:
       return state
   }

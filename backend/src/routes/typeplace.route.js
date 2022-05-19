@@ -1,20 +1,18 @@
 const express = require('express');
 
 const { typePlaceController } = require('../controllers')
-    // const upLoadImage = require('../middlewares/fileUpload')
-    // const auth = require('../middlewares/auth')
-    // const validate = require('../middlewares/validate')
+const auth = require('../middlewares/auth')
 
 const router = express.Router()
 
-router.get('/', typePlaceController.getAllTypePlace)
+router.get('/', auth('admin', 'owner'), typePlaceController.getAllTypePlace)
 
-router.get('/:id', typePlaceController.getTypePlaceById)
+router.get('/:id', auth('admin', 'owner'), typePlaceController.getTypePlaceById)
 
-router.post('/create', typePlaceController.createTypePlace)
+router.post('/create', auth('admin'), typePlaceController.createTypePlace)
 
-router.put('/:id', typePlaceController.updateTypePlacesById)
+router.put('/:id', auth('admin'), typePlaceController.updateTypePlacesById)
 
-router.delete('/:id', typePlaceController.deleteTypePlaceById)
+router.delete('/:id', auth('admin'), typePlaceController.deleteTypePlaceById)
 
 module.exports = router

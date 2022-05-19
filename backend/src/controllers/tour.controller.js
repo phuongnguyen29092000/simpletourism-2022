@@ -41,13 +41,16 @@ const getInternationalTour = catchAsync(async (req, res, next) => {
 });
 
 const getTour = catchAsync(async (req, res, next) => {
-  const { tour, similarTour } = await TourService.getTour(req.params.id);
+  const { tour, similarTour, remainingAmount } = await TourService.getTour(
+    req.params.id
+  );
   if (!tour) {
     return next(new ApiError(`Tour Not Found With Id ${req.params.id} !`, 404));
   } else {
     res.status(200).json({
       status: 200,
       tour: tour,
+      remainingAmount: remainingAmount,
       similarTour: similarTour,
     });
   }
@@ -137,13 +140,13 @@ const getTourByOwner = catchAsync(async (req, res, next) => {
 });
 
 module.exports = {
-  getAllTour,
-  getDomesticTour,
-  getInternationalTour,
-  getTour,
-  deleteTour,
-  createTour,
-  updateTour,
-  getTourByOwner,
-  getOutStandingTours,
+    getAllTour,
+    getDomesticTour,
+    getInternationalTour,
+    getTour,
+    deleteTour,
+    createTour,
+    updateTour,
+    getTourByOwner,
+    getOutStandingTours,
 };

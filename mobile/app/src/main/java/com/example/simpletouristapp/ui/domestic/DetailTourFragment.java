@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -25,9 +27,11 @@ import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,13 +42,21 @@ public class DetailTourFragment extends Fragment {
     private DetailTourBinding binding;
     private ToursApiService toursApiService;
     private ImageSlider imageSliderDetail;
+    private TextView nameTour;
     private TextView tvPrice;
     private TextView tvTime;
     private TextView tvHotel;
     private TextView tvAmount;
     private TextView tvAmountRemain;
+    private TextView tvDescription;
+    private TextView tvSchedule;
     private List<SlideModel> slideModelList;
     private RatingBar rating;
+    private Button btnBookTour;
+    private Button seeMore;
+    private Button hide;
+    private Button seeMoreDescription;
+    private Button hideDescription;
     private Fragment detailFragment;
 
 
@@ -68,14 +80,23 @@ public class DetailTourFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         imageSliderDetail = (ImageSlider) view.findViewById(R.id.image_slide_detail);
 
+        nameTour = (TextView) view.findViewById(R.id.name_tour);
         tvPrice = (TextView) view.findViewById(R.id.tv_detail_price);
         tvTime = (TextView) view.findViewById(R.id.tv_time_detail);
         tvHotel = (TextView) view.findViewById(R.id.tv_hotel_detail);
         tvAmount = (TextView) view.findViewById(R.id.tv_amount_detail);
         tvAmountRemain = (TextView) view.findViewById(R.id.tv_amount_remain_detail);
 
-        rating = (RatingBar) view.findViewById(R.id.rating_tour);
+        tvDescription = (TextView) view.findViewById(R.id.description);
+        tvSchedule = (TextView) view.findViewById(R.id.schedule);
 
+        rating = (RatingBar) view.findViewById(R.id.rating_tour);
+        btnBookTour = (Button) view.findViewById(R.id.btn_book_tour);
+        seeMore = (Button) view.findViewById(R.id.see_more);
+        hide = (Button) view.findViewById(R.id.hide);
+
+        seeMoreDescription = (Button) view.findViewById(R.id.see_more_description);
+        hideDescription = (Button) view.findViewById(R.id.hide_description);
 
         slideModelList = new ArrayList<>();
 
@@ -87,6 +108,9 @@ public class DetailTourFragment extends Fragment {
                 if(response.code() == 200){
                     TourResponse tourResponse = response.body();
                     Tour tour = tourResponse.data;
+
+                    Locale lc = new Locale("nv","VN");
+                    NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
                     String pattern = "dd/MM/yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
@@ -97,13 +121,17 @@ public class DetailTourFragment extends Fragment {
                          ) {
                         slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + slide.substring(7),null));
                     }
+                    nameTour.setText(tour.getNameTour());
                     rating.setRating(tour.getRating());
                     imageSliderDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
-                    tvPrice.setText(Integer.toString(tour.getPrice()) + "đ");
+                    tvPrice.setText(nf.format(tour.getPrice()).substring(1) + "đ");
                     tvTime.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     tvHotel.setText(tour.getNameHotel());
                     tvAmount.setText(Integer.toString(tour.getAmount()));
                     tvAmountRemain.setText(Integer.toString(tour.getAmount()));
+
+                    tvDescription.setText(tour.getDescription());
+                    tvSchedule.setText(tour.getSchedule());
 
                 }else {
                     Toast.makeText(getContext(), "Wrong Id Tour", Toast.LENGTH_SHORT).show();
@@ -116,10 +144,46 @@ public class DetailTourFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
-        binding.btnBookTour.setOnClickListener(new View.OnClickListener() {
+        btnBookTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("tourName", nameTour.getText().toString());
+                Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+            }
+        });
 
+        seeMoreDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvDescription.setMaxLines(20);
+                seeMoreDescription.setVisibility(View.GONE);
+                hideDescription.setVisibility(View.VISIBLE);
+            }
+        });
+        hideDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvDescription.setMaxLines(2);
+                hideDescription.setVisibility(View.GONE);
+                seeMoreDescription.setVisibility(View.VISIBLE);
+            }
+        });
+
+        seeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvSchedule.setMaxLines(20);
+                seeMore.setVisibility(View.GONE);
+                hide.setVisibility(View.VISIBLE);
+            }
+        });
+        hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvSchedule.setMaxLines(2);
+                hide.setVisibility(View.GONE);
+                seeMore.setVisibility(View.VISIBLE);
             }
         });
     }

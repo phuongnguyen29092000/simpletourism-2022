@@ -13,5 +13,6 @@ export const ROUTE_USER_CONTACT ='/contact'
 export const ROUTE_HOME ='/'
 export const ROUTE_TOUR_DOMESTIC = '/trong-nuoc'
 export const ROUTE_TOUR_INTERNATIONAL = '/quoc-te'
+
 export const ROUTE_TOUR_FILTER = '/ket-qua/'
 export const ROUTE_TOUR_DETAIL = '/tour-chi-tiet/:id'
