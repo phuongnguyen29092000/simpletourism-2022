@@ -190,6 +190,32 @@ const getOutstandingTour = (callback=()=>{}) => {
     }
 }
 
+const getTourById = (id, callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.GET_TOUR_DETAIL})
+        API.getTourById(id)
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                dispatch({
+                    type: types.GET_TOUR_DETAIL_SUCCESS,
+                    payload: {...result.data}
+                })
+                callback()
+            }else{
+                dispatch({
+                    type: types.GET_TOUR_DETAIL_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.GET_TOUR_DETAIL_FAIL
+            })
+        })
+    }
+}
+
 export {
     getAllTour,
     addTour,
@@ -197,5 +223,6 @@ export {
     getAllTourDomestic,
     getAllTourInternational,
     filterTour,
-    getOutstandingTour
+    getOutstandingTour,
+    getTourById
 }

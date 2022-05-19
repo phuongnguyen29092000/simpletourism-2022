@@ -1,6 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
-const { TourController } = require(".");
 const ApiError = require("../utils/ApiError");
 
 const getAllTour = catchAsync(async (req, res, next) => {
@@ -56,7 +55,7 @@ const getTour = catchAsync(async (req, res, next) => {
 
 const getOutStandingTours = catchAsync(async (req, res, next) => {
   const outstandingTour = await TourService.getOutstandingTour();
-  if (!tours || outstandingTour.length === 0) {
+  if (!outstandingTour || outstandingTour.length === 0) {
     return next(new ApiError("Tour Not Found!", 404));
   } else {
     res.status(200).json({

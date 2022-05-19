@@ -7,7 +7,9 @@ const initialState = {
   listTourDomestic: [],
   listTourInternational: [],
   listTourResult: [],
-  listOurstandingTour: []
+  listOurstandingTour: [],
+  tourDetail: {},
+  similarTour: []
 }
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -152,6 +154,26 @@ export const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         listOurstandingTour: action.payload,
+      }
+    }
+    case types.GET_TOUR_DETAIL: {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+    case types.GET_TOUR_DETAIL_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    case types.GET_TOUR_DETAIL_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        tourDetail: action.payload.tour,
+        similarTour: action.payload.similarTour
       }
     }
 
