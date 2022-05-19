@@ -83,6 +83,18 @@
         <action
             android:id="@+id/action_nav_book_tour_to_nav_detail_tour"
             app:destination="@id/nav_detail_tour" />
+        <action
+            android:id="@+id/action_nav_book_tour_to_nav_payment"
+            app:destination="@id/nav_payment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.example.simpletouristapp.ui.domestic.PaymentMethodFragment"
+        android:label="@string/payment_title"
+        tools:layout="@layout/payment_method" >
+        <action
+            android:id="@+id/action_nav_payment_to_nav_book_tour"
+            app:destination="@id/nav_book_tour" />
     </fragment>
 
 </navigation>

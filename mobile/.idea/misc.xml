@@ -58,8 +58,11 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/custombtn1.xml" value="0.148" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/custombtn2.xml" value="0.148" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.148" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/change_password.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/detail_tour.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/dialog_failed.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/dialog_successful.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/domestic_fragment.xml" value="0.1" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/filter_fragment.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/form_book_tour.xml" value="0.22826086956521738" />
@@ -68,6 +71,7 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_popular_places.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_tour.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/login_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/payment_method.xml" value="0.2" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/profile.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/register.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/menu/main.xml" value="0.25" />
