@@ -15,17 +15,26 @@ import retrofit2.http.Query;
 public interface ToursApi {
     @GET("tour")
     Call<ToursResponse> getTours();
+
     @GET("tour/trong-nuoc")
     Call<ToursResponse> getDomesticTours();
+
     @GET("tour/quoc-te")
     Call<ToursResponse> getInternationalTours();
+
     @GET("tour/{id}")
     Call<TourResponse> getTourById(@Path("id") String tourId);
+
     @GET("typeplace")
     Call<TypePlaceResponse> getTypePlace();
+
     @GET("tour")
     Call<ToursResponse> getToursByTypePlace(@Query("typePlace") String typePlace);
+
     @GET("tour")
     Call<ToursResponse> getToursFilter(@Query("continent") String continent,@Query("typeplace") String typePlace
             ,@Query("sort") String sort,@Query("price[gte]") int priceMin,@Query("price[lte]") int priceMax);
+
+    @GET("tour/tour-noi-bat")
+    Call<ToursResponse> getOutStandingTours();
 }

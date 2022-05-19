@@ -1,5 +1,6 @@
 package com.example.simpletouristapp.model;
 
+import com.example.simpletouristapp.databinding.InternationalFragmentBinding;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

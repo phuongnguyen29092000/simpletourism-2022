@@ -14,11 +14,14 @@
     <string name="menu_international">Ngoài nước</string>
     <string name="menu_news">Tin tức</string>
     <string name="menu_login">Đăng nhập</string>
+    <string name="register_title">Đăng Ký</string>
     <string name="popular_title">Các địa điểm phổ biến</string>
+    <string name="outstanding_title">Các tour nổi bật</string>
     <string name="account">Thông tin cá nhân</string>
     <string name="profile_title">Thông tin cá nhân</string>
     <string name="change_password_title">Đổi mật khẩu</string>
     <string name="history_title">Lịch sử đặt tour</string>
+    <string name="book_tour_title">Đặt tour</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
