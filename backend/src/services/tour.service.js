@@ -1,6 +1,5 @@
-const { Tour } = require("../models");
+const { Tour, Ticket } = require("../models");
 const APIFeatures = require("../utils/apiFeatures");
-const upLoadImage = require("../middlewares/imgUpload");
 
 const getAllTour = async (queryString) => {
   let res = [];
@@ -47,9 +46,11 @@ const getTour = async (id) => {
         return ele._id != id;
       })
       .slice(0, 6);
+    const remainingAmount = await caculateRemainingAmount(id);
     return {
       tour,
       similarTour,
+      remainingAmount,
     };
   }
   return { tour };
@@ -61,6 +62,18 @@ const getOutstandingTour = async () => {
     .sort({ ratingsAverage: -1 });
   const outstandingTour = allTours.splice(0, 6);
   return outstandingTour;
+};
+
+const caculateRemainingAmount = async (id) => {
+  const tour = await Tour.findById(id);
+  let remainingAmount = tour.amount;
+  const ticket = await Ticket.find().populate({ path: "tour" });
+  ticket.forEach((element) => {
+    if (element.tour._id == id) {
+      remainingAmount -= element.numberPeople;
+    }
+  });
+  return remainingAmount;
 };
 
 const deleteTour = async (id) => {
@@ -117,4 +130,5 @@ module.exports = {
   updateTour,
   getTourByOwner,
   getOutstandingTour,
+  caculateRemainingAmount,
 };

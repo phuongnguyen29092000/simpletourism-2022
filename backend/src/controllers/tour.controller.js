@@ -1,6 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
-const { TourController } = require(".");
 const ApiError = require("../utils/ApiError");
 
 const getAllTour = catchAsync(async (req, res, next) => {
@@ -42,13 +41,16 @@ const getInternationalTour = catchAsync(async (req, res, next) => {
 });
 
 const getTour = catchAsync(async (req, res, next) => {
-  const { tour, similarTour } = await TourService.getTour(req.params.id);
+  const { tour, similarTour, remainingAmount } = await TourService.getTour(
+    req.params.id
+  );
   if (!tour) {
     return next(new ApiError(`Tour Not Found With Id ${req.params.id} !`, 404));
   } else {
     res.status(200).json({
       status: 200,
       tour: tour,
+      remainingAmount: remainingAmount,
       similarTour: similarTour,
     });
   }
@@ -56,7 +58,7 @@ const getTour = catchAsync(async (req, res, next) => {
 
 const getOutStandingTours = catchAsync(async (req, res, next) => {
   const outstandingTour = await TourService.getOutstandingTour();
-  if (!tours || outstandingTour.length === 0) {
+  if (!outstandingTour || outstandingTour.length === 0) {
     return next(new ApiError("Tour Not Found!", 404));
   } else {
     res.status(200).json({
