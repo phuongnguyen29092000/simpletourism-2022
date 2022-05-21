@@ -47,6 +47,28 @@ app.use(passport.session());
 app.get("/payment", (req, res) => {
   res.render("payment");
 });
+
+var items = [
+  {
+    name: "Book",
+    sku: "001",
+    price: "1.00",
+    currency: "USD",
+    quantity: 2,
+  },
+  {
+    name: "Pen",
+    sku: "002",
+    price: "1.00",
+    currency: "USD",
+    quantity: 3,
+  },
+];
+
+var total = 0;
+for (let i = 0; i < items.length; i++) {
+  total += parseFloat(items[i].price * items[i].quantity);
+}
 // test paypal
 paypal.configure({
   mode: "sandbox", //sandbox or live
@@ -63,25 +85,17 @@ app.post("/pay", (req, res, next) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:3000/payment/success",
-      cancel_url: "http://localhost:3000/payment/failure",
+      return_url: "http://localhost:4000/payment/success",
+      cancel_url: "http://localhost:4000/payment/failure",
     },
     transactions: [
       {
         item_list: {
-          items: [
-            {
-              name: "item",
-              sku: "item",
-              price: "1.00",
-              currency: "USD",
-              quantity: 1,
-            },
-          ],
+          items: items,
         },
         amount: {
           currency: "USD",
-          total: "1.00",
+          total: total.toString(),
         },
         description: "This is the payment description.",
       },
@@ -94,13 +108,41 @@ app.post("/pay", (req, res, next) => {
     } else {
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === "approval_url") {
-          console.log(payment.links[i].href);
-          //res.redirect(payment.links[i].href);
           res.send(payment.links[i].href);
         }
       }
     }
   });
+});
+
+app.get("/payment/success", (req, res) => {
+  const payerId = req.query.PayerID;
+  var execute_payment_json = {
+    payer_id: payerId,
+    transactions: [
+      {
+        amount: {
+          currency: "USD",
+          total: total.toString(),
+        },
+      },
+    ],
+  };
+
+  var paymentId = req.query.paymentId;
+
+  paypal.payment.execute(
+    paymentId,
+    execute_payment_json,
+    function (error, payment) {
+      if (error) {
+        console.log(error.response);
+        throw error;
+      } else {
+        res.render("payment");
+      }
+    }
+  );
 });
 
 app.use("/", routes);
