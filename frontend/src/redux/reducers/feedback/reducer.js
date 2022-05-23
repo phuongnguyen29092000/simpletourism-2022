@@ -22,7 +22,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 //xem lai
-                listFeedback: action.payload.data,
+                listFeedback: action.payload,
                 loading: false,
             }
         }
