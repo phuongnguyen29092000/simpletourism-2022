@@ -84,13 +84,13 @@ public class HomeFragment extends Fragment {
                     rvOutStandingTours.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                     rvOutStandingTours.setAdapter(tourAdapter);
                 }else {
-                    Toast.makeText(getContext(), "Some thing went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Some thing went wrong", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ToursResponse> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG",t.getMessage());
             }
         });

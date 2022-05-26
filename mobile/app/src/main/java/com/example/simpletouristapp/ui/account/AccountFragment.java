@@ -1,5 +1,6 @@
 package com.example.simpletouristapp.ui.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,25 +12,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.simpletouristapp.MainActivity;
+import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.FragmentAccountBinding;
+import com.example.simpletouristapp.databinding.NavHeaderMainBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 
 public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
-//    private Button btnProfile;
-//    private Button btnChangePassword;
-//    private Button btnHistory;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 //        final TextView textView = binding.textForeign;
 //        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
@@ -37,6 +46,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
         binding.btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +76,7 @@ public class AccountFragment extends Fragment {
         binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                signOut();
             }
         });
     }
@@ -72,5 +84,16 @@ public class AccountFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void signOut(){
+        MainActivityLogged.gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+                Toast.makeText(getContext(), "Logout Successful", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

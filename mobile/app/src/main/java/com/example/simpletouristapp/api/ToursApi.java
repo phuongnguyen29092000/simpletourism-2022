@@ -1,5 +1,6 @@
 package com.example.simpletouristapp.api;
 
+import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlace;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -37,4 +39,10 @@ public interface ToursApi {
 
     @GET("tour/tour-noi-bat")
     Call<ToursResponse> getOutStandingTours();
+
+    @GET("feedback/tour/{id}")
+    Call<FeedBackResponse> getFeedBackById(@Path("id") String tourId);
+
+    @POST("pay")
+    Call<String> postPaypal();
 }

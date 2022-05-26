@@ -4,9 +4,14 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.appcompat.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,7 +22,23 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpletouristapp.databinding.ActivityMainLoggedBinding;
 import com.example.simpletouristapp.ui.home.FilterFragment;
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class MainActivityLogged extends AppCompatActivity {
 
@@ -25,23 +46,66 @@ public class MainActivityLogged extends AppCompatActivity {
     private ActivityMainLoggedBinding binding;
     private SearchView searchView;
 
+    private ImageView imageView;
+    private TextView name;
+    private TextView email;
+    public static GoogleSignInOptions gso;
+    public static GoogleSignInClient gsc;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainLoggedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
+                .requestServerAuthCode(getString(R.string.server_client_id))
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
+                .build();
+
+        gsc = GoogleSignIn.getClient(getApplicationContext(), gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
+//        GoogleAuthUtil.getToken(getApplicationContext(),account,"oauth2:" + Scopes.PLUS_LOGIN + " https://www.googleapis.com/auth/plus.profile.emails.read");
+
         setSupportActionBar(binding.appBarMainLogged.toolbarLogged);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         DrawerLayout drawer = binding.drawerLayoutLogged;
         NavigationView navigationView = binding.navViewLogged;
+        View header = navigationView.getHeaderView(0);
+
+        imageView = (ImageView) header.findViewById(R.id.imageView);
+        name = (TextView) header.findViewById(R.id.name);
+        email = (TextView) header.findViewById(R.id.email);
+
+        if(account != null){
+            String personName = account.getDisplayName();
+            String personEmail = account.getEmail();
+            Picasso.get().load(account.getPhotoUrl()).into(imageView);
+            name.setText(personName);
+            email.setText(personEmail);
+            Log.w("name", account.getDisplayName());
+            Log.w("email", account.getEmail());
+            Log.w("photoUrl", String.valueOf(account.getPhotoUrl()));
+            Log.w("GoogleId", account.getId());
+            if(account.getIdToken() != null){
+                Log.w("TokenId", account.getIdToken());
+            }
+            Log.w("Scope", String.valueOf(account.getRequestedScopes()));
+            Log.w("AuthCode", account.getServerAuthCode());
+        }
+//        try {
+//            String accessToken = GoogleAuthUtil.getToken(this,account.getAccount(),"audience:server:client_id:105995626849-6kds0s60a14t1d7hhtuhfopa81rk87fv.apps.googleusercontent.com");
+//            Log.d("accessToken",accessToken);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (GoogleAuthException e) {
+//            e.printStackTrace();
+//        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -51,6 +115,10 @@ public class MainActivityLogged extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_logged);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
+
     }
 
     @Override

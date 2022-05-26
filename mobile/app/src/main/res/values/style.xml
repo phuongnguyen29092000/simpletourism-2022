@@ -8,4 +8,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/Theme.AppCompat.Dialog</item>
     </style>
+    <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/favorite_rating_bar_full</item>
+        <item name="android:minHeight">30dp</item>
+        <item name="android:maxHeight">30dp</item>
+    </style>
+
 </resources>

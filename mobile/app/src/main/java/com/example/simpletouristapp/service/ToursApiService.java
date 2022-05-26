@@ -1,6 +1,7 @@
 package com.example.simpletouristapp.service;
 
 import com.example.simpletouristapp.api.ToursApi;
+import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlace;
@@ -12,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public class ToursApiService {
     private static final String BASE_URL = "http://192.168.1.49:4000/";
@@ -52,5 +54,13 @@ public class ToursApiService {
 
     public Call<ToursResponse> getOutStandingTours(){
         return toursApi.getOutStandingTours();
+    }
+
+    public Call<FeedBackResponse> getFeedBackById(String tourId){
+        return toursApi.getFeedBackById(tourId);
+    }
+
+    public Call<String> postPaypal(){
+        return toursApi.postPaypal();
     }
 }
