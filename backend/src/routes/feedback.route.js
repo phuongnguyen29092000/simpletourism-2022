@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
     .route("/")
-    .post(auth('customer'), FeedbackController.createFeedback)
+    .post(FeedbackController.createFeedback)
     .get(FeedbackController.getAllFeedback);
 
 router.route("/tour/:tourId").get(FeedbackController.getFeedbackOfTour);

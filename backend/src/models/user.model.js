@@ -4,13 +4,13 @@ const roles = require('../config/roles');
 const bcrypt = require('bcryptjs');
 
 const userSchema = mongoose.Schema({
-    googleId: {
+    givenName: {
         type: String,
-        require: true
+        required: [true, "Please provide your given name!"],
     },
-    userName: {
+    familyName: {
         type: String,
-        required: [true, "Please provide your name!"],
+        required: [true, "Please provide your family name!"],
     },
     email: {
         type: String,
