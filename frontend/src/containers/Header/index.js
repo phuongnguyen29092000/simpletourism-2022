@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../public/logo-spt.png';
+import LoginWithGoogle from '../../components/Login/LoginWithGoogle';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -185,6 +186,7 @@ const Header = () => {
                                 </span>
                             </Button>
                         </Link>
+                        <LoginWithGoogle/>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

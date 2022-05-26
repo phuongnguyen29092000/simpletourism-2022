@@ -7,7 +7,7 @@ var cookieParser = require("cookie-parser");
 var paypal = require("paypal-rest-sdk");
 var handlebars = require("express-handlebars");
 const cookieSession = require("cookie-session");
-require("./utils/passport.setup");
+// require("./utils/passport.setup");
 
 const ApiError = require("./utils/ApiError");
 const globalErrorHandler = require("./controllers/error.controller");
