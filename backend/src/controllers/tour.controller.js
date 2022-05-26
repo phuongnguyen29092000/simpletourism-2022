@@ -47,10 +47,13 @@ const getTour = catchAsync(async (req, res, next) => {
   if (!tour) {
     return next(new ApiError(`Tour Not Found With Id ${req.params.id} !`, 404));
   } else {
+    let result = {};
+    result = { ...tour };
+    result._doc["remainingAmount"] = remainingAmount;
+    console.log(result);
     res.status(200).json({
       status: 200,
-      tour: tour,
-      remainingAmount: remainingAmount,
+      tour: result._doc,
       similarTour: similarTour,
     });
   }
@@ -139,14 +142,28 @@ const getTourByOwner = catchAsync(async (req, res, next) => {
   }
 });
 
+const searchByText = catchAsync(async (req, res, next) => {
+  const tours = await TourService.searchByText(req.body.search);
+  if (!tours || tours.length === 0) {
+    return next(new ApiError("Tour Not Found!", 404));
+  } else {
+    res.status(200).json({
+      status: 200,
+      totalResult: tours.length,
+      data: tours,
+    });
+  }
+});
+
 module.exports = {
-    getAllTour,
-    getDomesticTour,
-    getInternationalTour,
-    getTour,
-    deleteTour,
-    createTour,
-    updateTour,
-    getTourByOwner,
-    getOutStandingTours,
+  getAllTour,
+  getDomesticTour,
+  getInternationalTour,
+  getTour,
+  deleteTour,
+  createTour,
+  updateTour,
+  getTourByOwner,
+  getOutStandingTours,
+  searchByText,
 };
