@@ -13,7 +13,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../public/logo-spt.png';
+import { ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_INTERNATIONAL } from '../../route/type'
+import logo from '../../public/icon-logo.png';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -93,24 +94,24 @@ const Header = () => {
 
     let url = window.location.href;
 
-    React.useEffect(() => {
-        const setNavigation = () => {
-            if (window.pageYOffset > 100) {
-                setNav({
-                    height: '70px',
-                });
-            }
-            if (window.pageYOffset <= 100) {
-                setNav({
-                    height: '90px',
-                });
-            }
-        }
-        window.addEventListener("scroll", setNavigation)
-        return () => {
-            window.removeEventListener("scroll", setNavigation);
-        }
-    }, []);
+    // React.useEffect(() => {
+    //     const setNavigation = () => {
+    //         if (window.pageYOffset > 100) {
+    //             setNav({
+    //                 height: '50px',
+    //             });
+    //         }
+    //         if (window.pageYOffset <= 100) {
+    //             setNav({
+    //                 height: '50px',
+    //             });
+    //         }
+    //     }
+    //     window.addEventListener("scroll", setNavigation)
+    //     return () => {
+    //         window.removeEventListener("scroll", setNavigation);
+    //     }
+    // }, []);
 
     const handleOpenSearchField = () => {
         setSearchBox((searchBox) => !searchBox);
@@ -126,49 +127,47 @@ const Header = () => {
     }
 
     return (
-        <AppBar position="fixed" className={classes.root} style={{ height: `${nav.height}`, backgroundColor: '#B1D0E0' }}>
+        <AppBar position="fixed" className={classes.root} style={{minHeight: '50px' , height: '50px', backgroundColor: 'rgb(0 0 0 / 26%)' }}>
             <Container maxWidth="xl">
-                <Toolbar sx={{ height: `${nav.height}` }}>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* <Link style={{ textDecoration: 'none' }} to='/'> */}
-                        <img src={logo} height={nav.height} style={{padding: '7px', borderRadius: '5px'}} />
-                        {/* </Link> */}
-                    </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '60px' }}>
+                <Box sx={{ height: '50px', justifyContent: 'center', minHeight: '50px' }}>
+                    <Box sx={{display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '50px'}}>
                         <Link style={{ textDecoration: 'none' }} to='/'>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     TRANG CHỦ
                                 </span>
                             </Button>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to='/'>
+                        <Link style={{ textDecoration: 'none' }} to={ROUTE_TOUR_DOMESTIC}>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     TRONG NƯỚC
                                 </span>
                             </Button>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to='/'>
+                        <Link style={{ textDecoration: 'none' }} to={ROUTE_TOUR_INTERNATIONAL}>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     QUỐC TẾ
                                 </span>
                             </Button>
                         </Link>
+                        <Box >
+                            <img src={logo} height={40} style={{ padding: '7px', borderRadius: '5px' }} />
+                        </Box>
                         <Link style={{ textDecoration: 'none' }} to='/news'>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     TIN TỨC
@@ -178,15 +177,25 @@ const Header = () => {
                         <Link style={{ textDecoration: 'none' }} to='/contact'>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     LIÊN HỆ
                                 </span>
                             </Button>
                         </Link>
+                        <Link style={{ textDecoration: 'none' }} to='/'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
+                            >
+                                <span className='link-tab'>
+                                    Tìm kiếm
+                                </span>
+                            </Button>
+                        </Link>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -212,36 +221,7 @@ const Header = () => {
                             </MenuList>
                         </Paper>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
-                        {/* <Link style={{ textDecoration: 'none' }} to='/'> */}
-                        <img src={logo} height={nav.height} />
-                        {/* </Link> */}
-                    </Box>
-                    <ClickAwayListener onClickAway={handleClickCloseSearch}>
-                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'end', position: 'relative', width: '50px' }}>
-                            <TextField
-                                id='search-field'
-                                component="div"
-                                onKeyDown={search}
-                                variant="standard"
-                                placeholder='Tìm kiếm...'
-                                className={!searchBox ? classes.hiddenBox : ''}
-                                style={{
-                                    padding: '5px',
-                                    height: '35px',
-                                    width: '200px',
-                                    transition: '0.4s',
-                                    position: 'absolute',
-                                    top: '65px',
-                                    backgroundColor: 'white',
-                                    borderRadius: '3px',
-                                    overflow: 'hidden',
-                                }}
-
-                            />
-                        </Box>
-                    </ClickAwayListener>
-                </Toolbar>
+                </Box>
             </Container>
             <Box
                 component="div"
