@@ -62,6 +62,7 @@ var items = [
     price: "1.00",
     currency: "USD",
     quantity: 3,
+    test: "hihi",
   },
 ];
 
@@ -73,9 +74,9 @@ for (let i = 0; i < items.length; i++) {
 paypal.configure({
   mode: "sandbox", //sandbox or live
   client_id:
-    "AZCqU5NL0w8YjqRd0PxXtQYxjTx2uTtbE-kFbP0zg_Iv_bAtjlz7bf0Q1uX0I_2go1hFBWmmS48o31cl",
+    "AT-3wtFY4vRdTG2WwbEfFPtzmUVEDN0AMm_wUGdWbzb-fF6_ru2tIhYdqhrFWecoRmuZQTxUHIoTbEmF",
   client_secret:
-    "EHfxmdV87ysZ5nndsEYSIJxRjjhmhD59MTbwR80XojA6mLKncybHwHUFUKQPqE8J52LghpjKlwu_OYZt",
+    "EAxFI5SE1mUxfYy3xH1w3RdWItSB-lLuiQyTOoLFhBqaahE8wTyZoPY5Wfr7bb0mAKGz6_xzcoQnu9Xl",
 });
 
 app.post("/pay", (req, res, next) => {
@@ -106,6 +107,7 @@ app.post("/pay", (req, res, next) => {
     if (error) {
       throw error;
     } else {
+      console.log(payment);
       for (let i = 0; i < payment.links.length; i++) {
         if (payment.links[i].rel === "approval_url") {
           res.send(payment.links[i].href);
@@ -115,35 +117,35 @@ app.post("/pay", (req, res, next) => {
   });
 });
 
-app.get("/payment/success", (req, res) => {
-  const payerId = req.query.PayerID;
-  var execute_payment_json = {
-    payer_id: payerId,
-    transactions: [
-      {
-        amount: {
-          currency: "USD",
-          total: total.toString(),
-        },
-      },
-    ],
-  };
+// app.get("/payment/success", (req, res) => {
+//   const payerId = req.query.PayerID;
+//   var execute_payment_json = {
+//     payer_id: payerId,
+//     transactions: [
+//       {
+//         amount: {
+//           currency: "USD",
+//           total: total.toString(),
+//         },
+//       },
+//     ],
+//   };
 
-  var paymentId = req.query.paymentId;
+//   var paymentId = req.query.paymentId;
 
-  paypal.payment.execute(
-    paymentId,
-    execute_payment_json,
-    function (error, payment) {
-      if (error) {
-        console.log(error.response);
-        throw error;
-      } else {
-        res.render("payment");
-      }
-    }
-  );
-});
+//   paypal.payment.execute(
+//     paymentId,
+//     execute_payment_json,
+//     function (error, payment) {
+//       if (error) {
+//         console.log(error.response);
+//         throw error;
+//       } else {
+//         res.render("payment");
+//       }
+//     }
+//   );
+// });
 
 app.use("/", routes);
 
