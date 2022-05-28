@@ -58,7 +58,12 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/SimpleTouristApp/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/custombtn1.xml" value="0.148" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/custombtn2.xml" value="0.148" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/favorite_rating_bar_full.xml" value="0.148" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/favorite_ratingbar_full_empty.xml" value="0.148" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/favorite_ratingbar_full_filled.xml" value="0.148" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.148" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/activity_search.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/change_password.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/detail_tour.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/dialog_failed.xml" value="0.22826086956521738" />
@@ -68,13 +73,21 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/form_book_tour.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/international_fragment.xml" value="0.1" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_comment.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_popular_places.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_tour.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_tour2.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/login_fragment.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/login_google_activity.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/nav_header_main.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/payment_method.xml" value="0.2" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/paypal.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/profile.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/register.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/menu/activity_main_drawer_logged.xml" value="0.25" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/menu/main.xml" value="0.25" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/xml/network_security_config.xml" value="0.1" />
         <entry key="..\:/Users/84978/AndroidStudioProjects/SimpleTouristApp/app/src/main/res/drawable-v21/ic_menu_camera.xml" value="0.174" />
         <entry key="..\:/Users/84978/AndroidStudioProjects/SimpleTouristApp/app/src/main/res/drawable-v21/ic_menu_gallery.xml" value="0.174" />
         <entry key="..\:/Users/84978/AndroidStudioProjects/SimpleTouristApp/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" value="0.174" />

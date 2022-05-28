@@ -1,6 +1,7 @@
 package com.example.simpletouristapp.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -70,6 +72,15 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         holder.nameTour.setText(tour.getNameTour());
         holder.price.setText(nf.format(tour.getPrice()));
         holder.tvDescription.setText(tour.getDescription());
+        if(tour.getDiscount() != 0){
+            holder.cardDiscount.setVisibility(View.VISIBLE);
+            holder.tvDiscount.setText("-" + Integer.toString((int)(tour.getDiscount()*100)) + "%");
+            holder.tvDiscount.setVisibility(View.VISIBLE);
+            holder.price.setPaintFlags(holder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.priceAfterDiscount.setText(nf.format(tour.getPrice()*(1-tour.getDiscount())));
+            holder.priceAfterDiscount.setVisibility(View.VISIBLE);
+            holder.tvDescription.setMaxLines(2);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,12 +156,18 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         private TextView price;
         private ImageView imageTour;
         private TextView tvDescription;
+        private CardView cardDiscount;
+        private TextView tvDiscount;
+        private TextView priceAfterDiscount;
         public TourViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTour = itemView.findViewById(R.id.tv_name_tour);
             price = itemView.findViewById(R.id.tv_price);
             imageTour = itemView.findViewById(R.id.image_tour);
             tvDescription = itemView.findViewById(R.id.tv_description);
+            cardDiscount = itemView.findViewById(R.id.card_discount);
+            tvDiscount = itemView.findViewById(R.id.tv_discount);
+            priceAfterDiscount = itemView.findViewById(R.id.tv_price_after_discount);
         }
     }
 }

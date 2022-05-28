@@ -2,11 +2,12 @@
     <string name="app_name">SimpleTouristApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Guest</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_filter">Filter</string>
     <string name="action_search">Search</string>
+    <string name="server_client_id">105995626849-6kds0s60a14t1d7hhtuhfopa81rk87fv.apps.googleusercontent.com</string>
 
     <string name="menu_home">Trang chủ</string>
     <string name="menu_domestic">Trong nước</string>

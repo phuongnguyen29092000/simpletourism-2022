@@ -28,20 +28,24 @@ public class Tour {
     private Date timeEnd;
     @SerializedName("amount")
     private int amount;
+    @SerializedName("remainingAmount")
+    private int remainingAmount;
     @SerializedName("hotelName")
     private String nameHotel;
     @SerializedName("schedule")
     private String schedule;
     @SerializedName("ratingsAverage")
     private float rating;
+    @SerializedName("discount")
+    private double discount;
     @SerializedName("imageSlide")
     private ArrayList<String> imageSlide;
     @SerializedName("typePlace")
     private TypePlace typePlace;
 
     public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar
-            , int price, Date timeStart, Date timeEnd, int amount, String nameHotel, String schedule
-            , float rating, ArrayList<String> imageSlide, TypePlace typePlace) {
+            , int price, Date timeStart, Date timeEnd, int amount, int remainingAmount, String nameHotel, String schedule
+            , float rating, double discount, ArrayList<String> imageSlide, TypePlace typePlace) {
         this.id = id;
         this.nameTour = nameTour;
         this.nameCountry = nameCountry;
@@ -52,31 +56,30 @@ public class Tour {
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.amount = amount;
+        this.remainingAmount = remainingAmount;
         this.nameHotel = nameHotel;
         this.schedule = schedule;
         this.rating = rating;
+        this.discount = discount;
         this.imageSlide = imageSlide;
         this.typePlace = typePlace;
     }
 
-//    public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar, int price
-//            , Date timeStart, Date timeEnd, int amount, String nameHotel, String schedule, ArrayList<String> imageSlide, TypePlace typePlace) {
-//        this.id = id;
-//        this.nameTour = nameTour;
-//        this.nameCountry = nameCountry;
-//        this.continent = continent;
-//        this.description = description;
-//        this.imageAvatar = imageAvatar;
-//        this.price = price;
-//        this.timeStart = timeStart;
-//        this.timeEnd = timeEnd;
-//        this.amount = amount;
-//        this.nameHotel = nameHotel;
-//        this.schedule = schedule;
-//        this.imageSlide = imageSlide;
-//        this.typePlace = typePlace;
-//    }
+    public double getDiscount() {
+        return discount;
+    }
 
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public int getRemainingAmount() {
+        return remainingAmount;
+    }
+
+    public void setRemainingAmount(int remainingAmount) {
+        this.remainingAmount = remainingAmount;
+    }
 
     public float getRating() {
         return rating;

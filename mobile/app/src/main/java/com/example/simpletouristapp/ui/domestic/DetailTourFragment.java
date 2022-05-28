@@ -16,12 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.simpletouristapp.R;
+import com.example.simpletouristapp.adapter.FeedBackAdapter;
 import com.example.simpletouristapp.databinding.DetailTourBinding;
+import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.service.ToursApiService;
@@ -57,6 +61,8 @@ public class DetailTourFragment extends Fragment {
     private Button hide;
     private Button seeMoreDescription;
     private Button hideDescription;
+    private FeedBackAdapter feedBackAdapter;
+    private RecyclerView rvFeedback;
     private Fragment detailFragment;
 
 
@@ -89,6 +95,7 @@ public class DetailTourFragment extends Fragment {
 
         tvDescription = (TextView) view.findViewById(R.id.description);
         tvSchedule = (TextView) view.findViewById(R.id.schedule);
+        rvFeedback = (RecyclerView) view.findViewById(R.id.rv_feedback);
 
         rating = (RatingBar) view.findViewById(R.id.rating_tour);
         btnBookTour = (Button) view.findViewById(R.id.btn_book_tour);
@@ -101,6 +108,26 @@ public class DetailTourFragment extends Fragment {
         slideModelList = new ArrayList<>();
 
         toursApiService = new ToursApiService();
+
+        Call<FeedBackResponse> call2 = toursApiService.getFeedBackById(tourId);
+        call2.enqueue(new Callback<FeedBackResponse>() {
+            @Override
+            public void onResponse(Call<FeedBackResponse> call, Response<FeedBackResponse> response) {
+                if(response.code() == 200){
+                    FeedBackResponse feedBackResponse = response.body();
+                    feedBackAdapter = new FeedBackAdapter(getContext(),feedBackResponse.getData());
+                    rvFeedback.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rvFeedback.setAdapter(feedBackAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedBackResponse> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("feedbackerror",t.getMessage());
+            }
+        });
+
         Call<TourResponse> call = toursApiService.getTourByIdAPi(tourId);
         call.enqueue(new Callback<TourResponse>() {
             @Override
@@ -117,6 +144,7 @@ public class DetailTourFragment extends Fragment {
 //                    Toolbar toolbar = view.findViewById(R.id.toolbar);
 //                    toolbar.setTag("abc");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(tour.getNameTour());
+                    slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7),null));
                     for (String slide: tour.getImageSlide()
                          ) {
                         slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + slide.substring(7),null));
@@ -128,7 +156,7 @@ public class DetailTourFragment extends Fragment {
                     tvTime.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     tvHotel.setText(tour.getNameHotel());
                     tvAmount.setText(Integer.toString(tour.getAmount()));
-                    tvAmountRemain.setText(Integer.toString(tour.getAmount()));
+                    tvAmountRemain.setText(Integer.toString(tour.getRemainingAmount()));
 
                     tvDescription.setText(tour.getDescription());
                     tvSchedule.setText(tour.getSchedule());
@@ -144,6 +172,13 @@ public class DetailTourFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
+
+
+
+
+
+        Log.d("tourId",tourId);
+
         btnBookTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
