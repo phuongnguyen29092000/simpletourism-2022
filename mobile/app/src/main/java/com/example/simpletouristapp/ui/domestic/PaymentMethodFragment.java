@@ -1,5 +1,6 @@
 package com.example.simpletouristapp.ui.domestic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.example.simpletouristapp.PayPalActivity;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.FormBookTourBinding;
 import com.example.simpletouristapp.databinding.PaymentMethodBinding;
@@ -47,7 +49,8 @@ public class PaymentMethodFragment extends Fragment {
         binding.btnPaymentPaypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlertDialog(R.layout.dialog_failed);
+                Intent intent = new Intent(getActivity(), PayPalActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -105,6 +105,13 @@
             android:elevation="0dp"
             android:text="Bạn chưa có tài khoản? Đăng ký"
             android:textColor="#000"/>
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_google"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </com.google.android.gms.common.SignInButton>
 
     </LinearLayout>
 </LinearLayout>
