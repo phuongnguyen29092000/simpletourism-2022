@@ -16,6 +16,7 @@ const { OAuth2Client } = require('google-auth-library')
 const loginGoogle = catchAsync(async(req, res)=>{
     let user, clientID
     const {id_token, type} = req.body
+    
     if(type=='mobile') clientID = process.env.GOOGLE_CLIENT_ID_MOBILE
     else clientID = process.env.GOOGLE_CLIENT_ID_WEB
 

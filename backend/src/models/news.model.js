@@ -15,7 +15,7 @@ const newsSchema = mongoose.Schema({
     description: {
         type: String,
         minlength: 20,
-        maxlength: 2048,
+        maxlength: 4096,
         required: true
     },
     imageUrl: {
