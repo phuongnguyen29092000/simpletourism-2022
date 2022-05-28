@@ -70,20 +70,22 @@ public class PayPalActivity extends AppCompatActivity {
                  }
              }
         );
-
-        Log.d("Parent", String.valueOf(getParent()));
         toursApiService = new ToursApiService();
-        Call<ResponseBody> call = toursApiService.getPaypal();
+        Call<ResponseBody> call = toursApiService.postPaypal();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 //                binding.webView.loadUrl(response.body());
-                try {
+                Log.d("code", String.valueOf(response.code()));
+                if(response.code() == 200){
+                    try {
                     binding.webView.loadUrl(response.body().string());
-                    Log.d("Url",response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        Log.d("Url",response.body().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
 
             @Override

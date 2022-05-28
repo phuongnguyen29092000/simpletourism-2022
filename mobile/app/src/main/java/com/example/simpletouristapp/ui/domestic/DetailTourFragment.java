@@ -144,15 +144,15 @@ public class DetailTourFragment extends Fragment {
 //                    Toolbar toolbar = view.findViewById(R.id.toolbar);
 //                    toolbar.setTag("abc");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(tour.getNameTour());
-                    slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7),null));
+                    slideModelList.add(new SlideModel("http://192.168.1.12:4000/" + tour.getImageAvatar().substring(7),null));
                     for (String slide: tour.getImageSlide()
                          ) {
-                        slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + slide.substring(7),null));
+                        slideModelList.add(new SlideModel("http://192.168.1.12:4000/" + slide.substring(7),null));
                     }
                     nameTour.setText(tour.getNameTour());
                     rating.setRating(tour.getRating());
                     imageSliderDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
-                    tvPrice.setText(nf.format(tour.getPrice()).substring(1) + "đ");
+                    tvPrice.setText(nf.format(tour.getPrice()));
                     tvTime.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     tvHotel.setText(tour.getNameHotel());
                     tvAmount.setText(Integer.toString(tour.getAmount()));

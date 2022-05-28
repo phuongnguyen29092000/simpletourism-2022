@@ -1,6 +1,8 @@
 package com.example.simpletouristapp.ui.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -90,6 +92,8 @@ public class AccountFragment extends Fragment {
         MainActivityLogged.gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
+                sharedPref.edit().clear();
                 getActivity().finish();
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 Toast.makeText(getContext(), "Logout Successful", Toast.LENGTH_SHORT).show();

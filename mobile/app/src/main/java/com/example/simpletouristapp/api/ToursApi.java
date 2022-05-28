@@ -1,22 +1,17 @@
 package com.example.simpletouristapp.api;
 
 import com.example.simpletouristapp.model.FeedBackResponse;
+import com.example.simpletouristapp.model.LoginResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
-import com.example.simpletouristapp.model.TypePlace;
 import com.example.simpletouristapp.model.TypePlaceResponse;
 
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-
-import retrofit2.http.Header;
-import retrofit2.http.Headers;
-
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -50,15 +45,13 @@ public interface ToursApi {
     @GET("feedback/tour/{id}")
     Call<FeedBackResponse> getFeedBackById(@Path("id") String tourId);
 
-
-    @Headers({"Content-Type: text/html; charset=UTF-8"})
-    @GET("payment/create")
-    Call<ResponseBody> getPaypal();
+    @POST("payment/create")
+    Call<ResponseBody> postPaypal();
 
     @FormUrlEncoded
-    @POST("login")
-    Call<FeedBackResponse> postFormLogin(@Field("googleId") String googleId, @Field("email") String email
-            , @Field("givenName") String givenName,@Field("familyName") String familyName
-            ,@Field("photoUrl") String photoUrl,@Field("accessToken") String accessToken,@Field("id_token") String idToken);
+    @POST("auth/login")
+    Call<LoginResponse> postFormLogin(@Field("googleId") String googleId, @Field("email") String email
+            , @Field("givenName") String givenName, @Field("familyName") String familyName
+            , @Field("photoUrl") String photoUrl, @Field("accessToken") String accessToken, @Field("id_token") String idToken);
 
 }
