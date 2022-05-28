@@ -10,8 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,26 +20,31 @@ import com.example.simpletouristapp.LoginGoogleActivity;
 import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.LoginFragmentBinding;
-import com.google.android.gms.auth.api.identity.SignInCredential;
+
+import com.example.simpletouristapp.model.TokenResponse;
+import com.example.simpletouristapp.service.LoginGoogleApiService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginFragment extends Fragment {
 
     private LoginFragmentBinding binding;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
+    private LoginGoogleApiService googleService;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        googleService = new LoginGoogleApiService();
+
         String email = binding.edtEmailLogin.getText().toString().trim();
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.[a-z]+";
@@ -172,6 +178,31 @@ public class LoginFragment extends Fragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d("auth_code",account.getServerAuthCode());
+                Call<TokenResponse> call = googleService.getAccessToken(account.getServerAuthCode()
+                        ,getString(R.string.server_client_id),getString(R.string.server_client_secret)
+                        ,"","authorization_code");
+
+                call.enqueue(new Callback<TokenResponse>() {
+                    @Override
+                    public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                        if(response.code() == 200){
+                            TokenResponse tokenResponse = response.body();
+                            Log.d("access_token",tokenResponse.getAccessToken());
+                            Log.d("expires_in", String.valueOf(tokenResponse.getExpiresIn()));
+//                            Log.d("refresh_token",tokenResponse.getRefreshToken());
+                            Log.d("scope",tokenResponse.getScope());
+                            Log.d("token_type",tokenResponse.getTokenType());
+                            Log.d("id_token",tokenResponse.getIdToken());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TokenResponse> call, Throwable t) {
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("TAG",t.getMessage());
+                    }
+                });
                 getActivity().finish();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivityLogged.class);
                 startActivity(intent);
@@ -181,16 +212,18 @@ public class LoginFragment extends Fragment {
             }
         }
     }
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivityLogged.class);
-            startActivity(intent);
-            Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
-        }
-    }
+//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+//
+//
+//            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivityLogged.class);
+//            startActivity(intent);
+//            Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+//        } catch (ApiException e) {
+//            // The ApiException status code indicates the detailed failure reason.
+//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+//            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
+//        }
+//    }
 }

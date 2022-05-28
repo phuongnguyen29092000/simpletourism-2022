@@ -1,5 +1,7 @@
 package com.example.simpletouristapp.ui.domestic;
 
+import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,8 +21,7 @@ import com.example.simpletouristapp.databinding.PaymentMethodBinding;
 
 public class PaymentMethodFragment extends Fragment {
     private PaymentMethodBinding binding;
-    private AlertDialog.Builder builder;
-    private AlertDialog alertDialog;
+    public static Context context;
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class PaymentMethodFragment extends Fragment {
 
         binding = PaymentMethodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        context = getActivity();
         return root;
     }
     @Override
@@ -43,7 +44,7 @@ public class PaymentMethodFragment extends Fragment {
         binding.btnPaymentLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlertDialog(R.layout.dialog_successful);
+
             }
         });
         binding.btnPaymentPaypal.setOnClickListener(new View.OnClickListener() {
@@ -59,20 +60,5 @@ public class PaymentMethodFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    public void showAlertDialog(int myLayout){
-        builder = new AlertDialog.Builder(getActivity());
-        View layoutView = getLayoutInflater().inflate(myLayout,null);
 
-        Button dialogButton = layoutView.findViewById(R.id.buttonOk);
-        builder.setView(layoutView);
-        alertDialog = builder.create();
-        alertDialog.show();
-
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
-    }
 }
