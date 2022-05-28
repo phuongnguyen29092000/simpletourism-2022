@@ -25,7 +25,6 @@ router
       { name: "imageSlide2", maxCount: 1 },
       { name: "imageSlide3", maxCount: 1 },
     ]),
-    auth("owner"),
     TourController.createTour
   );
 

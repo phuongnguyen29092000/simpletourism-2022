@@ -3,16 +3,7 @@ var paypal = require("paypal-rest-sdk");
 
 var total = 0;
 
-const createPayment = async () => {
-  var items = [
-    {
-      name: "Book",
-      sku: "626e9241625050b41b5c7783",
-      price: "1.00",
-      currency: "USD",
-      quantity: 2,
-    },
-  ];
+const createPayment = async (req, res, items, total) => {
   var client_id = (await PaypalClient.findOne({ owner: { $eq: items[0].sku } }))
     .client_id;
   var client_secret = (
@@ -20,16 +11,12 @@ const createPayment = async () => {
       owner: { $eq: items[0].sku },
     })
   ).client_secret;
-
-  for (let i = 0; i < items.length; i++) {
-    total += parseFloat(items[i].price * items[i].quantity);
-  }
-  // test paypal
   paypal.configure({
     mode: "sandbox", //sandbox or live
     client_id: client_id,
     client_secret: client_secret,
   });
+
   var create_payment_json = {
     intent: "sale",
     payer: {
@@ -52,7 +39,18 @@ const createPayment = async () => {
       },
     ],
   };
-  return create_payment_json;
+
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+      throw error;
+    } else {
+      for (let i = 0; i < payment.links.length; i++) {
+        if (payment.links[i].rel === "approval_url") {
+          res.send(payment.links[i].href);
+        }
+      }
+    }
+  });
 };
 
 const getSuccessPayment = async (payerId, paymentId, req, res) => {

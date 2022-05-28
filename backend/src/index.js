@@ -62,7 +62,6 @@ var items = [
     price: "1.00",
     currency: "USD",
     quantity: 3,
-    test: "hihi",
   },
 ];
 

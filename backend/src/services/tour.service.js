@@ -121,13 +121,18 @@ const getTourByOwner = async (idOwner) => {
 };
 
 const searchByText = async (text) => {
+  text = text.trim();
+  var textSlug = text.replace(" ", "-");
   const searchByName = await Tour.find({
     tourName: { $regex: text, $options: "i" },
   });
   const searchByDescription = await Tour.find({
     description: { $regex: text, $options: "i" },
   });
-  let arr = [...searchByName, ...searchByDescription];
+  const searchBySlug = await Tour.find({
+    slug: { $regex: textSlug, $options: "i" },
+  });
+  let arr = [...searchByName, ...searchByDescription, ...searchBySlug];
   let tours = [...new Set(arr)];
   return tours;
 };
