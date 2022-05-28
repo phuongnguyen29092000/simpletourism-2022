@@ -4,8 +4,7 @@ import './styles/common/sidebar.css'
 import SideBar from './components/SideBar'
 import Header from './containers/Header'
 import HomePage from './pages/HomePage'
-import { Provider } from 'react-redux'
-import store from './store';
+import { Provider, useDispatch } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import OwnerRoutes from './route/ownerRoutes'
 import UserRoutes from './route/userRoutes'
@@ -18,10 +17,14 @@ import './styles/component/ListTicket.scss'
 import './styles/component/Modal.scss'
 import './styles/component/OutstandingTour.scss'
 import './styles/component/HotPlaces.scss'
+import './styles/component/Login.scss'
 import { useEffect } from 'react'
 import {gapi} from 'gapi-script'
+import { getUser } from 'hooks/localAuth'
+import { setAccountInfo } from 'redux/reducers/user/action'
 
 function App() {
+  const dispatch = useDispatch()
   useEffect(() => {
     function start(){
       gapi.client.init({
@@ -31,8 +34,12 @@ function App() {
     }
     gapi.load('client:auth2', start)
   })
+  useEffect(() => {
+    let account = getUser();
+    console.log(account)
+    if(account) dispatch(setAccountInfo(account))
+  },[])
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <div className="App">
           <Routes>
@@ -44,7 +51,6 @@ function App() {
           {/* <HomePage/> */}
         </div>
       </BrowserRouter>
-    </Provider>
   );
 }
 

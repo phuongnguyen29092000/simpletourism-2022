@@ -1,8 +1,13 @@
 import React from 'react';
 import {GoogleLogin} from 'react-google-login'
 import AuthAPI from '../../api/AuthAPI';
+// import { loginWithGoogle } from '../../ultis/authUtil'
+import LoginIcon from '@mui/icons-material/Login';
+import { useDispatch } from 'react-redux';
+import { loginWithGoogle } from 'redux/reducers/user/action';
 
 const LoginWithGoogle = () => {
+    const dispatch = useDispatch()
     const handleLoginSuccess = (res) => {
         let info = {
             googleId: res.googleId,
@@ -14,7 +19,7 @@ const LoginWithGoogle = () => {
             id_token: res.tokenId
         }
         // console.log(info);
-        AuthAPI.loginWithGoogle(info)
+        dispatch(loginWithGoogle(info))
     }
     const handleLoginFailure = (res) => {
         console.log(res)
@@ -23,7 +28,7 @@ const LoginWithGoogle = () => {
         <div className='login-with-google'>
             <GoogleLogin
                 clientId='518561649263-dus6m9u26oe7qeu5r3itp9iinn741g6l.apps.googleusercontent.com'
-                buttonText='Login with google'
+                buttonText=''
                 onSuccess={handleLoginSuccess}
                 onFailure={handleLoginFailure}
                 cookiePolicy={"single_host_origin"}   

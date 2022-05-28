@@ -1,0 +1,10 @@
+{"status":200,"message":"Đăng nhập thành công!",
+    "profile":{"_id":"628f9370acbd30f2b5f8ef6d","googleId":"103791298681187528676","givenName":"Việt Hưng","familyName":"Lương Mậu","email":"luongmauviethung31.01@gmail.com","photoUrl":"https://lh3.googleusercontent.com/a-/AOh14Gg2tYRExby6vzkvEXj8pYH6S5Xj4FAsSDUDEqL7xQ=s96-c","role":"customer","createdAt":"2022-05-26T14:49:20.936Z","updatedAt":"2022-05-26T14:49:20.936Z","__v":0},
+    "tokenAuth":{
+        "access":{
+            "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY5MzcwYWNiZDMwZjJiNWY4ZWY2ZCIsImV4cCI6MTY1MzczNTgxMCwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1MzczNTIxMH0.R-_fIY7oPhfb8l3vk_AiWraPr-_bjnRzn3py85KMo5w",
+            "expires":"2022-05-28T11:03:30.308Z"}
+        ,"refresh":{
+            "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY5MzcwYWNiZDMwZjJiNWY4ZWY2ZCIsImV4cCI6MTY1NjMyNzIxMCwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE2NTM3MzUyMTB9.L5rPyAa1ED8leqZFyuaOg-CcGEN2WgCPor70dRchVZY",
+            "expires":"2022-06-27T10:53:30.314Z"}
+        }}

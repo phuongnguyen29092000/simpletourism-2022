@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 
 export const setAccessToken = (token) => Cookies.set('token', token)
-export const setOrganization = (org) => Cookies.set('organization', org)
+// export const setOrganization = (org) => Cookies.set('organization', org)
 export const setRefreshToken = (token) => Cookies.set('refresh_token', token)
 export const setUser = (user) => Cookies.set('user', user)
 export const setTimeRefresh = (expires_in) => {
@@ -15,10 +15,10 @@ export const getAccessToken = () => {
   return token && `${Cookies.get('token')}`
 }
 
-export const getOrganization = () => {
-  const token = Cookies.get('organization')
-  return token && `${Cookies.get('organization')}`
-}
+// export const getOrganization = () => {
+//   const token = Cookies.get('organization')
+//   return token && `${Cookies.get('organization')}`
+// }
 
 export const getRefreshToken = () => {
   const token = Cookies.get('refresh_token')
