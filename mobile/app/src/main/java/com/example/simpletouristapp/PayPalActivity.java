@@ -1,14 +1,19 @@
 package com.example.simpletouristapp;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -17,11 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.simpletouristapp.api.ToursApi;
 import com.example.simpletouristapp.databinding.PaypalBinding;
 import com.example.simpletouristapp.service.ToursApiService;
+
 import com.example.simpletouristapp.ui.domestic.PaymentMethodFragment;
 
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,8 +99,24 @@ public class PayPalActivity extends AppCompatActivity {
     }
     public void showAlertDialog(int myLayout){
         builder = new AlertDialog.Builder(PaymentMethodFragment.context);
-        View layoutView = getLayoutInflater().inflate(myLayout,null);
+        toursApiService = new ToursApiService();
+        Call<String> call = toursApiService.postPaypal();
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                binding.webView.loadUrl(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+
+    }
+    public void showAlertDialog(int myLayout){
+        builder = new AlertDialog.Builder(getApplicationContext());
+        View layoutView = getLayoutInflater().inflate(myLayout,null);
         Button dialogButton = layoutView.findViewById(R.id.buttonOk);
         builder.setView(layoutView);
         alertDialog = builder.create();
