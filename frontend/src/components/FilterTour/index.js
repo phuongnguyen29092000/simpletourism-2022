@@ -35,10 +35,19 @@ function FilterTour() {
             if(data[option]) {
                 if(option == 'price') {
                     param = param + `price[gt]=${data[option][0]}&price[lt]=${data[option][1]}&`;
-                }else param = param + `${option}=${data[option]}&`;
+                }else if (option == 'discount' || option == 'continent') param = param + `${option}=${data[option]}&`;
+                    else {
+                        let listValue ='';
+                        listValue = data[option]?.reduce((acc, curr) => {
+                            return `${acc},${curr}`
+                        },'')
+                        listValue = listValue.slice(1)
+                        param =  param + `${option}=${listValue}&`;
+                    }
             }
         }
         param = param.slice(0,-1);
+
         navigate(`${ROUTE_TOUR_FILTER}?${param}`);
         reset();
     };
@@ -81,7 +90,7 @@ function FilterTour() {
                                     {
                                         listTypePlace?.map((typeplace, index) => (
                                             <div className='filter-radio-item' key={index}>
-                                                <input type="radio" id={typeplace._id} value={typeplace.slug} {...register("typeplace")} />
+                                                <input type="checkbox" id={typeplace._id} value={typeplace.slug} {...register("typeplace")} />
                                                 <label htmlFor={typeplace._id}>{typeplace.name}</label>
                                             </div>
                                         ))
