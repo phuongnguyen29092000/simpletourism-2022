@@ -20,6 +20,8 @@ import { makeStyles } from '@mui/styles';
 import PriceDiscount from '../../LogicResolve/PriceDiscount';
 import TourCard from '../../components/Cards/TourCard';
 import TabDetail from '../../components/TabDetail';
+import AuthAPI from '../../api/AuthAPI';
+import StarIcon from '@mui/icons-material/Star';
 
 const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
@@ -97,7 +99,7 @@ function TourDetail() {
     const classes = useStyles();
     const { id } = useParams();
     console.log(id)
-    // const [data, setData] = useState();
+    const [rating, setRating] = useState(0);
     const dispatch = useDispatch();
     const {tourDetail, similarTour} = useSelector((store) => store.listTour)
     const {listFeedback} = useSelector((store) => store.feedback)
@@ -110,11 +112,18 @@ function TourDetail() {
     //     dispatch(actions.setLoading(false));
     //     console.log(result.data.similarTour)
     // }, [load]);
-    console.log(tourDetail)
+    console.log(listFeedback)
+
     useEffect(()=>{
         dispatch(getTourById(id))
+    },[])
+    useEffect(()=>{
+        console.log('getFb')
         dispatch(getFeedbackForTour(id))
     },[])
+    useEffect(()=>{
+        setRating(tourDetail.ratingsAverage)
+    },[listFeedback, tourDetail])
     const handleOnClick = (_id, name, price, discount) => {
         // dispatch(actions.setBookTour({
         //     id: _id,
@@ -122,10 +131,9 @@ function TourDetail() {
         //     price,
         //     discount
         // }));
+        // AuthAPI.loginWithGoogle()
     }
-
-    
-
+    console.log(tourDetail.ratingsAverage)
     const onHandleSendFeedback = async (data) => {
         // const dataSubmit = {
         //     ...data,
@@ -195,7 +203,7 @@ function TourDetail() {
                                     -{new Number(tourDetail.discount) * 100}%
                                 </div>} */}
                                 <Slider {...settingSlideImage}>
-                                    {
+                                    {   
                                         tourDetail?.imageSlide?.map((image, index)=>(
                                             <div key={index}>
                                                 <img src={ConvertToImageURL(image)}/>
@@ -211,19 +219,27 @@ function TourDetail() {
                                 <Typography gutterBottom variant="body1" component="div" align='left' color="secondary">
                                     <PriceDiscount valueDiscount={tourDetail.discount} valuePrice={tourDetail.price} />
                                 </Typography>
-                                {/* <Typography gutterBottom component="div" variant="body1" align="left" style={{ display: 'flex', fontFamily: 'system-ui', color: 'gray' }}>
-                                    <StyledRating
+                                <Typography gutterBottom component="div" variant="body1" align="left" style={{ display: 'flex', fontFamily: 'system-ui', color: 'gray' }}>
+                                    {/* <StyledRating
                                         name="customized-color"
-                                        value={tourDetail.rating}
+                                        value={tourDetail.ratingsAverage}
                                         getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
                                         precision={0.1}
                                         icon={<FavoriteIcon fontSize="inherit" style={{ color: 'red' }} />}
                                         emptyIcon={<FavoriteBorderIcon fontSize="inherit" style={{ color: 'red' }} />}
                                         readOnly
                                         size="medium"
+                                    /> */}
+                                    <Rating name="customized-rating" 
+                                        defaultValue={tourDetail.ratingsAverage}
+                                        value={rating}
+                                        max={5}
+                                        precision={0.1}
+                                        readOnly
+                                        size="medium"
                                     />
-                                    &nbsp;{`${parseFloat(tourDetail.rating).toFixed(1)} | ${tourDetail.listFeedback.length} đánh giá`}
-                                </Typography> */}
+                                    {/* &nbsp;{`${parseFloat(tourDetail.ratingsAverage).toFixed(1)} | ${tourDetail.listFeedback.length} đánh giá`} */}
+                                </Typography>
                                 <Typography gutterBottom variant="body1" component="div" align='left' style={{ fontFamily: 'Roboto Mono' }}>
                                     {`"${tourDetail.description}"`}
                                 </Typography>
@@ -238,11 +254,11 @@ function TourDetail() {
                                     <span style={{ color: 'darkblue', fontWeight: 'bold' }}>Số lượng: </span>{tourDetail.amount}
                                 </Typography>
                                 <Typography gutterBottom variant="body1" component="div" align='left'>
-                                    <span style={{ color: 'darkblue', fontWeight: 'bold' }}>Số lượng còn: </span>{/*soluongcon */}
+                                    <span style={{ color: 'darkblue', fontWeight: 'bold' }}>Số lượng còn: </span>{tourDetail?.remainingAmount}
                                 </Typography>
                                 <Typography gutterBottom variant="button" component="div" align='left'>
                                     <Button variant="contained" color="secondary"
-                                        disabled={(new Date().getTime() + 86400000 * 2) > (new Date(tourDetail.timeStart).getTime())}
+                                        // disabled={(new Date().getTime() + 86400000 * 2) > (new Date(tourDetail.timeStart).getTime())}
                                         onClick={() => handleOnClick()}>
                                         Đặt Tour</Button>
                                 </Typography>

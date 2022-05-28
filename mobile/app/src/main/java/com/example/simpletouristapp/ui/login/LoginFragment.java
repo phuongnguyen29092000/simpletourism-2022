@@ -16,9 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.simpletouristapp.LoginGoogleActivity;
 import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.LoginFragmentBinding;
+
 import com.example.simpletouristapp.model.TokenResponse;
 import com.example.simpletouristapp.service.LoginGoogleApiService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

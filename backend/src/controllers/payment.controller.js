@@ -1,4 +1,3 @@
-var paypal = require("paypal-rest-sdk");
 const catchAsync = require("../utils/catchAsync");
 const { PaypalService } = require("../services");
 

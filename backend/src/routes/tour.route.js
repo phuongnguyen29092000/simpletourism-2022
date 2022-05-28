@@ -10,6 +10,7 @@ const router = express.Router();
 router.route("/trong-nuoc").get(TourController.getDomesticTour);
 router.route("/quoc-te").get(TourController.getInternationalTour);
 router.route("/tour-noi-bat").get(TourController.getOutStandingTours);
+
 router
   .route("/:idTour/tickets")
   .get(auth("owner"), ticketController.getTicketPerTour);
@@ -25,7 +26,6 @@ router
       { name: "imageSlide2", maxCount: 1 },
       { name: "imageSlide3", maxCount: 1 },
     ]),
-    auth("owner"),
     TourController.createTour
   );
 

@@ -37,6 +37,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
+
             android:name=".LoginGoogleActivity"
             android:exported="false"
             android:label="Login With Google"/>
