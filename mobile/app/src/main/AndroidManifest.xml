@@ -29,6 +29,14 @@
             android:label="@string/title_activity_main_logged"
             android:theme="@style/Theme.SimpleTouristApp.NoActionBar" />
         <activity
+            android:name=".PayPalActivity"
+            android:label="PayPal"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".LoginGoogleActivity"
             android:exported="false"
             android:label="Login With Google"/>

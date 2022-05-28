@@ -4,25 +4,26 @@ import com.example.simpletouristapp.api.ToursApi;
 import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
-import com.example.simpletouristapp.model.TypePlace;
 import com.example.simpletouristapp.model.TypePlaceResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public class ToursApiService {
     private static final String BASE_URL = "http://192.168.1.49:4000/";
     private ToursApi toursApi;
 
     public ToursApiService(){
-        toursApi = new Retrofit.Builder()
+                Gson gson = new GsonBuilder().setLenient().create();
+                toursApi = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(ToursApi.class);
     }
@@ -60,7 +61,7 @@ public class ToursApiService {
         return toursApi.getFeedBackById(tourId);
     }
 
-    public Call<String> postPaypal(){
-        return toursApi.postPaypal();
+    public Call<ResponseBody> getPaypal(){
+        return toursApi.getPaypal();
     }
 }
