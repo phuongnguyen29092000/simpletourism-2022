@@ -5,14 +5,14 @@ const auth = require('../middlewares/auth')
 
 const router = express.Router();
 
-router.get('/', auth('admin'), userController.getUserByRole)
+router.get('/', userController.getUserByRole)
 
-router.post('/create', auth('admin', 'owner', 'customer'), userController.createUser)
+router.post('/create', userController.createUser)
 
-router.get('/:id', auth('admin', 'owner', 'customer'), userController.getUserById)
+router.get('/:id', userController.getUserById)
 
-router.put('/:id', auth('admin'), userController.updateUserById)
+router.put('/:id', userController.updateUserById)
 
-router.delete('/:id', auth('admin'), userController.deleteUserById)
+router.delete('/:id', userController.deleteUserById)
 
 module.exports = router;

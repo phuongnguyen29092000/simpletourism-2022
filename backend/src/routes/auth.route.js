@@ -6,11 +6,10 @@ const { authController } = require('../controllers')
 
 const router = express.Router()
 
-router.get("/login", authController.loginGoogle)
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: '/auth/loginfail' }), authController.loginSuccess)
-router.get("/loginfail", authController.loginFail)
-router.post("/logout", auth('admin', 'owner', 'customer'), authController.logout)
+router.post("/login", authController.loginGoogle)
+router.post("/logout", authController.logout)
 router.post('/refresh-tokens', authController.refreshTokens);
 
-
+// router.get("/google/callback", passport.authenticate("google", { failureRedirect: '/auth/loginfail' }), authController.loginSuccess)
+// router.get("/loginfail", authController.loginFail)
 module.exports = router

@@ -3,6 +3,7 @@ package com.example.simpletouristapp;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -51,6 +52,8 @@ public class MainActivityLogged extends AppCompatActivity {
     private TextView email;
     public static GoogleSignInOptions gso;
     public static GoogleSignInClient gsc;
+
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -108,6 +111,12 @@ public class MainActivityLogged extends AppCompatActivity {
 //        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
+        sharedPref = getSharedPreferences("Token",Context.MODE_PRIVATE);
+
+        String accessToken = sharedPref.getString("access_token","");
+        Log.d("AccessToken",accessToken);
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_domestic, R.id.nav_international, R.id.nav_news, R.id.nav_account)
                 .setOpenableLayout(drawer)
@@ -179,5 +188,11 @@ public class MainActivityLogged extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_logged);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPref.edit().clear();
     }
 }

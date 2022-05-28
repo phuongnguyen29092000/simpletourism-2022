@@ -2,7 +2,9 @@ const { PaypalClient } = require("../models");
 var paypal = require("paypal-rest-sdk");
 
 
+var totalPayment = 0;
 const createPayment = async (req, res, items, total) => {
+  totalPayment = total;
   var client_id = (await PaypalClient.findOne({ owner: { $eq: items[0].sku } }))
     .client_id;
   var client_secret = (
@@ -59,7 +61,7 @@ const getSuccessPayment = async (payerId, paymentId, req, res) => {
       {
         amount: {
           currency: "USD",
-          total: total.toString(),
+          total: totalPayment.toString(),
         },
       },
     ],
