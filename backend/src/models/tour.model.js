@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 const continents = require("../config/continents");
+const slug = require("mongoose-slug-generator");
+
+const options = {
+  lang: "en",
+};
+mongoose.plugin(slug, options);
 
 const tourSchema = mongoose.Schema(
   {
@@ -87,6 +93,10 @@ const tourSchema = mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "User",
       required: [true, "Tour must belong to owner!"],
+    },
+    slug: {
+      type: String,
+      slug: "tourName",
     },
   },
   {

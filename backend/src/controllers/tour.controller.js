@@ -142,6 +142,19 @@ const getTourByOwner = catchAsync(async (req, res, next) => {
   }
 });
 
+const searchByText = catchAsync(async (req, res, next) => {
+  const tours = await TourService.searchByText(req.body.search);
+  if (!tours || tours.length === 0) {
+    return next(new ApiError("Tour Not Found!", 404));
+  } else {
+    res.status(200).json({
+      status: 200,
+      totalResult: tours.length,
+      data: tours,
+    });
+  }
+});
+
 module.exports = {
   getAllTour,
   getDomesticTour,
@@ -152,4 +165,5 @@ module.exports = {
   updateTour,
   getTourByOwner,
   getOutStandingTours,
+  searchByText,
 };
