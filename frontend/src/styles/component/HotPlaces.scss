@@ -1,0 +1,25 @@
+.hot-places-session{
+    background-image: url("https://images.unsplash.com/photo-1498060640552-89ed324842ea?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=812");
+    background-size: cover;
+    .hot-places-component{
+        .hot-places-content{
+            &__col{
+                padding: 30px;
+                &__image{
+                    .image-introduce{
+                        max-width: 100%;
+                    }
+                }
+                &__text{
+                    *{
+                        text-align: left;
+                    }
+                    h1{
+                        text-transform: uppercase;
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
