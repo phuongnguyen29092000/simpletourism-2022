@@ -24,6 +24,7 @@ import { useEffect } from 'react'
 import {gapi} from 'gapi-script'
 import { getUser } from 'hooks/localAuth'
 import { setAccountInfo } from 'redux/reducers/user/action'
+import { ReactNotifications } from 'react-notifications-component'
 
 function App() {
   const dispatch = useDispatch()
@@ -44,6 +45,7 @@ function App() {
   return (
       <BrowserRouter>
         <div className="App">
+          <ReactNotifications/>
           <Routes>
             {/* <Route path="/" exact element={<SideBar />} /> */}
           </Routes>
