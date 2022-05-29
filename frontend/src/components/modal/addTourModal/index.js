@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getAllTour, addTour} from '../../../redux/reducers/listTour/action'
 import { format } from 'date-fns';
 
-const AddTourModal = ({ open, handleClose, tour }) => {
+const AddTourModal = ({ open, handleClose, tour, action }) => {
     const dispatch = useDispatch()
     const [submit, setSubmit] = useState(false)
     const {listTour} = useSelector((store)=>store.listTour)
@@ -40,7 +40,7 @@ const AddTourModal = ({ open, handleClose, tour }) => {
                 <Box sx={style}>
                     <div className='modal-header'>
                         <div className='modal-title'>
-                            <h3>THÊM TOUR MỚI</h3>
+                            <h3>{action}</h3>
                         </div>
                     </div>
                     <div className='modal-body'>
