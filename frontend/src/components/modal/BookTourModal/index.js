@@ -5,6 +5,7 @@ import {getAllTour, addTour} from '../../../redux/reducers/listTour/action'
 import { Controller, useForm } from 'react-hook-form';
 import { format, parse } from 'date-fns';
 import TicketAPI from 'api/TicketAPI';
+import useNotification from 'hooks/notification'
 import PriceDiscount from 'LogicResolve/PriceDiscount';
 
 const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
@@ -43,7 +44,10 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         })
         .then((result) => {
             if(result.status === 201){
-                console.log('OK');
+                useNotification.Success({
+                    title: "Thành công!",
+                    message:"Đặt tour thành công!"
+                })
                 reset();
                 handleClose(false);
             }
