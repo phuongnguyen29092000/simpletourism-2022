@@ -5,7 +5,8 @@ const { ticketService, userService, TourService } = require('../services')
 
 const bookTicket = catchAsync(async(req, res) => {
     const tour = req.params.tourId
-    const { price, discount } = await TourService.getTour(tour)
+    const tourDetail = await TourService.getTour(tour)
+    let {price, discount} = tourDetail.tour
     let paymentPrice = 0
     if (!discount) paymentPrice = price
     else paymentPrice = parseInt(price * (1 - discount))
