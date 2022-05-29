@@ -16,7 +16,8 @@ const LoginWithGoogle = () => {
             givenName: res.profileObj.givenName,
             photoUrl:  res.profileObj.imageUrl,
             accessToken: res.accessToken,
-            id_token: res.tokenId
+            id_token: res.tokenId,
+            type: 'web'
         }
         // console.log(info);
         dispatch(loginWithGoogle(info))

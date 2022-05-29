@@ -13,7 +13,7 @@ router.route("/tour-noi-bat").get(TourController.getOutStandingTours);
 
 router
   .route("/:idTour/tickets")
-  .get(auth("owner"), ticketController.getTicketPerTour);
+  .get(ticketController.getTicketPerTour);
 router.route("/search").get(TourController.searchByText);
 
 router
@@ -32,11 +32,11 @@ router
 router
   .route("/:id")
   .get(TourController.getTour)
-  .delete(auth("owner"), TourController.deleteTour)
-  .patch(auth("owner"), TourController.updateTour);
+  .delete(TourController.deleteTour)
+  .patch(TourController.updateTour);
 
 router
   .route("/owner/:ownerId")
-  .get(auth("owner"), TourController.getTourByOwner);
+  .get(TourController.getTourByOwner);
 
 module.exports = router;

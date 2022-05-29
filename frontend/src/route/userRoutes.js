@@ -6,7 +6,8 @@ import TourResult from '../containers/ListCardTour/TourResult';
 import TourDetail from '../containers/TourDetail';
 import userLayout from '../HOCS/userLayout';
 import HomePage from '../pages/HomePage'
-import { ROUTE_HOME, ROUTE_TOUR_DETAIL, ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_FILTER, ROUTE_TOUR_INTERNATIONAL} from './type';
+import NewsList from 'containers/ListNews';
+import { ROUTE_HOME, ROUTE_TOUR_DETAIL, ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_FILTER, ROUTE_TOUR_INTERNATIONAL, ROUTE_USER_NEWS} from './type';
 
 const userRoutes = () => {
     return (
@@ -51,6 +52,13 @@ const userRoutes = () => {
                 path={ROUTE_TOUR_DETAIL}
                 element = {userLayout({
                     Component: TourDetail
+                })}
+            />
+
+            <Route
+                path={ROUTE_USER_NEWS}
+                element = {userLayout({
+                    Component: NewsList
                 })}
             />
         </Routes>
