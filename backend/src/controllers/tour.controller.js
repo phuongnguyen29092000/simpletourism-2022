@@ -3,7 +3,7 @@ const { TourService } = require("../services");
 const ApiError = require("../utils/ApiError");
 
 const getAllTour = catchAsync(async (req, res, next) => {
-  //console.log(req.query);
+  console.log(req.query);
   const tours = await TourService.getAllTour(req.query);
   if (!tours || tours.length === 0) {
     return next(new ApiError("Tour Not Found!", 404));

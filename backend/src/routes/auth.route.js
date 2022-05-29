@@ -12,4 +12,4 @@ router.post('/refresh-tokens', authController.refreshTokens);
 
 // router.get("/google/callback", passport.authenticate("google", { failureRedirect: '/auth/loginfail' }), authController.loginSuccess)
 // router.get("/loginfail", authController.loginFail)
-module.exports = router
+module.exports = router 

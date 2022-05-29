@@ -84,6 +84,10 @@ const loginGoogle = catchAsync(async(req, res)=>{
 // })
 
 const logout = catchAsync(async(req, res) => {
+    if(!refreshTokens) return res.status(httpStatus.FORBIDDEN).json({
+        status: 403,
+        message: "FORBIDDEN"
+    })
     await authService.logout(req.accessToken, req.body.refreshToken)
     res.status(httpStatus.OK).json({
         status: 200,
@@ -100,7 +104,7 @@ const refreshTokens = catchAsync(async(req, res) => {
     else res.stauts(httpStatus.OK).json({
         status: 200,
         message: "OK",
-        tokenAuth: {...tokenAuth }
+        accessInfo: tokenAuth.access
     })
 })
 

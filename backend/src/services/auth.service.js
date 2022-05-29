@@ -18,13 +18,13 @@ const logout = async(accessToken, refreshToken) => {
 
 const refreshAuth = async(refreshToken) => {
     try {
-        const refreshTokenInfo = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH);
-        const user = await userService.getUserById(refreshTokenInfo.user)
+        const refreshTokenInfo = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH)
+        const user = await userService.getUserById(refreshTokenInfo.user) 
         if (!user) {
-            throw new Error();
+            throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate')
         }
-        await refreshTokenInfo.remove();
-        return tokenService.generateAuthTokens(user);
+        // await refreshTokenInfo.remove();
+        return tokenService.generateAccessRefreshToken(user._id.toString(), true)
     } catch (error) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate')
     }
