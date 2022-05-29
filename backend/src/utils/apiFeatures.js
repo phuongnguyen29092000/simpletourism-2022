@@ -34,7 +34,7 @@ class APIFeatures {
     tours.forEach((item) => {
       if (arrTypePlace.includes(item.typePlace.slug)) {
         res.push(item);
-      }
+      } else console.log(item.tourName);
     });
     return res;
   }
