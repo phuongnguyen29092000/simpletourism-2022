@@ -15,38 +15,9 @@ import TypePlaceAPI from '../../../api/TypePlaceAPI';
 import { CONTINENTS } from '../../../Constants/dataForm';
 import ConvertToImageURL from '../../../LogicResolve/ConvertToImageURL';
 
-const Continents = [
-    {
-        value:'Asia',
-        label: 'Châu Á'
-    },
-    {
-        value:'Africa',
-        label: 'Châu Phi'
-    },
-    {
-        value:'Australia',
-        label: 'Châu Úc'
-    },
-    {
-        value:'Europe',
-        label: 'Châu Âu'
-    },
-    {
-        value:'North America',
-        label: 'Bắc Mỹ'
-    },
-    {
-        value:'South America',
-        label: 'Nam Mỹ'
-    },
-
-];
-
 const Discounts = ["10", "20", "30", "40", "50", "60", "70"]
 
 function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
-    console.log(tour)
     const {
         register,
         handleSubmit,

@@ -51,6 +51,7 @@ const deleteTicket = (id, callback = ()=>{}) => {
         })
     }
 }
+
 export {
     getAllTicket,
     deleteTicket

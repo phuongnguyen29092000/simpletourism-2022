@@ -22,6 +22,8 @@ import TourCard from '../../components/Cards/TourCard';
 import TabDetail from '../../components/TabDetail';
 import AuthAPI from '../../api/AuthAPI';
 import StarIcon from '@mui/icons-material/Star';
+import SpinnerLoading from 'components/SpinnerLoading';
+import { getUser } from 'hooks/localAuth';
 
 const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
@@ -101,7 +103,7 @@ function TourDetail() {
     console.log(id)
     const [rating, setRating] = useState(0);
     const dispatch = useDispatch();
-    const {tourDetail, similarTour} = useSelector((store) => store.listTour)
+    const {loading, tourDetail, similarTour} = useSelector((store) => store.listTour)
     const {listFeedback} = useSelector((store) => store.feedback)
     // useEffect(async () => {
     //     document.title = "Bootcamp Travel | Chi tiết";
@@ -112,15 +114,16 @@ function TourDetail() {
     //     dispatch(actions.setLoading(false));
     //     console.log(result.data.similarTour)
     // }, [load]);
-    console.log(listFeedback)
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    },[id])
     useEffect(()=>{
         dispatch(getTourById(id))
-    },[])
+    },[id])
     useEffect(()=>{
         console.log('getFb')
         dispatch(getFeedbackForTour(id))
-    },[])
+    },[id])
     useEffect(()=>{
         setRating(tourDetail.ratingsAverage)
     },[listFeedback, tourDetail])
@@ -147,13 +150,13 @@ function TourDetail() {
     const settings = {
         className: classes.sliderContainer,
         dots: false,
-        arrows: true,
+        // arrows: true,
         infinite: true,
         autoplay: true,
         speed: 2000,
         autoplaySpeed: 5000,
         slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToScroll: 1,
         pauseOnHover: true,
         prevArrow: <PreArrow />,
         nextArrow: <NextArrow />,
@@ -162,8 +165,8 @@ function TourDetail() {
                 breakpoint: 1080,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
+                    slidesToScroll: 1,
+                    initialSlide: 1
                 }
             },
             {
@@ -171,7 +174,7 @@ function TourDetail() {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    initialSlide: 2
+                    initialSlide: 1
                 }
             },
         ]
@@ -193,9 +196,10 @@ function TourDetail() {
     }
     return (
         <div className='tour-detail-wrapper'>
-            {tourDetail &&
+        {   loading ? <SpinnerLoading/> :
+            (tourDetail &&
                 <Container maxWidth="lg">
-                    <Box sx={{ marginTop: '130px', paddingLeft: { md: '60px' }, paddingRight: { md: '60px' } }}>
+                    <Box sx={{ marginTop: '70px', paddingLeft: { md: '60px' }, paddingRight: { md: '60px' } }}>
                         <Grid container spacing={2}>
                             <Grid className='tour-slide-wrapper' item md={6} xs={12} style={{ position: "relative", marginBottom: '70px',}}>
                                 {/* <img className={classes.avatar} src={ConvertToImageURL(tourDetail.imageAvatar)} />
@@ -257,8 +261,9 @@ function TourDetail() {
                                     <span style={{ color: 'darkblue', fontWeight: 'bold' }}>Số lượng còn: </span>{tourDetail?.remainingAmount}
                                 </Typography>
                                 <Typography gutterBottom variant="button" component="div" align='left'>
-                                    <Button variant="contained" color="secondary"
+                                    <Button variant="contained" color="info"
                                         // disabled={(new Date().getTime() + 86400000 * 2) > (new Date(tourDetail.timeStart).getTime())}
+                                        disabled = {!getUser()}
                                         onClick={() => handleOnClick()}>
                                         Đặt Tour</Button>
                                 </Typography>
@@ -300,7 +305,7 @@ function TourDetail() {
                                                 tourName = {tour.tourName}
                                                 description = {tour.description}
                                                 imageAvatar = {ConvertToImageURL(tour.imageAvatar)}
-                                                // rating
+                                                rating = {tour.ratingsAverage   }
                                                 price = {tour.price}
                                                 discount = {tour?.discount}
                                                 />
@@ -312,7 +317,8 @@ function TourDetail() {
                         </Box>
                     </Box>
                 </Container>
-            }
+            )
+        }
         </div >
     );
 }

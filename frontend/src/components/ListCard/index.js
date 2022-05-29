@@ -18,6 +18,9 @@ const ListCard = ({data}) => {
     useEffect(() => {
         setDataListCard([...data.slice(0,6)])
     },[data])
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    })
     return (
         <div className='list-card-tour'>
             {data &&
@@ -72,7 +75,7 @@ const ListCard = ({data}) => {
                                                     tourName = {tour.tourName}
                                                     description = {tour.description}
                                                     imageAvatar = {ConvertToImageURL(tour.imageAvatar)}
-                                                    // rating
+                                                    rating = {tour.ratingsAverage}
                                                     price = {tour.price}
                                                     discount = {tour?.discount}
                                                 />

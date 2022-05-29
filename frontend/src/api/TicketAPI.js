@@ -12,8 +12,13 @@ const getTicketById = (id) => {
     let url = `ticket/${id}`
     return axiosClient.get(url)
 }
+const createTicket = (id, data) => {
+    let url = `ticket/create/${id}`;
+    return axiosClient.post(url, data)
+}
 export default {
     getAllTicket,
     deleteTicket,
-    getTicketById
+    getTicketById,
+    createTicket
 }
