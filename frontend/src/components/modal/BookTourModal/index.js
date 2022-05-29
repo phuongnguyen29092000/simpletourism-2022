@@ -28,7 +28,7 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 700,
+        width: 400,
         bgcolor: 'background.paper',
         boxShadow: 24,
         overflow: 'hidden',
@@ -67,23 +67,23 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         formRef.current.click();
     }
     return (
-        <div className='add-tour-modal'>
+        <div className='book-ticket-modal'>
             <Modal
                 open={open}
                 onClose={handleClose}
 
             >
                 <Box sx={style}>
-                    <div className='modal-header'>
-                        <div className='modal-title'>
-                            <h3>ĐẶT TOUR</h3>
+                    <div className='modal-header '>
+                        <div className='modal-title' style={{display:'flex', justifyContent:'center'}}>
+                            <h3 style={{textAlign:'center'}}>ĐẶT TOUR</h3>
                         </div>
                     </div>
-                    <div className='modal-body'>
+                    <div className='modal-body modal-book-ticket'>
                         <h4>{`Tên tour: ${tour.tourName}`}</h4>
                         <form className='form-booking-tour' onSubmit={handleSubmit(onHandleSubmit)}>
-                            <div className='form-group col-1'>
-                                <label>SĐT: </label>
+                            <div className='form-group-phone a1col-1'>
+                                <label>Số điện thoại: </label>
                                 <input {...register("phone", {
                                     required: "* Nhập SĐT.",
                                     maxLength: {
@@ -99,8 +99,8 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
                                 />
                                 {errors.phone && <div className="alert">{errors.phone.message}</div>}
                             </div>
-                            <div className="form-group mb-2">
-                                <label className='label-title'>Số lượng: </label>
+                            <div className="form-group-count mb-2">
+                                <label className='label-title'>Số lượng vé: </label>
                                 <Controller
                                     name="numberPeople"
                                     control={control}
@@ -123,7 +123,7 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
                              </div>
                              <button type='submit' ref={formRef} style={{display:'none'}}>SUBMIT</button>
                         </form>
-                        <span><PriceDiscount valuePrice={(tour.price)*count} valueDiscount={tour.discount}/></span>
+                        <span className='price-text'><PriceDiscount valuePrice={(tour.price)*count} valueDiscount={tour.discount}/></span>
                     </div>
                     <div className='modal-footer'>
                         <div className='btn-footer'>

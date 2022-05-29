@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 
 const AddTourModal = ({ open, handleClose, tour }) => {
     const dispatch = useDispatch()
-    const [submit, setSubmit] = useState(false)
+    const [submit, setSubmit] = useState(false) 
     const {listTour} = useSelector((store)=>store.listTour)
     console.log(tour)
     useEffect(()=>{
