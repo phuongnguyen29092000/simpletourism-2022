@@ -35,7 +35,7 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
     const [imagePreview3, setImagePreview3] = useState();
     // const [typePlaces, setTypePlaces] = useState([]);
     const [countries, setCountries] = useState([]);
-
+    const {account} = useSelector((store) => store.user) 
     let {listTypePlace} = useSelector((store) => store.typePlace)
     const dispatch = useDispatch()
 
@@ -133,6 +133,7 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
 			console.log(key[0] + ', ' + key[1])
 		}
         // const res = APIClient.createTour(formData);
+        formData.append("owner", account._id)
         handleAddTour(formData);
         setSubmit(false)
     };

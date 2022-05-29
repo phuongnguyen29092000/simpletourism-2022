@@ -18,6 +18,9 @@ const TourResult = () => {
         }
         dispatch(filterTour(param))
     },[])
+    useEffect(() => {
+        document.title = 'Simple Tourism | kết quả'
+    },[])
     console.log(listTourResult)
     return (
         <div className='tour-list tour-result'>

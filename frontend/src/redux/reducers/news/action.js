@@ -38,7 +38,7 @@ const getAllNews = (callback = ()=>{}) => {
             if(result.status === 200){
                 dispatch({
                     type: types.GET_NEWS_LIST_SUCCESS,
-                    payload: [...result.data]
+                    payload: [...result.data.news]
                 })
                 callback()
             }else{

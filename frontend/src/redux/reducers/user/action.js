@@ -3,6 +3,7 @@ import * as types from './types'
 import AuthAPI from 'api/AuthAPI'
 import { removeAccessToken, removeRefreshToken, removeTimeRefresh, removeUser, setAccessToken, setRefreshToken, setTimeRefresh, setUser } from 'hooks/localAuth'
 import Cookies from "js-cookie";
+// import { useNavigate } from 'react-router-dom';
 
 const setAccountInfo = (account) => {
     return (dispatch) => {
@@ -13,7 +14,7 @@ const setAccountInfo = (account) => {
     }
 }
 
-const loginWithGoogle = (info) => {
+const loginWithGoogle = (info, callback = ()=>{}) => {
     return (dispatch) => {
         AuthAPI.loginWithGoogle(info)
         // .then((response) => response.json())
@@ -24,7 +25,10 @@ const loginWithGoogle = (info) => {
                   setRefreshToken(result.data.tokenAuth.refresh.token)
                   setTimeRefresh(new Date(result.data.tokenAuth.refresh.expires).getTime()+"")
                   setUser(JSON.stringify(result.data.profile))
-                  window.location.reload()
+                  if(result.data.profile.role === "owner") {
+                    callback()
+                  }
+                //   else window.location.reload()
                   dispatch({
                       type: types.SET_ACCOUNT_INFO,
                       payload: result.data.profile

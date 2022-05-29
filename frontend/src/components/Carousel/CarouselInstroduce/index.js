@@ -14,9 +14,9 @@ const useStyle = makeStyles({
     },
 });
 
-const imageSlide = ['https://wall.vn//wp-content//uploads//2020/04//anh-dep-viet-nam-10.jpg',
-    'https://wall.vn//wp-content//uploads//2020//04//cau-vang-ba-na-hills.jpg',
-    'https://wall.vn//wp-content//uploads//2020//04//anh-dep-viet-nam-18.jpg',
+const imageSlide = ['https://images.pexels.com/photos/3889991/pexels-photo-3889991.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/7276806/pexels-photo-7276806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/2977432/pexels-photo-2977432.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
 ]
 function PrevArrow(props) {
 

@@ -5,8 +5,10 @@ import AuthAPI from '../../api/AuthAPI';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch } from 'react-redux';
 import { loginWithGoogle } from 'redux/reducers/user/action';
+import { useNavigate } from 'react-router-dom';
 
 const LoginWithGoogle = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const handleLoginSuccess = (res) => {
         let info = {
@@ -20,7 +22,14 @@ const LoginWithGoogle = () => {
             type: 'web'
         }
         // console.log(info);
-        dispatch(loginWithGoogle(info))
+        dispatch(
+            loginWithGoogle(info,
+                () => {
+                    navigate("/owner/list-tour")
+                    console.log(">>>>>>OK")
+                }
+            ),
+        )
     }
     const handleLoginFailure = (res) => {
         console.log(res)

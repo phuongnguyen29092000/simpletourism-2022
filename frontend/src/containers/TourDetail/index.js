@@ -24,6 +24,7 @@ import AuthAPI from '../../api/AuthAPI';
 import StarIcon from '@mui/icons-material/Star';
 import SpinnerLoading from 'components/SpinnerLoading';
 import { getUser } from 'hooks/localAuth';
+import BookTourModal from 'components/modal/BookTourModal';
 
 const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
@@ -105,15 +106,14 @@ function TourDetail() {
     const dispatch = useDispatch();
     const {loading, tourDetail, similarTour} = useSelector((store) => store.listTour)
     const {listFeedback} = useSelector((store) => store.feedback)
-    // useEffect(async () => {
-    //     document.title = "Bootcamp Travel | Chi tiết";
-    //     dispatch(actions.setLoading(true));
-    //     // const result = await APIClient.getTourDetail(id) 
-    //     const result = await axios(`http://localhost:3001/tour/${id}`);
-    //     setData(result.data);
-    //     dispatch(actions.setLoading(false));
-    //     console.log(result.data.similarTour)
-    // }, [load]);
+    const [isShowBookTourModal, setIsShowBookTourModal] = React.useState(false)
+    const handleOnClick = () => {
+        setIsShowBookTourModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setIsShowBookTourModal(false)
+    }
     useEffect(() => {
         window.scrollTo(0, 0)
     },[id])
@@ -127,25 +127,9 @@ function TourDetail() {
     useEffect(()=>{
         setRating(tourDetail.ratingsAverage)
     },[listFeedback, tourDetail])
-    const handleOnClick = (_id, name, price, discount) => {
-        // dispatch(actions.setBookTour({
-        //     id: _id,
-        //     name,
-        //     price,
-        //     discount
-        // }));
-        // AuthAPI.loginWithGoogle()
-    }
+
     console.log(tourDetail.ratingsAverage)
     const onHandleSendFeedback = async (data) => {
-        // const dataSubmit = {
-        //     ...data,
-        //     idTour: id,
-        // }
-        // onLoad(!load);
-        // const res = await APIClient.sendFeedback(id, dataSubmit);
-        // console.log(res)
-        // Alert("success", "Success! Cảm ơn đánh giá của bạn!");
     }
     const settings = {
         className: classes.sliderContainer,
@@ -316,6 +300,16 @@ function TourDetail() {
                             }
                         </Box>
                     </Box>
+                    <BookTourModal 
+                        open={isShowBookTourModal} 
+                        handleClose={handleCloseModal} 
+                        tour={{
+                            _id: tourDetail._id,
+                            tourName: tourDetail.tourName,
+                            price: tourDetail.price,
+                            discount: tourDetail.discount
+                        }}
+                    />
                 </Container>
             )
         }

@@ -264,7 +264,7 @@ const Header = () => {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                     >
-                        {["Tài khoản", "Tour của bạn"].map((setting, index) => (
+                        {["Tài khoản"].map((setting, index) => (
                             <MenuItem key={index} onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center">{setting}</Typography>
                             </MenuItem>
