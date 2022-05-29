@@ -1,0 +1,12 @@
+
+    li{
+        color: white;
+        a{
+        text-decoration: none;
+        color: white;
+            &:hover{
+                text-decoration: none;
+                color: cornflowerblue;
+            }
+        } 
+    }

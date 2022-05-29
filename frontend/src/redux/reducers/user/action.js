@@ -20,15 +20,15 @@ const loginWithGoogle = (info) => {
               .then((result) => {
                 if (result.status === 200) {
                   console.log(result)
-                    dispatch({
-                        type: types.SET_ACCOUNT_INFO,
-                        payload: result.data.profile
-                    })
                   setAccessToken(result.data.tokenAuth.access.token)
                   setRefreshToken(result.data.tokenAuth.refresh.token)
                   setTimeRefresh(new Date(result.data.tokenAuth.refresh.expires).getTime()+"")
                   setUser(JSON.stringify(result.data.profile))
-                  // window.location.reload()
+                  window.location.reload()
+                  dispatch({
+                      type: types.SET_ACCOUNT_INFO,
+                      payload: result.data.profile
+                  })
                 } else {
                   // useNotification.Error({
                   //   title: 'Message',
