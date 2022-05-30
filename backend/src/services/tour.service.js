@@ -121,6 +121,7 @@ const getTourByOwner = async (idOwner) => {
 
 const searchByText = async (text) => {
   text = text.trim();
+  let tours = [];
   var textSlug = text.replace(" ", "-");
   const searchByName = await Tour.find({
     tourName: { $regex: text, $options: "i" },
@@ -132,7 +133,9 @@ const searchByText = async (text) => {
     slug: { $regex: textSlug, $options: "i" },
   });
   let arr = [...searchByName, ...searchByDescription, ...searchBySlug];
-  let tours = [...new Set(arr)];
+  jsonObject = arr.map(JSON.stringify);
+  uniqueSet = new Set(jsonObject);
+  tours = Array.from(uniqueSet).map(JSON.parse);
   return tours;
 };
 
