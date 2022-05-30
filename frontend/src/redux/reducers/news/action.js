@@ -87,10 +87,11 @@ const getNewsDetail = (id, callback = ()=>{}) => {
         API.getNewById(id)
         // .then((response)=>response.json())
         .then((result)=>{
+            console.log(result)
             if(result.status === 200){
                 dispatch({
                     type: types.GET_NEWS_DETAIL_SUCCESS,
-                    payload: {...result.data.news}
+                    payload: {...result.data.newsSingle}
                 })
                 callback()
             }else{

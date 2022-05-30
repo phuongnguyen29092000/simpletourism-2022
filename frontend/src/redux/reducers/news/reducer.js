@@ -109,7 +109,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        newsDetail: action.payload.newsSingle,
+        newsDetail: action.payload,
       };
     }
     case types.GET_NEWS_COMPANY: {
