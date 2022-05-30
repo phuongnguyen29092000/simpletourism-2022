@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -101,19 +104,10 @@ public class MainActivityLogged extends AppCompatActivity {
             Log.w("Scope", String.valueOf(account.getRequestedScopes()));
             Log.w("AuthCode", account.getServerAuthCode());
         }
-//        try {
-//            String accessToken = GoogleAuthUtil.getToken(this,account.getAccount(),"audience:server:client_id:105995626849-6kds0s60a14t1d7hhtuhfopa81rk87fv.apps.googleusercontent.com");
-//            Log.d("accessToken",accessToken);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (GoogleAuthException e) {
-//            e.printStackTrace();
-//        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
         sharedPref = getSharedPreferences("Token",Context.MODE_PRIVATE);
-
         String accessToken = sharedPref.getString("access_token","");
         String id = sharedPref.getString("id_customer","");
         Log.d("AccessToken",accessToken);
@@ -195,6 +189,12 @@ public class MainActivityLogged extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        sharedPref.edit().clear();
+        MainActivityLogged.gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+        sharedPref.edit().clear().commit();
     }
 }

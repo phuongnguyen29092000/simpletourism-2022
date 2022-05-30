@@ -27,6 +27,7 @@
     <string name="history_title">Lịch sử đặt tour</string>
     <string name="book_tour_title">Đặt tour</string>
     <string name="payment_title">Thanh toán</string>
+    <string name="detail_news_title">Chi tiết Tin tức</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -52,5 +53,10 @@
         <item>Rating</item>
     </string-array>
     <string name="title_activity_filter_result">FilterResultActivity</string>
+    <string-array name="initial_slider_values">
+        <item>0</item>
+        <item>10000000</item>
+    </string-array>
+
 
 </resources>

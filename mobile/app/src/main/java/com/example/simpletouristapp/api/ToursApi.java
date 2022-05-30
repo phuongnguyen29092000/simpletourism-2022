@@ -38,7 +38,7 @@ public interface ToursApi {
 
     @GET("tour")
     Call<ToursResponse> getToursFilter(@Query("continent") String continent,@Query("typeplace") String typePlace
-            ,@Query("sort") String sort,@Query("price[gte]") int priceMin,@Query("price[lte]") int priceMax);
+            ,@Query("sort") String sort,@Query("price[gte]") int priceMin,@Query("price[lte]") int priceMax,@Query("discount") String discount);
 
     @GET("tour/tour-noi-bat")
     Call<ToursResponse> getOutStandingTours();

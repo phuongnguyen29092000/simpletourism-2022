@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFFAF">
+    android:background="#F6EFAB"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/logo_image"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="150dp"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/icon_logo"
+        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="270dp"
+        android:layout_below="@+id/logo_image"
+        android:gravity="center"
         android:src="@drawable/name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_image"
         tools:ignore="MissingConstraints">
 
     </ImageView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

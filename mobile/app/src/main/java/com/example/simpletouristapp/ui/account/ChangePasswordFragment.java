@@ -17,17 +17,9 @@ public class ChangePasswordFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = ChangePasswordBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-//        final TextView textView = binding.textForeign;
-//        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
 
     @Override
     public void onDestroyView() {
