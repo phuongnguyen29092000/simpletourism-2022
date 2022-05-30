@@ -1,6 +1,6 @@
 import { SearchOutlined } from '@mui/icons-material/SearchOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import { MenuList, Paper, TextField } from '@mui/material';
+import { Avatar, Menu, MenuList, Paper, TextField, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,8 +13,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../public/logo-spt.png';
-import LoginWithGoogle from '../../components/Login/LoginWithGoogle';
+import { ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_INTERNATIONAL } from '../../route/type'
+import logo from '../../public/icon-logo.png';
+import LoginWithGoogle from 'components/Login/LoginWithGoogle';
+// import LogoutGoogle from 'components/Login/LogoutGoogle';
+import LoginIcon from '@mui/icons-material/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutGoogle } from 'redux/reducers/user/action';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -85,8 +90,12 @@ const getCurrentUrl = (url) => {
 const Header = () => {
     const classes = useStyles();
     // const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const {account} = useSelector((store) => store.user)
+    console.log(account)
     const [openSideBar, setOpenSideBar] = React.useState(false);
     const [searchBox, setSearchBox] = React.useState(false);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [nav, setNav] = React.useState({
         height: '90px',
     });
@@ -94,24 +103,24 @@ const Header = () => {
 
     let url = window.location.href;
 
-    React.useEffect(() => {
-        const setNavigation = () => {
-            if (window.pageYOffset > 100) {
-                setNav({
-                    height: '70px',
-                });
-            }
-            if (window.pageYOffset <= 100) {
-                setNav({
-                    height: '90px',
-                });
-            }
-        }
-        window.addEventListener("scroll", setNavigation)
-        return () => {
-            window.removeEventListener("scroll", setNavigation);
-        }
-    }, []);
+    // React.useEffect(() => {
+    //     const setNavigation = () => {
+    //         if (window.pageYOffset > 100) {
+    //             setNav({
+    //                 height: '50px',
+    //             });
+    //         }
+    //         if (window.pageYOffset <= 100) {
+    //             setNav({
+    //                 height: '50px',
+    //             });
+    //         }
+    //     }
+    //     window.addEventListener("scroll", setNavigation)
+    //     return () => {
+    //         window.removeEventListener("scroll", setNavigation);
+    //     }
+    // }, []);
 
     const handleOpenSearchField = () => {
         setSearchBox((searchBox) => !searchBox);
@@ -125,51 +134,54 @@ const Header = () => {
     };
     const search = (e) => {
     }
-
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
     return (
-        <AppBar position="fixed" className={classes.root} style={{ height: `${nav.height}`, backgroundColor: '#B1D0E0' }}>
-            <Container maxWidth="xl">
-                <Toolbar sx={{ height: `${nav.height}` }}>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* <Link style={{ textDecoration: 'none' }} to='/'> */}
-                        <img src={logo} height={nav.height} style={{padding: '7px', borderRadius: '5px'}} />
-                        {/* </Link> */}
-                    </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '60px' }}>
+        <AppBar position="fixed" className={classes.root} style={{ minHeight: '50px', height: '50px', backgroundColor: 'rgb(0 0 0 / 26%)' }}>
+            <Container maxWidth="xl" sx={{ display: 'flex' }}>
+                <Box sx={{ height: '50px', justifyContent: 'center', minHeight: '50px', marginLeft: 'auto' }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '50px' }}>
                         <Link style={{ textDecoration: 'none' }} to='/'>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     TRANG CHỦ
                                 </span>
                             </Button>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to='/'>
+                        <Link style={{ textDecoration: 'none' }} to={ROUTE_TOUR_DOMESTIC}>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     TRONG NƯỚC
                                 </span>
                             </Button>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to='/'>
+                        <Link style={{ textDecoration: 'none' }} to={ROUTE_TOUR_INTERNATIONAL}>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     QUỐC TẾ
                                 </span>
                             </Button>
                         </Link>
+                        <Box >
+                            <img src={logo} height={40} style={{ padding: '7px', borderRadius: '5px' }} />
+                        </Box>
                         <Link style={{ textDecoration: 'none' }} to='/news'>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     TIN TỨC
@@ -179,16 +191,25 @@ const Header = () => {
                         <Link style={{ textDecoration: 'none' }} to='/contact'>
                             <Button
                                 className={classes.item}
-                                sx={{ color: 'darkslateblue', display: 'block', px: 1, mx: 1, fontFamily: "cursive", fontWeight: 'bold' }}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
                                     LIÊN HỆ
                                 </span>
                             </Button>
                         </Link>
-                        <LoginWithGoogle/>
+                        <Link style={{ textDecoration: 'none' }} to='/'>
+                            <Button
+                                className={classes.item}
+                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
+                            >
+                                <span className='link-tab'>
+                                    Tìm kiếm
+                                </span>
+                            </Button>
+                        </Link>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -214,36 +235,46 @@ const Header = () => {
                             </MenuList>
                         </Paper>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
-                        {/* <Link style={{ textDecoration: 'none' }} to='/'> */}
-                        <img src={logo} height={nav.height} />
-                        {/* </Link> */}
-                    </Box>
-                    <ClickAwayListener onClickAway={handleClickCloseSearch}>
-                        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'end', position: 'relative', width: '50px' }}>
-                            <TextField
-                                id='search-field'
-                                component="div"
-                                onKeyDown={search}
-                                variant="standard"
-                                placeholder='Tìm kiếm...'
-                                className={!searchBox ? classes.hiddenBox : ''}
-                                style={{
-                                    padding: '5px',
-                                    height: '35px',
-                                    width: '200px',
-                                    transition: '0.4s',
-                                    position: 'absolute',
-                                    top: '65px',
-                                    backgroundColor: 'white',
-                                    borderRadius: '3px',
-                                    overflow: 'hidden',
-                                }}
-
-                            />
-                        </Box>
-                    </ClickAwayListener>
-                </Toolbar>
+                </Box>
+                {Object.keys(account).length == 0 ? 
+                <Box className='login-wrapper' sx={{ marginLeft: 'auto', minWidth: '30px' }}>
+                    <LoginWithGoogle />
+                    <LoginIcon className='login-icon' fontSize='large' />
+                </Box>
+                :
+                <Box className='profile-wrapper' sx={{ marginLeft: 'auto', minWidth: '30px', display: 'flex', alignItems: 'center' }}>
+                    <Tooltip title={account?.givenName}>
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <Avatar alt="avatar" src={account.photoUrl}/>
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-profile"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                    >
+                        {["Tài khoản"].map((setting, index) => (
+                            <MenuItem key={index} onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">{setting}</Typography>
+                            </MenuItem>
+                        ))}
+                        <MenuItem onClick={() =>{
+                            dispatch(logoutGoogle())
+                            window.location.reload()
+                        }}><Typography textAlign="center">Đăng xuất</Typography></MenuItem>
+                    </Menu>
+                </Box>}
             </Container>
             <Box
                 component="div"

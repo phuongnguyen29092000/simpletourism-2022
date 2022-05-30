@@ -109,6 +109,7 @@ public class DetailTourFragment extends Fragment {
 
         toursApiService = new ToursApiService();
 
+
         Call<FeedBackResponse> call2 = toursApiService.getFeedBackById(tourId);
         call2.enqueue(new Callback<FeedBackResponse>() {
             @Override
@@ -144,15 +145,16 @@ public class DetailTourFragment extends Fragment {
 //                    Toolbar toolbar = view.findViewById(R.id.toolbar);
 //                    toolbar.setTag("abc");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(tour.getNameTour());
-                    slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7),null));
+                    slideModelList.add(new SlideModel("http://192.168.1.2:4000/" + tour.getImageAvatar().substring(7),null));
                     for (String slide: tour.getImageSlide()
                          ) {
-                        slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + slide.substring(7),null));
+                        slideModelList.add(new SlideModel("http://192.168.1.2:4000/" + slide.substring(7),null));
                     }
                     nameTour.setText(tour.getNameTour());
                     rating.setRating(tour.getRating());
                     imageSliderDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
-                    tvPrice.setText(nf.format(tour.getPrice()).substring(1) + "đ");
+
+                    tvPrice.setText(nf.format(tour.getPrice()));
                     tvTime.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     tvHotel.setText(tour.getNameHotel());
                     tvAmount.setText(Integer.toString(tour.getAmount()));
@@ -184,6 +186,8 @@ public class DetailTourFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("tourName", nameTour.getText().toString());
+                bundle.putSerializable("idTour", tourId);
+                bundle.putSerializable("price", tvPrice.getText().toString());
                 Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
             }
         });

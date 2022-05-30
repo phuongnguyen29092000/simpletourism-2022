@@ -1,14 +1,17 @@
 package com.example.simpletouristapp.api;
 
 import com.example.simpletouristapp.model.FeedBackResponse;
+import com.example.simpletouristapp.model.LoginResponse;
+import com.example.simpletouristapp.model.TicketResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
-import com.example.simpletouristapp.model.TypePlace;
 import com.example.simpletouristapp.model.TypePlaceResponse;
 
-import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -43,6 +46,17 @@ public interface ToursApi {
     @GET("feedback/tour/{id}")
     Call<FeedBackResponse> getFeedBackById(@Path("id") String tourId);
 
-    @POST("pay")
-    Call<String> postPaypal();
+    @POST("payment/create")
+    Call<ResponseBody> postPaypal();
+
+    @FormUrlEncoded
+    @POST("auth/login")
+    Call<LoginResponse> postFormLogin(@Field("googleId") String googleId, @Field("email") String email
+            , @Field("givenName") String givenName, @Field("familyName") String familyName
+            , @Field("photoUrl") String photoUrl, @Field("accessToken") String accessToken, @Field("id_token") String idToken,@Field("type")String type);
+
+    @FormUrlEncoded
+    @POST("ticket/create/{id}")
+    Call<TicketResponse> bookTour(@Path("id") String id,@Field("customer") String customer,@Field("phone") String phone
+            ,@Field("numberPeople") int numberPeople);
 }

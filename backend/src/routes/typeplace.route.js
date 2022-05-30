@@ -1,18 +1,21 @@
-const express = require('express');
+const express = require("express");
 
-const { typePlaceController } = require('../controllers')
-const auth = require('../middlewares/auth')
+const { typePlaceController } = require("../controllers");
+const auth = require("../middlewares/auth");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', typePlaceController.getAllTypePlace)
+router.get("/", typePlaceController.getAllTypePlace);
 
-router.get('/:id', typePlaceController.getTypePlaceById)
+router.get(
+  "/:id",
+  typePlaceController.getTypePlaceById
+);
 
-router.post('/create', typePlaceController.createTypePlace)
+router.post("/create", typePlaceController.createTypePlace);
 
-router.put('/:id',  typePlaceController.updateTypePlacesById)
+router.put("/:id", typePlaceController.updateTypePlacesById);
 
-router.delete('/:id', typePlaceController.deleteTypePlaceById)
+router.delete("/:id", typePlaceController.deleteTypePlaceById);
 
-module.exports = router
+module.exports = router;

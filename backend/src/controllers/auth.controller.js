@@ -13,16 +13,21 @@ const { OAuth2Client } = require('google-auth-library')
 //     accessType: 'offline',
 //     approvalPrompt: 'force'
 // })
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 const loginGoogle = catchAsync(async(req, res)=>{
-    let user
-    const {id_token} = req.body
+    let user, clientID
+    const {id_token, type} = req.body
+    
+    if(type=='mobile') clientID = process.env.GOOGLE_CLIENT_ID_MOBILE
+    else clientID = process.env.GOOGLE_CLIENT_ID_WEB
+
+    const client = new OAuth2Client(clientID)
     if(id_token) {
         try {
+            console.log(clientID);
             const ticket = await client.verifyIdToken({
                 idToken: id_token,
-                audience: process.env.GOOGLE_CLIENT_ID
-              })
+                audience: clientID
+            })
               const payload = ticket.getPayload()
             if (!await User.isEmailTaken(payload.email)) {
                 const userInfo = {
@@ -79,6 +84,10 @@ const loginGoogle = catchAsync(async(req, res)=>{
 // })
 
 const logout = catchAsync(async(req, res) => {
+    if(!refreshTokens) return res.status(httpStatus.FORBIDDEN).json({
+        status: 403,
+        message: "FORBIDDEN"
+    })
     await authService.logout(req.accessToken, req.body.refreshToken)
     res.status(httpStatus.OK).json({
         status: 200,
@@ -95,7 +104,7 @@ const refreshTokens = catchAsync(async(req, res) => {
     else res.stauts(httpStatus.OK).json({
         status: 200,
         message: "OK",
-        tokenAuth: {...tokenAuth }
+        accessInfo: tokenAuth.access
     })
 })
 

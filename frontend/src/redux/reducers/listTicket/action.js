@@ -1,10 +1,10 @@
 import * as types from './types'
 import API from '../../../api/TicketAPI'
 
-const getAllTicket = (callback = ()=>{}) => {
+const getAllTicket = (id,callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.GET_TICKET})
-        API.getAllTicket()
+        API.getAllTicket(id)
         // .then((response)=>response.json())
         .then((result=>{
             if(result.status === 200){
@@ -51,6 +51,7 @@ const deleteTicket = (id, callback = ()=>{}) => {
         })
     }
 }
+
 export {
     getAllTicket,
     deleteTicket

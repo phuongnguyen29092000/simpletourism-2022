@@ -3,7 +3,7 @@ const { TourService } = require("../services");
 const ApiError = require("../utils/ApiError");
 
 const getAllTour = catchAsync(async (req, res, next) => {
-  //console.log(req.query);
+  console.log(req.query);
   const tours = await TourService.getAllTour(req.query);
   if (!tours || tours.length === 0) {
     return next(new ApiError("Tour Not Found!", 404));
@@ -142,6 +142,19 @@ const getTourByOwner = catchAsync(async (req, res, next) => {
   }
 });
 
+const searchByText = catchAsync(async (req, res, next) => {
+  const tours = await TourService.searchByText(req.body.search);
+  if (!tours || tours.length === 0) {
+    return next(new ApiError("Tour Not Found!", 404));
+  } else {
+    res.status(200).json({
+      status: 200,
+      totalResult: tours.length,
+      data: tours,
+    });
+  }
+});
+
 module.exports = {
   getAllTour,
   getDomesticTour,
@@ -152,4 +165,5 @@ module.exports = {
   updateTour,
   getTourByOwner,
   getOutStandingTours,
+  searchByText,
 };

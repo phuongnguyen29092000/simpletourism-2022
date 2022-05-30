@@ -124,7 +124,7 @@ function OutstandingTour({tourlist}) {
                                     tourName = {tour.tourName}
                                     description = {tour.description}
                                     imageAvatar = {ConvertToImageURL(tour.imageAvatar)}
-                                    // rating
+                                    rating = {tour.ratingsAverage}
                                     price = {tour.price}
                                     discount = {tour?.discount}
                                 />

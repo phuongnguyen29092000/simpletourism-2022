@@ -8,6 +8,9 @@
     <string name="action_filter">Filter</string>
     <string name="action_search">Search</string>
     <string name="server_client_id">105995626849-6kds0s60a14t1d7hhtuhfopa81rk87fv.apps.googleusercontent.com</string>
+<!--    518561649263-dus6m9u26oe7qeu5r3itp9iinn741g6l.apps.googleusercontent.com-->
+<!--    105995626849-6kds0s60a14t1d7hhtuhfopa81rk87fv.apps.googleusercontent.com-->
+    <string name="server_client_secret">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</string>
 
     <string name="menu_home">Trang chủ</string>
     <string name="menu_domestic">Trong nước</string>

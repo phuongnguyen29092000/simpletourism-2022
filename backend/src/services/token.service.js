@@ -35,7 +35,7 @@ const verifyToken = async(token, type) => {
     return tokenInfo
 }
 
-const generateAccessRefreshToken = async(id) => {
+const generateAccessRefreshToken = async(id, isRefresh = false) => {
     const accessTokenExpires = moment().add(parseInt(process.env.JWT_ACCESS_EXPIRATION_MINUTES), 'minutes')
     const accessToken = generateToken(id, accessTokenExpires, tokenTypes.ACCESS, process.env.JWT_SECRET)
 
@@ -43,7 +43,7 @@ const generateAccessRefreshToken = async(id) => {
     const refreshToken = generateToken(id, refreshTokenExpires, tokenTypes.REFRESH, process.env.JWT_SECRET)
 
     await saveToken(accessToken, id, accessTokenExpires, tokenTypes.ACCESS)
-    await saveToken(refreshToken, id, refreshTokenExpires, tokenTypes.REFRESH)
+    if(!isRefresh) await saveToken(refreshToken, id, refreshTokenExpires, tokenTypes.REFRESH)
     return {
         access: {
             token: accessToken,
