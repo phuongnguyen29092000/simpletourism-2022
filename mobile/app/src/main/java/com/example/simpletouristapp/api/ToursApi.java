@@ -2,6 +2,7 @@ package com.example.simpletouristapp.api;
 
 import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.LoginResponse;
+import com.example.simpletouristapp.model.TicketResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlaceResponse;
@@ -52,6 +53,10 @@ public interface ToursApi {
     @POST("auth/login")
     Call<LoginResponse> postFormLogin(@Field("googleId") String googleId, @Field("email") String email
             , @Field("givenName") String givenName, @Field("familyName") String familyName
-            , @Field("photoUrl") String photoUrl, @Field("accessToken") String accessToken, @Field("id_token") String idToken);
+            , @Field("photoUrl") String photoUrl, @Field("accessToken") String accessToken, @Field("id_token") String idToken,@Field("type")String type);
 
+    @FormUrlEncoded
+    @POST("ticket/create/{id}")
+    Call<TicketResponse> bookTour(@Path("id") String id,@Field("customer") String customer,@Field("phone") String phone
+            ,@Field("numberPeople") int numberPeople);
 }

@@ -3,6 +3,7 @@ package com.example.simpletouristapp.service;
 import com.example.simpletouristapp.api.ToursApi;
 import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.LoginResponse;
+import com.example.simpletouristapp.model.TicketResponse;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.model.TypePlaceResponse;
@@ -21,7 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class ToursApiService {
-    private static final String BASE_URL = "http://192.168.1.12:4000/";
+    private static final String BASE_URL = "http://192.168.1.2:4000/";
     private ToursApi toursApi;
 
     public ToursApiService(){
@@ -72,7 +73,11 @@ public class ToursApiService {
 
     public Call<LoginResponse> postFormLogin(String googleId, String email
             , String givenName, String familyName
-            , String photoUrl, String accessToken, String idToken, String type){
-        return toursApi.postFormLogin(googleId,email,givenName,familyName,photoUrl,accessToken,idToken);
+            , String photoUrl, String accessToken, String idToken){
+        return toursApi.postFormLogin(googleId,email,givenName,familyName,photoUrl,accessToken,idToken,"mobile");
+    }
+
+    public Call<TicketResponse> bookTour(String id,String customer,String phone,int numberPeople){
+        return toursApi.bookTour(id,customer,phone,numberPeople);
     }
 }

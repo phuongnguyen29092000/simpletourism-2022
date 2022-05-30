@@ -98,23 +98,6 @@ public class PayPalActivity extends AppCompatActivity {
 
     }
     public void showAlertDialog(int myLayout){
-        builder = new AlertDialog.Builder(PaymentMethodFragment.context);
-        toursApiService = new ToursApiService();
-        Call<String> call = toursApiService.postPaypal();
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                binding.webView.loadUrl(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-            }
-        });
-
-    }
-    public void showAlertDialog(int myLayout){
         builder = new AlertDialog.Builder(getApplicationContext());
         View layoutView = getLayoutInflater().inflate(myLayout,null);
         Button dialogButton = layoutView.findViewById(R.id.buttonOk);
