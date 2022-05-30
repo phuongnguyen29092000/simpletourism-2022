@@ -212,7 +212,7 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
-                Call<LoginResponse> call1 = toursApiService.postFormLogin("","","","","","", account.getIdToken(), "");
+                Call<LoginResponse> call1 = toursApiService.postFormLogin("","","","","","", account.getIdToken());
                 call1.enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -221,6 +221,7 @@ public class LoginFragment extends Fragment {
                             Toast.makeText(getActivity(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             preferences = getActivity().getSharedPreferences("Token", MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("id_customer",loginResponse.getProfile().getId());
                             editor.putString("access_token",loginResponse.getTokenAuth().getAccess().getToken());
                             editor.putString("refresh_token",loginResponse.getTokenAuth().getRefresh().getToken());
                             editor.commit();

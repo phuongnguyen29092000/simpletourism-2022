@@ -219,6 +219,12 @@ public class FilterFragment extends DialogFragment {
                     }
                     params.put("priceMin",priceMin);
                     params.put("priceMax",priceMax);
+                    if(binding.discount.isChecked()){
+                        params.put("discount","true");
+                    }else {
+                        params.put("discount","false");
+                    }
+
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("params", params);
 //                FilterResultFragment filterResultFragment = new FilterResultFragment();

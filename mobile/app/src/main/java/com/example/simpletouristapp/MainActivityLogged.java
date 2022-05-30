@@ -115,7 +115,9 @@ public class MainActivityLogged extends AppCompatActivity {
         sharedPref = getSharedPreferences("Token",Context.MODE_PRIVATE);
 
         String accessToken = sharedPref.getString("access_token","");
+        String id = sharedPref.getString("id_customer","");
         Log.d("AccessToken",accessToken);
+        Log.d("id_customer",id);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_domestic, R.id.nav_international, R.id.nav_news, R.id.nav_account)

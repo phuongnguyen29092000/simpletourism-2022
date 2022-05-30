@@ -62,7 +62,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     public void onBindViewHolder(@NonNull TourViewHolder holder, int position) {
         Tour tour = tours.get(position);
         try {
-            Picasso.get().load("http://192.168.1.12:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
+            Picasso.get().load("http://192.168.1.2:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
 
         }catch (Exception e){
             Log.d("error",e.getMessage());

@@ -17,14 +17,21 @@ import com.example.simpletouristapp.databinding.FormBookTourBinding;
 import com.example.simpletouristapp.databinding.NewsFragmentBinding;
 import com.example.simpletouristapp.ui.news.NewsViewModel;
 
+import java.util.HashMap;
+
 public class FormBookTourFragment extends Fragment {
     private FormBookTourBinding binding;
     private String tourName;
+    private String idTour;
+    private String price;
+    private HashMap<String, String> informationBookTour;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             tourName = (String) getArguments().getSerializable("tourName");
+            idTour = (String) getArguments().getSerializable("idTour");
+            price = (String) getArguments().getSerializable("price");
         }
     }
 
@@ -40,6 +47,8 @@ public class FormBookTourFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.nameTour.setText(tourName);
+
+
 
         binding.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +70,22 @@ public class FormBookTourFragment extends Fragment {
             }
         });
 
+        binding.tvPriceDetail.setText(price);
+
         binding.btnBookTourForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment);
+                informationBookTour = new HashMap<>();
+                informationBookTour.put("idTour",idTour);
+                informationBookTour.put("nameTour",tourName);
+                informationBookTour.put("fullName",binding.fullName.getText().toString());
+                informationBookTour.put("Amount",binding.amount.getText().toString());
+                informationBookTour.put("Price", price);
+                informationBookTour.put("Phone",binding.phoneNumber.getText().toString());
+                informationBookTour.put("Email",binding.email.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("information", informationBookTour);
+                Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment,bundle);
             }
         });
     }

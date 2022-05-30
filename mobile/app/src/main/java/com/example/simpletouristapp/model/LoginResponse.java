@@ -11,6 +11,9 @@ public class LoginResponse {
     @SerializedName("message")
     private String message;
 
+    @SerializedName("profile")
+    private Profile profile;
+
     @SerializedName("tokenAuth")
     private TokenAuth tokenAuth;
 
@@ -36,6 +39,39 @@ public class LoginResponse {
 
     public void setTokenAuth(TokenAuth tokenAuth) {
         this.tokenAuth = tokenAuth;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public class Profile{
+
+        @SerializedName("_id")
+        private String id;
+
+        @SerializedName("role")
+        private String role;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
     }
 
     public class TokenAuth{
