@@ -56,7 +56,20 @@
         android:id="@+id/nav_news"
         android:name="com.example.simpletouristapp.ui.news.NewsFragment"
         android:label="@string/menu_news"
-        tools:layout="@layout/news_fragment" />
+        tools:layout="@layout/news_fragment" >
+        <action
+            android:id="@+id/action_nav_news_to_nav_news_detail"
+            app:destination="@id/nav_news_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_news_detail"
+        android:name="com.example.simpletouristapp.ui.news.DetailNewsFragment"
+        android:label="@string/detail_news_title"
+        tools:layout="@layout/detail_news" >
+        <action
+            android:id="@+id/action_nav_news_detail_to_nav_news"
+            app:destination="@id/nav_news" />
+    </fragment>
     <fragment
         android:id="@+id/nav_login"
         android:name="com.example.simpletouristapp.ui.login.LoginFragment"

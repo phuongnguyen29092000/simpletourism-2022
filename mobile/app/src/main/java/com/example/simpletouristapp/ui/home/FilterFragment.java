@@ -3,6 +3,7 @@ package com.example.simpletouristapp.ui.home;
 import androidx.fragment.app.DialogFragment;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -33,9 +34,14 @@ import com.example.simpletouristapp.databinding.NewsFragmentBinding;
 import com.example.simpletouristapp.model.TypePlaceResponse;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.example.simpletouristapp.ui.news.NewsViewModel;
+import com.google.android.material.slider.LabelFormatter;
+import com.google.android.material.slider.RangeSlider;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -50,6 +56,8 @@ public class FilterFragment extends DialogFragment {
     private TypePlaceAdapter typePlaceAdapter;
     private Set<String> selectedTypePlace;
     private HashMap<String, String> params;
+    private float priceMin;
+    private float priceMax;
 
     static FilterFragment newInstance() {
         return new FilterFragment();
@@ -64,22 +72,9 @@ public class FilterFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        NewsViewModel domesticViewModel =
-//                new ViewModelProvider(this).get(NewsViewModel.class);
 
         binding = FilterFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-
-//        final TextView textView = binding.textNews;
-//        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         selectedTypePlace = new HashSet<>();
         params = new HashMap<>();
         HashMap<String,String> continents = new HashMap<String, String>();
@@ -100,6 +95,37 @@ public class FilterFragment extends DialogFragment {
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),R.array.sort_by, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerSort.setAdapter(adapter1);
+
+        binding.rangeSlider.setLabelFormatter(new LabelFormatter() {
+            @NonNull
+            @Override
+            public String getFormattedValue(float value) {
+                Locale lc = new Locale("nv","VN");
+                NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+                numberFormat.setMaximumFractionDigits(0);
+                numberFormat.setCurrency(Currency.getInstance(lc));
+                return numberFormat.format(value).substring(1) + "đ";
+            }
+        });
+        priceMin = 0;
+        priceMax = 10000000;
+        binding.rangeSlider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onStartTrackingTouch(@NonNull RangeSlider slider) {
+                Log.d("start", String.valueOf(slider.getValues()));
+            }
+
+            @SuppressLint("RestrictedApi")
+            @Override
+            public void onStopTrackingTouch(@NonNull RangeSlider slider) {
+                Log.d("end", String.valueOf(slider.getValues()));
+                priceMin = slider.getValues().get(0);
+                priceMax = slider.getValues().get(1);
+                Log.d("end", String.valueOf((int)priceMin));
+                Log.d("end", String.valueOf((int)priceMax));
+            }
+        });
 
         binding.spinnerContinent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -135,41 +161,6 @@ public class FilterFragment extends DialogFragment {
                 dismiss();
             }
         });
-
-        binding.seekbarPriceMin.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                binding.priceMin.setText(String.valueOf(i)+"đ");
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        binding.seekbarPriceMax.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                binding.priceMax.setText(String.valueOf(i)+"đ");
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
         rvTypePlace = binding.rvTypePlace;
         toursApiService = new ToursApiService();
 
@@ -187,58 +178,47 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<TypePlaceResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG",t.getMessage());
+//                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//                Log.d("TAG",t.getMessage());
             }
         });
 
         binding.dialogAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String priceMin = binding.priceMin.getText().toString().substring(0, binding.priceMin.getText().toString().lastIndexOf("đ"));
-                String priceMax = binding.priceMax.getText().toString().substring(0, binding.priceMax.getText().toString().lastIndexOf("đ"));
-                if(Integer.parseInt(priceMin)>Integer.parseInt(priceMax)){
-                    binding.validatePrice.setText("Giá đầu phải nhỏ hơn giá cuối");
-                    binding.validatePrice.setVisibility(View.VISIBLE);
-
+                for(String i : continents.keySet()){
+                    if(i.equals(continent[0])){
+                        params.put("continent",continents.get(i));
+                    }
+                }
+                for (String place: selectedTypePlace){
+                    typePlace[0] += place + ",";
+                }
+                params.put("typeplace",typePlace[0].replaceAll(",$",""));
+                if(sort[0].equals("Giá")){
+                    params.put("sort","price");
                 }else {
-                    binding.validatePrice.setVisibility(View.GONE);
-                    for(String i : continents.keySet()){
-                        if(i.equals(continent[0])){
-                            params.put("continent",continents.get(i));
-                        }
-                    }
-                    for (String place: selectedTypePlace){
-                        typePlace[0] += place + ",";
-                    }
-                    params.put("typeplace",typePlace[0].replaceAll(",$",""));
-                    if(sort[0].equals("Giá")){
-                        params.put("sort","price");
-                    }else {
-                        params.put("sort","rating");
-                    }
-                    params.put("priceMin",priceMin);
-                    params.put("priceMax",priceMax);
-                    if(binding.discount.isChecked()){
-                        params.put("discount","true");
-                    }else {
-                        params.put("discount","false");
-                    }
-
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("params", params);
-//                FilterResultFragment filterResultFragment = new FilterResultFragment();
-//                filterResultFragment.setArguments(bundle);
-//                filterResultFragment.show(getParentFragmentManager(),"FilterResult");
-                    Intent intent = new Intent(getActivity(), FilterResultActivity.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    typePlace[0] = "";
+                    params.put("sort","rating");
+                }
+                params.put("priceMin", String.valueOf((int)priceMin));
+                params.put("priceMax", String.valueOf((int)priceMax));
+                if(binding.discount.isChecked()){
+                    params.put("discount","true");
+                }else {
+                    params.put("discount","");
                 }
 
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("params", params);
+                Intent intent = new Intent(getActivity(), FilterResultActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                typePlace[0] = "";
             }
         });
+        return root;
     }
+
 
     @Override
     public void onDestroyView() {

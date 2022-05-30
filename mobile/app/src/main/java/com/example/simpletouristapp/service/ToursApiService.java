@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class ToursApiService {
-    private static final String BASE_URL = "http://192.168.1.2:4000/";
+    public static final String BASE_URL = "http://192.168.1.6:4000/";
     private ToursApi toursApi;
 
     public ToursApiService(){
@@ -32,9 +32,6 @@ public class ToursApiService {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(ToursApi.class);
-    }
-    public Call<ToursResponse> getToursApi(){
-        return toursApi.getTours();
     }
 
     public Call<TourResponse> getTourByIdAPi(String tourId){ return toursApi.getTourById(tourId); }
@@ -55,8 +52,8 @@ public class ToursApiService {
         return toursApi.getToursByTypePlace(typePlace);
     }
 
-    public Call<ToursResponse> getToursFilter(String continent, String typePlace, String sort, int priceMin, int priceMax){
-        return toursApi.getToursFilter(continent, typePlace, sort, priceMin, priceMax);
+    public Call<ToursResponse> getToursFilter(String continent, String typePlace, String sort, int priceMin, int priceMax, String discount){
+        return toursApi.getToursFilter(continent, typePlace, sort, priceMin, priceMax, discount);
     }
 
     public Call<ToursResponse> getOutStandingTours(){

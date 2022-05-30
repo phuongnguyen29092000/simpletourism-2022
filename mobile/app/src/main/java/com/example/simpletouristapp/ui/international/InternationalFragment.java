@@ -37,18 +37,9 @@ public class InternationalFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        InternationalViewModel internationalViewModel =
-//                new ViewModelProvider(this).get(InternationalViewModel.class);
 
         binding = InternationalFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         rvInternationalTour = binding.rvItemInternationalTours;
 
         toursApiService = new ToursApiService();
@@ -71,8 +62,9 @@ public class InternationalFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
-
+        return root;
     }
+
 
     @Override
     public void onDestroyView() {

@@ -44,20 +44,9 @@ public class DomesticFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        DomesticViewModel domesticViewModel =
-//                new ViewModelProvider(this).get(DomesticViewModel.class);
 
         binding = DomesticFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-//        final TextView textView = binding.textDomestic;
-//        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         rvDomesticTour = binding.rvItemDomesticTours;
 
@@ -71,7 +60,6 @@ public class DomesticFragment extends Fragment {
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
                 Log.d("TAG",response.code()+"");
                 ToursResponse tourResponse = response.body();
-//                Integer totalResult = tourResponse.totalResult;
                 tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"domestic");
                 tourAdapter.initData();
                 rvDomesticTour.setLayoutManager(new GridLayoutManager(getContext(),2));
@@ -84,19 +72,8 @@ public class DomesticFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
-//
-
-
-//        TourAdapter tourAdapter = new TourAdapter(getContext(),tours);
-//        rvTour.setLayoutManager(new GridLayoutManager(getContext(),2));
-//        rvTour.setAdapter(tourAdapter);
-
+        return root;
     }
-    public static void doFilter(String query){
-        tourAdapter.getFilter().filter(query);
-        tourAdapter.notifyDataSetChanged();
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

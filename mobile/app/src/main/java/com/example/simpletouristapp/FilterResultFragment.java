@@ -3,11 +3,13 @@ package com.example.simpletouristapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -41,12 +43,8 @@ public class FilterResultFragment extends Fragment {
     ) {
 
         binding = FragmentFilterResultBinding.inflate(inflater, container, false);
-        return binding.getRoot();
 
-    }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         Bundle bundle = new Bundle();
         bundle = getActivity().getIntent().getExtras();
         params = (HashMap<String, String>) bundle.getSerializable("params");
@@ -54,16 +52,10 @@ public class FilterResultFragment extends Fragment {
         rvFilterResult = binding.rvFilterResult;
         toursApiService = new ToursApiService();
 
-//        binding.dialogFilterClose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                params.clear();
-//            }
-//        });
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
+
 
         Call<ToursResponse> call = toursApiService.getToursFilter(params.get("continent"),params.get("typeplace")
-                ,params.get("sort"),Integer.parseInt(params.get("priceMin")),Integer.parseInt(params.get("priceMax")));
+                ,params.get("sort"),Integer.parseInt(params.get("priceMin")),Integer.parseInt(params.get("priceMax")),params.get("discount"));
         call.enqueue(new Callback<ToursResponse>() {
             @Override
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
@@ -72,6 +64,9 @@ public class FilterResultFragment extends Fragment {
                     tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"filter");
                     rvFilterResult.setLayoutManager(new GridLayoutManager(getContext(),2));
                     rvFilterResult.setAdapter(tourAdapter);
+                    ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
                 }else {
                     tourAdapter = new TourAdapter(getContext(),null,null);
                     rvFilterResult.setAdapter(tourAdapter);
@@ -84,6 +79,16 @@ public class FilterResultFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
+
+        return binding.getRoot();
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getActivity().finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

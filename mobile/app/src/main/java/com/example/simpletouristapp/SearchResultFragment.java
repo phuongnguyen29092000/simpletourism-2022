@@ -33,16 +33,9 @@ public class SearchResultFragment extends Fragment {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+            Bundle savedInstanceState) {
 
         binding = FragmentSearchResultBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         rvSearch = binding.rvSearch;
         toursApiService = new ToursApiService();
 
@@ -61,6 +54,8 @@ public class SearchResultFragment extends Fragment {
                     tourAdapter.getFilter().filter(getActivity().getIntent().getStringExtra("searchResult"));
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getActivity().getIntent().getStringExtra("searchResult"));
                 }
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
                 rvSearch.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 rvSearch.setAdapter(tourAdapter);
             }
@@ -70,6 +65,7 @@ public class SearchResultFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
+        return binding.getRoot();
 
     }
 
