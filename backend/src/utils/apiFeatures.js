@@ -40,9 +40,13 @@ class APIFeatures {
   }
 
   discount() {
-    if (this.queryString.discount === "true") {
+    if (this.queryString.discount == "true") {
       this.query = this.query
         .find({ discount: { $gt: 0 } })
+        .populate({ path: "typePlace" });
+    } else {
+      this.query = this.query
+        .find({ discount: { $eq: 0 } })
         .populate({ path: "typePlace" });
     }
     return this;
