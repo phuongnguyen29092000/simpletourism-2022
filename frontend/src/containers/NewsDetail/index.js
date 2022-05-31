@@ -11,7 +11,7 @@ function NewsDetail(props) {
     const { loading, newsDetail, listNews } = useSelector((store) => store.news);
     const [load, onLoad] = useState(false);
     const { id } = useParams();
-
+ 
     useEffect(() => {
         dispatch(getNewsDetail(id))
         dispatch(getAllNews())
@@ -24,7 +24,7 @@ function NewsDetail(props) {
     return (
         <div className='news-detail-wrapper'>
             {loading ? <SpinnerLoading /> :
-                (newsDetail &&
+                (Object.keys(newsDetail).length > 0 &&
                     <Container maxWidth='xl'>
                         <Grid container style={{ justifyContent: 'center', padding: '20px'}}>
                             <Grid container item md={8} xs={12} style={{ boxShadow: '0 1px 3px -2px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)', padding: '20px' }}>

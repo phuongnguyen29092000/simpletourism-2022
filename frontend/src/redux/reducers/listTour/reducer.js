@@ -128,6 +128,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        listTourResult: []
       }
     }
     case types.FILTER_TOUR_SUCCESS: {
