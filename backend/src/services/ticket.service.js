@@ -1,4 +1,5 @@
 const { Ticket, Tour } = require('../models')
+const mongoose = require("mongoose");
 
 const bookTicket = async(ticketBody) => {
     const ticket = await Ticket.create(ticketBody)
@@ -9,34 +10,102 @@ const getAllTicket = async(idCompany) => {
     let ticketsPerCompany = []
     const tours = await Tour.find()
     const arrayId = tours.filter((tour) => tour.owner.toString() == idCompany.toString()).map((tour) => tour._id.toString());
-    // const arrayId = tourPerCompany.map((tour) => tour._id.toString())
-    const tickets = await Ticket.find()
+    const tickets = await Ticket.aggregate(
+        [
+            {
+                $lookup: {
+                        from: "users",
+                        localField: "customer",
+                        foreignField: "_id",
+                        as: "customer"
+                }
+            },
+            {
+                $lookup: {
+                    from: "tours",
+                    localField: "tour",
+                    foreignField: "_id",
+                    as: "tour"
+                }
+            },
+            { $unwind: '$tour' },
+            { $unwind: '$customer' },
+            {
+                "$addFields": {
+                    "idTour": "$tour._id",
+                    "customerId": "$customer._id",
+                    "customerName": "$customer.givenName",
+                    "tourName": "$tour.tourName",
+                    "email": '$customer.email'
+                }
+            },
+            { $project: {
+                _id: 1,
+                idTour: 1,
+                customerId: 1,
+                customerName: 1,
+                tourName:1,
+                phone: 1,
+                email: 1,
+                numberPeople:1,
+                paymentPrice: 1,
+                status: 1,
+            }}
+        ]
+    )
+
     tickets.forEach((ticket) => {
-        if (arrayId.includes(ticket.tour.toString()))
+        if (arrayId.includes(ticket.idTour.toString()))
             ticketsPerCompany.push(ticket)
     })
     return ticketsPerCompany
 }
 
-const getTicketPerTour = async(idTour) => {
-    let ticketPerTour = []
-    const tickets = await Ticket.find().populate({ path: 'tour' })
-    tickets.forEach(ticket => {
-        if (ticket.tour._id == idTour) {
-            ticketPerTour.push({
-                id: ticket._id,
-                cusomterId: ticket.customer,
-                ownerId: ticket.owner,
-                phone: ticket.phone,
-                tourName: ticket.tour.tourName,
-                totalPrice: parseInt(ticket.paymentPrice * ticket.numberPeople),
-                numberPeople: ticket.numberPeople,
-                status: ticket.status,
-                createdAt: ticket.createdAt,
-                updatedAt: ticket.updatedAt
-            })
-        }
-    });
+const getTicketPerTour = async(id) => {
+    const ticketPerTour = await Ticket.aggregate(
+        [
+            {
+                $lookup: {
+                        from: "users",
+                        localField: "customer",
+                        foreignField: "_id",
+                        as: "customer"
+                }
+            },
+            {
+                $lookup: {
+                    from: "tours",
+                    localField: "tour",
+                    foreignField: "_id",
+                    as: "tour"
+                }
+            },
+            { $unwind: '$tour' },
+            { $unwind: '$customer' },
+            {
+                "$addFields": {
+                    "idTour": "$tour._id",
+                    "customerId": "$customer._id",
+                    "customerName": "$customer.givenName",
+                    "tourName": "$tour.tourName",
+                    "email": '$customer.email'
+                }
+            },
+            { $match: { idTour: new mongoose.Types.ObjectId(id) } },
+            { $project: {
+                _id: 1,
+                idTour: 1,
+                customerId: 1,
+                customerName: 1,
+                tourName:1,
+                phone: 1,
+                email: 1,
+                numberPeople:1,
+                paymentPrice: 1,
+                status: 1,
+            }}
+        ]
+    )
     return ticketPerTour
 }
 

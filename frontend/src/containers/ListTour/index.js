@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import {useNavigate} from 'react-router-dom'
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery } from '@mui/material'
 import AddTourModal from '../../components/modal/addTourModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteTour, getAllTour } from '../../redux/reducers/listTour/action'
+import { getTicketPerTour } from '../../redux/reducers/listTicket/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import PaginationCustom from 'components/common/PaginationCustom'
 import RegardPrice from 'LogicResolve/RegardPrice'
+import { ROUTE_LIST_TICKET } from '../../route/type';
+
 
 function ListTour(props) {
     const [open, setOpen] = useState(false) 
@@ -19,6 +23,7 @@ function ListTour(props) {
     const [page, setPage] = useState(1)
     const dispatch = useDispatch()
     const [dataList, setDataList] = useState([])
+    let navigate = useNavigate();
     
     let { listTour } = useSelector((store) => store.listTour)
     console.log(listTour?.length)
@@ -37,6 +42,11 @@ function ListTour(props) {
     useEffect(() => {
         setDataList([...listTour.slice(0, 10)])
     }, [listTour])
+
+    const getTickerPerTour = (id) => {
+        dispatch(getTicketPerTour(id))
+        navigate(`${ROUTE_LIST_TICKET}`);
+    }
     
     const handleDelete = () => {
         dispatch(deleteTour(tourDelete.id,()=>setOpenConfirmModal(false)))
@@ -48,6 +58,7 @@ function ListTour(props) {
     const handleCloseUpdate = () => {
         setOpenUpdate(!openUpdate);
     }
+   
     return (
         <div className='tour-manager'>
             <div className='tour-manager__add-tour'>
@@ -90,7 +101,9 @@ function ListTour(props) {
                                             }}>
                                                 <DeleteOutlineIcon fontSize='15px' />
                                             </div>
-                                            <div className='btn-action btn-ticket'>
+                                            <div className='btn-action btn-ticket' onClick={()=>{
+                                                getTickerPerTour(_tour._id.toString())
+                                            }}>
                                                 <ConfirmationNumberIcon fontSize='15px' />
                                             </div>
                                         </div>

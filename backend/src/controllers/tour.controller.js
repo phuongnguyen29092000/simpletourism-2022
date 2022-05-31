@@ -50,7 +50,6 @@ const getTour = catchAsync(async (req, res, next) => {
     let result = {};
     result = { ...tour };
     result._doc["remainingAmount"] = remainingAmount;
-    console.log(result);
     res.status(200).json({
       status: 200,
       tour: result._doc,
