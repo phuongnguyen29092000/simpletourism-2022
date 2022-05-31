@@ -232,24 +232,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:text="Ẩn bớt"
                 android:textColor="#3B9EED">
 
             </Button>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/schedule_hide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lịch trình: "
-            android:textSize="20dp"
-            android:justificationMode="inter_word"
-            android:visibility="invisible"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="20dp"/>
         <Button
             android:id="@+id/btn_book_tour"
             android:background="@drawable/custombtn2"
@@ -268,10 +257,11 @@
             android:text="Đánh giá"
             android:textSize="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="20dp"/>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_width="390dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
             android:background="#473B3B"
             android:layout_marginTop="15dp"/>
         <androidx.recyclerview.widget.RecyclerView

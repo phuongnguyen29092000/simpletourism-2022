@@ -57,14 +57,6 @@ public class LoginFragment extends Fragment {
         binding = LoginFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        final TextView textView = binding.textForeign;
-//        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         toursApiService = new ToursApiService();
 
         googleService = new LoginGoogleApiService();
@@ -138,6 +130,7 @@ public class LoginFragment extends Fragment {
                 signIn();
             }
         });
+        return root;
     }
     private void performLogin(){
         String email = binding.edtEmailLogin.getText().toString();
@@ -224,6 +217,7 @@ public class LoginFragment extends Fragment {
                             editor.putString("id_customer",loginResponse.getProfile().getId());
                             editor.putString("access_token",loginResponse.getTokenAuth().getAccess().getToken());
                             editor.putString("refresh_token",loginResponse.getTokenAuth().getRefresh().getToken());
+                            editor.putString("photo_url",loginResponse.getProfile().getPhotoUrl());
                             editor.commit();
                             Log.d("Access",loginResponse.getTokenAuth().getAccess().getToken());
                             Log.d("Refresh",loginResponse.getTokenAuth().getRefresh().getToken());
@@ -245,18 +239,4 @@ public class LoginFragment extends Fragment {
             }
         }
     }
-//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-//        try {
-//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-//
-//
-//            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivityLogged.class);
-//            startActivity(intent);
-//            Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-//        } catch (ApiException e) {
-//            // The ApiException status code indicates the detailed failure reason.
-//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
-//        }
-//    }
 }

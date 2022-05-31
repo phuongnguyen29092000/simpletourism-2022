@@ -23,19 +23,8 @@ public class RegisterFragment extends Fragment {
         binding = RegisterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        final TextView textView = binding.textForeign;
-//        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            }
-//        });
 
+        return root;
     }
 
     @Override

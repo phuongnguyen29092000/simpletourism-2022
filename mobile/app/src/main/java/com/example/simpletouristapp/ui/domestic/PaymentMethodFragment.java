@@ -50,11 +50,6 @@ public class PaymentMethodFragment extends Fragment {
         binding = PaymentMethodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         context = getActivity();
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         toursApiService = new ToursApiService();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
@@ -97,7 +92,9 @@ public class PaymentMethodFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        return root;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

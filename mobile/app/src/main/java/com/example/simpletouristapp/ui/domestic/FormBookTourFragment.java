@@ -40,16 +40,6 @@ public class FormBookTourFragment extends Fragment {
 
         binding = FormBookTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        binding.nameTour.setText(tourName);
-
-
-
         binding.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +78,7 @@ public class FormBookTourFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment,bundle);
             }
         });
+        return root;
     }
     @Override
     public void onDestroyView() {
