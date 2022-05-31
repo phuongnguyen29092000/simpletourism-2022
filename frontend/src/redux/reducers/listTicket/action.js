@@ -10,7 +10,7 @@ const getAllTicket = (id,callback = ()=>{}) => {
             if(result.status === 200){
                 dispatch({
                     type: types.GET_TICKET_SUCCESS,
-                    payload: [...result.data]
+                    payload: [...result.data.tickets]
                 })
                 callback()
             }else{
@@ -26,6 +26,34 @@ const getAllTicket = (id,callback = ()=>{}) => {
         })
     }
 }
+
+const getTicketPerTour = (id,callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.GET_TICKET_PER_TOUR})
+        API.getTicketPerTour(id)
+        // .then((response)=>response.json())
+        .then((result=>{
+            if(result.status === 200){
+                console.log(result.data.tickets);
+                dispatch({
+                    type: types.GET_TICKET_PER_TOUR_SUCCESS,
+                    payload: [...result.data.tickets]
+                })
+                callback()
+            }else{
+                dispatch({
+                    type: types.GET_TICKET_PER_TOUR_FAIL
+                })
+            }
+        }))
+        .catch((error)=>{
+            dispatch({
+                type: types.GET_TICKET_PER_TOUR_FAIL
+            })
+        })
+    }
+}
+
 const deleteTicket = (id, callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.DELETE_TICKET})
@@ -54,5 +82,6 @@ const deleteTicket = (id, callback = ()=>{}) => {
 
 export {
     getAllTicket,
+    getTicketPerTour,
     deleteTicket
 }
