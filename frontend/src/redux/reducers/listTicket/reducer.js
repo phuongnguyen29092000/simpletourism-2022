@@ -2,6 +2,7 @@ import * as types from './types'
 
 const initialState = {
   list_ticket: [],
+  listTicketPerTour: [],
   loading: false,
 }
 export const reducer = (state = initialState, action) => {
@@ -19,6 +20,26 @@ export const reducer = (state = initialState, action) => {
       }
     }
     case types.GET_TICKET_SUCCESS: {
+      return {
+        ...state,
+        ////
+        list_ticket: action.payload,
+        loading: false,
+      }
+    }
+    case types.GET_TICKET_PER_TOUR: {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+    case types.GET_TICKET_PER_TOUR_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    case types.GET_TICKET_PER_TOUR_SUCCESS: {
       return {
         ...state,
         ////

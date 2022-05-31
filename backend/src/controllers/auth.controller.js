@@ -23,7 +23,6 @@ const loginGoogle = catchAsync(async(req, res)=>{
     const client = new OAuth2Client(clientID)
     if(id_token) {
         try {
-            console.log(clientID);
             const ticket = await client.verifyIdToken({
                 idToken: id_token,
                 audience: clientID

@@ -6,7 +6,7 @@ import IconCustomer from '../../assets/icons/icon-customer.svg'
 import IconAccount from '../../assets/icons/icon-account.svg'
 import IconNews from '../../assets/icons/icon-news.svg'
 import IconStatistic from '../../assets/icons/icon-statistic.svg'
-import logo from '../../public/logoTest.png';
+import logo from '../../public/logo-spt.png';
 import { ROUTE_LIST_CUSTOMER, ROUTE_LIST_TICKET, ROUTE_LIST_TOUR, ROUTE_OWNER_ACCOUNT, ROUTE_OWNER_NEWS } from '../../route/type';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, Typography } from '@mui/material';
