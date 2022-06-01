@@ -1,36 +1,37 @@
-package com.example.simpletouristapp.ui.international;
+package com.example.simpletouristapp.ui.domestic;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+
 
 import com.example.simpletouristapp.model.Tour;
+
 import com.example.simpletouristapp.repository.TourRepository;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class InternationalViewModel extends AndroidViewModel {
+public class DomesticViewModel extends AndroidViewModel {
     private TourRepository tourRepository;
-    private LiveData<List<Tour>> internationalTours;
+    private LiveData<List<Tour>> domesticTours;
 
-    public InternationalViewModel(@NonNull @NotNull Application application) {
+
+    public DomesticViewModel(@NonNull @NotNull Application application) {
         super(application);
         tourRepository = new TourRepository(application);
-        internationalTours = tourRepository.getInternationalTours();
+        domesticTours = tourRepository.getDomesticTours();
     }
 
     public void insert(List<Tour> list){
         tourRepository.insert(list);
     }
 
-    public LiveData<List<Tour>> getInternationalTours()
+    public LiveData<List<Tour>> getDomesticTours()
     {
-        return internationalTours;
+        return domesticTours;
     }
 }
