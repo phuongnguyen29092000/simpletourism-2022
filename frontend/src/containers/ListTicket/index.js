@@ -42,7 +42,7 @@ function ListTicket(props) {
                     </thead>
                     <tbody>
                         {
-                            list_ticket.length !=0 ? 
+                            list_ticket &&
                             list_ticket?.map((ticket, index) =>(
                                 <tr key={index}>
                                 <td className='td-2'>{ticket?.customerName}</td>
@@ -67,8 +67,7 @@ function ListTicket(props) {
                                         </div>
                                     </td>
                                 </tr>
-
-                            )) : <span>Not Found</span>
+                            ))
                         }
                     </tbody>
                 </table>

@@ -32,7 +32,7 @@ const ticketSchema = mongoose.Schema({
     status: {
         type: Number,
         min: 0,
-        max: 2,
+        max: 1,
         default: 0,
     },
 }, {
