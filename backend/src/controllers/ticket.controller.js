@@ -40,6 +40,21 @@ const getAllTicketCompany = catchAsync(async(req, res) => {
     })
 })
 
+const getTicketsHistory = catchAsync(async(req,res) =>{
+    const tickets = await ticketService.getTicketsHistory(req.params.id)
+    
+    if (tickets.length == 0) res.status(httpStatus.NOT_FOUND).json({
+        status: 404,
+        message: "Không tìm thấy vé",
+    })
+
+    res.status(httpStatus.OK).json({
+        status: 200,
+        message: "OK",
+        tickets: tickets
+    })
+})
+
 const getTicketById = catchAsync(async(req, res) => {
     const ticket = await ticketService.getTicketById(req.params.id)
 
@@ -99,5 +114,6 @@ module.exports = {
     getTicketById,
     updateTicketById,
     deleteTicketById,
-    getTicketPerTour
+    getTicketPerTour,
+    getTicketsHistory
 }

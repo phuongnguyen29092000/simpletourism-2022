@@ -7,6 +7,8 @@ const router = express.Router()
 
 router.get('/company/:idCompany', ticketController.getAllTicketCompany)
 
+router.get('/history/:id', ticketController.getTicketsHistory)
+
 router.get('/:id', ticketController.getTicketById)
 
 router.post('/create/:tourId', ticketController.bookTicket)
