@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class ToursApiService {
-    public static final String BASE_URL = "http://192.168.1.6:4000/";
+    public static final String BASE_URL = "http://192.168.1.9:4000/";
     private ToursApi toursApi;
 
     public ToursApiService(){

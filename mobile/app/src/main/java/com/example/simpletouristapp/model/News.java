@@ -1,17 +1,33 @@
 package com.example.simpletouristapp.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "news")
 public class News {
     @SerializedName("_id")
+    @PrimaryKey
+    @NonNull
     private String id;
+
     @SerializedName("owner")
+    @ColumnInfo(name = "owner")
     private String owner;
+
     @SerializedName("title")
+    @ColumnInfo(name = "title")
     private String title;
+
     @SerializedName("description")
+    @ColumnInfo(name = "description")
     private String description;
+
     @SerializedName("imageUrl")
+    @ColumnInfo(name = "imageUrl")
     private String imageUrl;
 
     public String getId() {

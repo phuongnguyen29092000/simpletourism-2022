@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsApiService {
 
-    private static final String BASE_URL = "http://192.168.1.12:4000/";
+    private static final String BASE_URL = "http://192.168.1.9:4000/";
     private NewsApi newsApi;
 
     public NewsApiService (){

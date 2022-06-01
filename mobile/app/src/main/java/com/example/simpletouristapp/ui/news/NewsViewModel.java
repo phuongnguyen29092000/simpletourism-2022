@@ -1,18 +1,35 @@
 package com.example.simpletouristapp.ui.news;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class NewsViewModel extends ViewModel {
-    private final MutableLiveData<String> mText;
+import com.example.simpletouristapp.model.News;
+import com.example.simpletouristapp.repository.NewsRepository;
 
-    public NewsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is News fragment");
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+public class NewsViewModel extends AndroidViewModel {
+    private NewsRepository newsRepository;
+    private LiveData<List<News>> allNews;
+
+    public NewsViewModel(@NonNull @NotNull Application application) {
+        super(application);
+        newsRepository = new NewsRepository(application);
+        allNews = newsRepository.getAllNews();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void insert(List<News> list){
+        newsRepository.insert(list);
     }
+
+    public LiveData<List<News>> getAllNews()
+    {
+        return allNews;
+    }
+
 }

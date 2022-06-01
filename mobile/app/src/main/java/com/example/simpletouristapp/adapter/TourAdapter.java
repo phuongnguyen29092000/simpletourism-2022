@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.SearchActivity;
 import com.example.simpletouristapp.SearchResultFragment;
+import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.squareup.picasso.Picasso;
@@ -113,14 +114,15 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
                 Toast.makeText(context, tour.getId(), Toast.LENGTH_SHORT).show();
             }
         });
-//        Picasso.get().load("http://192.168.1.12:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
-//        holder.nameTour.setText(tour.getNameTour());
-//        holder.price.setText(Integer.toString(tour.getPrice()) + "đ");
     }
 
     @Override
     public int getItemCount() {
         return tours == null ? 0 : tours.size();
+    }
+
+    public void getTours(List<Tour> tours){
+        this.tours = tours;
     }
 
     @Override
