@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 const bookTicket = async(ticketBody) => {
     const ticket = await Ticket.create(ticketBody)
-    return ticket
+    const infoTicket = await getTicketById(ticket._id.toString())
+    return infoTicket
 }
 
 const getAllTicket = async(idCompany) => {
@@ -169,8 +170,57 @@ const getTicketsHistory = async(id) =>{
 }
 
 const getTicketById = async(id) => {
-    const ticket = await Ticket.findById(id)
-    return ticket
+    const ticket = await Ticket.aggregate(
+        [
+            {
+                $lookup: {
+                        from: "users",
+                        localField: "customer",
+                        foreignField: "_id",
+                        as: "customer"
+                }
+            },
+            {
+                $lookup: {
+                    from: "tours",
+                    localField: "tour",
+                    foreignField: "_id",
+                    as: "tour"
+                }
+            },
+            { $unwind: '$tour' },
+            { $unwind: '$customer' },
+            {
+                "$addFields": {
+                    "idTour": "$tour._id",
+                    "customerId": "$customer._id",
+                    "customerName": "$customer.givenName",
+                    "tourName": "$tour.tourName",
+                    "email": '$customer.email'
+                }
+            },
+            { 
+                $match: { 
+                    _id: new mongoose.Types.ObjectId(id),
+                } 
+            },
+            { $project: {
+                _id: 1,
+                idTour: 1,
+                customerId: 1,
+                customerName: 1,
+                tourName:1,
+                phone: 1,
+                email: 1,
+                numberPeople:1,
+                paymentPrice: 1,
+                status: 1,
+                createdAt: 1,
+                updatedAt: 1
+            }}
+        ]
+    )
+    return ticket[0]
 }
 
 const updateTicketById = async(id, ticketBody) => {

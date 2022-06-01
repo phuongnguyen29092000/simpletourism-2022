@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const validator = require('validator')
 const catchAsync = require('../utils/catchAsync')
 const { ticketService, userService, TourService } = require('../services')
+const { emailBookTicket } = require('../config/emailTemplates')
 
 const bookTicket = catchAsync(async(req, res) => {
     const tour = req.params.tourId
@@ -9,11 +10,12 @@ const bookTicket = catchAsync(async(req, res) => {
     let {price, discount} = tourDetail.tour
     let paymentPrice = 0
     if (!discount) paymentPrice = price
-    else paymentPrice = parseInt(price * (1 - discount))
+    else paymentPrice = Math.ceil(price * (1 - discount))
     const ticketBody = {...req.body, tour, paymentPrice }
-    const ticket = await ticketService.bookTicket(ticketBody)
+    const ticketInfo = await ticketService.bookTicket(ticketBody)
+    if(ticketInfo) await emailBookTicket(ticketInfo)
 
-    if (!ticket) res.status(httpStatus.BAD_REQUEST).json({
+    if (!ticketInfo) res.status(httpStatus.BAD_REQUEST).json({
         status: 400,
         message: "Đặt vé không thành công!",
     })
@@ -21,7 +23,7 @@ const bookTicket = catchAsync(async(req, res) => {
     res.status(httpStatus.CREATED).json({
         status: 201,
         message: "Đặt vé thành công!",
-        ticket: ticket
+        ticket: ticketInfo
     })
 })
 
@@ -58,12 +60,11 @@ const getTicketsHistory = catchAsync(async(req,res) =>{
 const getTicketById = catchAsync(async(req, res) => {
     const ticket = await ticketService.getTicketById(req.params.id)
 
-    if (!tourData) res.status(httpStatus.NOT_FOUND).json({
+    if (!ticket) res.status(httpStatus.NOT_FOUND).json({
         status: 404,
         message: "Không tìm thấy vé"
-    })
-
-    res.status(httpStatus.OK).json({
+    }) 
+    else res.status(httpStatus.OK).json({
         status: 200,
         message: "OK",
         ticket: ticket
