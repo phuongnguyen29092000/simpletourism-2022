@@ -13,13 +13,14 @@ router.route("/tour-noi-bat").get(TourController.getOutStandingTours);
 
 router
   .route("/:idTour/tickets")
-  .get(ticketController.getTicketPerTour);
+  .get(auth('owner'), ticketController.getTicketPerTour);
 router.route("/search").get(TourController.searchByText);
 
 router
   .route("/")
   .get(TourController.getAllTour)
   .post(
+    auth('owner'),
     upLoadImage.fields([
       { name: "imageAvatar", maxCount: 1 },
       { name: "imageSlide1", maxCount: 1 },
@@ -32,11 +33,11 @@ router
 router
   .route("/:id")
   .get(TourController.getTour)
-  .delete(TourController.deleteTour)
-  .patch(TourController.updateTour);
+  .delete(auth('owner'), TourController.deleteTour)
+  .patch(auth('owner'),TourController.updateTour);
 
 router
   .route("/owner/:ownerId")
-  .get(TourController.getTourByOwner);
+  .get(auth('owner'),TourController.getTourByOwner);
 
 module.exports = router;

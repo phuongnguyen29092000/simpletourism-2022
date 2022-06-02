@@ -5,16 +5,16 @@ const auth = require('../middlewares/auth')
 
 const router = express.Router()
 
-router.get('/company/:idCompany', ticketController.getAllTicketCompany)
+router.get('/company/:idCompany', auth('owner'), ticketController.getAllTicketCompany)
 
-router.get('/history/:id', ticketController.getTicketsHistory)
+router.get('/history/:id', auth('customer'), ticketController.getTicketsHistory)
 
-router.get('/:id', ticketController.getTicketById)
+router.get('/:id', auth('owner','customer'), ticketController.getTicketById)
 
-router.post('/create/:tourId', ticketController.bookTicket)
+router.post('/create/:tourId', auth('customer'), ticketController.bookTicket)
 
-router.put('/:id', ticketController.updateTicketById)
+router.put('/:id', auth('owner'), ticketController.updateTicketById)
 
-router.delete('/:id', ticketController.deleteTicketById)
+router.delete('/:id', auth('owner', 'customer'), ticketController.deleteTicketById)
 
 module.exports = router

@@ -44,6 +44,7 @@ const loginGoogle = catchAsync(async(req, res)=>{
             })  
         }
         const tokenAuth = await tokenService.generateAccessRefreshToken(user._id.toString())
+        console.log(tokenAuth.access.token);
         res.status(httpStatus.OK).json({
             status: 200,
             message: "Đăng nhập thành công!",
@@ -83,7 +84,8 @@ const loginGoogle = catchAsync(async(req, res)=>{
 // })
 
 const logout = catchAsync(async(req, res) => {
-    if(!refreshTokens) return res.status(httpStatus.FORBIDDEN).json({
+    console.log(req.body.refreshToken);
+    if(!req.body.refreshToken) return res.status(httpStatus.FORBIDDEN).json({
         status: 403,
         message: "FORBIDDEN"
     })
