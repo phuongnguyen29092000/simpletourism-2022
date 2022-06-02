@@ -1,12 +1,45 @@
-### check authorization jwt 
-GET http://localhost:4000/tour
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODUxYmIzZjZlYWIxNGIxMjkxZjE2ZiIsImV4cCI6MTY1Mjg5NTY2MSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1Mjg5NTA2MX0.Tja3nQ__Xndi7Re8Og5qWnsbM8oNIaJE1MntuadVYCY
+######## Auth
 
 ### Logout 
 POST http://localhost:4000/auth/logout
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODUxYmIzZjZlYWIxNGIxMjkxZjE2ZiIsImV4cCI6MTY1Mjg5NTY2MSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1Mjg5NTA2MX0.Tja3nQ__Xndi7Re8Og5qWnsbM8oNIaJE1MntuadVYCY
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTI1Y2RhY2NjY2QwZGVlMWE4ODBmMSIsImV4cCI6MTY1NDE4NzQ3NSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1NDE4Njg3NX0.fTbxM_uOcmCxrfVbKLTEWh3JgsS0mBixc-ZoEDi6E_k
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyODUxYmIzZjZlYWIxNGIxMjkxZjE2ZiIsImV4cCI6MTY1NTQ4NzA2MSwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE2NTI4OTUwNjF9.0QnYRsa4FRDxhr-rvKU9rhroHMoq-ohHLU-kENdeHLI"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTI1Y2RhY2NjY2QwZGVlMWE4ODBmMSIsImV4cCI6MTY1Njc3ODg3NSwidHlwZSI6InJlZnJlc2giLCJpYXQiOjE2NTQxODY4NzV9.acZvfYYubPOdRKBdoJOCZd9Z8vQxI5Jp8IL68cSudtA"
+}
+
+######### Tour
+
+######### Ticket
+### Get ticket per comopany
+GET http://localhost:4000/ticket/company/62925ca0ccccd0dee1a880e5
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTI1Y2EwY2NjY2QwZGVlMWE4ODBlNSIsImV4cCI6MTY1NDE4NDc1MiwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1NDE4NDE1Mn0.aEhxrYScUgO72GmW2lkKoHtSVujI-Ey5PRLxkaRraM8
+
+### Get history ticket for customer
+GET http://localhost:4000/ticket/history/629314f73bd7f3bbf98925e3
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjMTU1MjNhMjdiOGNkNTI2ZmFjNSIsImV4cCI6MTY1NDE4NTE4NCwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1NDE4NDU4NH0.FjyoS3NQm2uGsjPt4_dKTxniTsQ54DySVlbBoYZe4cE
+
+### Book ticket customer 
+POST http://localhost:4000/ticket/create/625d88e46d39e613da5675d6
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjMTU1MjNhMjdiOGNkNTI2ZmFjNSIsImV4cCI6MTY1NDE4NjAyNywidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1NDE4NTk2N30.Fruo_gcjPR5w_5jAaFNrr0-V28zdeCtKi-16NY51UiU
+Content-Type:application/json
+
+{
+    "customer": "6295c15523a27b8cd526fac5",
+    "phone": "0395260327",
+    "numberPeople": "4"
+}
+
+######### Feeback
+
+######### Typeplace 
+### Create new typeplace
+PUT http://localhost:4000/typeplace/6298e1db965f4d83ccdcaae6
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOTVjMTU1MjNhMjdiOGNkNTI2ZmFjNSIsImV4cCI6MTY1NDE4Njc2MSwidHlwZSI6ImFjY2VzcyIsImlhdCI6MTY1NDE4NjE2MX0.qM_2_y-hwrSA-glixxVWCfhFg3HcHZ05-6VL3T6f5vc
+Content-Type:application/json
+
+{
+    "name": "hello",
+    "description": "dfgdfgfdgdfgfdgfdgfdgfdgfdgfd"
 }

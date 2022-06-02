@@ -12,10 +12,10 @@ router.get(
   typePlaceController.getTypePlaceById
 );
 
-router.post("/create", typePlaceController.createTypePlace);
+router.post("/create", auth('admin'), typePlaceController.createTypePlace);
 
-router.put("/:id", typePlaceController.updateTypePlacesById);
+router.put("/:id", auth('admin'), typePlaceController.updateTypePlacesById);
 
-router.delete("/:id", typePlaceController.deleteTypePlaceById);
+router.delete("/:id", auth('admin'), typePlaceController.deleteTypePlaceById);
 
 module.exports = router;

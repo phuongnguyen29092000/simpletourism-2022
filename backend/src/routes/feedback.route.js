@@ -7,9 +7,9 @@ const router = express.Router();
 
 router
     .route("/")
-    .post(FeedbackController.createFeedback)
-    .get(FeedbackController.getAllFeedback);
+    .post(auth('customer'), FeedbackController.createFeedback)
+    .get(auth('admin'), FeedbackController.getAllFeedback);
 
-router.route("/tour/:tourId").get(FeedbackController.getFeedbackOfTour);
+router.route("/tour/:tourId").get(auth('customer'), FeedbackController.getFeedbackOfTour);
 
 module.exports = router;
