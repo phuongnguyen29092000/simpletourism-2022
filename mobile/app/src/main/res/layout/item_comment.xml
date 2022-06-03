@@ -44,7 +44,8 @@
                     android:id="@+id/rating_feedback"
                     style="@android:style/Widget.Material.RatingBar.Small"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"/>
                 <TextView
                     android:id="@+id/txt_cmt_account"
                     android:layout_width="wrap_content"

@@ -45,9 +45,6 @@ public interface ToursApi {
     @GET("tour/tour-noi-bat")
     Call<ToursResponse> getOutStandingTours();
 
-    @GET("feedback/tour/{id}")
-    Call<FeedBackResponse> getFeedBackById(@Path("id") String tourId);
-
     @POST("payment/create")
     Call<ResponseBody> postPaypal();
 
