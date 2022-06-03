@@ -8,16 +8,8 @@ public class FeedBackResponse{
 
     @SerializedName("status")
     private int status;
-    @SerializedName("totalResult")
-    private int totalResult;
     @SerializedName("data")
     private List<FeedBack> data;
-
-    public FeedBackResponse(int status, int totalResult, List<FeedBack> data) {
-        this.status = status;
-        this.totalResult = totalResult;
-        this.data = data;
-    }
 
     public int getStatus() {
         return status;
@@ -25,14 +17,6 @@ public class FeedBackResponse{
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public int getTotalResult() {
-        return totalResult;
-    }
-
-    public void setTotalResult(int totalResult) {
-        this.totalResult = totalResult;
     }
 
     public List<FeedBack> getData() {

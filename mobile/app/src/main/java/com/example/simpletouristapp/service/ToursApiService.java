@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class ToursApiService {
-    public static final String BASE_URL = "http://192.168.1.7:4000/";
+    public static final String BASE_URL = "http://192.168.1.2:4000/";
     private ToursApi toursApi;
 
     public ToursApiService(){
@@ -60,9 +60,7 @@ public class ToursApiService {
         return toursApi.getOutStandingTours();
     }
 
-    public Call<FeedBackResponse> getFeedBackById(String tourId){
-        return toursApi.getFeedBackById(tourId);
-    }
+
 
     public Call<ResponseBody> postPaypal(){
         return toursApi.postPaypal();

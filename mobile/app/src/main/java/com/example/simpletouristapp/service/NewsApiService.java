@@ -13,14 +13,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsApiService {
 
-    private static final String BASE_URL = "http://192.168.1.7:4000/";
     private NewsApi newsApi;
 
     public NewsApiService (){
 
         Gson gson = new GsonBuilder().setLenient().create();
         newsApi = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(ToursApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
                 .create(NewsApi.class);
