@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class ToursApiService {
-    public static final String BASE_URL = "http://192.168.1.9:4000/";
+    public static final String BASE_URL = "http://192.168.1.7:4000/";
     private ToursApi toursApi;
 
     public ToursApiService(){
@@ -74,7 +74,7 @@ public class ToursApiService {
         return toursApi.postFormLogin(googleId,email,givenName,familyName,photoUrl,accessToken,idToken,"mobile");
     }
 
-    public Call<TicketResponse> bookTour(String id,String customer,String phone,int numberPeople){
+    public Call<TicketResponse> bookTour(String auth,String id,String customer,String phone,int numberPeople){
         return toursApi.bookTour(id,customer,phone,numberPeople);
     }
 }

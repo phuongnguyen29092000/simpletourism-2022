@@ -2,6 +2,7 @@ package com.example.simpletouristapp.ui.domestic;
 
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import com.example.simpletouristapp.databinding.FormBookTourBinding;
 import com.example.simpletouristapp.databinding.PaymentMethodBinding;
 import com.example.simpletouristapp.model.TicketResponse;
 import com.example.simpletouristapp.service.ToursApiService;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 
@@ -56,15 +59,14 @@ public class PaymentMethodFragment extends Fragment {
 
         binding.tvNameTour.setText(informationBookTour.get("nameTour"));
         binding.tvAmount.setText(informationBookTour.get("Amount"));
-        binding.tvFullName.setText(informationBookTour.get("fullName"));
         binding.tvPrice.setText(informationBookTour.get("Price"));
         binding.tvPhoneNumber.setText(informationBookTour.get("Phone"));
-        binding.tvEmail.setText(informationBookTour.get("Email"));
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 
         binding.btnPaymentLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<TicketResponse> call = toursApiService.bookTour(informationBookTour.get("idTour")
+                Call<TicketResponse> call = toursApiService.bookTour("Bearer " + sharedPref.getString("access_token",""),informationBookTour.get("idTour")
                         ,sharedPref.getString("id_customer",""),binding.tvPhoneNumber.getText().toString()
                         , Integer.parseInt(binding.tvAmount.getText().toString()));
                 call.enqueue(new Callback<TicketResponse>() {
@@ -72,14 +74,38 @@ public class PaymentMethodFragment extends Fragment {
                     public void onResponse(Call<TicketResponse> call, Response<TicketResponse> response) {
                         if(response.code() == 201){
                             TicketResponse ticketResponse = response.body();
-                            Toast.makeText(getContext(), ticketResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//                            Navigation.findNavController(view).navigate(R.id.action_nav_payment_to_nav_detail_tour);
+                            builder.setTitle("Thành công");
+                            builder.setMessage("Bạn đã đặt tour thành công");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    getActivity().onBackPressed();
+                                    getActivity().onBackPressed();
+                                }
+                            });
+                            builder.show();
+                        }else {
+                            builder.setTitle("Thất bại");
+                            builder.setMessage("Bạn đã đặt tour thất bại");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
                         }
                     }
 
                     @Override
                     public void onFailure(Call<TicketResponse> call, Throwable t) {
-                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Thất bại");
+                        builder.setMessage("Bạn đã đặt tour thất bại");
+                        builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
                         Log.d("TAG",t.getMessage());
                     }
                 });

@@ -40,6 +40,8 @@ public class FormBookTourFragment extends Fragment {
 
         binding = FormBookTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        binding.nameTour.setText(tourName);
         binding.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +50,6 @@ public class FormBookTourFragment extends Fragment {
                 }else {
                     binding.amount.setText(Integer.toString((Integer.parseInt(binding.amount.getText().toString())+1)));
                 }
-
             }
         });
         binding.btnDecrease.setOnClickListener(new View.OnClickListener() {
@@ -65,17 +66,45 @@ public class FormBookTourFragment extends Fragment {
         binding.btnBookTourForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                informationBookTour = new HashMap<>();
-                informationBookTour.put("idTour",idTour);
-                informationBookTour.put("nameTour",tourName);
-                informationBookTour.put("fullName",binding.fullName.getText().toString());
-                informationBookTour.put("Amount",binding.amount.getText().toString());
-                informationBookTour.put("Price", price);
-                informationBookTour.put("Phone",binding.phoneNumber.getText().toString());
-                informationBookTour.put("Email",binding.email.getText().toString());
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("information", informationBookTour);
-                Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment,bundle);
+                if(binding.amount.getText().toString().trim().equals("")){
+                    binding.validateAmount.setVisibility(View.VISIBLE);
+                    binding.validateAmount.setText("Bạn cần phải nhập số lượng");
+                }else {
+                    binding.validateAmount.setVisibility(View.GONE);
+                }
+                if(binding.phoneNumber.getText().toString().trim().equals("")){
+                    binding.validatePhoneNumber.setVisibility(View.VISIBLE);
+                    binding.validatePhoneNumber.setText("Bạn cần phải nhập số điện thoại");
+                }else {
+                    binding.validatePhoneNumber.setVisibility(View.GONE);
+                }
+                if(!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")){
+                    informationBookTour = new HashMap<>();
+                    informationBookTour.put("idTour",idTour);
+                    informationBookTour.put("nameTour",tourName);
+                    informationBookTour.put("Amount",binding.amount.getText().toString());
+                    informationBookTour.put("Price", price);
+                    informationBookTour.put("Phone",binding.phoneNumber.getText().toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("information", informationBookTour);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment,bundle);
+
+                }else {
+                    if(binding.amount.getText().toString().trim().equals("") && binding.phoneNumber.getText().toString().trim().equals("")){
+                        binding.validateAmount.setVisibility(View.VISIBLE);
+                        binding.validateAmount.setText("Bạn cần phải nhập số lượng");
+                        binding.validatePhoneNumber.setVisibility(View.VISIBLE);
+                        binding.validatePhoneNumber.setText("Bạn cần phải nhập số điện thoại");
+                    }
+
+                }
+
+            }
+        });
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
             }
         });
         return root;

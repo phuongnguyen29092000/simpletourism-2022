@@ -90,7 +90,6 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdTour", tour.getId());
-//                Navigation.findNavController(view).navigate(R.id.action_nav_search_to_nav_detail_tour,bundle);
                 if(fragment.equals("search")){
                     Navigation.findNavController(view).navigate(R.id.action_nav_search_to_nav_detail_tour,bundle);
                 }else {
@@ -111,7 +110,6 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
                         }
                     }
                 }
-                Toast.makeText(context, tour.getId(), Toast.LENGTH_SHORT).show();
             }
         });
     }

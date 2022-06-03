@@ -1,5 +1,7 @@
 package com.example.simpletouristapp.ui.domestic;
 
+import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.simpletouristapp.MainActivity;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.adapter.FeedBackAdapter;
 import com.example.simpletouristapp.databinding.DetailTourBinding;
@@ -22,6 +25,7 @@ import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.TourResponse;
 import com.example.simpletouristapp.service.ToursApiService;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -56,6 +60,8 @@ public class DetailTourFragment extends Fragment {
 
         binding = DetailTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 
         rvFeedback = binding.rvFeedback;
 
@@ -103,12 +109,19 @@ public class DetailTourFragment extends Fragment {
                     binding.nameTour.setText(tour.getNameTour());
                     binding.ratingTour.setRating(tour.getRating());
                     binding.imageSlideDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
-
                     binding.tvDetailPrice.setText(nf.format(tour.getPrice()));
+                    if(tour.getDiscount() != 0){
+                        binding.tvDetailPrice.setPaintFlags(binding.tvDetailPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                        binding.tvPriceAfterDiscount.setText(nf.format(tour.getPrice()*(1-tour.getDiscount())));
+                        binding.tvPriceAfterDiscount.setVisibility(View.VISIBLE);
+                    }
                     binding.tvTimeDetail.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     binding.tvHotelDetail.setText(tour.getNameHotel());
                     binding.tvAmountDetail.setText(Integer.toString(tour.getAmount()));
                     binding.tvAmountRemainDetail.setText(Integer.toString(tour.getRemainingAmount()));
+
+                    binding.tvTypePlace.setText(tour.getTypePlace().getName());
 
                     binding.description.setText(tour.getDescription());
                     binding.schedule.setText(tour.getSchedule());
@@ -125,20 +138,35 @@ public class DetailTourFragment extends Fragment {
             }
         });
 
-
-
-
-
         Log.d("tourId",tourId);
 
         binding.btnBookTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("tourName", binding.nameTour.getText().toString());
-                bundle.putSerializable("idTour", tourId);
-                bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
-                Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+                Log.d("TAG", String.valueOf(getActivity()));
+                if(getActivity().getClass() == MainActivity.class){
+                    builder.setTitle("Bạn cần phải đăng nhập trước khi đặt tour");
+                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+                        }
+                    });
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("tourName", binding.nameTour.getText().toString());
+                    bundle.putSerializable("idTour", tourId);
+                    bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
+                    Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+                }
+
             }
         });
 

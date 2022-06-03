@@ -6,16 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.simpletouristapp.databinding.ProfileBinding;
+import com.example.simpletouristapp.databinding.RecentlyBookedTourBinding;
 
-public class ProfileFragment extends Fragment {
-    private ProfileBinding binding;
+public class RecentlyToursBookedFragment extends Fragment {
+    private RecentlyBookedTourBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = ProfileBinding.inflate(inflater, container, false);
+        binding = RecentlyBookedTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;
