@@ -16,7 +16,7 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
@@ -30,29 +30,29 @@
                 android:layout_marginLeft="10dp"/>
             <TextView
                 android:id="@+id/tv_name_tour"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="30dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            >
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên của bạn: "
-                android:textSize="25dp"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:id="@+id/tv_full_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
         </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="45dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tên của bạn: "-->
+<!--                android:textSize="25dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_full_name"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="30dp"/>-->
+<!--        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -70,7 +70,7 @@
                 android:id="@+id/tv_amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +90,7 @@
                 android:id="@+id/tv_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,27 +109,27 @@
                 android:id="@+id/tv_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email: "
-                android:textSize="25dp"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="30dp"/>
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="45dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Email: "-->
+<!--                android:textSize="25dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_email"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textSize="30dp"/>-->
+<!--        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,9 +157,6 @@
                 android:background="@drawable/custombtn2"
                 app:backgroundTint="#5584AC"/>
         </LinearLayout>
-
-
-
     </LinearLayout>
 
 </LinearLayout>
