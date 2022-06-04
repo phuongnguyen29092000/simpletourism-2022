@@ -134,10 +134,5 @@
         <action
             android:id="@+id/action_nav_payment_to_nav_book_tour"
             app:destination="@id/nav_book_tour" />
-        <action
-            android:id="@+id/action_nav_payment_to_nav_detail_tour"
-            app:destination="@id/nav_detail_tour"
-            app:popUpTo="@id/nav_detail_tour"
-            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

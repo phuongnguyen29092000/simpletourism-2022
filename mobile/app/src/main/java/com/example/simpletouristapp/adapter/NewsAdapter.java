@@ -65,6 +65,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return newsList == null ? 0 : newsList.size();
     }
 
+    public void getAllNews(List<News> newsList){
+        this.newsList = newsList;
+    }
+
     public class NewsViewHolder extends RecyclerView.ViewHolder{
         private TextView title;
         private TextView description;

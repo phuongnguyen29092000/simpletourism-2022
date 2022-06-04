@@ -1,5 +1,9 @@
 package com.example.simpletouristapp.ui.domestic;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +19,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.simpletouristapp.MainActivity;
+import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.adapter.FeedBackAdapter;
 import com.example.simpletouristapp.databinding.DetailTourBinding;
 import com.example.simpletouristapp.model.FeedBackResponse;
+import com.example.simpletouristapp.model.SendFeedbackResponse;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.TourResponse;
+import com.example.simpletouristapp.service.FeedBacksApiService;
 import com.example.simpletouristapp.service.ToursApiService;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -40,7 +49,8 @@ public class DetailTourFragment extends Fragment {
     private List<SlideModel> slideModelList;
     private FeedBackAdapter feedBackAdapter;
     private RecyclerView rvFeedback;
-
+    private FeedBacksApiService feedBacksApiService;
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -57,30 +67,20 @@ public class DetailTourFragment extends Fragment {
         binding = DetailTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
+
         rvFeedback = binding.rvFeedback;
 
         slideModelList = new ArrayList<>();
 
         toursApiService = new ToursApiService();
 
-        Call<FeedBackResponse> call2 = toursApiService.getFeedBackById(tourId);
-        call2.enqueue(new Callback<FeedBackResponse>() {
-            @Override
-            public void onResponse(Call<FeedBackResponse> call, Response<FeedBackResponse> response) {
-                if(response.code() == 200){
-                    FeedBackResponse feedBackResponse = response.body();
-                    feedBackAdapter = new FeedBackAdapter(getContext(),feedBackResponse.getData());
-                    rvFeedback.setLayoutManager(new LinearLayoutManager(getContext()));
-                    rvFeedback.setAdapter(feedBackAdapter);
-                }
-            }
+        feedBacksApiService = new FeedBacksApiService();
 
-            @Override
-            public void onFailure(Call<FeedBackResponse> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("feedbackerror",t.getMessage());
-            }
-        });
+        sharedPreferences = getActivity().getSharedPreferences("Token", Context.MODE_PRIVATE);
+
+        rvFeedback.setLayoutManager(new LinearLayoutManager(getContext()));
+        refreshFeedBack();
 
         Call<TourResponse> call = toursApiService.getTourByIdAPi(tourId);
         call.enqueue(new Callback<TourResponse>() {
@@ -103,42 +103,60 @@ public class DetailTourFragment extends Fragment {
                     binding.nameTour.setText(tour.getNameTour());
                     binding.ratingTour.setRating(tour.getRating());
                     binding.imageSlideDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
-
                     binding.tvDetailPrice.setText(nf.format(tour.getPrice()));
+                    if(tour.getDiscount() != 0){
+                        binding.tvDetailPrice.setPaintFlags(binding.tvDetailPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        binding.tvPriceAfterDiscount.setText(nf.format(tour.getPrice()*(1-tour.getDiscount())));
+                        binding.tvPriceAfterDiscount.setVisibility(View.VISIBLE);
+                    }
                     binding.tvTimeDetail.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
                     binding.tvHotelDetail.setText(tour.getNameHotel());
                     binding.tvAmountDetail.setText(Integer.toString(tour.getAmount()));
                     binding.tvAmountRemainDetail.setText(Integer.toString(tour.getRemainingAmount()));
-
+                    binding.tvTypePlace.setText(tour.getTypePlace().getName());
                     binding.description.setText(tour.getDescription());
                     binding.schedule.setText(tour.getSchedule());
-
+                    if(getActivity().getClass() == MainActivityLogged.class){
+                        binding.edtEmail.setText(sharedPreferences.getString("email",""));
+                    }
                 }else {
                     Toast.makeText(getContext(), "Wrong Id Tour", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<TourResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG",t.getMessage());
             }
         });
-
-
-
-
-
         Log.d("tourId",tourId);
-
         binding.btnBookTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("tourName", binding.nameTour.getText().toString());
-                bundle.putSerializable("idTour", tourId);
-                bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
-                Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+                Log.d("TAG", String.valueOf(getActivity()));
+                if(getActivity().getClass() == MainActivity.class){
+                    builder.setTitle("Bạn cần phải đăng nhập trước khi đặt tour");
+                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+                        }
+                    });
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("tourName", binding.nameTour.getText().toString());
+                    bundle.putSerializable("idTour", tourId);
+                    bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
+                    Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+                }
+
             }
         });
 
@@ -175,8 +193,97 @@ public class DetailTourFragment extends Fragment {
                 binding.seeMore.setVisibility(View.VISIBLE);
             }
         });
+
+        binding.btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getActivity().getClass() == MainActivity.class){
+                    builder.setTitle("Bạn cần phải đăng nhập trước khi đánh giá");
+                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+                        }
+                    });
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }else {
+                    Call<SendFeedbackResponse> call1 = feedBacksApiService.sendFeedback(
+                            "Bearer " + sharedPreferences.getString("access_token",""),tourId
+                            , sharedPreferences.getString("id_customer",""), binding.edtComment.getText().toString()
+                            , (int) binding.ratingFeedback.getRating());
+                    call1.enqueue(new Callback<SendFeedbackResponse>() {
+                        @Override
+                        public void onResponse(Call<SendFeedbackResponse> call, Response<SendFeedbackResponse> response) {
+                            if(response.code() == 201){
+                                refreshFeedBack();
+                                builder.setTitle("Đánh giá thành công");
+                                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+
+                                    }
+                                });
+                                builder.show();
+                            }else {
+                                builder.setTitle("Đánh giá thất bại");
+                                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                                builder.show();
+                                Log.d("code", String.valueOf(response.code()));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SendFeedbackResponse> call, Throwable t) {
+                            builder.setTitle("Đánh giá thất bại");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            builder.show();
+                            Log.d("rate_error",t.getMessage());
+                        }
+                    });
+                }
+            }
+        });
         return root;
     }
+
+    private void refreshFeedBack(){
+        Call<FeedBackResponse> call2 = feedBacksApiService.getFeedBackById(tourId);
+        call2.enqueue(new Callback<FeedBackResponse>() {
+            @Override
+            public void onResponse(Call<FeedBackResponse> call, Response<FeedBackResponse> response) {
+                if(response.code() == 200){
+                    FeedBackResponse feedBackResponse = response.body();
+                    feedBackAdapter = new FeedBackAdapter(getContext(),feedBackResponse.getData());
+
+                    rvFeedback.setAdapter(feedBackAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedBackResponse> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("feedbackerror",t.getMessage());
+            }
+        });
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

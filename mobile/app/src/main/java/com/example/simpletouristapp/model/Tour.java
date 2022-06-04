@@ -1,69 +1,108 @@
 package com.example.simpletouristapp.model;
 
-import com.example.simpletouristapp.databinding.InternationalFragmentBinding;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+@Entity(tableName = "tours")
 public class Tour {
     @SerializedName("_id")
+    @PrimaryKey
+    @NonNull
     private String id;
+
     @SerializedName("tourName")
+    @ColumnInfo(name = "nameTour")
     private String nameTour;
+
     @SerializedName("countryName")
+    @ColumnInfo(name = "nameCountry")
     private String nameCountry;
+
     @SerializedName("continent")
+    @ColumnInfo(name = "continent")
     private String continent;
+
     @SerializedName("description")
+    @ColumnInfo(name = "description")
     private String description;
+
     @SerializedName("imageAvatar")
+    @ColumnInfo(name = "imageAvatar")
     private String imageAvatar;
+
     @SerializedName("price")
+    @ColumnInfo(name = "price")
     private int price;
+
     @SerializedName("timeStart")
+    @Ignore
     private Date timeStart;
+
     @SerializedName("timeEnd")
+    @Ignore
     private Date timeEnd;
+
     @SerializedName("amount")
+    @Ignore
     private int amount;
+
     @SerializedName("remainingAmount")
+    @Ignore
     private int remainingAmount;
+
     @SerializedName("hotelName")
+    @Ignore
     private String nameHotel;
+
     @SerializedName("schedule")
+    @Ignore
     private String schedule;
+
     @SerializedName("ratingsAverage")
+    @ColumnInfo(name = "rating")
     private float rating;
+
     @SerializedName("discount")
+    @ColumnInfo(name = "discount")
     private double discount;
+
     @SerializedName("imageSlide")
+    @Ignore
     private ArrayList<String> imageSlide;
+
     @SerializedName("typePlace")
+    @Ignore
     private TypePlace typePlace;
 
-    public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar
-            , int price, Date timeStart, Date timeEnd, int amount, int remainingAmount, String nameHotel, String schedule
-            , float rating, double discount, ArrayList<String> imageSlide, TypePlace typePlace) {
-        this.id = id;
-        this.nameTour = nameTour;
-        this.nameCountry = nameCountry;
-        this.continent = continent;
-        this.description = description;
-        this.imageAvatar = imageAvatar;
-        this.price = price;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.amount = amount;
-        this.remainingAmount = remainingAmount;
-        this.nameHotel = nameHotel;
-        this.schedule = schedule;
-        this.rating = rating;
-        this.discount = discount;
-        this.imageSlide = imageSlide;
-        this.typePlace = typePlace;
-    }
+//    public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar
+//            , int price, Date timeStart, Date timeEnd, int amount, int remainingAmount, String nameHotel, String schedule
+//            , float rating, double discount, ArrayList<String> imageSlide, TypePlace typePlace) {
+//        this.id = id;
+//        this.nameTour = nameTour;
+//        this.nameCountry = nameCountry;
+//        this.continent = continent;
+//        this.description = description;
+//        this.imageAvatar = imageAvatar;
+//        this.price = price;
+//        this.timeStart = timeStart;
+//        this.timeEnd = timeEnd;
+//        this.amount = amount;
+//        this.remainingAmount = remainingAmount;
+//        this.nameHotel = nameHotel;
+//        this.schedule = schedule;
+//        this.rating = rating;
+//        this.discount = discount;
+//        this.imageSlide = imageSlide;
+//        this.typePlace = typePlace;
+//    }
 
     public double getDiscount() {
         return discount;

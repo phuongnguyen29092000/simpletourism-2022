@@ -1,5 +1,6 @@
 package com.example.simpletouristapp.ui.news;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -19,8 +20,13 @@ import android.widget.Toast;
 
 import com.example.simpletouristapp.adapter.NewsAdapter;
 import com.example.simpletouristapp.databinding.NewsFragmentBinding;
+import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.NewsResponse;
+import com.example.simpletouristapp.repository.NewsRepository;
 import com.example.simpletouristapp.service.NewsApiService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,29 +36,47 @@ import retrofit2.Response;
 public class NewsFragment extends Fragment {
 
     private NewsFragmentBinding binding;
+    private NewsViewModel newsViewModel;
     private NewsApiService newsApiService;
     private NewsAdapter newsAdapter;
     private RecyclerView rvNews;
+    private NewsRepository newsRepository;
+    private List<News> newsList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        newsViewModel =
+                new ViewModelProvider(this).get(NewsViewModel.class);
 
         binding = NewsFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        newsApiService = new NewsApiService();
-
         rvNews = binding.rvNews;
+        newsList = new ArrayList<>();
+        newsRepository = new NewsRepository(getActivity().getApplication());
+        newsAdapter = new NewsAdapter(getContext(),newsList);
+        rvNews.setLayoutManager(new GridLayoutManager(getContext(),2));
+        newsViewModel.getAllNews().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
+            @Override
+            public void onChanged(List<News> newsList) {
+                newsAdapter.getAllNews(newsList);
+                rvNews.setAdapter(newsAdapter);
+            }
+        });
+        getAllNews();
+        return root;
+    }
 
+    private void getAllNews(){
+        newsApiService = new NewsApiService();
         Call<NewsResponse> call = newsApiService.getAllNews();
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
                 if(response.code() == 200){
                     NewsResponse newsResponse = response.body();
-                    newsAdapter = new NewsAdapter(getContext(),newsResponse.getNews());
-                    rvNews.setLayoutManager(new GridLayoutManager(getContext(),2));
-                    rvNews.setAdapter(newsAdapter);
+                    newsRepository.deleteAll();
+                    newsRepository.insert(newsResponse.getNews());
                 }
             }
 
@@ -62,7 +86,6 @@ public class NewsFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
-        return root;
     }
 
     @Override

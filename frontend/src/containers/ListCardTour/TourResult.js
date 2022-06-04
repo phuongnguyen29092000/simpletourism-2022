@@ -1,3 +1,4 @@
+import FilterTour from 'components/FilterTour';
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -10,24 +11,30 @@ const TourResult = () => {
     const {listTourResult, loading} = useSelector((store) => store.listTour)
     const { search } = useLocation();
     
+    let searchParagram = new URLSearchParams(search);
     useEffect(()=>{
-        let searchParagram = new URLSearchParams(search);
         let param = {}
         for (const [key, value] of searchParagram.entries()) {
             param[key] = value
         }
         dispatch(filterTour(param))
-    },[])
+    },[search])
     useEffect(() => {
         document.title = 'Simple Tourism | kết quả'
     },[])
-    console.log(listTourResult)
+
     return (
         <div className='tour-list tour-result'>
             {
-                !loading ? 
-                listTourResult &&
-                 <ListCard data = {listTourResult}/>
+                !loading ?
+                <>
+                    <FilterTour/>{
+                        listTourResult?.length > 0 ?
+                            <ListCard data = {listTourResult}/>
+                        :
+                        <h3 className='title-not-found'>Không tìm thấy tour phù hợp</h3>
+                    }
+                </> 
                  : <SpinnerLoading/>
             }
         </div>

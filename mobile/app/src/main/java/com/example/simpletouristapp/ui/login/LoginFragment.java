@@ -218,6 +218,7 @@ public class LoginFragment extends Fragment {
                             editor.putString("access_token",loginResponse.getTokenAuth().getAccess().getToken());
                             editor.putString("refresh_token",loginResponse.getTokenAuth().getRefresh().getToken());
                             editor.putString("photo_url",loginResponse.getProfile().getPhotoUrl());
+                            editor.putString("email",account.getEmail());
                             editor.commit();
                             Log.d("Access",loginResponse.getTokenAuth().getAccess().getToken());
                             Log.d("Refresh",loginResponse.getTokenAuth().getRefresh().getToken());

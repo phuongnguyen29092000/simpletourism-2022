@@ -1,6 +1,7 @@
 package com.example.simpletouristapp.ui.international;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -20,9 +21,14 @@ import android.widget.Toast;
 
 import com.example.simpletouristapp.adapter.TourAdapter;
 import com.example.simpletouristapp.databinding.InternationalFragmentBinding;
+import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
+import com.example.simpletouristapp.repository.TourRepository;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.example.simpletouristapp.ui.news.NewsViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,14 +40,36 @@ public class InternationalFragment extends Fragment {
     private InternationalFragmentBinding binding;
     private RecyclerView rvInternationalTour;
     private ToursApiService toursApiService;
+    private InternationalViewModel internationalViewModel;
+    private TourRepository tourRepository;
+    private List<Tour> tours;
+    private TourAdapter tourAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        internationalViewModel =
+                new ViewModelProvider(this).get(InternationalViewModel.class);
 
         binding = InternationalFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         rvInternationalTour = binding.rvItemInternationalTours;
 
+        tours = new ArrayList<>();
+        tourRepository = new TourRepository(getActivity().getApplication());
+        tourAdapter = new TourAdapter(getContext(),tours,"international");
+        rvInternationalTour.setLayoutManager(new GridLayoutManager(getContext(),2));
+        internationalViewModel.getInternationalTours().observe(getViewLifecycleOwner(), new Observer<List<Tour>>() {
+            @Override
+            public void onChanged(List<Tour> tourList) {
+                tourAdapter.getTours(tourList);
+                rvInternationalTour.setAdapter(tourAdapter);
+            }
+        });
+        getInternationalTours();
+        return root;
+    }
+    public void getInternationalTours(){
         toursApiService = new ToursApiService();
 
         Call<ToursResponse> call = toursApiService.getInternationalToursApi();
@@ -51,9 +79,11 @@ public class InternationalFragment extends Fragment {
                 Log.d("TAG",response.code()+"");
                 ToursResponse tourResponse = response.body();
 //                Integer totalResult = tourResponse.totalResult;
-                TourAdapter tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"international");
-                rvInternationalTour.setLayoutManager(new GridLayoutManager(getContext(),2));
-                rvInternationalTour.setAdapter(tourAdapter);
+//                TourAdapter tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"international");
+//                rvInternationalTour.setLayoutManager(new GridLayoutManager(getContext(),2));
+//                rvInternationalTour.setAdapter(tourAdapter);
+                tourRepository.deleteInternationalTour();
+                tourRepository.insert(tourResponse.getData());
             }
 
             @Override
@@ -62,7 +92,6 @@ public class InternationalFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
-        return root;
     }
 
 

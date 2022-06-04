@@ -26,54 +26,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
 
-            android:hint="Tên của bạn"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--            android:hint="Tên của bạn"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/full_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số lượng: "
-            android:layout_marginTop="10dp"
-            android:textSize="25dp"
-            android:layout_marginLeft="10dp" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp">
-
-            <ImageButton
-                android:id="@+id/btn_decrease"
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/full_name"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_remove_24"
-                />
-            <EditText
-                android:id="@+id/amount"
-                android:layout_width="50dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/custombtn1"
-                android:hint="0"
-                android:gravity="center"
-                android:backgroundTint="@color/black_200"
-                />
-            <ImageButton
-                android:id="@+id/btn_increase"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng: "
+                    android:layout_marginTop="13dp"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp">
+                    <ImageButton
+                        android:id="@+id/btn_decrease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_remove_24"
+                        />
+                    <EditText
+                        android:id="@+id/amount"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/custombtn1"
+                        android:hint="0"
+                        android:gravity="center"
+                        android:backgroundTint="@color/black_200"
+                        />
+                    <ImageButton
+                        android:id="@+id/btn_increase"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_add_24"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/validate_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_add_24"/>
-        </LinearLayout>
-
+                android:textColor="#FF0909"
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -105,18 +115,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/validate_phone_number"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FF0909"
+            android:visibility="gone"/>
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
 
-            android:hint="Email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--            android:hint="Email"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/email"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
