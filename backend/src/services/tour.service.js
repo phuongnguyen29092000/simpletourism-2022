@@ -36,15 +36,28 @@ const getInternationalTour = async () => {
 const getTour = async (id) => {
   const tour = await Tour.findById(id).populate({ path: "typePlace" });
   if (tour) {
-    const similarTour = (
+    let similarTour = (
       await Tour.find({ typePlace: { $eq: tour.typePlace } }).populate({
         path: "typePlace",
       })
-    )
-      .filter((ele) => {
-        return ele._id != id;
-      })
-      .slice(0, 6);
+    ).filter((ele) => {
+      return ele._id != id;
+    });
+    if (similarTour.length > 3) {
+      similarTour = similarTour.slice(0, 6);
+    } else {
+      let temp1SimilarTour = await Tour.find({
+        countryName: { $eq: tour.countryName },
+      }).populate({
+        path: "typePlace",
+      });
+      let temp2SimilarTour = [...similarTour, ...temp1SimilarTour];
+      similarTour = temp2SimilarTour
+        .filter((ele) => {
+          return ele._id != id;
+        })
+        .slice(0, 6);
+    }
     const remainingAmount = await caculateRemainingAmount(id);
     return {
       tour,
@@ -134,8 +147,8 @@ const searchByText = async (text) => {
     slug: { $regex: textSlug, $options: "i" },
   });
   let arr = [...searchByName, ...searchByDescription, ...searchBySlug];
-  jsonObject = arr.map(JSON.stringify);
-  uniqueSet = new Set(jsonObject);
+  let jsonObject = arr.map(JSON.stringify);
+  let uniqueSet = new Set(jsonObject);
   tours = Array.from(uniqueSet).map(JSON.parse);
   return tours;
 };

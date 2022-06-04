@@ -47,8 +47,25 @@ const getFeedbackOfTour = catchAsync(async (req, res, next) => {
   }
 });
 
+const deleteFeedback = catchAsync(async (req, res, next) => {
+  const deletedFeedback = await FeedbackService.deleteFeedback(
+    req.params.feedbackId
+  );
+  if (deletedFeedback !== 1) {
+    return next(
+      new ApiError(
+        `Can Not Delete Feedback With Id ${req.params.feedbackId}`,
+        400
+      )
+    );
+  } else {
+    res.status(204).send();
+  }
+});
+
 module.exports = {
   createFeedback,
   getAllFeedback,
   getFeedbackOfTour,
+  deleteFeedback,
 };

@@ -3,7 +3,6 @@ const { TourService } = require("../services");
 const ApiError = require("../utils/ApiError");
 
 const getAllTour = catchAsync(async (req, res, next) => {
-  console.log(req.query);
   const tours = await TourService.getAllTour(req.query);
   if (!tours || tours.length === 0) {
     return next(new ApiError("Tour Not Found!", 404));
@@ -83,7 +82,6 @@ const deleteTour = catchAsync(async (req, res, next) => {
 });
 
 const createTour = catchAsync(async (req, res, next) => {
-  console.log(req.files);
   const imageAvatarPath = req.files.imageAvatar[0].path;
   const imageSlide1 = req.files.imageSlide1[0].path;
   const imageSlide2 = req.files.imageSlide2[0].path;
