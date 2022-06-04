@@ -1,15 +1,17 @@
+/* eslint-disable */
 const catchAsync = require("../utils/catchAsync");
 const { PaypalService } = require("../services");
 
 const createPayment = catchAsync(async (req, res) => {
+  var price = (req.body.price / 23000).toFixed(2);
   var total = 0;
   var items = [
     {
-      name: "Book",
-      sku: "626e9241625050b41b5c7783",
-      price: "1.00",
+      name: req.body.name,
+      sku: req.body.sku,
+      price: price,
       currency: "USD",
-      quantity: 2,
+      quantity: req.body.quantity,
     },
   ];
   for (let i = 0; i < items.length; i++) {

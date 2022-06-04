@@ -123,6 +123,7 @@ const searchByText = async (text) => {
   text = text.trim();
   let tours = [];
   var textSlug = text.replace(" ", "-");
+  text = text.replace("+", " ");
   const searchByName = await Tour.find({
     tourName: { $regex: text, $options: "i" },
   });

@@ -143,7 +143,7 @@ const getTourByOwner = catchAsync(async (req, res, next) => {
 });
 
 const searchByText = catchAsync(async (req, res, next) => {
-  const tours = await TourService.searchByText(req.body.search);
+  const tours = await TourService.searchByText(req.query.q);
   if (!tours || tours.length === 0) {
     return next(new ApiError("Tour Not Found!", 404));
   } else {
