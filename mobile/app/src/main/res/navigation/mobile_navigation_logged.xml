@@ -38,6 +38,12 @@
         <action
             android:id="@+id/action_nav_detail_tour_to_nav_international"
             app:destination="@id/nav_international" />
+        <action
+            android:id="@+id/action_nav_detail_tour_self"
+            app:destination="@id/nav_detail_tour" />
+        <action
+            android:id="@+id/action_nav_detail_tour_to_nav_book_tour"
+            app:destination="@id/nav_book_tour" />
     </fragment>
     <fragment
         android:id="@+id/nav_international"
@@ -52,7 +58,20 @@
         android:id="@+id/nav_news"
         android:name="com.example.simpletouristapp.ui.news.NewsFragment"
         android:label="@string/menu_news"
-        tools:layout="@layout/news_fragment" />
+        tools:layout="@layout/news_fragment" >
+        <action
+            android:id="@+id/action_nav_news_to_nav_news_detail"
+            app:destination="@id/nav_news_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_news_detail"
+        android:name="com.example.simpletouristapp.ui.news.DetailNewsFragment"
+        android:label="@string/detail_news_title"
+        tools:layout="@layout/detail_news" >
+        <action
+            android:id="@+id/action_nav_news_detail_to_nav_news"
+            app:destination="@id/nav_news" />
+    </fragment>
     <fragment
         android:id="@+id/nav_account"
         android:name="com.example.simpletouristapp.ui.account.AccountFragment"
@@ -94,5 +113,26 @@
         <action
             android:id="@+id/action_nav_history_to_nav_account"
             app:destination="@id/nav_account" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_book_tour"
+        android:name="com.example.simpletouristapp.ui.domestic.FormBookTourFragment"
+        android:label="@string/book_tour_title"
+        tools:layout="@layout/form_book_tour" >
+        <action
+            android:id="@+id/action_nav_book_tour_to_nav_detail_tour"
+            app:destination="@id/nav_detail_tour" />
+        <action
+            android:id="@+id/action_nav_book_tour_to_nav_payment"
+            app:destination="@id/nav_payment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.example.simpletouristapp.ui.domestic.PaymentMethodFragment"
+        android:label="@string/payment_title"
+        tools:layout="@layout/payment_method" >
+        <action
+            android:id="@+id/action_nav_payment_to_nav_book_tour"
+            app:destination="@id/nav_book_tour" />
     </fragment>
 </navigation>

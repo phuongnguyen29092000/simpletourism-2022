@@ -9,8 +9,11 @@ const TourDomestic = () => {
     useEffect(()=>{
         if(listTourInternational.length === 0) dispatch(getAllTourInternational())
     },[listTourInternational])
+    useEffect(() => {
+        document.title = 'Simple Tourism | quốc tế'
+    },[])
     return (
-        <div className='tour-list tour-domestic'>
+        <div className='tour-list tour-international'>
             {
                 listTourInternational && (
                     <ListCard data = {listTourInternational}/>

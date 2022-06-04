@@ -8,6 +8,9 @@ const TourDomestic = () => {
     const dispatch = useDispatch()
     const {listTourDomestic, loading} = useSelector((store) => store.listTour)
     console.log(loading)
+    useEffect(() => {
+        document.title = 'Simple Tourism | trong nước'
+    },[])
     useEffect(()=>{
         if(listTourDomestic.length === 0) dispatch(getAllTourDomestic())
     },[listTourDomestic])

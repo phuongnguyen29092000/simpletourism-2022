@@ -8,16 +8,8 @@ public class FeedBackResponse{
 
     @SerializedName("status")
     private int status;
-    @SerializedName("totalResult")
-    private int totalResult;
     @SerializedName("data")
     private List<FeedBack> data;
-
-    public FeedBackResponse(int status, int totalResult, List<FeedBack> data) {
-        this.status = status;
-        this.totalResult = totalResult;
-        this.data = data;
-    }
 
     public int getStatus() {
         return status;
@@ -25,14 +17,6 @@ public class FeedBackResponse{
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public int getTotalResult() {
-        return totalResult;
-    }
-
-    public void setTotalResult(int totalResult) {
-        this.totalResult = totalResult;
     }
 
     public List<FeedBack> getData() {
@@ -107,19 +91,15 @@ public class FeedBackResponse{
         public class Customer{
             @SerializedName("_id")
             private String id;
-            @SerializedName("name")
-            private String name;
+            @SerializedName("givenName")
+            private String givenName;
+            @SerializedName("familyName")
+            private String familyName;
             @SerializedName("email")
             private String email;
             @SerializedName("role")
             private String role;
 
-            public Customer(String id, String name, String email, String role) {
-                this.id = id;
-                this.name = name;
-                this.email = email;
-                this.role = role;
-            }
 
             public String getId() {
                 return id;
@@ -127,14 +107,6 @@ public class FeedBackResponse{
 
             public void setId(String id) {
                 this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
             }
 
             public String getEmail() {
@@ -151,6 +123,22 @@ public class FeedBackResponse{
 
             public void setRole(String role) {
                 this.role = role;
+            }
+
+            public String getGivenName() {
+                return givenName;
+            }
+
+            public void setGivenName(String givenName) {
+                this.givenName = givenName;
+            }
+
+            public String getFamilyName() {
+                return familyName;
+            }
+
+            public void setFamilyName(String familyName) {
+                this.familyName = familyName;
             }
         }
     }

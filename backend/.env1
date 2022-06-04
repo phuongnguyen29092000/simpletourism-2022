@@ -1,8 +1,14 @@
 # Port number
-PORT=4000
+PORT=4000 
 
 # URL of the Mongo DB
 MONGODB_URL=mongodb://127.0.0.1:27017/Simple_Tourism
+
+# Google Client Id for Web brower
+GOOGLE_CLIENT_ID_WEB=518561649263-dus6m9u26oe7qeu5r3itp9iinn741g6l.apps.googleusercontent.com
+
+# Google Client Id for Mobile APP
+GOOGLE_CLIENT_ID_MOBILE=105995626849-6kds0s60a14t1d7hhtuhfopa81rk87fv.apps.googleusercontent.com
 
 # JWT
 # JWT secret key
@@ -10,5 +16,8 @@ JWT_SECRET=mysimpletourism
 
 # Number of minutes after which an access token expires
 JWT_ACCESS_EXPIRATION_MINUTES=10
+
+# Number of days after which a refresh token expires
+JWT_REFRESH_EXPIRATION_DAYS=30
 
 # Config email

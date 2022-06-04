@@ -14,14 +14,12 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".FilterResultActivity"
-            android:label="@string/title_activity_filter_result" />
+            android:label="@string/title_activity_filter_result"
+            android:theme="@style/Theme.SimpleTouristApp.NoActionBar"/>
         <activity
             android:name=".SearchActivity"
             android:label="@string/title_activity_search"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:theme="@style/Theme.SimpleTouristApp.NoActionBar">
         </activity>
         <activity
             android:name=".MainActivityLogged"
@@ -29,6 +27,15 @@
             android:label="@string/title_activity_main_logged"
             android:theme="@style/Theme.SimpleTouristApp.NoActionBar" />
         <activity
+            android:name=".PayPalActivity"
+            android:label="PayPal"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+
             android:name=".LoginGoogleActivity"
             android:exported="false"
             android:label="Login With Google"/>

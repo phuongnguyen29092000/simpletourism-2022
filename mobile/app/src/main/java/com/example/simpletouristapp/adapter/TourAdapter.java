@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.SearchActivity;
 import com.example.simpletouristapp.SearchResultFragment;
+import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.Tour;
+import com.example.simpletouristapp.service.ToursApiService;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -62,7 +65,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
     public void onBindViewHolder(@NonNull TourViewHolder holder, int position) {
         Tour tour = tours.get(position);
         try {
-            Picasso.get().load("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
+            Picasso.get().load(ToursApiService.BASE_URL + tour.getImageAvatar().substring(7)).into(holder.imageTour);
 
         }catch (Exception e){
             Log.d("error",e.getMessage());
@@ -72,6 +75,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         holder.nameTour.setText(tour.getNameTour());
         holder.price.setText(nf.format(tour.getPrice()));
         holder.tvDescription.setText(tour.getDescription());
+        holder.rating.setRating(tour.getRating());
         if(tour.getDiscount() != 0){
             holder.cardDiscount.setVisibility(View.VISIBLE);
             holder.tvDiscount.setText("-" + Integer.toString((int)(tour.getDiscount()*100)) + "%");
@@ -86,7 +90,6 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdTour", tour.getId());
-//                Navigation.findNavController(view).navigate(R.id.action_nav_search_to_nav_detail_tour,bundle);
                 if(fragment.equals("search")){
                     Navigation.findNavController(view).navigate(R.id.action_nav_search_to_nav_detail_tour,bundle);
                 }else {
@@ -107,17 +110,17 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
                         }
                     }
                 }
-                Toast.makeText(context, tour.getId(), Toast.LENGTH_SHORT).show();
             }
         });
-//        Picasso.get().load("http://192.168.1.12:4000/" + tour.getImageAvatar().substring(7)).into(holder.imageTour);
-//        holder.nameTour.setText(tour.getNameTour());
-//        holder.price.setText(Integer.toString(tour.getPrice()) + "đ");
     }
 
     @Override
     public int getItemCount() {
         return tours == null ? 0 : tours.size();
+    }
+
+    public void getTours(List<Tour> tours){
+        this.tours = tours;
     }
 
     @Override
@@ -159,6 +162,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         private CardView cardDiscount;
         private TextView tvDiscount;
         private TextView priceAfterDiscount;
+        private RatingBar rating;
         public TourViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTour = itemView.findViewById(R.id.tv_name_tour);
@@ -168,6 +172,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             cardDiscount = itemView.findViewById(R.id.card_discount);
             tvDiscount = itemView.findViewById(R.id.tv_discount);
             priceAfterDiscount = itemView.findViewById(R.id.tv_price_after_discount);
+            rating = itemView.findViewById(R.id.rating);
         }
     }
 }

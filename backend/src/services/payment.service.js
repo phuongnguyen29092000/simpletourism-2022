@@ -1,6 +1,7 @@
 const { PaypalClient } = require("../models");
 var paypal = require("paypal-rest-sdk");
 
+
 var totalPayment = 0;
 const createPayment = async (req, res, items, total) => {
   totalPayment = total;

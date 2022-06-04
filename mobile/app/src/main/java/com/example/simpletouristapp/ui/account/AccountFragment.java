@@ -1,6 +1,8 @@
 package com.example.simpletouristapp.ui.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,16 +41,8 @@ public class AccountFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-//        final TextView textView = binding.textForeign;
-//        domesticViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
+        Picasso.get().load(sharedPref.getString("photo_url","")).into(binding.imageDetail);
         binding.btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +73,7 @@ public class AccountFragment extends Fragment {
                 signOut();
             }
         });
+        return root;
     }
     @Override
     public void onDestroyView() {
@@ -90,6 +85,8 @@ public class AccountFragment extends Fragment {
         MainActivityLogged.gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
+                sharedPref.edit().clear().commit();
                 getActivity().finish();
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 Toast.makeText(getContext(), "Logout Successful", Toast.LENGTH_SHORT).show();

@@ -10,7 +10,7 @@ const getFeedbackForTour = (idTour, callback = ()=>{}) => {
             if(result.status === 200){
                 dispatch({
                     type: types.GET_FEEDBACK_SUCCESS,
-                    payload: [...result.data]
+                    payload: [...result.data.data]
                 })
                 callback()
             }else{

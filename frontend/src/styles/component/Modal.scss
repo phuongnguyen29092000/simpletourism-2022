@@ -51,3 +51,37 @@
 .add-tour-modal{
 
 }
+
+.modal-book-ticket {
+    h4 {
+        color: #858585;
+        text-align: center;
+    }
+
+    .form-booking-tour {    
+        padding: 20px;
+        .form-group-phone {
+            margin-bottom: 15px;
+            label {
+                color: #858585;
+                margin-right: 10px;
+            }
+            & > input {
+                height: 30px;
+                border-radius: 3px;
+                border: 1px solid rgba(0, 0, 0, 0.26);;
+                width: 200px
+            }
+        }
+        .form-group-count {
+            label {
+                color: #858585;
+                margin-right: 20px
+            }
+        }
+    }
+    .price-text {
+        margin-left: 20px;
+        color: #858585;
+    }
+}

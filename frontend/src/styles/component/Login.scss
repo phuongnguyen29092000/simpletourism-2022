@@ -1,0 +1,21 @@
+.login-wrapper{
+    position: relative;
+    min-width: 30px;
+    overflow: hidden;
+    .login-icon{
+        position: absolute;
+        inset: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 50px;
+    }
+    .login-with-google{
+        position: absolute;
+        inset: 0;
+        top: 10px;
+        bottom: 10px;
+        opacity: 0;
+        z-index: 1;
+        
+    }
+}

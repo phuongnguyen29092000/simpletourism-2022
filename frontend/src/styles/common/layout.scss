@@ -8,6 +8,26 @@
 }
 .layout-user-app{
     .component{
-        margin-top: 95px;
-    }
+        // margin-top: 95px;
+        .tour-list {
+            padding-top: 50px;
+        }
+        .tour-domestic{
+            background: url("https://images.pexels.com/photos/1172840/pexels-photo-1172840.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+            background-size: cover;
+        }
+        .tour-international{
+            background: url("https://images.pexels.com/photos/5957428/pexels-photo-5957428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+            background-size: cover;
+        }
+        .tour-result{
+            background: url("https://images.pexels.com/photos/2310713/pexels-photo-2310713.jpeg");
+            background-size: 100%;
+            background-position: 50%;
+            .title-not-found{
+                padding: 20px 50px;
+                text-align: left;
+            }
+        }
+    }   
 }

@@ -1,8 +1,15 @@
 import React from 'react';
 import {GoogleLogin} from 'react-google-login'
 import AuthAPI from '../../api/AuthAPI';
+// import { loginWithGoogle } from '../../ultis/authUtil'
+import LoginIcon from '@mui/icons-material/Login';
+import { useDispatch } from 'react-redux';
+import { loginWithGoogle } from 'redux/reducers/user/action';
+import { useNavigate } from 'react-router-dom';
 
 const LoginWithGoogle = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
     const handleLoginSuccess = (res) => {
         let info = {
             googleId: res.googleId,
@@ -11,10 +18,18 @@ const LoginWithGoogle = () => {
             givenName: res.profileObj.givenName,
             photoUrl:  res.profileObj.imageUrl,
             accessToken: res.accessToken,
-            id_token: res.tokenId
+            id_token: res.tokenId,
+            type: 'web'
         }
         // console.log(info);
-        AuthAPI.loginWithGoogle(info)
+        dispatch(
+            loginWithGoogle(info,
+                () => {
+                    navigate("/owner/list-tour")
+                    console.log(">>>>>>OK")
+                }
+            ),
+        )
     }
     const handleLoginFailure = (res) => {
         console.log(res)
@@ -23,7 +38,7 @@ const LoginWithGoogle = () => {
         <div className='login-with-google'>
             <GoogleLogin
                 clientId='518561649263-dus6m9u26oe7qeu5r3itp9iinn741g6l.apps.googleusercontent.com'
-                buttonText='Login with google'
+                buttonText=''
                 onSuccess={handleLoginSuccess}
                 onFailure={handleLoginFailure}
                 cookiePolicy={"single_host_origin"}   

@@ -1,6 +1,7 @@
 const httpStatus = require('http-status')
 const { userService, tokenService } = require('../services')
 const tokenTypes = require('../config/tokens')
+const { Token } = require('../models')
 
 const auth = (...roles) => {
     return async(req, res, next) => {
@@ -8,9 +9,15 @@ const auth = (...roles) => {
         if (!token) {
             return res.status(httpStatus.UNAUTHORIZED).json({
                 status: 401,
-                message: "Không tìm thấy token"
+                message: "Token not found"
             })
         }
+        const accessTokenInfo = await Token.findOne({ token: token, type: tokenTypes.ACCESS })
+        if(!accessTokenInfo) return res.status(httpStatus.UNAUTHORIZED).json({
+            status: 403,
+            message: "FORBIDDEN"
+        })
+
         try {
             const payload = await tokenService.verifyToken(token, tokenTypes.ACCESS)
             req.userId = payload.user.toString()
@@ -22,13 +29,14 @@ const auth = (...roles) => {
 
             if (!roles.includes(user.role)) return res.status(httpStatus.UNAUTHORIZED).json({
                 status: 401,
-                message: "Không có quyền truy cập"
+                message: "Unauthoried"
             })
             req.role = user.role
             req.userName = user.userName
             req.email = user.email
             req.accessToken = token
-            next();
+            req.body = req.body
+            next()
         } catch {
             return res.status(httpStatus.FORBIDDEN).json({
                 status: 403,

@@ -27,6 +27,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             android:gravity="center_horizontal"/>
         <TextView
+            android:id="@+id/message_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

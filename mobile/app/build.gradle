@@ -51,10 +51,33 @@ dependencies {
 //    implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+
+//    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+//    implementation 'com.squareup.okhttp3:okhttps:3.4.1'
 //    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
 //
 //    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 //    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
+    def room_version = "2.4.2"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // optional - RxJava2 support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // optional - RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:$room_version"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    // optional - Paging 3 Integration
+    implementation "androidx.room:room-paging:2.5.0-alpha01"
 }

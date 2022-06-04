@@ -17,14 +17,21 @@ import com.example.simpletouristapp.databinding.FormBookTourBinding;
 import com.example.simpletouristapp.databinding.NewsFragmentBinding;
 import com.example.simpletouristapp.ui.news.NewsViewModel;
 
+import java.util.HashMap;
+
 public class FormBookTourFragment extends Fragment {
     private FormBookTourBinding binding;
     private String tourName;
+    private String idTour;
+    private String price;
+    private HashMap<String, String> informationBookTour;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             tourName = (String) getArguments().getSerializable("tourName");
+            idTour = (String) getArguments().getSerializable("idTour");
+            price = (String) getArguments().getSerializable("price");
         }
     }
 
@@ -34,13 +41,7 @@ public class FormBookTourFragment extends Fragment {
         binding = FormBookTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        return root;
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         binding.nameTour.setText(tourName);
-
         binding.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +50,6 @@ public class FormBookTourFragment extends Fragment {
                 }else {
                     binding.amount.setText(Integer.toString((Integer.parseInt(binding.amount.getText().toString())+1)));
                 }
-
             }
         });
         binding.btnDecrease.setOnClickListener(new View.OnClickListener() {
@@ -61,12 +61,53 @@ public class FormBookTourFragment extends Fragment {
             }
         });
 
+        binding.tvPriceDetail.setText(price);
+
         binding.btnBookTourForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment);
+                if(binding.amount.getText().toString().trim().equals("")){
+                    binding.validateAmount.setVisibility(View.VISIBLE);
+                    binding.validateAmount.setText("Bạn cần phải nhập số lượng");
+                }else {
+                    binding.validateAmount.setVisibility(View.GONE);
+                }
+                if(binding.phoneNumber.getText().toString().trim().equals("")){
+                    binding.validatePhoneNumber.setVisibility(View.VISIBLE);
+                    binding.validatePhoneNumber.setText("Bạn cần phải nhập số điện thoại");
+                }else {
+                    binding.validatePhoneNumber.setVisibility(View.GONE);
+                }
+                if(!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")){
+                    informationBookTour = new HashMap<>();
+                    informationBookTour.put("idTour",idTour);
+                    informationBookTour.put("nameTour",tourName);
+                    informationBookTour.put("Amount",binding.amount.getText().toString());
+                    informationBookTour.put("Price", price);
+                    informationBookTour.put("Phone",binding.phoneNumber.getText().toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("information", informationBookTour);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment,bundle);
+
+                }else {
+                    if(binding.amount.getText().toString().trim().equals("") && binding.phoneNumber.getText().toString().trim().equals("")){
+                        binding.validateAmount.setVisibility(View.VISIBLE);
+                        binding.validateAmount.setText("Bạn cần phải nhập số lượng");
+                        binding.validatePhoneNumber.setVisibility(View.VISIBLE);
+                        binding.validatePhoneNumber.setText("Bạn cần phải nhập số điện thoại");
+                    }
+
+                }
+
             }
         });
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+        return root;
     }
     @Override
     public void onDestroyView() {

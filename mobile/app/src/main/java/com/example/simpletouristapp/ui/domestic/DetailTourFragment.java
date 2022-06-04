@@ -1,35 +1,36 @@
 package com.example.simpletouristapp.ui.domestic;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.simpletouristapp.MainActivity;
+import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.adapter.FeedBackAdapter;
 import com.example.simpletouristapp.databinding.DetailTourBinding;
 import com.example.simpletouristapp.model.FeedBackResponse;
+import com.example.simpletouristapp.model.SendFeedbackResponse;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.TourResponse;
+import com.example.simpletouristapp.service.FeedBacksApiService;
 import com.example.simpletouristapp.service.ToursApiService;
-import com.squareup.picasso.Picasso;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -45,26 +46,11 @@ public class DetailTourFragment extends Fragment {
     private String tourId;
     private DetailTourBinding binding;
     private ToursApiService toursApiService;
-    private ImageSlider imageSliderDetail;
-    private TextView nameTour;
-    private TextView tvPrice;
-    private TextView tvTime;
-    private TextView tvHotel;
-    private TextView tvAmount;
-    private TextView tvAmountRemain;
-    private TextView tvDescription;
-    private TextView tvSchedule;
     private List<SlideModel> slideModelList;
-    private RatingBar rating;
-    private Button btnBookTour;
-    private Button seeMore;
-    private Button hide;
-    private Button seeMoreDescription;
-    private Button hideDescription;
     private FeedBackAdapter feedBackAdapter;
     private RecyclerView rvFeedback;
-    private Fragment detailFragment;
-
+    private FeedBacksApiService feedBacksApiService;
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -75,58 +61,26 @@ public class DetailTourFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.detail_tour, container, false);
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        imageSliderDetail = (ImageSlider) view.findViewById(R.id.image_slide_detail);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        nameTour = (TextView) view.findViewById(R.id.name_tour);
-        tvPrice = (TextView) view.findViewById(R.id.tv_detail_price);
-        tvTime = (TextView) view.findViewById(R.id.tv_time_detail);
-        tvHotel = (TextView) view.findViewById(R.id.tv_hotel_detail);
-        tvAmount = (TextView) view.findViewById(R.id.tv_amount_detail);
-        tvAmountRemain = (TextView) view.findViewById(R.id.tv_amount_remain_detail);
+        binding = DetailTourBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        tvDescription = (TextView) view.findViewById(R.id.description);
-        tvSchedule = (TextView) view.findViewById(R.id.schedule);
-        rvFeedback = (RecyclerView) view.findViewById(R.id.rv_feedback);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 
-        rating = (RatingBar) view.findViewById(R.id.rating_tour);
-        btnBookTour = (Button) view.findViewById(R.id.btn_book_tour);
-        seeMore = (Button) view.findViewById(R.id.see_more);
-        hide = (Button) view.findViewById(R.id.hide);
-
-        seeMoreDescription = (Button) view.findViewById(R.id.see_more_description);
-        hideDescription = (Button) view.findViewById(R.id.hide_description);
+        rvFeedback = binding.rvFeedback;
 
         slideModelList = new ArrayList<>();
 
         toursApiService = new ToursApiService();
 
-        Call<FeedBackResponse> call2 = toursApiService.getFeedBackById(tourId);
-        call2.enqueue(new Callback<FeedBackResponse>() {
-            @Override
-            public void onResponse(Call<FeedBackResponse> call, Response<FeedBackResponse> response) {
-                if(response.code() == 200){
-                    FeedBackResponse feedBackResponse = response.body();
-                    feedBackAdapter = new FeedBackAdapter(getContext(),feedBackResponse.getData());
-                    rvFeedback.setLayoutManager(new LinearLayoutManager(getContext()));
-                    rvFeedback.setAdapter(feedBackAdapter);
-                }
-            }
+        feedBacksApiService = new FeedBacksApiService();
 
-            @Override
-            public void onFailure(Call<FeedBackResponse> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("feedbackerror",t.getMessage());
-            }
-        });
+        sharedPreferences = getActivity().getSharedPreferences("Token", Context.MODE_PRIVATE);
+
+        rvFeedback.setLayoutManager(new LinearLayoutManager(getContext()));
+        refreshFeedBack();
 
         Call<TourResponse> call = toursApiService.getTourByIdAPi(tourId);
         call.enqueue(new Callback<TourResponse>() {
@@ -140,88 +94,196 @@ public class DetailTourFragment extends Fragment {
                     NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
                     String pattern = "dd/MM/yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-//                    Toolbar toolbar = view.findViewById(R.id.toolbar);
-//                    toolbar.setTag("abc");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(tour.getNameTour());
-                    slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + tour.getImageAvatar().substring(7),null));
+                    slideModelList.add(new SlideModel(ToursApiService.BASE_URL + tour.getImageAvatar().substring(7),null));
                     for (String slide: tour.getImageSlide()
-                         ) {
-                        slideModelList.add(new SlideModel("http://192.168.1.49:4000/" + slide.substring(7),null));
+                    ) {
+                        slideModelList.add(new SlideModel(ToursApiService.BASE_URL + slide.substring(7),null));
                     }
-                    nameTour.setText(tour.getNameTour());
-                    rating.setRating(tour.getRating());
-                    imageSliderDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
-                    tvPrice.setText(nf.format(tour.getPrice()).substring(1) + "đ");
-                    tvTime.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
-                    tvHotel.setText(tour.getNameHotel());
-                    tvAmount.setText(Integer.toString(tour.getAmount()));
-                    tvAmountRemain.setText(Integer.toString(tour.getRemainingAmount()));
-
-                    tvDescription.setText(tour.getDescription());
-                    tvSchedule.setText(tour.getSchedule());
-
+                    binding.nameTour.setText(tour.getNameTour());
+                    binding.ratingTour.setRating(tour.getRating());
+                    binding.imageSlideDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
+                    binding.tvDetailPrice.setText(nf.format(tour.getPrice()));
+                    if(tour.getDiscount() != 0){
+                        binding.tvDetailPrice.setPaintFlags(binding.tvDetailPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        binding.tvPriceAfterDiscount.setText(nf.format(tour.getPrice()*(1-tour.getDiscount())));
+                        binding.tvPriceAfterDiscount.setVisibility(View.VISIBLE);
+                    }
+                    binding.tvTimeDetail.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
+                    binding.tvHotelDetail.setText(tour.getNameHotel());
+                    binding.tvAmountDetail.setText(Integer.toString(tour.getAmount()));
+                    binding.tvAmountRemainDetail.setText(Integer.toString(tour.getRemainingAmount()));
+                    binding.tvTypePlace.setText(tour.getTypePlace().getName());
+                    binding.description.setText(tour.getDescription());
+                    binding.schedule.setText(tour.getSchedule());
+                    if(getActivity().getClass() == MainActivityLogged.class){
+                        binding.edtEmail.setText(sharedPreferences.getString("email",""));
+                    }
                 }else {
                     Toast.makeText(getContext(), "Wrong Id Tour", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<TourResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG",t.getMessage());
             }
         });
-
-
-
-
-
         Log.d("tourId",tourId);
+        binding.btnBookTour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", String.valueOf(getActivity()));
+                if(getActivity().getClass() == MainActivity.class){
+                    builder.setTitle("Bạn cần phải đăng nhập trước khi đặt tour");
+                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+                        }
+                    });
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }else {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("tourName", binding.nameTour.getText().toString());
+                    bundle.putSerializable("idTour", tourId);
+                    bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
+                    Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+                }
 
-        btnBookTour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("tourName", nameTour.getText().toString());
-                Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
             }
         });
 
-        seeMoreDescription.setOnClickListener(new View.OnClickListener() {
+        binding.seeMoreDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvDescription.setMaxLines(20);
-                seeMoreDescription.setVisibility(View.GONE);
-                hideDescription.setVisibility(View.VISIBLE);
+                binding.description.setMaxLines(20);
+                binding.seeMoreDescription.setVisibility(View.GONE);
+                binding.hideDescription.setVisibility(View.VISIBLE);
             }
         });
-        hideDescription.setOnClickListener(new View.OnClickListener() {
+        binding.hideDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvDescription.setMaxLines(2);
-                hideDescription.setVisibility(View.GONE);
-                seeMoreDescription.setVisibility(View.VISIBLE);
+                binding.description.setMaxLines(2);
+                binding.hideDescription.setVisibility(View.GONE);
+                binding.seeMoreDescription.setVisibility(View.VISIBLE);
             }
         });
 
-        seeMore.setOnClickListener(new View.OnClickListener() {
+        binding.seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvSchedule.setMaxLines(20);
-                seeMore.setVisibility(View.GONE);
-                hide.setVisibility(View.VISIBLE);
+                binding.schedule.setMaxLines(20);
+                binding.seeMore.setVisibility(View.GONE);
+                binding.hide.setVisibility(View.VISIBLE);
             }
         });
-        hide.setOnClickListener(new View.OnClickListener() {
+        binding.hide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvSchedule.setMaxLines(2);
-                hide.setVisibility(View.GONE);
-                seeMore.setVisibility(View.VISIBLE);
+                binding.schedule.setMaxLines(2);
+                binding.hide.setVisibility(View.GONE);
+                binding.seeMore.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getActivity().getClass() == MainActivity.class){
+                    builder.setTitle("Bạn cần phải đăng nhập trước khi đánh giá");
+                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+                        }
+                    });
+                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
+                }else {
+                    Call<SendFeedbackResponse> call1 = feedBacksApiService.sendFeedback(
+                            "Bearer " + sharedPreferences.getString("access_token",""),tourId
+                            , sharedPreferences.getString("id_customer",""), binding.edtComment.getText().toString()
+                            , (int) binding.ratingFeedback.getRating());
+                    call1.enqueue(new Callback<SendFeedbackResponse>() {
+                        @Override
+                        public void onResponse(Call<SendFeedbackResponse> call, Response<SendFeedbackResponse> response) {
+                            if(response.code() == 201){
+                                refreshFeedBack();
+                                builder.setTitle("Đánh giá thành công");
+                                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+
+                                    }
+                                });
+                                builder.show();
+                            }else {
+                                builder.setTitle("Đánh giá thất bại");
+                                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                                builder.show();
+                                Log.d("code", String.valueOf(response.code()));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SendFeedbackResponse> call, Throwable t) {
+                            builder.setTitle("Đánh giá thất bại");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            builder.show();
+                            Log.d("rate_error",t.getMessage());
+                        }
+                    });
+                }
+            }
+        });
+        return root;
+    }
+
+    private void refreshFeedBack(){
+        Call<FeedBackResponse> call2 = feedBacksApiService.getFeedBackById(tourId);
+        call2.enqueue(new Callback<FeedBackResponse>() {
+            @Override
+            public void onResponse(Call<FeedBackResponse> call, Response<FeedBackResponse> response) {
+                if(response.code() == 200){
+                    FeedBackResponse feedBackResponse = response.body();
+                    feedBackAdapter = new FeedBackAdapter(getContext(),feedBackResponse.getData());
+
+                    rvFeedback.setAdapter(feedBackAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FeedBackResponse> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("feedbackerror",t.getMessage());
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

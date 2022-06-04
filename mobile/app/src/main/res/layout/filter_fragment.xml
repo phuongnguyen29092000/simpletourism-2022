@@ -76,7 +76,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp"
                 android:text="Châu lục"
                 android:textColor="@android:color/black"
                 android:textSize="20dp"
@@ -84,7 +83,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
             <View
-                android:layout_width="fill_parent"
+                android:layout_width="390dp"
+                android:layout_gravity="center"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
@@ -93,7 +93,7 @@
             <Spinner
                 android:id="@+id/spinner_continent"
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
@@ -114,8 +114,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
             <View
-                android:layout_width="fill_parent"
+                android:layout_width="390dp"
                 android:layout_height="1dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/type_place" />
@@ -125,6 +126,26 @@
                 android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/discount"
+                android:checked="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Giảm giá"
+                android:textSize="20dp"
+                />
+            <View
+                android:layout_width="390dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@+id/discount" />
             <TextView
                 android:id="@+id/sort"
                 android:layout_width="match_parent"
@@ -141,9 +162,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
             <View
-                android:id="@+id/view"
-                android:layout_width="fill_parent"
+                android:layout_width="390dp"
                 android:layout_height="1dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/sort" />
@@ -173,15 +194,16 @@
                         android:layout_marginEnd="16dp"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:text="Giá đầu"
+                        android:text="Giá"
                         android:textColor="@android:color/black"
                         android:textSize="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
                     <View
-                        android:layout_width="fill_parent"
+                        android:layout_width="390dp"
                         android:layout_height="1dp"
+                        android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         android:background="@android:color/darker_gray"
                         app:layout_constraintTop_toBottomOf="@+id/price" />
@@ -190,91 +212,23 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="4">
-                        <SeekBar
-                            android:id="@+id/seekbar_price_min"
+                        <com.google.android.material.slider.RangeSlider
+                            android:id="@+id/range_slider"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:max="10000000"
-                            android:progress="1"
+                            app:values="@array/initial_slider_values"
+                            android:stepSize="1"
+                            android:valueFrom="0"
+                            android:valueTo="10000000"
+                            app:haloColor="@color/teal_200"
+                            app:thumbColor="#2196F3"
+                            app:tickColor ="@color/teal_200"
+                            app:trackColor="@color/teal_200"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="16dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:layout_weight="3"/>
-                        <TextView
-                            android:id="@+id/price_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="40dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:text="0đ"
-                            android:textColor="@android:color/black"
-                            android:textSize="15dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            android:layout_marginBottom="20dp"
+                            />
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:text="Giá cuối"
-                        android:textColor="@android:color/black"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@android:color/darker_gray"
-                        app:layout_constraintTop_toBottomOf="@+id/price" />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
-                        <SeekBar
-                            android:id="@+id/seekbar_price_max"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:max="10000000"
-                            android:progress="1"
-                            android:layout_weight="3"/>
-                        <TextView
-                            android:id="@+id/price_max"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="40dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:text="0đ"
-                            android:textColor="@android:color/black"
-                            android:textSize="15dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/validate_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="xxx"
-                        android:textColor="#ED2929"
-                        android:visibility="gone"
-                        android:layout_marginLeft="20dp"
-                        android:textSize="20dp"/>
-
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

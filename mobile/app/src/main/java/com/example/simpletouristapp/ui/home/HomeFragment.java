@@ -39,21 +39,9 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        HomeViewModel homeViewModel =
-//                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         recyclerView = binding.rvItemPopularPlaces;
         popularPlaces = new ArrayList<>();
 
@@ -94,8 +82,9 @@ public class HomeFragment extends Fragment {
                 Log.d("TAG",t.getMessage());
             }
         });
-
+        return root;
     }
+
 
     @Override
     public void onDestroyView() {
