@@ -1,0 +1,20 @@
+.header-sort-tour{
+    position: relative;
+    height: 40px;
+    &__content{
+        position: absolute;
+        left: 0;
+        top: -50%;
+        padding: 0 20px;
+        &__grid{
+            background-color: #92c3d3f2;
+            border-radius: 20px;
+            padding: 0 20PX;
+        }
+    }
+    &__title{
+        .title{
+            color: #fff;
+        }
+    }
+}

@@ -1,3 +1,4 @@
+import CarouselInstroduce from 'components/Carousel/CarouselInstroduce';
 import FilterTour from 'components/FilterTour';
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,6 +29,7 @@ const TourResult = () => {
             {
                 !loading ?
                 <>
+                    <CarouselInstroduce/>
                     <FilterTour/>{
                         listTourResult?.length > 0 ?
                             <ListCard data = {listTourResult}/>

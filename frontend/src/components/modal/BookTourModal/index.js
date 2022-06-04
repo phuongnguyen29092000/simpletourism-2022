@@ -35,7 +35,7 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         overflow: 'hidden',
         borderRadius:'5px',
     };
-    console.log((1 - tour.discount)*(tour.price)*count)
+
     const onHandleSubmit = (data) => {
         TicketAPI.createTicket(tour?._id,{
             customer: account._id,

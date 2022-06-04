@@ -1,0 +1,31 @@
+@import './common/layout.scss';
+@import './common/TourForm.scss';
+@import './common/slide.scss';
+@import './component/CommonHeader.scss';
+@import './component/ListTour.scss';
+@import './component/ListTicket.scss';
+@import './component/Modal.scss';
+@import './component/OutstandingTour.scss';
+@import './component/HotPlaces.scss';
+@import './component/Login.scss';
+@import './component/TourDetail.scss';
+@import './component/Footer.scss';
+@import './component/News.scss';
+@import './component/SortTourHeader.scss';
+@import './component/CarouselInstroduce.scss';
+
+@font-face {
+	font-family: "HKGroteskPro-Regular";
+	src: url("../assets/fonts/HKGroteskPro-Regular.woff2");
+	font-weight: bold
+}
+body {
+    margin: 0;
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased; */
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  

@@ -141,7 +141,7 @@ const Header = () => {
         setAnchorElUser(null);
     };
     return (
-        <AppBar position="fixed" className={classes.root} style={{ minHeight: '50px', height: '50px', backgroundColor: 'rgb(0 0 0 / 26%)' }}>
+        <AppBar position="fixed" className={classes.root} style={{ minHeight: '50px', height: '50px', backgroundColor: 'rgb(0 0 0 / 26%)', paddingRight: '0 !important' }}>
             <Container maxWidth="xl" sx={{ display: 'flex' }}>
                 <Box sx={{ height: '50px', justifyContent: 'center', minHeight: '50px', marginLeft: 'auto' }}>
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '50px' }}>

@@ -42,17 +42,17 @@ function NextArrow(props) {
 const Slides = (props) => {
     return (
         <div className='slide-root' style={{ width: '100%', height:'100%'}}>
-            <img src={props.image} style={{ width: '100%', height:'100%', objectFit: 'cover'}}></img>
+            <img src={props.image} style={{ width: '100%', height:'100%', objectFit: 'cover', objectPosition:'center center'}}></img>
         </div>
     )
 }
 
 function CarouselInstroduce(props) {
     const classes = useStyle();
-    const [size, setSize] = useState(window.innerWidth*6/12);
+    const [size, setSize] = useState(window.innerWidth*2/5);
     useEffect(()=>{
         const updateSize= ()=>{
-            setSize(window.innerWidth*6/12)
+            setSize(window.innerWidth*2/5)
           }
         window.addEventListener("resize", updateSize);
         return()=>{
@@ -62,7 +62,7 @@ function CarouselInstroduce(props) {
     const settings = {
         className: `${classes.slider}`,
         dots: true,
-        autoplay: true,
+        // autoplay: true,
         arrows: true,
         infinite: true,
         speed: 500,
@@ -78,7 +78,7 @@ function CarouselInstroduce(props) {
             <Slider {...settings} style={{height:'100%'}}>
                 {
                     imageSlide.map((img,index) => (
-                            <Slides image={img} key={index}/>
+                        <Slides image={img} key={index}/>
                     ))
                 }
             </Slider>
