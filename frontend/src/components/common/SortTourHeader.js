@@ -15,13 +15,13 @@ function SortTourHeader({ dataSort, setDataTours, title }) {
     return (
         <div className='header-sort-tour'>
             <Container maxWidth='xl'>
-                <Grid xs={12} container sx={{maxWidth:'100%'}} className='header-sort-tour__content'>
-                    <Grid xs={12} 
-                        item 
+                <Grid xs={12} container sx={{ maxWidth: '100%' }} className='header-sort-tour__content'>
+                    <Grid xs={12}
+                        item
                         sx={{
-                            display:'flex',
+                            display: 'flex',
                             justifyContent: 'space-between',
-                            alignItems:'center'
+                            alignItems: 'center'
                         }}
                         className='header-sort-tour__content__grid'
                     >
@@ -31,7 +31,7 @@ function SortTourHeader({ dataSort, setDataTours, title }) {
                                 id="sort-tour-select"
                                 value={sortOption}
                                 onChange={handleChange}
-                                sx={{backgroundColor:'#fff', borderRadius:'10px'}}
+                                sx={{ backgroundColor: '#fff', borderRadius: '10px' }}
                             >
                                 {
                                     SORT_OPTIONS.map((option, index) => (
