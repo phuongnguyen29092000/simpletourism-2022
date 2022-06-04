@@ -74,7 +74,11 @@ const getSuccessPayment = async (payerId, paymentId, req, res) => {
         console.log(error.response);
         throw error;
       } else {
-        res.render("payment");
+        //res.render("payment");
+        res.json({
+          status: 200,
+          message: "OK",
+        });
       }
     }
   );
