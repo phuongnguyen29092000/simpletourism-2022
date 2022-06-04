@@ -59,7 +59,7 @@
                     android:layout_weight="1"
                     android:text="TextView"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:fontFamily="@font/nunit_sans_extrabold"/>
             </LinearLayout>
             <RatingBar
                 android:id="@+id/rating"
@@ -82,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="Giá: "
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito_sans_semibold"/>
 
                 <TextView
                     android:id="@+id/tv_price"
@@ -91,6 +92,7 @@
                     android:layout_weight="1"
                     android:text="TextView"
                     android:textSize="16sp"
+                    android:fontFamily="@font/nunito_sans_semibold"
                     />
             </LinearLayout>
             <LinearLayout
@@ -125,7 +127,8 @@
                 android:maxLines="3"
                 android:text="TextView"
                 android:justificationMode="inter_word"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
         </LinearLayout>
 
 

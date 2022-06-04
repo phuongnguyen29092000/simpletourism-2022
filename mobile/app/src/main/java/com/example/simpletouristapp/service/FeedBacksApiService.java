@@ -24,6 +24,6 @@ public class FeedBacksApiService {
     }
 
     public Call<SendFeedbackResponse> sendFeedback(String auth, String tour, String customer, String comment, int rating){
-        return feedbacksApi.sendFeedback(tour,customer,comment,rating);
+        return feedbacksApi.sendFeedback(auth,tour,customer,comment,rating);
     }
 }
