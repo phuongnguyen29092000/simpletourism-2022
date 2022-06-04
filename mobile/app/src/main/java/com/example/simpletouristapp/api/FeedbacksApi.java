@@ -17,6 +17,6 @@ public interface FeedbacksApi {
 
     @FormUrlEncoded
     @POST("feedback")
-    Call<SendFeedbackResponse> sendFeedback(@Field("tour") String tour
+    Call<SendFeedbackResponse> sendFeedback(@Header("Authorization") String auth, @Field("tour") String tour
             , @Field("customer") String customer, @Field("comment") String comment, @Field("rating") int rating);
 }

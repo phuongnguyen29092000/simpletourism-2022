@@ -231,6 +231,7 @@ public class DetailTourFragment extends Fragment {
                                     }
                                 });
                                 builder.show();
+                                binding.edtComment.setText("");
                             }else {
                                 builder.setTitle("Đánh giá thất bại");
                                 builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {

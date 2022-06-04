@@ -10,9 +10,11 @@ import com.example.simpletouristapp.model.TypePlaceResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -56,7 +58,9 @@ public interface ToursApi {
 
     @FormUrlEncoded
     @POST("ticket/create/{id}")
-    Call<TicketResponse> bookTour(@Path("id") String id, @Field("customer") String customer, @Field("phone") String phone
+    Call<TicketResponse> bookTour(@Header("Authorization") String auth,@Path("id") String id, @Field("customer") String customer, @Field("phone") String phone
             , @Field("numberPeople") int numberPeople);
 
+    @GET("tour/search")
+    Call<ToursResponse> searchTour(@Query("q") String search);
 }

@@ -38,8 +38,7 @@
                 android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:textStyle="bold"
-                />
+                android:fontFamily="@font/nunit_sans_extrabold"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +57,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
-                />
+                android:fontFamily="@font/nunito_sans_semibold"/>
         </LinearLayout>
 
 
