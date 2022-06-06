@@ -1,9 +1,23 @@
-const { Feedback } = require("../models");
+const { Feedback, Ticket } = require("../models");
+const mongoose = require("mongoose");
 
 const createFeedback = async (body) => {
   const feedback = await Feedback.create(body);
   return Feedback.findById(feedback._id).populate({ path: "customer" });
 };
+
+const checkAuthozFeeback = async(customerId, tourId) => {
+  const tickets = await Ticket.aggregate([
+    { $match: 
+      { customer: new mongoose.Types.ObjectId(customerId),
+        tour: new mongoose.Types.ObjectId(tourId),
+        status: 1,
+      },
+    },
+  ])
+  if(tickets.length == 0) return false
+  else return true
+}
 
 const getAllFeedback = async () => {
   const feedbacks = await Feedback.find()
@@ -35,4 +49,5 @@ module.exports = {
   getFeedbackOfTour,
   deleteFeedback,
   updateFeedback,
+  checkAuthozFeeback
 };

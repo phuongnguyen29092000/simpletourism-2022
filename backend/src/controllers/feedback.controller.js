@@ -3,7 +3,11 @@ const { FeedbackService } = require("../services");
 const ApiError = require("../utils/ApiError");
 
 const createFeedback = catchAsync(async (req, res, next) => {
-  const feedback = await FeedbackService.createFeedback(req.body);
+  const feedback = await FeedbackService.createFeedback({
+    ...req.body, 
+    tour: req.body.tourId, 
+    customer: req.body.customerId
+  });
   if (!feedback) {
     return next(
       new ApiError("Can Not Create New Feedback For This Tour!", 400)
