@@ -96,7 +96,7 @@ const getAllCustomer = catchAsync(async (req, res, next) => {
 });
 
 const becomeOwner = catchAsync(async (req, res, next) => {
-  const newOwner = await userService.becomeOwner(req.params.customerId);
+  const newOwner = await userService.becomeOwner(req);
   if (!newOwner) {
     return next(
       new ApiError(
