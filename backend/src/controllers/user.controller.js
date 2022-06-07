@@ -114,6 +114,9 @@ const becomeOwner = catchAsync(async (req, res, next) => {
 
 const getAllCustomerBookedTour = catchAsync(async(req, res)=> {
   const allCustomerBookedTour = await userService.getAllCustomerBookedTour(req.params.id)
+  if(allCustomerBookedTour.length == 0 ) res.status(httpStatus.NOT_FOUND).json({
+    message: "Not Found list customer"
+  })
   res.status(200).json({
     message: 'OK',
     allCustomerBookedTour: allCustomerBookedTour
