@@ -15,7 +15,7 @@ router.post("/create", auth('admin'), userController.createUser);
 router.get("/:id", auth('admin', 'owner', 'customer'),userController.getUserById);
 
 router.put("/:id", userController.updateUserById);
-router.put("/become-owner/:customerId", auth('customer'), userController.becomeOwner);
+router.put("/become-owner/:customerId", userController.becomeOwner);
 
 router.delete("/:id", auth('admin'), userController.deleteUserById);
 

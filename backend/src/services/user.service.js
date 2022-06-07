@@ -76,10 +76,11 @@ const getAllCustomer = async () => {
   return owners;
 };
 
-const becomeOwner = async (customerId) => {
+const becomeOwner = async (req) => {
+  console.log(req.params.customerId, req.body.companyName);
   const newOwner = await User.findOneAndUpdate(
-    { _id: customerId },
-    { role: "owner" },
+    { _id: req.params.customerId },
+    { role: "owner", companyName: req.body.companyName},
     { new: true }
   );
   return newOwner;
