@@ -112,6 +112,14 @@ const becomeOwner = catchAsync(async (req, res, next) => {
   }
 });
 
+const getAllCustomerBookedTour = catchAsync(async(req, res)=> {
+  const allCustomerBookedTour = await userService.getAllCustomerBookedTour(req.params.id)
+  res.status(200).json({
+    message: 'OK',
+    allCustomerBookedTour: allCustomerBookedTour
+  })
+})
+
 module.exports = {
   createUser,
   getUserByRole,
@@ -121,4 +129,5 @@ module.exports = {
   getAllOwner,
   getAllCustomer,
   becomeOwner,
+  getAllCustomerBookedTour
 };

@@ -1,7 +1,8 @@
 const httpStatus = require("http-status");
 const ApiError = require("../utils/ApiError");
 const nodeMailer = require("nodemailer");
-const { User } = require("../models");
+const { Tour, User, Ticket } = require("../models");
+const mongoose = require("mongoose");
 
 const adminEmail = process.env.EMAIL;
 const adminPassword = process.env.EMAILPASS;
@@ -84,6 +85,65 @@ const becomeOwner = async (customerId) => {
   return newOwner;
 };
 
+const getAllCustomerBookedTour = async (idOwner) => {
+	const tourPerOwner = await Tour.find({owner: idOwner})
+	let tourListId = tourPerOwner.map((tour)=> new mongoose.Types.ObjectId(tour._id))
+  const users = await Ticket.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "customer",
+        foreignField: "_id",
+        as: "customer",
+      },
+    },
+   
+		{ $unwind: '$customer' },
+		{ $match: {
+			tour: {
+				"$in": tourListId
+			}
+		}},
+		{
+      $lookup: {
+        from: "tours",
+        localField: "tour",
+        foreignField: "_id",
+        as: "tour",
+      },
+    },
+		{ $unwind: '$tour' },
+		{
+			"$addFields": {
+					"idTour": "$tour._id",
+					"customerId": "$customer._id",
+					"customerName": "$customer.givenName",
+					"tourName": "$tour.tourName",
+					"email": '$customer.email',
+					"totalPrice": { "$multiply": ["$numberPeople", "$paymentPrice"] }
+			}
+		},
+		{
+			$group: {
+				_id: "$customerId",
+				givenName: { $first: "$customerName" },
+				email: { $first: "$email" },
+				phone: { $addToSet: "$phone" },
+				totalTickets: { $sum: "$numberPeople" },
+				totalTours: { $push: "$tourName"},
+				totalPrice: { $sum: "$totalPrice"}
+			},
+		},
+		{
+			$sort: {
+				"totalPrice": -1
+			}
+		}
+
+  ]); 	
+	return users
+};
+
 module.exports = {
   createUser,
   getUserByRole,
@@ -94,4 +154,5 @@ module.exports = {
   getAllOwner,
   getAllCustomer,
   becomeOwner,
+	getAllCustomerBookedTour
 };
