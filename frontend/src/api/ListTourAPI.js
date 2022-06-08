@@ -45,6 +45,10 @@ const getTourById = (id) => {
   return axiosClient.get(url)
 }
 
+const searchTour = (param) => {
+  const url ='/tour/search'
+  return axiosClient.get(url, { params: param });
+}
 export default {
     getAllTour,
     addTour,
@@ -55,4 +59,5 @@ export default {
     getAllTourDomestic,
     getAllTourInternational,
     getTourById,
+    searchTour
 }

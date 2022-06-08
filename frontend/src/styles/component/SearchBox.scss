@@ -1,0 +1,44 @@
+.search-box{
+    &__header{
+        .btn-cancel{
+            margin-top: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            .cancel{
+                &:hover{
+                    color: #7d7d7d;
+                }
+            }
+        }
+        .search-input{
+            width: calc(100% - 20px);
+            margin: 10px 10px 0 10px;
+            input{
+                padding: 10px;
+                font-size: 14px;
+                color: #7d7d7d;
+                font-family: 'Nunito Sans', sans-serif;
+            }
+            .search-icon{
+                cursor: pointer;
+                &:hover{
+                    color: #000;
+                }
+            }
+        }
+    }
+    &__result{
+        position: relative;
+        height: calc(100vh - 90px);
+        .title-more{
+            padding: 10px;
+            text-decoration: underline;
+            color: #0058f9;
+            cursor: pointer;
+        }
+        .title-not-found{
+            margin-top: 20px;
+            padding: 10px;
+        }
+    }
+}

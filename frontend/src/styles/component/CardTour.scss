@@ -1,0 +1,10 @@
+.mini-tour-card{
+    margin: 10px;
+    max-width: 100%;
+    transition: 0.4s;
+    cursor: pointer;
+    &:hover{
+        transform: translate( 2px, -2px);
+        transition: 0.4s;
+    }
+}
