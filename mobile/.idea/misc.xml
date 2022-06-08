@@ -63,10 +63,12 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/favorite_ratingbar_full_filled.xml" value="0.148" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.148" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.148" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/font/ns_regular.xml" value="0.2740740740740741" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/activity_filter_result.xml" value="0.16" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/activity_search.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/app_bar_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/app_bar_main_logged.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/change_password.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/content_filter_result.xml" value="0.1" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/detail_history.xml" value="0.22826086956521738" />
@@ -81,6 +83,7 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/history.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/international_fragment.xml" value="0.1" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_chip_type_place.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_comment.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_history.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/item_news.xml" value="0.2" />

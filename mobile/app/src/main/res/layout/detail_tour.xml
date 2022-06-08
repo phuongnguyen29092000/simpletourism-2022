@@ -33,7 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/nunit_sans_extrabold"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:text="Giá: "
                 android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
             <TextView
                 android:id="@+id/tv_detail_price"
@@ -53,14 +55,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textSize="20dp"
-                />
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_price_after_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#F40D0D"
                 android:textSize="20dp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
         <LinearLayout
@@ -74,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:isIndicator="true"
-                android:layout_marginLeft="30dp" />
+                android:layout_marginLeft="30dp"
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -92,12 +96,14 @@
                 android:layout_height="wrap_content"
                 android:text="Thời gian: "
                 android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_time_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
         <LinearLayout
@@ -110,12 +116,14 @@
                 android:layout_height="wrap_content"
                 android:text="Khách sạn: "
                 android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_hotel_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
         <LinearLayout
@@ -128,12 +136,14 @@
                 android:layout_height="wrap_content"
                 android:text="Số lượng: "
                 android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_amount_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
         <LinearLayout
@@ -146,12 +156,14 @@
                 android:layout_height="wrap_content"
                 android:text="Số lượng còn: "
                 android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_amount_remain_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
         <LinearLayout
@@ -164,12 +176,14 @@
                 android:layout_height="wrap_content"
                 android:text="Loại hình: "
                 android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_type_place"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
         <TextView
@@ -178,7 +192,8 @@
             android:layout_marginTop="20dp"
             android:text="Mô tả: "
             android:textSize="20dp"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/nunito_sans_semibold"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,7 +208,8 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    android:fontFamily="@font/nunito_sans_semibold"/>
                 <Button
                     android:id="@+id/see_more_description"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -203,7 +219,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="22dp"
                     android:text="Xem thêm"
-                    android:textColor="#3B9EED">
+                    android:textColor="#3B9EED"
+                    >
 
                 </Button>
                 <Button
@@ -224,7 +241,8 @@
             android:text="Lịch trình: "
             android:layout_marginTop="20dp"
             android:textSize="20dp"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/nunito_sans_semibold"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -240,7 +258,8 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="Lịch trình: "
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
             <Button
                 android:id="@+id/see_more"
@@ -286,7 +305,8 @@
             android:text="Đánh giá"
             android:textSize="30dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/nunito_sans_semibold"/>
         <View
             android:layout_width="390dp"
             android:layout_height="1dp"
@@ -323,7 +343,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
-                    />
+                    android:fontFamily="@font/nunito_sans_semibold"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -335,7 +355,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_email"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_sans_semibold"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <RatingBar
                     android:id="@+id/rating_feedback"
@@ -365,7 +386,7 @@
                         android:inputType="textMultiLine"
                         android:lines="4"
                         android:gravity="top"
-                        />
+                        android:fontFamily="@font/nunito_sans_semibold"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <Button
                     android:id="@+id/btn_comment"

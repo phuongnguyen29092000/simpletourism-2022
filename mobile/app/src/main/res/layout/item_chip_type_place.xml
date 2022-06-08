@@ -9,6 +9,7 @@
     android:layout_marginBottom="10dp"
     style="@style/Widget.MaterialComponents.Chip.Filter"
     android:checked="false"
-    android:text="x">
+    android:text="x"
+    android:fontFamily="@font/nunito_sans_semibold">
 
 </com.google.android.material.chip.Chip>

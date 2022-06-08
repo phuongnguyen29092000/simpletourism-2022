@@ -37,7 +37,8 @@
                 android:layout_toEndOf="@+id/dialog_close"
                 android:text="Filter"
                 android:textColor="#37393A"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
 
             <TextView
                 android:id="@+id/dialog_action"
@@ -49,8 +50,9 @@
                 android:background="?attr/selectableItemBackground"
                 android:padding="8dp"
                 android:text="Apply"
+                android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textColor="@color/black" />
+                android:fontFamily="@font/nunito_sans_semibold"/>
         </RelativeLayout>
 <!--        <androidx.recyclerview.widget.RecyclerView-->
 <!--            android:id="@+id/rv_type_place"-->
@@ -81,7 +83,8 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <View
                 android:layout_width="390dp"
                 android:layout_gravity="center"
@@ -97,7 +100,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:contentDescription="@string/menu_domestic" />
+                android:contentDescription="@string/menu_domestic"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/type_place"
                 android:layout_width="match_parent"
@@ -112,7 +116,8 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <View
                 android:layout_width="390dp"
                 android:layout_height="1dp"
@@ -138,6 +143,7 @@
                 android:paddingBottom="8dp"
                 android:text="Giảm giá"
                 android:textSize="20dp"
+                android:fontFamily="@font/nunito_sans_semibold"
                 />
             <View
                 android:layout_width="390dp"
@@ -160,7 +166,8 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <View
                 android:layout_width="390dp"
                 android:layout_height="1dp"
@@ -175,7 +182,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                />
+                android:fontFamily="@font/nunito_sans_semibold"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -199,7 +206,8 @@
                         android:textSize="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:fontFamily="@font/nunito_sans_semibold"/>
                     <View
                         android:layout_width="390dp"
                         android:layout_height="1dp"

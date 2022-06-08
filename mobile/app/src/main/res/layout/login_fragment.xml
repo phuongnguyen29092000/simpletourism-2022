@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Sign In to continue"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:fontFamily="@font/nunito_sans_semibold"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +42,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_email_login"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_semibold"/>
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/validate_email"
@@ -62,7 +64,8 @@
                 android:id="@+id/edt_password_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:fontFamily="@font/nunito_sans_semibold"/>
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/validate_password"
@@ -80,7 +83,8 @@
             android:background="#00000000"
             android:elevation="0dp"
             android:text="Quên mật khẩu?"
-            android:textColor="#000"/>
+            android:textColor="#000"
+            android:fontFamily="@font/nunito_sans_semibold"/>
 
         <Button
             android:id="@+id/btn_login"
@@ -92,7 +96,8 @@
             android:background="@drawable/custombtn1"
             android:text="Sign in"
             android:textColor="#fff"
-            app:backgroundTint="#5584AC" />
+            app:backgroundTint="#5584AC"
+            android:fontFamily="@font/nunito_sans_semibold"/>
 
         <Button
             android:id="@+id/register"
@@ -104,12 +109,13 @@
             android:background="#00000000"
             android:elevation="0dp"
             android:text="Bạn chưa có tài khoản? Đăng ký"
-            android:textColor="#000"/>
+            android:textColor="#000"
+            android:fontFamily="@font/nunito_sans_semibold"/>
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_google"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:fontFamily="@font/nunito_sans_semibold">
 
         </com.google.android.gms.common.SignInButton>
 

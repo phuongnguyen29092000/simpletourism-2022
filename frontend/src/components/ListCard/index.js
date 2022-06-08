@@ -25,6 +25,7 @@ const ListCard = ({ data }) => {
     }, []);
 
     useEffect(() => {
+        setPage(1)
         setDataListCard([...data.slice(0, 6)])
     }, [data])
 
@@ -35,44 +36,6 @@ const ListCard = ({ data }) => {
         <div className='list-card-tour'>
             {data &&
                 <React.Fragment>
-                    {/* <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        height: '150px',
-                        padding: '50px 50px 10px 50px',
-                        backgroundImage: "url('https://i1-dulich.vnecdn.net//2021//12//17//2-1639731390.jpg?w=1200&h=0&q=100&dpr=2&fit=crop&s=u1CJGQlx3X7u5U4jEpZxDA')",
-                        backgroundSize: 'cover',
-                        backgroundPosition: '0 50%'
-                    }}>
-                        <Typography gutterBottom variant="body1" component="div"
-                            sx={{
-                                border: '1px solid #660000', color: '#660000',
-                                borderRadius: '30px', padding: '5px', fontSize: { md: '1.2em', sm: '1em' }, marginTop: '30px', marginLeft: '20px'
-                            }}>
-                            {`DU LỊCH MIỀN ${region}`}
-                        </Typography>
-                        <Typography gutterBottom variant="h6" component="div" sx={{ marginTop: '30px', marginRight: '20px', }}>
-                            <FormControl sx={{ m: 1, minWidth: 120, borderRadius: "30px", color: '#660000', height: { md: '41px', xs: '36px' } }} error>
-                                <InputLabel id="demo-simple-select-helper-label" sx={{ color: '#660000', marginTop: { xs: '-8px', md: '-6px' } }}>Sắp xếp</InputLabel>
-                                <Select
-                                    id="demo-controlled-open-select"
-                                    open={open}
-                                    onClose={handleClose}
-                                    onOpen={handleOpen}
-                                    value={sort}
-                                    onChange={handleChange}
-                                    sx={{ height: { md: '41px', xs: '36px' }, color: '#660000' }}
-                                    inputProps={{ style: { border: '1px solid #660000 ' } }}
-                                >
-                                    <MenuItem value='price-asc'>Giá &#8593;</MenuItem>
-                                    <MenuItem value='price-dec'>Giá &#8595;</MenuItem>
-                                    <MenuItem value='name-asc'>Tên &#8593;</MenuItem>
-                                    <MenuItem value='name-dec'>Tên &#8595;</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Typography>
-                    </Box> */}
                     <Container maxWidth="lg">
                         <Box sx={{ flexGrow: 1, marginTop: '30px' }}>
                             <Grid container spacing={1}>

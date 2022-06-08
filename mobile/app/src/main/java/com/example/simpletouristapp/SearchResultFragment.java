@@ -38,31 +38,33 @@ public class SearchResultFragment extends Fragment {
         binding = FragmentSearchResultBinding.inflate(inflater, container, false);
         rvSearch = binding.rvSearch;
         toursApiService = new ToursApiService();
-
-
-        Call<ToursResponse> call = toursApiService.getDomesticToursApi();
+        String q = getActivity().getIntent().getStringExtra("searchResult").trim().replace(" ","-");
+        Call<ToursResponse> call = toursApiService.searchTour(q);
         call.enqueue(new Callback<ToursResponse>() {
             @Override
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
-                Log.d("TAG", response.code() + "");
-                ToursResponse tourResponse = response.body();
-//                Integer totalResult = tourResponse.totalResult;
-                tourAdapter = new TourAdapter(getContext(), tourResponse.getData(),"search");
-                tourAdapter.initData();
-
-                if (!getActivity().getIntent().getStringExtra("searchResult").isEmpty()) {
-                    tourAdapter.getFilter().filter(getActivity().getIntent().getStringExtra("searchResult"));
+                if(response.code() == 200){
+                    ToursResponse tourResponse = response.body();
+                    tourAdapter = new TourAdapter(getContext(), tourResponse.getData(),"search");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getActivity().getIntent().getStringExtra("searchResult"));
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+                    rvSearch.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                    rvSearch.setAdapter(tourAdapter);
+                }else {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+                    Log.d("TAG", String.valueOf(response.code()));
+                    Log.d("TAG", q);
                 }
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-                rvSearch.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                rvSearch.setAdapter(tourAdapter);
             }
+
             @Override
             public void onFailure(Call<ToursResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("TAG",t.getMessage());
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
             }
         });
         return binding.getRoot();
