@@ -1,6 +1,6 @@
 import { SearchOutlined } from '@mui/icons-material/SearchOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Menu, MenuList, Paper, TextField, Tooltip } from '@mui/material';
+import { Avatar, Drawer, Menu, MenuList, Paper, TextField, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_INTERNATIONAL } from '../../route/type'
 import logo from '../../public/icon-logo.png';
 import LoginWithGoogle from 'components/Login/LoginWithGoogle';
@@ -20,6 +20,7 @@ import LoginWithGoogle from 'components/Login/LoginWithGoogle';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutGoogle } from 'redux/reducers/user/action';
+import SearchBox from 'containers/SearchBox';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -89,11 +90,13 @@ const getCurrentUrl = (url) => {
 
 const Header = () => {
     const classes = useStyles();
+    const { search } = useLocation();
     // const navigate = useNavigate();
     const dispatch = useDispatch()
     const {account} = useSelector((store) => store.user)
     console.log(account)
     const [openSideBar, setOpenSideBar] = React.useState(false);
+    const [openDrawer, setOpenDrawer] = React.useState(false);
     const [searchBox, setSearchBox] = React.useState(false);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [nav, setNav] = React.useState({
@@ -103,24 +106,9 @@ const Header = () => {
 
     let url = window.location.href;
 
-    // React.useEffect(() => {
-    //     const setNavigation = () => {
-    //         if (window.pageYOffset > 100) {
-    //             setNav({
-    //                 height: '50px',
-    //             });
-    //         }
-    //         if (window.pageYOffset <= 100) {
-    //             setNav({
-    //                 height: '50px',
-    //             });
-    //         }
-    //     }
-    //     window.addEventListener("scroll", setNavigation)
-    //     return () => {
-    //         window.removeEventListener("scroll", setNavigation);
-    //     }
-    // }, []);
+    React.useEffect(() => {
+        setOpenDrawer(false)
+    },[url])
 
     const handleOpenSearchField = () => {
         setSearchBox((searchBox) => !searchBox);
@@ -132,8 +120,7 @@ const Header = () => {
     const handleOpenSideBar = () => {
         setOpenSideBar(!openSideBar)
     };
-    const search = (e) => {
-    }
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -198,16 +185,15 @@ const Header = () => {
                                 </span>
                             </Button>
                         </Link>
-                        <Link style={{ textDecoration: 'none' }} to='/'>
-                            <Button
-                                className={classes.item}
-                                sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
-                            >
-                                <span className='link-tab'>
-                                    Tìm kiếm
-                                </span>
-                            </Button>
-                        </Link>
+                        <Button
+                            className={classes.item}
+                            sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
+                            onClick={() => setOpenDrawer(true)}
+                        >
+                            <span className='link-tab'>
+                                Tìm kiếm
+                            </span>
+                        </Button>
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -291,6 +277,13 @@ const Header = () => {
                 onClick={handleOpenSideBar}
             >
             </Box>
+            <Drawer
+                anchor='right'
+                open={openDrawer}
+                onClose={()=>setOpenDrawer(false)}
+            >
+                <SearchBox onClose={()=>setOpenDrawer(false)}/>
+            </Drawer>
         </AppBar>
     );
 };

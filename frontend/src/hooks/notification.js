@@ -40,19 +40,19 @@ const Error = ({
   container = 'bottom-right',
   duration = 5000,
 }) => {
-  // Store.addNotification({
-  //   title: title,
-  //   message: message,
-  //   type: "danger",
-  //   insert: "top",
-  //   container: container,
-  //   animationIn: ["animate__animated", "animate__fadeIn"],
-  //   animationOut: ["animate__animated", "animate__fadeOut"],
-  //   dismiss: {
-  //     duration: duration,
-  //     onScreen: true
-  //   }
-  // });
+  Store.addNotification({
+    title: title,
+    message: message,
+    type: "danger",
+    insert: "top",
+    container: container,
+    animationIn: ["animate__animated", "animate__fadeIn"],
+    animationOut: ["animate__animated", "animate__fadeOut"],
+    dismiss: {
+      duration: duration,
+      onScreen: true
+    }
+  });
 }
 
 const Info = ({

@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { PropagateLoader} from "react-spinners";
 
 const style = {
-    position: 'fixed',
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
