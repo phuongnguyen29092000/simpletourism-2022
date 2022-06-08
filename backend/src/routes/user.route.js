@@ -8,13 +8,14 @@ const router = express.Router();
 router.get("/", userController.getUserByRole);
 router.get("/admin/owner-list", auth('admin'), userController.getAllOwner);
 router.get("/admin/customer-list", auth('admin', 'owner'), userController.getAllCustomer);
+router.get("/owner/:id/customers", userController.getAllCustomerBookedTour)
 
 router.post("/create", auth('admin'), userController.createUser);
 
 router.get("/:id", auth('admin', 'owner', 'customer'),userController.getUserById);
 
 router.put("/:id", userController.updateUserById);
-router.put("/become-owner/:customerId", auth('customer'), userController.becomeOwner);
+router.put("/become-owner/:customerId", userController.becomeOwner);
 
 router.delete("/:id", auth('admin'), userController.deleteUserById);
 
