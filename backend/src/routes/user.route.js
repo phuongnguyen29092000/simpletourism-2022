@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/", userController.getUserByRole);
 router.get("/admin/owner-list", auth('admin'), userController.getAllOwner);
 router.get("/admin/customer-list", auth('admin', 'owner'), userController.getAllCustomer);
-router.get("/owner/:id/customers", userController.getAllCustomerBookedTour)
+router.get("/owner/:id/customers", auth("owner"), userController.getAllCustomerBookedTour)
 
 router.post("/create", auth('admin'), userController.createUser);
 
