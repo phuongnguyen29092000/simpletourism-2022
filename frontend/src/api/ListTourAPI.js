@@ -1,8 +1,9 @@
 import axiosClient from "./axiosClient";
+import HeadersSetup from "./HeadersSetup"
 
 const addTour = (data) => {
   const url = '/tour';
-  return axiosClient.post(url, data)
+  return axiosClient.post(url, data, {headers: HeadersSetup})
 }
 
 const getAllTour = () => {
@@ -12,7 +13,7 @@ const getAllTour = () => {
 
 const deleteTour = (id) => {
   const url = `/tour/${id}`;
-  return axiosClient.delete(url);
+  return axiosClient.delete(url, {headers: HeadersSetup});
 }
 
 const getOutstandingTour = () => {
@@ -49,6 +50,11 @@ const searchTour = (param) => {
   const url ='/tour/search'
   return axiosClient.get(url, { params: param });
 }
+
+const updateTour = (id) =>{
+  const url = `/tour/${id}`
+  return axiosClient.patch(url, {headers: HeadersSetup})
+}
 export default {
     getAllTour,
     addTour,
@@ -59,5 +65,6 @@ export default {
     getAllTourDomestic,
     getAllTourInternational,
     getTourById,
-    searchTour
+    searchTour,
+    updateTour
 }
