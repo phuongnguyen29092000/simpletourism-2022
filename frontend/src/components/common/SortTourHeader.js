@@ -1,7 +1,7 @@
 import { Container, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import { SORT_OPTIONS } from 'Constants/sortTour';
 import { SortTour } from 'LogicResolve/TourList';
-import React from 'react';
+import React, { useState } from 'react';
 
 function SortTourHeader({ dataSort, setDataTours, title }) {
     const [sortOption, setSortOption] = React.useState(SORT_OPTIONS[0].value);
@@ -9,9 +9,13 @@ function SortTourHeader({ dataSort, setDataTours, title }) {
     const handleChange = (e) => {
         setSortOption(e.target.value)
         const dataTem = SortTour(dataSort, e.target.value)
-        console.log(dataTem)
         setDataTours(dataTem)
     }
+    useState(() => {
+        setSortOption(SORT_OPTIONS[0].value)
+        const dataTem = SortTour(dataSort, SORT_OPTIONS[0].value)
+        setDataTours(dataTem)
+    },[])
     return (
         <div className='header-sort-tour'>
             <Container maxWidth='xl'>

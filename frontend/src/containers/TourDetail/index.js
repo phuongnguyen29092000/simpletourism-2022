@@ -137,7 +137,7 @@ function TourDetail() {
         // arrows: true,
         infinite: true,
         autoplay: true,
-        speed: 2000,
+        speed: 500,
         autoplaySpeed: 5000,
         slidesToShow: 3,
         slidesToScroll: 1,
@@ -183,7 +183,7 @@ function TourDetail() {
         {   loading ? <SpinnerLoading/> :
             (tourDetail &&
                 <Container maxWidth="lg">
-                    <Box sx={{ marginTop: '70px', paddingLeft: { md: '60px' }, paddingRight: { md: '60px' } }}>
+                    <Box sx={{ paddingTop: '70px', paddingLeft: { md: '60px' }, paddingRight: { md: '60px' } }}>
                         <Grid container spacing={2}>
                             <Grid className='tour-slide-wrapper' item md={6} xs={12} style={{ position: "relative", marginBottom: '70px',}}>
                                 {/* <img className={classes.avatar} src={ConvertToImageURL(tourDetail.imageAvatar)} />

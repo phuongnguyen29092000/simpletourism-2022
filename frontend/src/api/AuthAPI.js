@@ -5,6 +5,12 @@ const loginWithGoogle = (data) => {
     return axiosClient.post(url,data)
 }
 
+const refreshToken = (token) => {
+    let url ='/auth/refresh-tokens'
+    return axiosClient.post(url, token)
+}
+
 export default {
     loginWithGoogle,
+    refreshToken
 }
