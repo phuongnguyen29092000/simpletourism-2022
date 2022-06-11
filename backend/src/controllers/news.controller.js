@@ -70,6 +70,17 @@ const updateNewsById = catchAsync(async(req, res) => {
     })
 })
 
+const updateViewerNews = catchAsync(async(req, res) => {
+    const newsSingle = await newsService.updateViewerNews(req.params.id)
+    if(!newsSingle) res.status(httpStatus.NOT_FOUND).json({
+        message: "Update failed"
+    }) 
+    else res.status(httpStatus.OK).json({
+        message: "OK",
+        newsSingle: newsSingle
+    })
+})
+
 /* delete news by params id */
 const deleteNewsById = catchAsync(async(req, res) => {
     const newsData = await newsService.getNewsById(req.params.id)
@@ -90,5 +101,6 @@ module.exports = {
     getNewsPerCompany,
     getNewsById,
     updateNewsById,
-    deleteNewsById
+    deleteNewsById,
+    updateViewerNews
 }

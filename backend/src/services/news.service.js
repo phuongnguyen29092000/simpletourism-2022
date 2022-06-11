@@ -3,19 +3,26 @@ const { News } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const createNews = async(newsBody) => {
-    const news = await News.create(newsBody)
+    const news = await News.create(newsBody).populate({path: 'owner'})
     return news
 }
 
 const getAllNews = async() => {
-    return await News.find()
+    return await News.find().populate({path: 'owner'})
 }
 
 const getNewsPerCompany = async(idCompany) => {
     return await News.find({ owner: idCompany }).populate({path: 'owner'})
 }
 const getNewsById = async(id) => {
-    return await News.findById(id)
+    return await News.findById(id).populate({path: 'owner'})
+}
+
+const updateViewerNews = async(id) => {
+    const news = await getNewsById(id)
+    Object.assign(news, { viewer: ++news.viewer})
+    await news.save()
+    return news
 }
 
 const updateNewsById = async(id, newsBody) => {
@@ -38,4 +45,5 @@ module.exports = {
     getNewsById,
     updateNewsById,
     deleteNewsById,
+    updateViewerNews
 }
