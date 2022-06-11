@@ -7,8 +7,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.simpletouristapp"
-        minSdk 19
-        targetSdk 31
+        minSdk 21
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
@@ -52,8 +52,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
 
-//    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-//    implementation 'com.squareup.okhttp3:okhttps:3.4.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 //    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
 //
 //    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
@@ -80,4 +79,10 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation "androidx.room:room-paging:2.5.0-alpha01"
+
+    implementation 'com.paypal.checkout:android-sdk:0.3.0'
+
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
+
+    implementation 'androidx.browser:browser:1.0.0'
 }

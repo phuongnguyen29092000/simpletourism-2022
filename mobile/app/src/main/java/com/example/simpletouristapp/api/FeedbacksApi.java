@@ -3,7 +3,9 @@ package com.example.simpletouristapp.api;
 import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.SendFeedbackResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -17,6 +19,9 @@ public interface FeedbacksApi {
 
     @FormUrlEncoded
     @POST("feedback")
-    Call<SendFeedbackResponse> sendFeedback(@Header("Authorization") String auth, @Field("tour") String tour
-            , @Field("customer") String customer, @Field("comment") String comment, @Field("rating") int rating);
+    Call<SendFeedbackResponse> sendFeedback(@Header("Authorization") String auth, @Field("tourId") String tour
+            , @Field("customerId") String customer, @Field("comment") String comment, @Field("rating") int rating);
+
+    @DELETE("feedback/{id}")
+    Call<ResponseBody> deleteFeedback(@Header("Authorization") String auth,@Path("id") String id);
 }

@@ -1,7 +1,9 @@
 package com.example.simpletouristapp.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,27 +11,39 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.model.FeedBackResponse;
+import com.example.simpletouristapp.service.FeedBacksApiService;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.FeedBackViewHolder> {
 
     private Context context;
     private List<FeedBackResponse.FeedBack> feedBacks;
     private SharedPreferences sharedPref;
+    private FeedBacksApiService feedBacksApiService;
+    private MaterialAlertDialogBuilder builder;
 
     public FeedBackAdapter(Context context, List<FeedBackResponse.FeedBack> feedBacks) {
         this.context = context;
         this.feedBacks = feedBacks;
         sharedPref = context.getSharedPreferences("Token",Context.MODE_PRIVATE);
+        feedBacksApiService = new FeedBacksApiService();
+        builder = new MaterialAlertDialogBuilder(this.context);
     }
 
     public Context getContext() {
@@ -64,17 +78,52 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.FeedBa
         holder.rating.setRating(feedBack.getRating());
         holder.comment.setText(feedBack.getComment());
         if(sharedPref.getString("id_customer","").equals(feedBack.getCustomer().getId())){
-            holder.btnEdit.setVisibility(View.VISIBLE);
             holder.btnDelete.setVisibility(View.VISIBLE);
         }
-        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.ratingBar.setVisibility(View.VISIBLE);
-                holder.edtCommentLayout.setVisibility(View.VISIBLE);
-                holder.rate.setVisibility(View.VISIBLE);
-                holder.ratingBar.setRating(feedBack.getRating());
-                holder.editComment.setText(feedBack.getComment());
+                Call<ResponseBody> call = feedBacksApiService.deleteFeedback("Bearer " + sharedPref.getString("access_token",""),feedBack.getId());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.code() == 204){
+                            builder.setTitle("Xóa thành công");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                    holder.itemView.setVisibility(View.GONE);
+                                }
+                            });
+                            builder.show();
+                        }else {
+                            Log.d("Delete", String.valueOf(response.code()));
+                            builder.setTitle("Xóa thất bại");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+
+                                }
+                            });
+                            builder.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Xóa thất bại");
+                        builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.show();
+                    }
+                });
             }
         });
     }
@@ -88,23 +137,13 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.FeedBa
         private TextView tvName;
         private RatingBar rating;
         private TextView comment;
-        private ImageButton btnEdit;
         private ImageButton btnDelete;
-        private RatingBar ratingBar;
-        private TextInputEditText editComment;
-        private Button rate;
-        private TextInputLayout edtCommentLayout;
         public FeedBackViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.txt_email_account);
             rating = itemView.findViewById(R.id.rating_feedback);
             comment = itemView.findViewById(R.id.txt_cmt_account);
-            btnEdit = itemView.findViewById(R.id.btn_edit);
             btnDelete = itemView.findViewById(R.id.btn_delete);
-            ratingBar = itemView.findViewById(R.id.comment_rating_feedback);
-            editComment = itemView.findViewById(R.id.edt_comment);
-            rate = itemView.findViewById(R.id.btn_rate);
-            edtCommentLayout = itemView.findViewById(R.id.edt_comment_layout);
         }
     }
 }

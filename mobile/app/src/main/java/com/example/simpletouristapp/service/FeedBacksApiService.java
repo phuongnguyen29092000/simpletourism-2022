@@ -4,9 +4,11 @@ import com.example.simpletouristapp.api.FeedbacksApi;
 import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.SendFeedbackResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Path;
 
 public class FeedBacksApiService {
     private FeedbacksApi feedbacksApi;
@@ -25,5 +27,9 @@ public class FeedBacksApiService {
 
     public Call<SendFeedbackResponse> sendFeedback(String auth, String tour, String customer, String comment, int rating){
         return feedbacksApi.sendFeedback(auth,tour,customer,comment,rating);
+    }
+
+    public Call<ResponseBody> deleteFeedback(String auth,String id){
+        return feedbacksApi.deleteFeedback(auth,id);
     }
 }
