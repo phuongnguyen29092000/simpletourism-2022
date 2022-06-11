@@ -26,6 +26,12 @@ const updateNews = (id, data) => {
   return axiosClient.put(url, data, {headers: HeadersSetup})
 }
 
+const updateViewer = (id) => {
+  const url = `/news/viewer/${id}`
+  return axiosClient.put(url)
+}
+
+
 const deleteNews = (id) => {
   const url = `/news/${id}`;
   return axiosClient.delete(url, {headers: HeadersSetup});
@@ -38,5 +44,6 @@ export default {
 	getNewsPerCompany,
 	getNewById,
 	updateNews,
-	deleteNews
+	deleteNews,
+  updateViewer
 }

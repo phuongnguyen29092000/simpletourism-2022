@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllNews, getNewsDetail } from 'redux/reducers/news/action';
 import SpinnerLoading from 'components/SpinnerLoading';
 import ConvertToImageURL from 'LogicResolve/ConvertToImageURL';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import moment from 'moment';
+import NewsAPI from 'api/NewsAPI';
 
 function NewsDetail(props) {
     const dispatch = useDispatch()
@@ -15,6 +18,7 @@ function NewsDetail(props) {
     useEffect(() => {
         dispatch(getNewsDetail(id))
         dispatch(getAllNews())
+        const res = NewsAPI.updateViewer(id)
     }, [id])
 
     useEffect(async () => {
@@ -27,10 +31,19 @@ function NewsDetail(props) {
                 (Object.keys(newsDetail).length > 0 &&
                     <Container maxWidth='xl'>
                         <Grid container style={{ justifyContent: 'center', padding: '20px'}}>
-                            <Grid container item md={8} xs={12} style={{ boxShadow: '0 1px 3px -2px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)', padding: '20px' }}>
+                            <Grid container item md={8} xs={12} style={{ boxShadow: '0 1px 3px -2px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)', padding: '20px', display:'flex', flexDirection:'column'}}>
+                                <Typography variant='body1' component='div' sx={{marginBottom: '30px', display:'flex', alignItems:'center'}}>
+                                    <span style={{color:'#858585', fontSize:'13px'}}>Đăng lúc {moment(newsDetail.createdAt).format('DD/MM/YYYY')}</span>
+                                    <div style={{marginLeft: '30px', display: 'flex', alignItems: 'center'}}>
+                                        <VisibilityIcon color='action'></VisibilityIcon>
+                                        <span style={{marginLeft: '8px',color:'#858585', fontSize:'13px'}}>{newsDetail?.viewer} lượt xem</span>
+                                    </div>
+                                    
+                                </Typography>
                                 <h2 style={{ marginTop: '0px' }}>
                                     {newsDetail.title.toUpperCase()}
                                 </h2>
+                                
                                 <Typography variant='body1' component='div' sx={{ margin: 'auto'}}>
                                     <img src={ConvertToImageURL(newsDetail.imageUrl)} width="100%" />
                                 </Typography>
