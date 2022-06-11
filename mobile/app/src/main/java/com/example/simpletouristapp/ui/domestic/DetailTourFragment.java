@@ -264,7 +264,7 @@ public class DetailTourFragment extends Fragment {
         return root;
     }
 
-    private void refreshFeedBack(){
+    public void refreshFeedBack(){
         Call<FeedBackResponse> call2 = feedBacksApiService.getFeedBackById(tourId);
         call2.enqueue(new Callback<FeedBackResponse>() {
             @Override
