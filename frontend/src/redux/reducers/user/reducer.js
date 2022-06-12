@@ -1,7 +1,11 @@
 import * as types from './types'
 
 const initialState = {
-  account: {}
+  account: {},
+  listUserOwner: {
+    users: [],
+    loading: false,
+  }
 }
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,6 +20,33 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         account: {}
+      }
+    }
+    case types.GET_USER_OWNER :{
+      return {
+        ...state,
+        listUserOwner: {
+          users: [],
+          loading: true
+        }
+      }
+    }
+    case types.GET_USER_OWNER_SUCCESS: {
+      console.log('payload', action.payload);
+      return {
+        ...state,
+        listUserOwner: {
+          users: action.payload,
+          loading: false
+        }
+      }
+    }
+    case types.GET_USER_OWNER_FAIL: {
+      return {
+        ...state,
+        listUserOwner: {
+          loading: false
+        }
       }
     }
     default:

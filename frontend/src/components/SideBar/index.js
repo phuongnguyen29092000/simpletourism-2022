@@ -49,7 +49,7 @@ function SideBar(props) {
                             </div>
                         </div>
                     </Link>
-                    <Link to={ROUTE_OWNER_NEWS}>
+                    <Link to={ROUTE_LIST_CUSTOMER}>
                         <div className='menu-item list-customer'>
                             <div className='menu-item__icon'>
                                 <img src={IconCustomer} />

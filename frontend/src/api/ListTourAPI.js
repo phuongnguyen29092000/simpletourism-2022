@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
-import HeadersSetup from "./HeadersSetup"
+import {getHeaderWithToken} from "./getHeaderWithToken"
 
 const addTour = (data) => {
   const url = '/tour';
-  return axiosClient.post(url, data, {headers: HeadersSetup})
+  return axiosClient.post(url, data, {headers: getHeaderWithToken()})
 }
 
 const getAllTour = () => {
@@ -13,7 +13,7 @@ const getAllTour = () => {
 
 const deleteTour = (id) => {
   const url = `/tour/${id}`;
-  return axiosClient.delete(url, {headers: HeadersSetup});
+  return axiosClient.delete(url, {headers: getHeaderWithToken()});
 }
 
 const getOutstandingTour = () => {
@@ -53,7 +53,7 @@ const searchTour = (param) => {
 
 const updateTour = (id) =>{
   const url = `/tour/${id}`
-  return axiosClient.patch(url, {headers: HeadersSetup})
+  return axiosClient.patch(url, {headers: getHeaderWithToken()})
 }
 export default {
     getAllTour,

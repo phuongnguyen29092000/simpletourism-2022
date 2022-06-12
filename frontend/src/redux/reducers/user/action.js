@@ -1,6 +1,7 @@
 import * as types from './types'
 // import API from '../../../api/UserAPI'
 import AuthAPI from 'api/AuthAPI'
+import UserAPI from 'api/UserAPI';
 import { removeAccessToken, removeRefreshToken, removeTimeRefresh, removeUser, setAccessToken, setRefreshToken, setTimeRefresh, setUser } from 'hooks/localAuth'
 import Cookies from "js-cookie";
 // import { useNavigate } from 'react-router-dom';
@@ -19,7 +20,7 @@ const loginWithGoogle = (info, callback = ()=>{}) => {
         AuthAPI.loginWithGoogle(info)
         // .then((response) => response.json())
               .then((result) => {
-                if (result.status === 200) {
+                if (result) {
                   console.log(result)
                   setAccessToken(result.data.tokenAuth.access.token)
                   setRefreshToken(result.data.tokenAuth.refresh.token)
@@ -64,8 +65,35 @@ const logoutGoogle = () => {
       // window.location.reload()
 }
 
+const getAllCustomerBooked= (idOwner, callback = ()=>{}) => {
+  return (dispatch) => {
+      dispatch({type: types.GET_USER_OWNER})
+      UserAPI.getAllCustomerBooked(idOwner)
+      // .then((response)=>response.json())
+      .then((result=>{
+          if(result.status === 200){
+            console.log(result);
+              dispatch({
+                  type: types.GET_USER_OWNER_SUCCESS,
+                  payload: [...result.data.allCustomerBookedTour]
+              })
+              callback()
+          }else{
+              dispatch({
+                  type: types.GET_USER_OWNER_FAIL
+              })
+          }
+      }))
+      .catch((error)=>{
+          dispatch({
+              type: types.GET_USER_OWNER_FAIL
+          })
+      })
+  }
+}
 export {
     setAccountInfo,
     loginWithGoogle,
-    logoutGoogle
+    logoutGoogle,
+    getAllCustomerBooked
 }

@@ -1,5 +1,5 @@
 import axiosClient from "./axiosClient";
-import HeadersSetup from "./HeadersSetup";
+import {getHeaderWithToken} from "./getHeaderWithToken";
 
 const loginWithGoogle = (data) => {
     let url = '/auth/login'
@@ -13,7 +13,7 @@ const refreshToken = (data) => {
 
 const logout = (data) => {
     let url = '/auth/logout'
-    return axiosClient.post(url, data, {headers: HeadersSetup})
+    return axiosClient.post(url, data, {headers: getHeaderWithToken()})
 }
 
 export default {
