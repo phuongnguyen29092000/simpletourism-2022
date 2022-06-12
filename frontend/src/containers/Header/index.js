@@ -23,6 +23,7 @@ import { logoutGoogle } from 'redux/reducers/user/action';
 import SearchBox from 'containers/SearchBox';
 import TicketAPI from 'api/TicketAPI';
 import { getUser } from 'hooks/localAuth';
+import HistoryList from 'containers/HistoryList';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -98,7 +99,8 @@ const Header = () => {
     const {account} = useSelector((store) => store.user)
     console.log(account)
     const [openSideBar, setOpenSideBar] = React.useState(false);
-    const [openDrawer, setOpenDrawer] = React.useState(false);
+    const [openDrawerSearch, setOpenDrawerSearch] = React.useState(false);
+    const [openDrawerHistory, setOpenDrawerHistory] = React.useState(false);
     const [searchBox, setSearchBox] = React.useState(false);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [nav, setNav] = React.useState({
@@ -109,7 +111,8 @@ const Header = () => {
     let url = window.location.href;
 
     React.useEffect(() => {
-        setOpenDrawer(false)
+        setOpenDrawerSearch(false)
+        setOpenDrawerHistory(false)
     },[url])
 
     const handleOpenSearchField = () => {
@@ -190,7 +193,7 @@ const Header = () => {
                         <Button
                             className={classes.item}
                             sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
-                            onClick={() => setOpenDrawer(true)}
+                            onClick={() => setOpenDrawerSearch(true)}
                         >
                             <span className='link-tab'>
                                 Tìm kiếm
@@ -258,10 +261,8 @@ const Header = () => {
                             </MenuItem>
                         ))}
                         <MenuItem onClick={() =>{
-                            TicketAPI.getHistoryTicket(getUser()._id)
-                            .then(rs => {
-                                console.log();
-                            })
+                            setOpenDrawerHistory(true)
+                            handleCloseUserMenu()
                         }}>
                             <Typography textAlign="center">Tour của bạn</Typography>
                         </MenuItem>
@@ -291,10 +292,17 @@ const Header = () => {
             </Box>
             <Drawer
                 anchor='right'
-                open={openDrawer}
-                onClose={()=>setOpenDrawer(false)}
+                open={openDrawerSearch}
+                onClose={()=>setOpenDrawerSearch(false)}
             >
-                <SearchBox onClose={()=>setOpenDrawer(false)}/>
+                <SearchBox onClose={()=>setOpenDrawerSearch(false)}/>
+            </Drawer>
+            <Drawer
+                anchor='right'
+                open={openDrawerHistory}
+                onClose={()=>setOpenDrawerHistory(false)}
+            >
+                <HistoryList onClose={()=>setOpenDrawerHistory(false)}/>
             </Drawer>
         </AppBar>
     );

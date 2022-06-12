@@ -3,7 +3,6 @@ import axiosClient from "./axiosClient"
 import {getHeaderWithToken} from "./getHeaderWithToken"
 
 const getAllTicket = (id) => {
-    console.log(getHeaderWithToken);
     let url = `/ticket/company/${id}`
     return axiosClient.get(url, { headers: getHeaderWithToken()})
 }
