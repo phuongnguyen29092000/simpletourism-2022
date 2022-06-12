@@ -37,7 +37,8 @@ const getAllTicket = async(idCompany) => {
                     "customerId": "$customer._id",
                     "customerName": "$customer.givenName",
                     "tourName": "$tour.tourName",
-                    "email": '$customer.email'
+                    "email": '$customer.email',
+
                 }
             },
             { $project: {
@@ -141,7 +142,9 @@ const getTicketsHistory = async(id) =>{
                     "customerId": "$customer._id",
                     "customerName": "$customer.givenName",
                     "tourName": "$tour.tourName",
-                    "email": '$customer.email'
+                    "email": '$customer.email',
+                    'imageAvatar': "$tour.imageAvatar",
+                    
                 }
             },
             { 
@@ -158,6 +161,7 @@ const getTicketsHistory = async(id) =>{
                 tourName:1,
                 phone: 1,
                 email: 1,
+                imageAvatar: 1,
                 numberPeople:1,
                 paymentPrice: 1,
                 status: 1,

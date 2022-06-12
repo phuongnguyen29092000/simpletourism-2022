@@ -69,7 +69,7 @@ const refreshTokens = catchAsync(async(req, res) => {
         status: 500,
         message: "Lỗi server"
     })
-    else res.stauts(httpStatus.OK).json({
+    else res.status(httpStatus.OK).json({
         status: 200,
         message: "OK",
         accessInfo: tokenAuth.access
