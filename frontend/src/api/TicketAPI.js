@@ -24,10 +24,15 @@ const createTicket = (id, data) => {
     let url = `/ticket/create/${id}`;
     return axiosClient.post(url, data, { headers: HeadersSetup})
 }
+const getHistoryTicket = (id) => {
+    let url = `/ticket/history/${id}`;
+    return axiosClient.get(url, { headers: getHeaderWithToken()})
+}
 export default {
     getAllTicket,
     getTicketPerTour,
     deleteTicket,
     getTicketById,
-    createTicket
+    createTicket,
+    getHistoryTicket
 }

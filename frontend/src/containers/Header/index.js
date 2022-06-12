@@ -21,6 +21,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutGoogle } from 'redux/reducers/user/action';
 import SearchBox from 'containers/SearchBox';
+import TicketAPI from 'api/TicketAPI';
+import { getUser } from 'hooks/localAuth';
 
 const pagesUser = [{
     title: 'TRANG CHỦ',
@@ -256,9 +258,19 @@ const Header = () => {
                             </MenuItem>
                         ))}
                         <MenuItem onClick={() =>{
+                            TicketAPI.getHistoryTicket(getUser()._id)
+                            .then(rs => {
+                                console.log();
+                            })
+                        }}>
+                            <Typography textAlign="center">Tour của bạn</Typography>
+                        </MenuItem>
+                        <MenuItem onClick={() =>{
                             dispatch(logoutGoogle())
                             window.location.reload()
-                        }}><Typography textAlign="center">Đăng xuất</Typography></MenuItem>
+                        }}>
+                            <Typography textAlign="center">Đăng xuất</Typography>
+                        </MenuItem>
                     </Menu>
                 </Box>}
             </Container>
