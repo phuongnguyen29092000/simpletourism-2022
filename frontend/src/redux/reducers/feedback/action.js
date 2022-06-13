@@ -1,8 +1,10 @@
 import * as types from './types'
 import API from '../../../api/FeedbackAPI'
+import { CheckExpiredToken } from 'ultis/authUtil'
 
 const getFeedbackForTour = (idTour, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.GET_FEEDBACK})
         API.getFeedbackForTour(idTour)
         // .then((response)=>response.json())
@@ -29,6 +31,7 @@ const getFeedbackForTour = (idTour, callback = ()=>{}) => {
 
 const createFeedback = (data, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.CREATE_FEEDBACK})
         API.createFeedback(data)
         // .then((response)=>response.json())
@@ -55,6 +58,7 @@ const createFeedback = (data, callback = ()=>{}) => {
 
 const updateFeedback = (data, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.UPDATE_FEEDBACK})
         API.updateFeedback(data)
         // .then((response)=>response.json())
@@ -81,6 +85,7 @@ const updateFeedback = (data, callback = ()=>{}) => {
 
 const deleteFeedback = (id, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.DELETE_FEEDBACK})
         API.deleteFeedback(id)
         // .then((response)=>response.json())

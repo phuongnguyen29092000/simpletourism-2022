@@ -1,8 +1,10 @@
 import * as types from './types'
 import API from '../../../api/TicketAPI'
+import { CheckExpiredToken } from 'ultis/authUtil'
 
 const getAllTicket = (id,callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.GET_TICKET})
         API.getAllTicket(id)
         // .then((response)=>response.json())
@@ -29,6 +31,7 @@ const getAllTicket = (id,callback = ()=>{}) => {
 
 const getTicketPerTour = (id,callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.GET_TICKET_PER_TOUR})
         API.getTicketPerTour(id)
         // .then((response)=>response.json())
@@ -56,6 +59,7 @@ const getTicketPerTour = (id,callback = ()=>{}) => {
 
 const deleteTicket = (id, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.DELETE_TICKET})
         API.deleteTicket(id)
         // .then((response)=>response.json())

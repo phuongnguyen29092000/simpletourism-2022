@@ -29,7 +29,6 @@ const getAllTour = (callback = ()=>{}) => {
 }
 
 const addTour = (data, callback=()=>{}) =>{
-    console.log(data)
     return (dispatch) => {
         dispatch({type: types.ADD_TOUR})
         API.addTour(data)
