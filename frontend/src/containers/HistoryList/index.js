@@ -90,7 +90,7 @@ export default function HistoryList() {
 
     return (
         <React.Fragment>
-            <h3 style={{padding: '20px', textAlign:'center'}}>TOUR CỦA BẠN</h3>
+            <h3 style={{padding: '20px', textAlign:'center', width:'100%'}}>TOUR CỦA BẠN</h3>
             {   histories?.length > 0 ?
                 <Timeline position="right">
                 {

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTypePlace } from '../../redux/reducers/typePlace/action';
 import Button from '@mui/material/Button';
 import { ROUTE_TOUR_FILTER } from '../../route/type';
-// http://localhost:4000/tour?typeplace=dao&price[gt]=4000000&price[lt]=5000000&continent=asia&page=1&limit=5&discount=true
+
 function FilterTour() {
     let navigate = useNavigate();
     let {listTypePlace} = useSelector((store) => store.typePlace)
@@ -34,7 +34,7 @@ function FilterTour() {
         for (let option in data){
             if(data[option]) {
                 if(option == 'price') {
-                    param = param + `price[gt]=${data[option][0]}&price[lt]=${data[option][1]}&`;
+                    param = param + `price[gte]=${data[option][0]}&price[lte]=${data[option][1]}&`;
                 }else if (option == 'discount' || option == 'continent') param = param + `${option}=${data[option]}&`;
                     else {
                         let listValue ='';

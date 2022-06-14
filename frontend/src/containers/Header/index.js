@@ -301,6 +301,7 @@ const Header = () => {
                 anchor='right'
                 open={openDrawerHistory}
                 onClose={()=>setOpenDrawerHistory(false)}
+                sx={{minWidth:'400px', width:'400px'}}
             >
                 <HistoryList onClose={()=>setOpenDrawerHistory(false)}/>
             </Drawer>

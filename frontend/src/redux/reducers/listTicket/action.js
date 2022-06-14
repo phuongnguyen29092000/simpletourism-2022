@@ -1,8 +1,10 @@
 import * as types from './types'
 import API from '../../../api/TicketAPI'
+import { CheckExpiredToken } from 'ultis/authUtil'
 
 const getAllTicket = (id,callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.GET_TICKET})
         API.getAllTicket(id)
         // .then((response)=>response.json())
@@ -12,7 +14,7 @@ const getAllTicket = (id,callback = ()=>{}) => {
                     type: types.GET_TICKET_SUCCESS,
                     payload: [...result.data.tickets]
                 })
-                callback()
+                callback([...result.data.tickets])
             }else{
                 dispatch({
                     type: types.GET_TICKET_FAIL
@@ -27,8 +29,9 @@ const getAllTicket = (id,callback = ()=>{}) => {
     }
 }
 
-const getTicketPerTour = (id,callback = ()=>{}) => {
+const getTicketPerTour = (id, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.GET_TICKET_PER_TOUR})
         API.getTicketPerTour(id)
         // .then((response)=>response.json())
@@ -56,6 +59,7 @@ const getTicketPerTour = (id,callback = ()=>{}) => {
 
 const deleteTicket = (id, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.DELETE_TICKET})
         API.deleteTicket(id)
         // .then((response)=>response.json())
@@ -80,8 +84,14 @@ const deleteTicket = (id, callback = ()=>{}) => {
     }
 }
 
+const resetTicket = () => {
+    return (dispatch) => {
+        dispatch({type: types.RESET_TICKET})
+    }
+}
 export {
     getAllTicket,
     getTicketPerTour,
-    deleteTicket
+    deleteTicket,
+    resetTicket
 }

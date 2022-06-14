@@ -23,9 +23,14 @@ function ListTicket(props) {
         setOpen(!open);
     }
     useEffect(()=>{
-        if(list_ticket.length === 0) dispatch(getAllTicket(getUser()._id))
-        if(!list_ticket.loading) setObjTotal(calucateTotalPriceTicket(list_ticket))
-    },[list_ticket])
+        console.log(list_ticket.length);
+        if(listTicketPerTour.length === 0) dispatch(getAllTicket(getUser()._id, (data) => {
+            setTicketData(data)
+            console.log({data});
+        }))
+        else setTicketData([...listTicketPerTour])
+        // if(!list_ticket.loading) setObjTotal(calucateTotalPriceTicket(list_ticket))
+    },[list_ticket, listTicketPerTour])
 
     const handleDelete = () => {
         dispatch(deleteTicket(ticketDelete.id,()=>setOpenConfirmModal(false)))
@@ -69,7 +74,7 @@ function ListTicket(props) {
         let csv =
           'Ten khach hang,So dien thoai,Email khach hang,Ngay dat,Thoi gian dat,Trang thai ve,So luong ve,Tong tien thanh toan\n'
         let temp = []
-        temp = list_ticket.map((ticket) => ({
+        temp = ticketData.map((ticket) => ({
           'Ten khach hang': convertVienameseToEnglish(ticket?.customerName) || '',
           'So dien thoai': `(+84)${ticket?.phone}` || '',
           'Email khach hang': ticket?.email || '',
@@ -86,18 +91,18 @@ function ListTicket(props) {
           csv += '\n'
         })
     
-        let total = `Tong ve: ${objTotal.totalTicket} \nTong tien: ${objTotal.totalPrice} VND`
+        // let total = `Tong ve: ${objTotal.totalTicket} \nTong tien: ${objTotal.totalPrice} VND`
         let hiddenElement = document.createElement('a')
         hiddenElement.href =
-          'data:text/csv;charset=utf-8,' + encodeURIComponent(csv+total)
+          'data:text/csv;charset=utf-8,' + encodeURIComponent(csv)
         hiddenElement.target = '_blank'
-        hiddenElement.download = `${list_ticket[0].tourName}.csv`
+        hiddenElement.download = `${ticketData[0].tourName}.csv`
         hiddenElement.click()
-      }, [list_ticket])
+      }, [ticketData])
 
     return (
         <div className='ticket-manager'>
-            <div style={{width:'170px', margin: '10px 0px 20px 0px', display:'flex', alignItems:'center', cursor:'pointer'}} onClick={()=>handleExportCSVFile(list_ticket)}>
+            <div style={{width:'170px', margin: '10px 0px 20px 0px', display:'flex', alignItems:'center', cursor:'pointer'}} onClick={()=>handleExportCSVFile(ticketData)}>
                 <FileDownloadIcon color='action'></FileDownloadIcon>
                 <span style={{color:'#858585', fontWeight:'700', marginLeft:'10px', fontSize:'14px', cursor:'pointer'}}>Export to CSV File</span>
             </div>
@@ -116,8 +121,8 @@ function ListTicket(props) {
                     </thead>
                     <tbody>
                         {
-                            list_ticket &&
-                            list_ticket?.map((ticket, index) =>(
+                            ticketData &&
+                            ticketData?.map((ticket, index) =>(
                                 <tr key={index}>
                                     <td className='td-2'>{ticket?.customerName}</td>
                                     <td className='td-2'>{ticket?.phone}</td>
@@ -126,12 +131,9 @@ function ListTicket(props) {
                                     <td className='td-4' style={{minWidth:'180px'}}>{moment(ticket?.createdAt).format('YYYY-MM-DD LTS')}</td>
                                     <td className='td-3'>{ticket?.status==0 ? "Chưa thanh toán" : 'Đã thanh toán'}</td>
                                     <td className='td-3' style={{textAlign:'right'}}>{ticket?.numberPeople}</td>
-                                    <td className='td-2' style={{textAlign:'right'}}>{(parseInt(ticket?.paymentPrice*ticket?.numberPeople).toLocaleString().split(',').join('.'))} đ</td>
+                                    <td className='td-5' style={{textAlign:'right'}}>{(parseInt(ticket?.paymentPrice*ticket?.numberPeople).toLocaleString().split(',').join('.'))} đ</td>
                                     <td>
                                         <div className='action-col'>
-                                            <div className='btn-action btn-edit'>
-                                                <EditIcon fontSize='15px'/>
-                                            </div>
                                             <div className='btn-action btn-delete' 
                                                 onClick={()=>{
                                                     // setTicketDelete({id: _tour._id, tourName: _tour.tourName})
@@ -144,7 +146,7 @@ function ListTicket(props) {
                                 </tr>
                             ))
                         }
-                        <tr style={{height:'80px'}}>
+                        {/* <tr style={{height:'80px'}}>
                             <td className='td-2'></td>
                             <td className='td-2'></td>
                             <td className='td-1'></td>
@@ -160,7 +162,7 @@ function ListTicket(props) {
                                 <span>{objTotal.totalPrice?.toLocaleString().split(',').join('.')} đ</span>    
                             </td>
                             <td></td>
-                        </tr>
+                        </tr> */}
                     </tbody>
                 </table>
             </div>
