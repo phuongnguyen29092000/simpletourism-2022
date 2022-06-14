@@ -78,46 +78,46 @@ export default function HistoryList() {
     const navigate = useNavigate()
     React.useEffect(() => {
         TicketAPI.getHistoryTicket(getUser()._id)
-        .then(rs => {
-            if(rs.status === 200) {
-                setHistories(rs.data.tickets)
-            }
-            else{
-                useNotification.Error("Lỗi!", "Server Error!")
-            }
-        })
-    },[])
+            .then(rs => {
+                if (rs.status === 200) {
+                    setHistories(rs.data.tickets)
+                }
+                else {
+                    useNotification.Error("Lỗi!", "Server Error!")
+                }
+            })
+    }, [])
 
     return (
         <React.Fragment>
-            <h3 style={{padding: '20px', textAlign:'center', width:'100%'}}>TOUR CỦA BẠN</h3>
-            {   histories?.length > 0 ?
+            <h3 style={{ padding: '20px', textAlign: 'center', width: '100%' }}>TOUR CỦA BẠN</h3>
+            {histories?.length > 0 ?
                 <Timeline position="right">
-                {
-                    histories.map((item, index) => (
-                        <TimelineItem key={index}>
-                            <TimelineOppositeContent color="text.secondary">
-                                {moment(item?.createdAt).format('YYYY-MM-DD LTS')}
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot />
-                                <TimelineConnector />
-                            </TimelineSeparator>
-                            <TimelineContent sx={{color: 'gray'}} onClick={() => navigate(`/tour-chi-tiet/${item.idTour}`)}>
-                                <TourCardMini
-                                            name={item.tourName}
-                                            img={ConvertToImageURL(item.imageAvatar)}
-                                            rating={item.ratingsAverage}
-                                            _id={item._id}
-                                        />
-                                <div>Số lượng: {item.numberPeople}</div>
-                                <div>Tổng tiền: {RegardPrice(item.numberPeople*item.paymentPrice)}</div>
-                            </TimelineContent>
-                        </TimelineItem>
-                    ))
-                }
-            </Timeline>
-            : <h5>BẠN CHƯA ĐẶT TOUR NÀO :D</h5>
+                    {
+                        histories.map((item, index) => (
+                            <TimelineItem key={index}>
+                                <TimelineOppositeContent color="text.secondary">
+                                    {moment(item?.createdAt).format('YYYY-MM-DD LTS')}
+                                </TimelineOppositeContent>
+                                <TimelineSeparator>
+                                    <TimelineDot />
+                                    <TimelineConnector />
+                                </TimelineSeparator>
+                                <TimelineContent sx={{ color: 'gray' }} onClick={() => navigate(`/tour-chi-tiet/${item.idTour}`)}>
+                                    <TourCardMini
+                                        name={item.tourName}
+                                        img={ConvertToImageURL(item.imageAvatar)}
+                                        rating={item.ratingsAverage}
+                                        _id={item._id}
+                                    />
+                                    <div>Số lượng: {item.numberPeople}</div>
+                                    <div>Tổng tiền: {RegardPrice(item.numberPeople * item.paymentPrice)}</div>
+                                </TimelineContent>
+                            </TimelineItem>
+                        ))
+                    }
+                </Timeline>
+                : <h5>BẠN CHƯA ĐẶT TOUR NÀO :D</h5>
             }
         </React.Fragment>
     );

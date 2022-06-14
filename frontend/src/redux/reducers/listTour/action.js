@@ -63,9 +63,10 @@ const addTour = (data, callback=()=>{}) =>{
         .then((result)=>{
             // if(result.status)
             if(result.status === 201){
+                console.log(result);
                 dispatch({
                     type: types.ADD_TOUR_SUCCESS,
-                    payload: result.data
+                    payload: result.data.data
                 })
                 callback()
                 useNotification.Success({
@@ -100,18 +101,30 @@ const deleteTour = (id, callback = ()=>{}) => {
             if(result.status === 204){
                 dispatch({
                     type: types.DELETE_TOUR_SUCCESS,
-                    payload: {...result}
+                    payload: id
                 })
                 callback()
+                useNotification.Success({
+                    title:"Thành công!",
+                    message:"Xóa tour thành công!"
+                })
             }else{
                 dispatch({
                     type: types.DELETE_TOUR_FAIL
+                })
+                useNotification.Success({
+                    title:"Lỗi!",
+                    message:"Server Error!"
                 })
             }
         })
         .catch((error)=>{
             dispatch({
                 type: types.DELETE_TOUR_FAIL
+            })
+            useNotification.Success({
+                title:"Lỗi!",
+                message:"Server Error!"
             })
         })
     }
