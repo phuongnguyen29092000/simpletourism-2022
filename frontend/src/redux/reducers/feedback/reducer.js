@@ -39,11 +39,12 @@ export const reducer = (state = initialState, action) => {
             }
         }
         case types.CREATE_FEEDBACK_SUCCESS: {
+            console.log(action.payload);
             let listTemp = [...state?.listFeedback]
             return {
                 ...state,
                 //xem lai
-                listFeedback: listTemp.push(action.payload),
+                listFeedback: [...listTemp, action.payload],
                 loading: false,
             }
         }

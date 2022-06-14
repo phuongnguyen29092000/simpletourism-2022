@@ -71,8 +71,8 @@ export const reducer = (state = initialState, action) => {
       console.log(action.payload);
       return {
         ...state,
-        listTour: [
-          ...state.listTour,
+        listTourOwner: [
+          ...state.listTourOwner,
           action.payload
         ],
         totalTour: state.totalTour + 1,
@@ -92,13 +92,11 @@ export const reducer = (state = initialState, action) => {
       }
     }
     case types.DELETE_TOUR_SUCCESS: {
+      console.log(">>>>",action.payload);
       return {
         ...state,
         //xử lí xóa
-        listTour: [
-          ...state.listTour,
-          action.payload
-        ],
+        listTourOwner: state.listTourOwner.filter((item) => item._id != action.payload),
         totalTour: state.totalTour-1,
         loading: false,
       }

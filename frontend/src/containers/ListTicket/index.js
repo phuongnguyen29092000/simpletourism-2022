@@ -26,11 +26,10 @@ function ListTicket(props) {
         console.log(list_ticket.length);
         if(listTicketPerTour.length === 0) dispatch(getAllTicket(getUser()._id, (data) => {
             setTicketData(data)
-            console.log({data});
         }))
         else setTicketData([...listTicketPerTour])
         // if(!list_ticket.loading) setObjTotal(calucateTotalPriceTicket(list_ticket))
-    },[list_ticket, listTicketPerTour])
+    },[listTicketPerTour, list_ticket])
 
     const handleDelete = () => {
         dispatch(deleteTicket(ticketDelete.id,()=>setOpenConfirmModal(false)))

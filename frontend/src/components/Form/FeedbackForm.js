@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button } from '@material-ui/core';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import APIClient from '../../APIs/APIClient';
-import { useStore, actions } from '../../store';
 import Rating from "@mui/material/Rating";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from "@mui/material/styles";
+import { Button } from '@mui/material';
 
 const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
@@ -26,7 +24,6 @@ const styleForm = {
     alignItems: 'start'
 }
 function FeedbackForm({handleSendFeedback}) {
-    const [state, dispatch] = useStore()
     const [rating, setRating] = useState(0);
     const {
         register,
@@ -45,21 +42,6 @@ function FeedbackForm({handleSendFeedback}) {
             <h3 style={{ fontWeight: 'bold', textAlign:'left'}}>GỬI ĐÁNH GIÁ</h3>
             <div className='form-box'>
                 <form action=" " onSubmit={handleSubmit(onHandleSubmit)}>
-                    <div className='form-group-fb mb-2' style={styleForm}>
-                        <label style={{ margin: '5px 0', fontWeight: 'bold' }}>Email: </label>
-                        <input 
-                            {...register("email",
-                            {
-                                required: "* Vui lòng nhập email",
-                                pattern: {
-                                    // value: /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/,
-                                    message: "* Email không đúng!"
-                                }
-                            })}
-                            style={{ height: '30px', width: '100%', maxWidth:'300px' }}
-                            placeholder='email...' />
-                        {errors.email && <div className="alert">{errors.email.message}</div>}
-                    </div>
                     <div className="form-group-fb mb-2" style={styleForm}>
                         <Controller
                             name="rating"
