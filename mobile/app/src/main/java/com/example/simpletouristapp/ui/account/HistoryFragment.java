@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.adapter.HistoryTicketAdapter;
 import com.example.simpletouristapp.databinding.HistoryBinding;
 import com.example.simpletouristapp.model.HistoryTicketResponse;
@@ -47,6 +48,7 @@ public class HistoryFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("Token", Context.MODE_PRIVATE);
 
         rvHistory = binding.rvHistory;
+        new MainActivityLogged().getAccessInfo();
         Call<HistoryTicketResponse> call = accountApiService.getHistoryTicket("Bearer " + sharedPreferences.getString("access_token",""),sharedPreferences.getString("id_customer",""));
         call.enqueue(new Callback<HistoryTicketResponse>() {
             @Override
