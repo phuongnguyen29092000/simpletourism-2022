@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/company/:idCompany', auth('owner'), ticketController.getAllTicketCompany)
 
-router.get('/history/:id', auth('customer'), ticketController.getTicketsHistory)
+router.get('/history/:id', ticketController.getTicketsHistory)
 
 router.get('/:id', auth('owner','customer'), ticketController.getTicketById)
 
