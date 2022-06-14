@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.fragment.app.Fragment;
 
+import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.PaymentMethodBinding;
 import com.example.simpletouristapp.model.TicketResponse;
@@ -109,6 +110,7 @@ public class PaymentMethodFragment extends Fragment {
         binding.btnPaymentLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new MainActivityLogged().getAccessInfo();
                 Call<TicketResponse> call = toursApiService.bookTour("Bearer " + sharedPref.getString("access_token",""),informationBookTour.get("idTour")
                         ,sharedPref.getString("id_customer",""),binding.tvPhoneNumber.getText().toString()
                         , Integer.parseInt(binding.tvAmount.getText().toString()));

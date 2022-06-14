@@ -36,6 +36,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -213,9 +214,12 @@ public class LoginFragment extends Fragment {
                             LoginResponse loginResponse = response.body();
                             Toast.makeText(getActivity(), loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             preferences = getActivity().getSharedPreferences("Token", MODE_PRIVATE);
+                            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("id_customer",loginResponse.getProfile().getId());
                             editor.putString("access_token",loginResponse.getTokenAuth().getAccess().getToken());
+                            editor.putString("access_expires", simpleDateFormat1.format(loginResponse.getTokenAuth().getAccess().getExpires()));
                             editor.putString("refresh_token",loginResponse.getTokenAuth().getRefresh().getToken());
                             editor.putString("photo_url",loginResponse.getProfile().getPhotoUrl());
                             editor.putString("email",account.getEmail());
@@ -240,4 +244,5 @@ public class LoginFragment extends Fragment {
             }
         }
     }
+
 }
