@@ -11,7 +11,9 @@ const CommonHeader = ({
     const [searchValue, setSearchValue] = useState('')
 
     const handleChange = (value) => {
+        console.log(value);
         setSearchValue(value)
+        setKeySearch(value)
     }
     return (
         <div className='common-header'>

@@ -55,6 +55,12 @@ const updateTour = (id) =>{
   const url = `/tour/${id}`
   return axiosClient.patch(url, {headers: getHeaderWithToken()})
 }
+
+const getTourByOwner = (id) => {
+  const url = `/tour/owner/${id}`
+  return axiosClient.get(url, {headers: getHeaderWithToken()})
+}
+
 export default {
     getAllTour,
     addTour,
@@ -66,5 +72,6 @@ export default {
     getAllTourInternational,
     getTourById,
     searchTour,
-    updateTour
+    updateTour,
+    getTourByOwner
 }

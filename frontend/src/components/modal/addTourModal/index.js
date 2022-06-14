@@ -9,7 +9,7 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
     const dispatch = useDispatch()
     const [submit, setSubmit] = useState(false) 
     const {listTour} = useSelector((store)=>store.listTour)
-    console.log(tour)
+
     useEffect(()=>{
         dispatch(getAllTour())
     },[])
@@ -27,8 +27,7 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
     };
 
     const handleAddTour = (data)=>{
-        console.log(data)
-        dispatch(addTour(data))
+        dispatch(addTour(data, handleClose))
     }
     return (
         <div className='add-tour-modal'>
@@ -48,7 +47,7 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
                     </div>
                     <div className='modal-footer'>
                         <div className='btn-footer'>
-                            <Button variant="contained" className='btn-footer__action btn-add' onClick={()=>setSubmit(true)}>Thêm</Button>
+                            <Button variant="contained" className='btn-footer__action btn-add' onClick={()=>setSubmit(true)}>Lưu</Button>
                             <Button variant="contained" className='btn-footer__action btn-cancel' onClick={() => handleClose(false)}>Hủy</Button>
                         </div>
                     </div>

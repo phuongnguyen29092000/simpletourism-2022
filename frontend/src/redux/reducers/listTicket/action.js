@@ -14,7 +14,7 @@ const getAllTicket = (id,callback = ()=>{}) => {
                     type: types.GET_TICKET_SUCCESS,
                     payload: [...result.data.tickets]
                 })
-                callback()
+                callback([...result.data.tickets])
             }else{
                 dispatch({
                     type: types.GET_TICKET_FAIL
@@ -29,7 +29,7 @@ const getAllTicket = (id,callback = ()=>{}) => {
     }
 }
 
-const getTicketPerTour = (id,callback = ()=>{}) => {
+const getTicketPerTour = (id, callback = ()=>{}) => {
     return (dispatch) => {
         CheckExpiredToken()
         dispatch({type: types.GET_TICKET_PER_TOUR})
@@ -84,8 +84,14 @@ const deleteTicket = (id, callback = ()=>{}) => {
     }
 }
 
+const resetTicket = () => {
+    return (dispatch) => {
+        dispatch({type: types.RESET_TICKET})
+    }
+}
 export {
     getAllTicket,
     getTicketPerTour,
-    deleteTicket
+    deleteTicket,
+    resetTicket
 }

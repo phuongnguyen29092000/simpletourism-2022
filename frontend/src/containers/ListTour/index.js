@@ -6,15 +6,15 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery } from '@mui/material'
 import AddTourModal from '../../components/modal/addTourModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteTour, getAllTour } from '../../redux/reducers/listTour/action'
+import { deleteTour, getTourByOwner } from 'redux/reducers/listTour/action'
 import { getTicketPerTour } from '../../redux/reducers/listTicket/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import PaginationCustom from 'components/common/PaginationCustom'
 import RegardPrice from 'LogicResolve/RegardPrice'
 import { ROUTE_LIST_TICKET } from '../../route/type';
+import { getUser } from 'hooks/localAuth'
 
-
-function ListTour(props) {
+function ListTour({keySearch = ''}) {
     const [open, setOpen] = useState(false) 
     const [openUpdate, setOpenUpdate] = useState(false) 
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
@@ -23,29 +23,33 @@ function ListTour(props) {
     const [page, setPage] = useState(1)
     const dispatch = useDispatch()
     const [dataList, setDataList] = useState([])
+    const [listAll, setListAll] = useState([])
     let navigate = useNavigate();
     
-    let { listTour } = useSelector((store) => store.listTour)
-    console.log(listTour?.length)
+    let { listTourOwner } = useSelector((store) => store.listTour)
+
     useEffect(() => {
-        if (listTour.length === 0) dispatch(getAllTour())
-    }, [listTour])
+        console.log({keySearch});
+        dispatch(getTourByOwner(getUser()._id,(data) => setListAll([...data?.filter((item) => item?.tourName?.toLowerCase().includes(keySearch.toLowerCase()))])))
+        
+    }, [keySearch, dispatch])
 
     const handleOnChange = (e, value) => {
         let start = (value - 1) * 10;
-        let end = start + 10 < listTour.length ? start + 10 : listTour.length;
+        let end = start + 10 < listAll.length ? start + 10 : listAll.length;
         console.log(start, end)
-        setDataList([...listTour.slice(start, end)])
+        setDataList([...listAll.slice(start, end)])
         setPage(value)
     }
-
+    console.log({listAll});
     useEffect(() => {
-        setDataList([...listTour.slice(0, 10)])
-    }, [listTour])
+        setDataList([...listAll.slice(0, 10)])
+        setPage(1)
+    }, [listTourOwner, listAll])
 
     const getTickerPerTour = (id) => {
-        dispatch(getTicketPerTour(id))
-        navigate(`${ROUTE_LIST_TICKET}`);
+        dispatch(getTicketPerTour(id,navigate(`${ROUTE_LIST_TICKET}`)))
+        
     }
     
     const handleDelete = () => {
@@ -113,7 +117,7 @@ function ListTour(props) {
                         }
                     </tbody>
                 </table>
-                <PaginationCustom total={listTour.length} limit={10} page={page} onChange={handleOnChange} />
+                <PaginationCustom total={listAll.length} limit={10} page={page} onChange={handleOnChange} />
             </div>
             <AddTourModal open={open} handleClose={handleClose} action="THÊM TOUR MỚI"/>
             <AddTourModal open={openUpdate} handleClose={handleCloseUpdate} tour={tourUpdate} action="CẬP NHẬT TOUR"/>
