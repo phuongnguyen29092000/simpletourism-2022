@@ -7,7 +7,8 @@ const ticketRoute = require("./ticket.route");
 const feedbackRoute = require("./feedback.route");
 const authRoute = require("./auth.route");
 const paymentRoute = require("./payment.route");
-const newsRoute = require('./news.route')
+const newsRoute = require("./news.route");
+const statisticRoute = require("./statistic.route");
 
 const router = express.Router();
 
@@ -43,6 +44,10 @@ const defaultRoutes = [
   {
     path: "/news",
     route: newsRoute,
+  },
+  {
+    path: "/statistic",
+    route: statisticRoute,
   },
 ];
 
