@@ -4,7 +4,7 @@ import "animate.css";
 
 const notification = {
   insert: 'top',
-  container: 'bottom-right',
+  container: 'top-right',
   animationIn: ['animate__animated', 'animate__fadeIn'],
   animationOut: ['animate__animated', 'animate__fadeOut'],
   dismiss: {
@@ -16,7 +16,7 @@ const notification = {
 const Success = ({
   title,
   message,
-  container = 'bottom-right',
+  container = 'top-right',
   duration = 5000,
 }) => {
   Store.addNotification({
@@ -37,7 +37,7 @@ const Success = ({
 const Error = ({
   title,
   message,
-  container = 'bottom-right',
+  container = 'top-right',
   duration = 5000,
 }) => {
   Store.addNotification({
