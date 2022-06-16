@@ -20,6 +20,7 @@ class APIFeatures {
 
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    console.log(queryStr);
     this.query = this.query
       .find(JSON.parse(queryStr))
       .populate({ path: "typePlace" });
@@ -33,7 +34,7 @@ class APIFeatures {
     tours.forEach((item) => {
       if (arrTypePlace.includes(item.typePlace.slug)) {
         res.push(item);
-      }
+      } else console.log(item.tourName);
     });
     return res;
   }

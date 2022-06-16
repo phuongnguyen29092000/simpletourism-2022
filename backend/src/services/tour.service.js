@@ -1,18 +1,9 @@
-const { min } = require("moment");
 const { Tour, Ticket } = require("../models");
 const APIFeatures = require("../utils/apiFeatures");
 
 const getAllTour = async (queryString) => {
   let res = [];
-  const queryObj = { ...queryString };
-  var typePlace, minPrice, maxPrice;
-  if (queryObj.price) {
-    minPrice = queryObj.price.gte;
-    maxPrice = queryObj.price.lte;
-  }
-  if (!minPrice) minPrice = 0;
-  if (!maxPrice) maxPrice = 50000000;
-
+  var typePlace;
   if (queryString.typeplace) typePlace = queryString.typeplace;
   const features = new APIFeatures(Tour.find(), queryString);
   features.filter();
@@ -22,15 +13,10 @@ const getAllTour = async (queryString) => {
   features.paginate();
   const tours = await features.query;
   if (typePlace !== undefined) {
-    res = features.typePlace(typePlace, tours).filter((item) => {
-      return item.actualPrice <= maxPrice && item.actualPrice >= minPrice;
-    });
+    res = features.typePlace(typePlace, tours);
     return res;
   }
-  res = tours.filter((item) => {
-    return item.actualPrice <= maxPrice && item.actualPrice >= minPrice;
-  });
-  return res;
+  return tours;
 };
 
 const getDomesticTour = async () => {
@@ -93,7 +79,7 @@ const getOutstandingTour = async () => {
 const caculateRemainingAmount = async (id) => {
   const tour = await Tour.findById(id);
   let remainingAmount = tour.amount;
-  const ticket = await Ticket.find({ status: 1 }).populate({ path: "tour" });
+  const ticket = await Ticket.find().populate({ path: "tour" });
   ticket.forEach((element) => {
     if (element.tour._id == id) {
       remainingAmount -= element.numberPeople;
