@@ -1,6 +1,7 @@
 import * as types from './types'
 import API from '../../../api/TicketAPI'
 import { CheckExpiredToken } from 'ultis/authUtil'
+import useNotification from 'hooks/notification'
 
 const getAllTicket = (id,callback = ()=>{}) => {
     return (dispatch) => {
@@ -35,7 +36,8 @@ const getTicketPerTour = (id, callback = ()=>{}) => {
         dispatch({type: types.GET_TICKET_PER_TOUR})
         API.getTicketPerTour(id)
         // .then((response)=>response.json())
-        .then((result=>{
+        .then((result)=>{
+            console.log(result);
             if(result.status === 200){
                 console.log(result.data.tickets);
                 dispatch({
@@ -43,13 +45,17 @@ const getTicketPerTour = (id, callback = ()=>{}) => {
                     payload: [...result.data.tickets]
                 })
                 callback()
-            }else{
+            }else {
                 dispatch({
                     type: types.GET_TICKET_PER_TOUR_FAIL
                 })
             }
-        }))
+        })
         .catch((error)=>{
+            useNotification.Error({
+                message:"Thông báo",
+                title:"Chưa có vé nào được đặt cho tour này!"
+            })
             dispatch({
                 type: types.GET_TICKET_PER_TOUR_FAIL
             })

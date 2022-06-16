@@ -7,6 +7,7 @@ import { format, parse } from 'date-fns';
 import TicketAPI from 'api/TicketAPI';
 import useNotification from 'hooks/notification'
 import PriceDiscount from 'LogicResolve/PriceDiscount';
+import moment from 'moment';
 
 const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
     const dispatch = useDispatch()
@@ -45,8 +46,9 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         .then((result) => {
             if(result.status === 201){
                 useNotification.Success({
-                    title: "Thành công!",
-                    message:"Đặt tour thành công!"
+                    title: "Đặt tour thành công!",
+                    message:`Vui lòng thanh toán trước ${moment(new Date()).format('YYYY-MM-DD LTS')}\nKiểm tra trong tour của bạn."`,
+                    duration: 7000
                 })
                 reset();
                 handleClose(false);

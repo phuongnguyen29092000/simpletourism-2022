@@ -10,12 +10,19 @@
     flex-direction: column;
     /* border: 1px solid #22577E; */
 }
+.sidebar-wrapper .logo{
+    height: 95px;
+}
 .sidebar-wrapper .logo img{
     width: 120px;
 }
 .sidebar-section .menu-list-item{
     overflow-y: auto;
-    scrollbar-width: thin;
+    scrollbar-width: 10px;
+    height: calc(100vh - 93px - 101px);
+}
+.menu-list-item::-webkit-scrollbar{
+    width: 4px;
 }
 .menu-item{
     background-color: #5584AC;
@@ -32,11 +39,14 @@
 a{
     text-decoration: none;
 }
-.menu-item.accout{
+.menu-item.account{
     position: fixed;
     bottom: 0;
-    width: 120px;
+    padding: 20px 26px;
 }
 .icon-sidebar:hover{
     fill: #FAFFAF !important;
 }
+/* .menu-item:hover * {
+    color: black;
+} */

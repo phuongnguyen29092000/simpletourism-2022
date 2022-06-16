@@ -1,62 +1,4 @@
-// import { Timeline } from '@mui/icons-material';
-// import { TimelineConnector, TimelineDot, TimelineItem, TimelineOppositeContent, TimelineSeparator } from '@mui/lab';
-// import TimelineContent from '@mui/lab/TimelineContent';
-// import React from 'react';
-
-// const HistoryList = () => {
-//     return (
-//         <div className='history-component'>
-//             <React.Fragment>
-//                 <Timeline position="alternate">
-//                     <TimelineItem>
-//                         <TimelineOppositeContent color="text.secondary">
-//                             09:30 am
-//                         </TimelineOppositeContent>
-//                         <TimelineSeparator>
-//                             <TimelineDot />
-//                             <TimelineConnector />
-//                         </TimelineSeparator>
-//                         <TimelineContent>Eat</TimelineContent>
-//                     </TimelineItem>
-//                     <TimelineItem>
-//                         <TimelineOppositeContent color="text.secondary">
-//                             10:00 am
-//                         </TimelineOppositeContent>
-//                         <TimelineSeparator>
-//                             <TimelineDot />
-//                             <TimelineConnector />
-//                         </TimelineSeparator>
-//                         <TimelineContent>Code</TimelineContent>
-//                     </TimelineItem>
-//                     <TimelineItem>
-//                         <TimelineOppositeContent color="text.secondary">
-//                             12:00 am
-//                         </TimelineOppositeContent>
-//                         <TimelineSeparator>
-//                             <TimelineDot />
-//                             <TimelineConnector />
-//                         </TimelineSeparator>
-//                         <TimelineContent>Sleep</TimelineContent>
-//                     </TimelineItem>
-//                     <TimelineItem>
-//                         <TimelineOppositeContent color="text.secondary">
-//                             9:00 am
-//                         </TimelineOppositeContent>
-//                         <TimelineSeparator>
-//                             <TimelineDot />
-//                             <TimelineConnector />
-//                         </TimelineSeparator>
-//                         <TimelineContent>Repeat</TimelineContent>
-//                     </TimelineItem>
-//                 </Timeline>
-//             </React.Fragment>
-//         </div>
-//     );
-// };
-
-// export default HistoryList;
-
-import * as React from 'react';
+import React, {useState} from 'react';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -72,10 +14,15 @@ import TourCardMini from 'components/Cards/TourCardMini';
 import ConvertToImageURL from 'LogicResolve/ConvertToImageURL';
 import RegardPrice from 'LogicResolve/RegardPrice';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { Box } from '@mui/system';
+import PaymentModal from 'components/modal/PaymentModal';
 
-export default function HistoryList() {
+export default function HistoryList({onClose}) {
     const [histories, setHistories] = React.useState([])
     const navigate = useNavigate()
+    const [showPayment, setShowPayment] = useState(false)
+    const [dataPayment, setDataPayment] = useState(false)
     React.useEffect(() => {
         TicketAPI.getHistoryTicket(getUser()._id)
             .then(rs => {
@@ -89,29 +36,69 @@ export default function HistoryList() {
     }, [])
 
     return (
-        <React.Fragment>
+        <div>
             <h3 style={{ padding: '20px', textAlign: 'center', width: '100%' }}>TOUR CỦA BẠN</h3>
             {histories?.length > 0 ?
                 <Timeline position="right">
                     {
                         histories.map((item, index) => (
                             <TimelineItem key={index}>
-                                <TimelineOppositeContent color="text.secondary">
+                                <TimelineOppositeContent sx={{maxWidth:'130px', color:'#cc2f2f'}}>
                                     {moment(item?.createdAt).format('YYYY-MM-DD LTS')}
                                 </TimelineOppositeContent>
                                 <TimelineSeparator>
                                     <TimelineDot />
                                     <TimelineConnector />
                                 </TimelineSeparator>
-                                <TimelineContent sx={{ color: 'gray' }} onClick={() => navigate(`/tour-chi-tiet/${item.idTour}`)}>
-                                    <TourCardMini
-                                        name={item.tourName}
-                                        img={ConvertToImageURL(item.imageAvatar)}
-                                        rating={item.ratingsAverage}
-                                        _id={item._id}
-                                    />
-                                    <div>Số lượng: {item.numberPeople}</div>
-                                    <div>Tổng tiền: {RegardPrice(item.numberPeople * item.paymentPrice)}</div>
+                                <TimelineContent sx={{ color: 'gray', fontSize:'14px', marginBottom:'20px' }}>
+                                    <Box  onClick={() => navigate(`/tour-chi-tiet/${item.idTour}`)}>
+                                        <TourCardMini
+                                            name={item.tourName}
+                                            img={ConvertToImageURL(item.imageAvatar)}
+                                            rating={item.ratingsAverage}
+                                            _id={item._id}
+                                        />
+                                    </Box>
+                                    <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                                        <div>
+                                            <div>Số lượng: {item.numberPeople}</div>
+                                            <div>Tổng tiền: ₫{RegardPrice(item.numberPeople * item.paymentPrice)}</div>
+                                        </div>
+                                        {
+                                            item.status == 0 ?
+                                                <Button 
+                                                    sx={{fontSize:'16px', fontSize: '12px', padding: '0 5px', height: '30px'}} 
+                                                    variant='contained' 
+                                                    color='success'
+                                                    onClick={() => {
+                                                        setDataPayment({
+                                                            idTicket: item._id,
+                                                            cost: item.paymentPrice*item.numberPeople,
+                                                            tourName: item.tourName
+                                                        })
+                                                        setShowPayment(true)
+                                                    }}
+                                                >
+                                                    Thanh toán
+                                                </Button>
+                                                : <Button sx={{
+                                                        fontSize:'16px',
+                                                        fontSize: '12px',
+                                                        padding: '0 5px',
+                                                        height: '30px',
+                                                    }}
+                                                    style={{
+                                                        backgroundColor:'#0044ff9e',
+                                                        color:'#fff'
+                                                    }}
+                                                    variant="contained"
+                                                    disabled
+                                                    >
+                                                    Đã thanh toán
+                                                </Button>
+
+                                        }
+                                    </Box>
                                 </TimelineContent>
                             </TimelineItem>
                         ))
@@ -119,6 +106,7 @@ export default function HistoryList() {
                 </Timeline>
                 : <h5>BẠN CHƯA ĐẶT TOUR NÀO :D</h5>
             }
-        </React.Fragment>
+            <PaymentModal open={showPayment} handleClose={()=>setShowPayment(false)} infoPayment={dataPayment} onClose={onClose}/>
+        </div>
     );
 }

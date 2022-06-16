@@ -41,7 +41,7 @@ function SideBar(props) {
                         </div>
                     </Link>
                     <Link to={ROUTE_LIST_TICKET}>
-                        <div className='menu-item list-ticket' onClick={dispatch(resetTicket())}>
+                        <div className='menu-item list-ticket' onClick={() => dispatch(resetTicket())}>
                             <div className='menu-item__icon'>
                                 <img src={IconTicket} />
                                 <div className='menu-item__title'>
@@ -61,7 +61,7 @@ function SideBar(props) {
                         </div>
                     </Link>
                     <Link to={ROUTE_OWNER_NEWS}>
-                        <div className='menu-item account'>
+                        <div className='menu-item new'>
                             <div className='menu-item__icon'>
                                 <img src={IconNews} />
                                 <div className='menu-item__title'>
@@ -71,7 +71,7 @@ function SideBar(props) {
                         </div>
                     </Link>
                     <Link to={ROUTE_OWNER_NEWS}>
-                        <div className='menu-item account'>
+                        <div className='menu-item statistic'>
                             <div className='menu-item__icon'>
                                 <img src={IconStatistic} />
                                 <div className='menu-item__title'>

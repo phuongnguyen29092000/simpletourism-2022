@@ -2,6 +2,7 @@ const { Ticket, Tour } = require("../models");
 const mongoose = require("mongoose");
 
 const bookTicket = async (ticketBody) => {
+  const ticket = await Ticket.create(ticketBody)
   const infoTicket = await getTicketById(ticket._id.toString());
   return infoTicket;
 };
