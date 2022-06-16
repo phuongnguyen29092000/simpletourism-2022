@@ -12,7 +12,8 @@ import retrofit2.http.Path;
 
 public interface AccountApi {
     @GET("ticket/history/{id}")
-    Call<HistoryTicketResponse> getHistoryTicket(@Header("Authorization") String auth, @Path("id") String idCustomer);
+    Call<HistoryTicketResponse> getHistoryTicket(@Path("id") String idCustomer);
+
 
     @POST("auth/refresh-tokens")
     Call<RefreshTokenResponse> getAccessInfo(@Body String refreshToken);

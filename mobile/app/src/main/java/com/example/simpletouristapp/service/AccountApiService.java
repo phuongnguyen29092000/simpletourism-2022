@@ -19,7 +19,7 @@ public class AccountApiService {
                 .create(AccountApi.class);
     }
     public Call<HistoryTicketResponse> getHistoryTicket(String auth,String idCustomer){
-        return accountApi.getHistoryTicket(auth, idCustomer);
+        return accountApi.getHistoryTicket(idCustomer);
     }
 
     public Call<RefreshTokenResponse> getAccessInfo(String refreshToken){

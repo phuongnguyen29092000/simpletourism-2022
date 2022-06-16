@@ -31,30 +31,30 @@
             android:layout_gravity="center"
             android:textSize="25dp" />
 
-        <Button
-            android:id="@+id/btn_profile"
-            android:layout_width="match_parent"
-            android:layout_height="73dp"
-            android:fontFamily="sans-serif-black"
-            android:lineSpacingExtra="24sp"
-            android:text="Thông tin cá nhân"
-            android:backgroundTint="@color/white"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:textAlignment="center"
-            android:textColor="#576567"
-            android:textSize="20sp" />
-        <Button
-            android:id="@+id/btn_change_password"
-            android:layout_width="match_parent"
-            android:layout_height="73dp"
-            android:fontFamily="sans-serif-black"
-            android:lineSpacingExtra="24sp"
-            android:text="Đổi mật khẩu"
-            android:textAlignment="center"
-            android:textColor="#576567"
-            android:textSize="20sp"
-            android:backgroundTint="@color/white"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_profile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="73dp"-->
+<!--            android:fontFamily="sans-serif-black"-->
+<!--            android:lineSpacingExtra="24sp"-->
+<!--            android:text="Thông tin cá nhân"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="#576567"-->
+<!--            android:textSize="20sp" />-->
+<!--        <Button-->
+<!--            android:id="@+id/btn_change_password"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="73dp"-->
+<!--            android:fontFamily="sans-serif-black"-->
+<!--            android:lineSpacingExtra="24sp"-->
+<!--            android:text="Đổi mật khẩu"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="#576567"-->
+<!--            android:textSize="20sp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>-->
         <Button
             android:id="@+id/btn_history"
             android:layout_width="match_parent"

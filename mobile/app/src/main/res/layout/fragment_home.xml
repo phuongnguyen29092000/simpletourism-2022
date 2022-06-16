@@ -15,26 +15,7 @@
         tools:ignore="MissingConstraints">
 
 
-        <TextView
-            android:id="@+id/popular_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12sp"
-            android:layout_marginLeft="3sp"
-            android:textSize="22sp"
-            android:text="@string/popular_title"
-            android:fontFamily="@font/nunit_sans_extrabold"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_item_popular_places"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,6 +32,26 @@
             android:orientation="horizontal">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_item_outstanding_tours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/popular_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12sp"
+            android:layout_marginLeft="3sp"
+            android:textSize="22sp"
+            android:text="Các tin tức nổi bật"
+            android:fontFamily="@font/nunit_sans_extrabold"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:orientation="horizontal">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_hot_news"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />

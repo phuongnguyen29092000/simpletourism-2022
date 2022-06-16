@@ -32,7 +32,7 @@
             android:id="@+id/name_tour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:layout_marginLeft="30dp"
             android:fontFamily="@font/nunit_sans_extrabold"/>
 
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giá: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
@@ -54,14 +54,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_price_after_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#F40D0D"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:visibility="gone"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:textSize="20dp"/>
+                android:textSize="@dimen/text_size"/>
 
         </LinearLayout>
         <LinearLayout
@@ -95,14 +95,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thời gian: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_time_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
@@ -115,14 +115,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Khách sạn: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_hotel_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
@@ -135,14 +135,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số lượng: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_amount_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
@@ -155,14 +155,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số lượng còn: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_amount_remain_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
@@ -175,14 +175,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Loại hình: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <TextView
                 android:id="@+id/tv_type_place"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
         </LinearLayout>
@@ -191,7 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Mô tả: "
-            android:textSize="20dp"
+            android:textSize="@dimen/text_size"
             android:layout_marginLeft="30dp"
             android:fontFamily="@font/nunito_sans_semibold"/>
             <LinearLayout
@@ -203,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mô tả: "
-                    android:textSize="20dp"
+                    android:textSize="@dimen/text_size"
                     android:justificationMode="inter_word"
                     android:ellipsize="end"
                     android:maxLines="2"
@@ -240,7 +240,7 @@
             android:layout_height="wrap_content"
             android:text="Lịch trình: "
             android:layout_marginTop="20dp"
-            android:textSize="20dp"
+            android:textSize="@dimen/text_size"
             android:layout_marginLeft="30dp"
             android:fontFamily="@font/nunito_sans_semibold"/>
         <LinearLayout
@@ -258,7 +258,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="Lịch trình: "
-                android:textSize="20dp"
+                android:textSize="@dimen/text_size"
                 android:fontFamily="@font/nunito_sans_semibold"/>
 
             <Button
