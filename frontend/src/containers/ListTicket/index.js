@@ -92,10 +92,10 @@ function ListTicket(props) {
           csv += '\n'
         })
     
-        // let total = `Tong ve: ${objTotal.totalTicket} \nTong tien: ${objTotal.totalPrice} VND`
+        let total = `Tong ve: ${calucateTotalPriceTicket(ticketData).totalTicket} \nTong tien: ${calucateTotalPriceTicket(ticketData).totalPrice} VND`
         let hiddenElement = document.createElement('a')
         hiddenElement.href =
-          'data:text/csv;charset=utf-8,' + encodeURIComponent(csv)
+          'data:text/csv;charset=utf-8,' + encodeURIComponent(csv+total)
         hiddenElement.target = '_blank'
         hiddenElement.download = `${ticketData[0].tourName}.csv`
         hiddenElement.click()
@@ -103,10 +103,13 @@ function ListTicket(props) {
 
     return (
         <div className='ticket-manager'>
-            <div style={{width:'170px', margin: '10px 0px 20px 0px', display:'flex', alignItems:'center', cursor:'pointer'}} onClick={()=>handleExportCSVFile(ticketData)}>
-                <FileDownloadIcon color='action'></FileDownloadIcon>
-                <span style={{color:'#858585', fontWeight:'700', marginLeft:'10px', fontSize:'14px', cursor:'pointer'}}>Export to CSV File</span>
-            </div>
+            {
+                listTicketPerTour.length !== 0 && 
+                <div style={{width:'170px', margin: '10px 0px 20px 0px', display:'flex', alignItems:'center', cursor:'pointer'}} onClick={()=>handleExportCSVFile(ticketData)}>
+                    <FileDownloadIcon color='action'></FileDownloadIcon>
+                    <span style={{color:'#858585', fontWeight:'700', marginLeft:'10px', fontSize:'14px', cursor:'pointer'}}>Export to CSV File</span>
+                </div>
+            }
             <div className='ticket-manager__listticket'>
                 <table>
                     <thead>
@@ -147,7 +150,7 @@ function ListTicket(props) {
                                 </tr>
                             ))
                         }
-                        {/* <tr style={{height:'80px'}}>
+                        <tr style={{height:'80px'}}>
                             <td className='td-2'></td>
                             <td className='td-2'></td>
                             <td className='td-1'></td>
@@ -156,14 +159,14 @@ function ListTicket(props) {
                             <td className='td-3'></td>
                             <td className='td-3' style={{textAlign:'right'}}>
                                 <div style={{marginBottom:'15px', fontWeight:'700'}}>Tổng vé:</div>
-                                <span>{objTotal.totalTicket}</span>  
+                                <span>{calucateTotalPriceTicket(ticketData)?.totalTicket}</span>  
                             </td>
                             <td className='td-2' style={{textAlign:'right'}}>
                                 <div style={{marginBottom:'15px', fontWeight:'700'}}>Tổng tiền:</div>
-                                <span>{objTotal.totalPrice?.toLocaleString().split(',').join('.')} đ</span>    
+                                <span>{calucateTotalPriceTicket(ticketData)?.totalPrice?.toLocaleString().split(',').join('.')} đ</span>    
                             </td>
                             <td></td>
-                        </tr> */}
+                        </tr>
                     </tbody>
                 </table>
             </div>

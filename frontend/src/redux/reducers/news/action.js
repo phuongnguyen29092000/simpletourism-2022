@@ -1,5 +1,6 @@
 import * as types from './types'
 import API from '../../../api/NewsAPI'
+import useNotification from 'hooks/notification'
 
 const addNews = (data, callback=()=>{}) =>{
     console.log(data)
@@ -12,9 +13,13 @@ const addNews = (data, callback=()=>{}) =>{
             if(result.status === 201){
                 dispatch({
                     type: types.CREATE_NEWS_SUCCESS,
-                    payload: {...data}
+                    payload: {...result.data.news}
                 })
                 callback()
+                useNotification.Success({
+                    title: "Thành công!",
+                    message:"Bạn đã thêm tin tức thành công!"
+                })
             }else{
                 dispatch({
                     type: types.CREATE_NEWS_FAIL
@@ -22,6 +27,10 @@ const addNews = (data, callback=()=>{}) =>{
             }
         })
         .catch((error)=>{
+            useNotification.Error({
+                title: "Lỗi!",
+                message:"Server Error!"
+            })
             dispatch({
                 type: types.CREATE_NEWS_FAIL
             })
@@ -64,7 +73,7 @@ const getNewsPerCompany = (id, callback = ()=>{}) => {
             if(result.status === 200){
                 dispatch({
                     type: types.GET_NEWS_COMPANY_SUCCESS,
-                    payload: [...result.data]
+                    payload: [...result.data.news]
                 })
                 callback()
             }else{
@@ -114,12 +123,16 @@ const deleteNews = (id, callback = ()=>{}) => {
         API.deleteNews(id)
         // .then((response)=>response.json())
         .then((result)=>{
-            if(result.status === 200){
+            if(result.status === 204){
                 dispatch({
                     type: types.DELETE_NEWS_SUCCESS,
-                    payload: {...result}
+                    payload: id
                 })
-                callback()
+                callback(result)
+                useNotification.Success({
+                    title: "Thành công!",
+                    message:"Bạn đã xóa tin tức thành công!"
+                })
             }else{
                 dispatch({
                     type: types.DELETE_NEWS_FAIL
@@ -127,17 +140,60 @@ const deleteNews = (id, callback = ()=>{}) => {
             }
         })
         .catch((error)=>{
+            useNotification.Success({
+                title: "Lỗi!",
+                message:"Lỗi server!"
+            })
             dispatch({
                 type: types.DELETE_NEWS_FAIL
             })
         })
     }
 }
+
+
+const updateNews = (id,data, callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.UPDATE_NEWS})
+        API.updateNews(id, data)
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                dispatch({
+                    type: types.UPDATE_NEWS_SUCCESS,
+                    payload: {
+                        id: id,
+                        news: result?.data?.newsSingle
+                    }
+                })
+                callback(result)
+                useNotification.Success({
+                    title: "Thành công!",
+                    message:"Bạn đã cập nhật tin tức thành công!"
+                })
+            }else{
+                dispatch({
+                    type: types.UPDATE_NEWS_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            useNotification.Error({
+                title: "Lỗi!",
+                message:"Lỗi server!"
+            })
+            dispatch({
+                type: types.UPDATE_NEWS_FAIL
+            })
+        })
+    }
+}
+
 export {
     addNews,
     getAllNews,
     getNewsPerCompany,
     getNewsDetail,
     deleteNews,
-
+    updateNews
 }

@@ -1,14 +1,18 @@
 import { Box, Button, Modal } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import TourForm from './TourForm';
+import TourForm from './NewsForm';
 import {useDispatch, useSelector} from 'react-redux'
-import {getAllTour, addTour, updateTour} from '../../../redux/reducers/listTour/action'
+import { getAllNews, addNews, updateNews} from '../../../redux/reducers/news/action'
 import { format } from 'date-fns';
 
-const AddTourModal = ({ open, handleClose, tour, action }) => {
+const AddNewsModal = ({ open, handleClose, news, action }) => {
     const dispatch = useDispatch()
     const [submit, setSubmit] = useState(false) 
-    const {listTour} = useSelector((store)=>store.listTour)
+    const { listNews } = useSelector((store)=>store.news)
+
+    useEffect(()=>{
+        dispatch(getAllNews())
+    },[])
 
     const style = {
         position: 'absolute',
@@ -22,12 +26,12 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
         borderRadius:'5px',
     };
 
-    const handleAddTour = (data)=>{
-        dispatch(addTour(data, handleClose))
+    const handleAddNews = (data)=>{
+        dispatch(addNews(data, handleClose))
     }
 
-    const handleUpdateTour = (id,data)=> {
-        dispatch(updateTour(id, data, handleClose))
+    const handleUpdateNews = (id, data) =>{
+        dispatch(updateNews(id, data, handleClose))
     }
     return (
         <div className='add-tour-modal'>
@@ -43,7 +47,7 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
                         </div>
                     </div>
                     <div className='modal-body'>
-                        <TourForm handleAddTour={handleAddTour} handleUpdateTour={handleUpdateTour} submit={submit} setSubmit={setSubmit} tour={tour}/>
+                        <TourForm handleAddNews={handleAddNews} handleUpdateNews={handleUpdateNews} submit={submit} setSubmit={setSubmit} news={news}/>
                     </div>
                     <div className='modal-footer'>
                         <div className='btn-footer'>
@@ -57,4 +61,4 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
     );
 };
 
-export default AddTourModal;
+export default AddNewsModal;

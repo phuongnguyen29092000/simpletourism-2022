@@ -101,6 +101,28 @@ export const reducer = (state = initialState, action) => {
         loading: false,
       }
     }
+    case types.UPDATE_TOUR: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case types.UPDATE_TOUR_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case types.UPDATE_TOUR_SUCCESS: {
+      let listTourTemp = [...state?.listTourOwner];
+      let indexUpdate = listTourTemp?.map((tour) => tour._id).indexOf(action.payload.id);
+      let result = listTourTemp?.splice(indexUpdate, 1, action.payload.tour);
+      return {
+        ...state,
+        listTourOwner: listTourTemp,
+        loading: false,
+      };
+    }
     case types.GET_TOUR_DOMESTIC: {
       return {
         ...state,

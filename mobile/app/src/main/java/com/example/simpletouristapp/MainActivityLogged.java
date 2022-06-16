@@ -209,40 +209,41 @@ public class MainActivityLogged extends AppCompatActivity {
         });
         sharedPref.edit().clear().commit();
     }
-    public void getAccessInfo(){
-//        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        SharedPreferences preferences2 = getSharedPreferences("Token", MODE_PRIVATE);
-//        String expires = sharedPref.getString("access_expires","");
-//        try {
-//            Date access_expires = simpleDateFormat1.parse(expires);
-//            Date currentDate = Calendar.getInstance().getTime();
-//            Log.d("Date",simpleDateFormat1.format(access_expires));
-//            Log.d("Current Date",simpleDateFormat1.format(currentDate));
-//            if(access_expires.after(currentDate)){
-//                AccountApiService accountApiService = new AccountApiService();
-//                Call<RefreshTokenResponse> call = accountApiService.getAccessInfo(sharedPref.getString("refresh_token",""));
-//                call.enqueue(new Callback<RefreshTokenResponse>() {
-//                    @Override
-//                    public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-//                        if(response.code() == 200){
-//                            RefreshTokenResponse refreshTokenResponse = response.body();
-//                            SharedPreferences.Editor editor = sharedPref.edit();
-//                            editor.putString("access_token",refreshTokenResponse.getAccessInfo().getToken());
-//                            editor.putString("access_expires", simpleDateFormat1.format(refreshTokenResponse.getAccessInfo().getExpires()));
-//                            editor.remove("refresh_token");
-//                            editor.commit();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
-//                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//                        Log.d("ERROR",t.getMessage());
-//                    }
-//                });
-//            }
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+    public static void getAccessInfo(Context context){
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SharedPreferences preferences2 = context.getSharedPreferences("Token", MODE_PRIVATE);
+        String expires = preferences2.getString("access_expires","");
+        try {
+            Date access_expires = simpleDateFormat1.parse(expires);
+            Date currentDate = Calendar.getInstance().getTime();
+            Log.d("Date",simpleDateFormat1.format(access_expires));
+            Log.d("Current Date",simpleDateFormat1.format(currentDate));
+            Log.d("Check", String.valueOf(currentDate.after(access_expires)));
+            if(currentDate.after(access_expires)){
+                AccountApiService accountApiService = new AccountApiService();
+                Log.d("Refresh", preferences2.getString("refresh_token",""));
+                Call<RefreshTokenResponse> call = accountApiService.getAccessInfo(preferences2.getString("refresh_token",""));
+                call.enqueue(new Callback<RefreshTokenResponse>() {
+                    @Override
+                    public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
+                        if(response.code() == 200){
+                            RefreshTokenResponse refreshTokenResponse = response.body();
+                            SharedPreferences.Editor editor = preferences2.edit();
+                            editor.putString("access_token",refreshTokenResponse.getAccessInfo().getToken());
+                            editor.putString("access_expires", simpleDateFormat1.format(refreshTokenResponse.getAccessInfo().getExpires()));
+                            editor.commit();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("ERROR",t.getMessage());
+                    }
+                });
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

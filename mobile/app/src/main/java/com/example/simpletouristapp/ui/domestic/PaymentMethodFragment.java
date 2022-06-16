@@ -110,7 +110,7 @@ public class PaymentMethodFragment extends Fragment {
         binding.btnPaymentLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MainActivityLogged().getAccessInfo();
+                MainActivityLogged.getAccessInfo(getContext());
                 Call<TicketResponse> call = toursApiService.bookTour("Bearer " + sharedPref.getString("access_token",""),informationBookTour.get("idTour")
                         ,sharedPref.getString("id_customer",""),binding.tvPhoneNumber.getText().toString()
                         , Integer.parseInt(binding.tvAmount.getText().toString()));

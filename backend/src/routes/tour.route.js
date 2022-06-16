@@ -34,7 +34,12 @@ router
   .route("/:id")
   .get(TourController.getTour)
   .delete(auth('owner'), TourController.deleteTour)
-  .patch(auth('owner'),TourController.updateTour);
+  .put(auth('owner'),upLoadImage.fields([
+    { name: "imageAvatar", maxCount: 1 },
+    { name: "imageSlide1", maxCount: 1 },
+    { name: "imageSlide2", maxCount: 1 },
+    { name: "imageSlide3", maxCount: 1 },
+  ]),TourController.updateTour);
 
 router
   .route("/owner/:ownerId")

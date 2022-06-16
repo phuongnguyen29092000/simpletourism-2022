@@ -129,6 +129,48 @@ const deleteTour = (id, callback = ()=>{}) => {
     }
 }
 
+const updateTour = (id, data,callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.UPDATE_TOUR})
+        API.updateTour(id, data)
+        // .then((response)=>response.json())
+        .then((result)=>{
+            // if(result.status)
+            if(result.status === 200){
+                dispatch({
+                    type: types.UPDATE_TOUR_SUCCESS,
+                    payload: {
+                        id: id,
+                        tour: result.data.data
+                    }
+                })
+                callback()
+                useNotification.Success({
+                    title:"Thành công!",
+                    message:"Bạn đã cập nhật tour thành công!"
+                })
+            }else{
+                dispatch({
+                    type: types.UPDATE_TOUR_FAIL
+                })
+                useNotification.Success({
+                    title:"Lỗi!",
+                    message:"Server Error!"
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.DELETE_TOUR_FAIL
+            })
+            useNotification.Success({
+                title:"Lỗi!",
+                message:"Server Error!"
+            })
+        })
+    }
+}
+
 const getAllTourDomestic = (callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.GET_TOUR_DOMESTIC})
@@ -275,5 +317,6 @@ export {
     filterTour,
     getOutstandingTour,
     getTourById,
-    getTourByOwner
+    getTourByOwner,
+    updateTour
 }

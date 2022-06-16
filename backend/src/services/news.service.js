@@ -3,7 +3,7 @@ const { News } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const createNews = async(newsBody) => {
-    const news = await News.create(newsBody).populate({path: 'owner'})
+    const news = await News.create(newsBody)
     return news
 }
 
