@@ -49,7 +49,7 @@ public class HistoryFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("Token", Context.MODE_PRIVATE);
         ticketHistories = new ArrayList<>();
         rvHistory = binding.rvHistory;
-        new MainActivityLogged().getAccessInfo();
+        MainActivityLogged.getAccessInfo(getContext());
         Call<HistoryTicketResponse> call = accountApiService.getHistoryTicket("Bearer " + sharedPreferences.getString("access_token",""),sharedPreferences.getString("id_customer",""));
         call.enqueue(new Callback<HistoryTicketResponse>() {
             @Override

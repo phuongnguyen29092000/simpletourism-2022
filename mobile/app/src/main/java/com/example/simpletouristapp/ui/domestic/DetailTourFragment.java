@@ -213,7 +213,7 @@ public class DetailTourFragment extends Fragment {
                     });
                     builder.show();
                 }else {
-                    new MainActivityLogged().getAccessInfo();
+                    MainActivityLogged.getAccessInfo(getContext());
                     Call<SendFeedbackResponse> call1 = feedBacksApiService.sendFeedback(
                             "Bearer " + sharedPreferences.getString("access_token",""),tourId
                             , sharedPreferences.getString("id_customer",""), binding.edtComment.getText().toString()
