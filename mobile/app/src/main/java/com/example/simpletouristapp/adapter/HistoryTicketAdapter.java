@@ -1,27 +1,35 @@
 package com.example.simpletouristapp.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.model.HistoryTicketResponse;
+import com.example.simpletouristapp.service.ToursApiService;
+import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdapter.HistoryTicketViewHolder>{
     private Context context;
-    private List<HistoryTicketResponse.TicketHistory> tickets;
+    private List<HistoryTicketResponse.Ticket.TicketHistory> tickets;
 
-    public HistoryTicketAdapter(Context context, List<HistoryTicketResponse.TicketHistory> tickets) {
+    public HistoryTicketAdapter(Context context, List<HistoryTicketResponse.Ticket.TicketHistory> tickets) {
         this.context = context;
         this.tickets = tickets;
     }
@@ -36,10 +44,13 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
 
     @Override
     public void onBindViewHolder(@NonNull HistoryTicketViewHolder holder, int position) {
-        HistoryTicketResponse.TicketHistory ticket = tickets.get(position);
+        HistoryTicketResponse.Ticket.TicketHistory ticket = tickets.get(position);
 
         Locale lc = new Locale("nv","VN");
         NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
+
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         holder.nameTour.setText(ticket.getTourName());
         holder.price.setText(nf.format(ticket.getPaymentPrice()));
@@ -48,6 +59,28 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
         }else {
             holder.state.setText("Chưa thanh toán");
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ticket", (Serializable) ticket);
+                Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_history_detail,bundle);
+            }
+        });
+        holder.bookingDate.setText(simpleDateFormat.format(ticket.getBookingDate()));
+        try {
+            Picasso.get().load(ToursApiService.BASE_URL + ticket.getImageAvatar().substring(7)).into(holder.image);
+        }catch (Exception e){
+            Log.d("error",e.getMessage());
+        }
+        holder.btnRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("IdTour", ticket.getIdTour());
+                Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_detail_tour,bundle);
+            }
+        });
     }
 
     @Override
@@ -56,8 +89,10 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
     }
 
     public class HistoryTicketViewHolder extends RecyclerView.ViewHolder{
+        private ImageView image;
         private TextView nameTour;
         private TextView price;
+        private TextView bookingDate;
         private Button btnRate;
         private TextView state;
         public HistoryTicketViewHolder(@NonNull View itemView) {
@@ -66,6 +101,8 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
             price = itemView.findViewById(R.id.tv_price_history);
             btnRate = itemView.findViewById(R.id.btn_rate_history);
             state = itemView.findViewById(R.id.tv_state);
+            image = itemView.findViewById(R.id.image_history);
+            bookingDate = itemView.findViewById(R.id.tv_booking_date);
         }
     }
 }

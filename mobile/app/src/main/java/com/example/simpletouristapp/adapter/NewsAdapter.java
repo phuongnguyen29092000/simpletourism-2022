@@ -24,10 +24,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     private Context context;
     private List<News> newsList;
+    private String fragment;
 
-    public NewsAdapter(Context context, List<News> newsList) {
+    public NewsAdapter(Context context, List<News> newsList, String fragment) {
         this.context = context;
         this.newsList = newsList;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -55,7 +57,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdNews", news.getId());
-                Navigation.findNavController(view).navigate(R.id.action_nav_news_to_nav_news_detail,bundle);
+                if(fragment.equals("home")){
+                    Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_news_detail,bundle);
+                }else {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_news_to_nav_news_detail,bundle);
+                }
+
             }
         });
     }

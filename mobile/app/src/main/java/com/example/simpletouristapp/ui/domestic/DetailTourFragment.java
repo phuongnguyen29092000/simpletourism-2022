@@ -234,7 +234,7 @@ public class DetailTourFragment extends Fragment {
                                 builder.show();
                                 binding.edtComment.setText("");
                             }else {
-                                builder.setTitle("Đánh giá thất bại");
+                                builder.setTitle("Bạn cần đặt tour và thanh toán trước khi đánh giá");
                                 builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {

@@ -153,12 +153,18 @@ const searchByText = async (text) => {
   text = text.replace("+", " ");
   const searchByName = await Tour.find({
     tourName: { $regex: text, $options: "i" },
+  }).populate({
+    path: "typePlace",
   });
   const searchByDescription = await Tour.find({
     description: { $regex: text, $options: "i" },
+  }).populate({
+    path: "typePlace",
   });
   const searchBySlug = await Tour.find({
     slug: { $regex: textSlug, $options: "i" },
+  }).populate({
+    path: "typePlace",
   });
   let arr = [...searchByName, ...searchByDescription, ...searchBySlug];
   let jsonObject = arr.map(JSON.stringify);

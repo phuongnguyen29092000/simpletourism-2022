@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_detail_tour"
             app:destination="@id/nav_detail_tour" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_news_detail"
+            app:destination="@id/nav_news_detail" />
     </fragment>
 
     <fragment
@@ -44,6 +47,9 @@
         <action
             android:id="@+id/action_nav_detail_tour_to_nav_book_tour"
             app:destination="@id/nav_book_tour" />
+        <action
+            android:id="@+id/action_nav_detail_tour_to_nav_history"
+            app:destination="@id/nav_history" />
     </fragment>
     <fragment
         android:id="@+id/nav_international"
@@ -71,6 +77,9 @@
         <action
             android:id="@+id/action_nav_news_detail_to_nav_news"
             app:destination="@id/nav_news" />
+        <action
+            android:id="@+id/action_nav_news_detail_to_nav_home"
+            app:destination="@id/nav_home" />
     </fragment>
     <fragment
         android:id="@+id/nav_account"
@@ -113,6 +122,12 @@
         <action
             android:id="@+id/action_nav_history_to_nav_account"
             app:destination="@id/nav_account" />
+        <action
+            android:id="@+id/action_nav_history_to_nav_history_detail"
+            app:destination="@id/nav_history_detail" />
+        <action
+            android:id="@+id/action_nav_history_to_nav_detail_tour"
+            app:destination="@id/nav_detail_tour" />
     </fragment>
     <fragment
         android:id="@+id/nav_book_tour"
@@ -134,5 +149,14 @@
         <action
             android:id="@+id/action_nav_payment_to_nav_book_tour"
             app:destination="@id/nav_book_tour" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_history_detail"
+        android:name="com.example.simpletouristapp.ui.account.DetailHistoryFragment"
+        android:label="@string/history_title"
+        tools:layout="@layout/detail_history" >
+        <action
+            android:id="@+id/action_nav_history_detail_to_nav_history"
+            app:destination="@id/nav_history" />
     </fragment>
 </navigation>
