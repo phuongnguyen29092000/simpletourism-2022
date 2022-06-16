@@ -1,15 +1,18 @@
-const { PaypalClient } = require("../models");
+const { PaypalClient, Tour, Ticket } = require("../models");
+const { updateTicketById } = require("./ticket.service");
 var paypal = require("paypal-rest-sdk");
 
-
 var totalPayment = 0;
-const createPayment = async (req, res, items, total) => {
+const createPayment = async (req, res, items, total, idTicket) => {
+  const idTour = (await Ticket.findById(idTicket)).tour;
   totalPayment = total;
-  var client_id = (await PaypalClient.findOne({ owner: { $eq: items[0].sku } }))
+  const ownerId = (await Tour.findById(idTour)).owner;
+  console.log(ownerId);
+  var client_id = (await PaypalClient.findOne({ owner: { $eq: ownerId } }))
     .client_id;
   var client_secret = (
     await PaypalClient.findOne({
-      owner: { $eq: items[0].sku },
+      owner: { $eq: ownerId },
     })
   ).client_secret;
   paypal.configure({
@@ -24,7 +27,7 @@ const createPayment = async (req, res, items, total) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:4000/payment/success",
+      return_url: `http://localhost:4000/payment/${idTicket}/success`,
       cancel_url: "http://localhost:4000/payment/failure",
     },
     transactions: [
@@ -70,15 +73,20 @@ const getSuccessPayment = async (payerId, paymentId, req, res) => {
   paypal.payment.execute(
     paymentId,
     execute_payment_json,
-    function (error, payment) {
+    async function (error, payment) {
       if (error) {
         console.log(error.response);
         throw error;
       } else {
         //res.render("payment");
+        let ticketBody = {
+          status: 1,
+        };
+        let idTicket = req.originalUrl.slice(9, 33);
+        await Ticket.findByIdAndUpdate(idTicket, ticketBody);
         res.json({
           status: 200,
-          message: "OK",
+          message: "Thanh toán thành công!",
         });
       }
     }

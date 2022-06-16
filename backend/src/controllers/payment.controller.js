@@ -4,11 +4,12 @@ const { PaypalService } = require("../services");
 
 const createPayment = catchAsync(async (req, res) => {
   var price = (req.body.price / 23000).toFixed(2);
+  var idTicket = req.body.sku;
   var total = 0;
   var items = [
     {
       name: req.body.name,
-      sku: req.body.sku,
+      sku: idTicket,
       price: price,
       currency: "USD",
       quantity: req.body.quantity,
@@ -17,7 +18,7 @@ const createPayment = catchAsync(async (req, res) => {
   for (let i = 0; i < items.length; i++) {
     total += parseFloat(items[i].price * items[i].quantity);
   }
-  await PaypalService.createPayment(req, res, items, total);
+  await PaypalService.createPayment(req, res, items, total, idTicket);
 });
 
 const getSuccessPayment = catchAsync(async (req, res) => {
