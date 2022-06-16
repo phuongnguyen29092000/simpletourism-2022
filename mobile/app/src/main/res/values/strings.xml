@@ -54,7 +54,7 @@
     <string name="title_activity_filter_result">FilterResultActivity</string>
     <string-array name="initial_slider_values">
         <item>0</item>
-        <item>10000000</item>
+        <item>50000000</item>
     </string-array>
 
 

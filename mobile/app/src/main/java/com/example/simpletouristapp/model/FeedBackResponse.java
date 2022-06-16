@@ -100,6 +100,8 @@ public class FeedBackResponse{
             @SerializedName("role")
             private String role;
 
+            @SerializedName("photoUrl")
+            private String photoUrl;
 
             public String getId() {
                 return id;
@@ -139,6 +141,14 @@ public class FeedBackResponse{
 
             public void setFamilyName(String familyName) {
                 this.familyName = familyName;
+            }
+
+            public String getPhotoUrl() {
+                return photoUrl;
+            }
+
+            public void setPhotoUrl(String photoUrl) {
+                this.photoUrl = photoUrl;
             }
         }
     }

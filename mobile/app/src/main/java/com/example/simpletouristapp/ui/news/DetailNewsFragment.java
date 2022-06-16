@@ -20,6 +20,8 @@ import com.example.simpletouristapp.service.NewsApiService;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,9 +54,13 @@ public class DetailNewsFragment extends Fragment {
                 if (response.code() == 200){
                     NewsSingleResponse newsSingleResponse = response.body();
                     News news = newsSingleResponse.getNews();
+                    String pattern = "dd/MM/yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     binding.title.setText(news.getTitle());
                     binding.description.setText(news.getDescription());
                     Picasso.get().load(ToursApiService.BASE_URL + news.getImageUrl().substring(7)).into(binding.image);
+                    binding.view.setText(Integer.toString(news.getViewer()));
+                    binding.date.setText(simpleDateFormat.format(news.getDateSubmitted()));
                 }
             }
 
