@@ -2,6 +2,7 @@ import axiosClient from "./axiosClient";
 import {getHeaderWithToken} from "./getHeaderWithToken";
 
 const addNews = (data) => {
+  console.log(data);
   const url = '/news/create';
   return axiosClient.post(url, data, {headers: getHeaderWithToken()})
 }
@@ -30,7 +31,6 @@ const updateViewer = (id) => {
   const url = `/news/viewer/${id}`
   return axiosClient.put(url)
 }
-
 
 const deleteNews = (id) => {
   const url = `/news/${id}`;

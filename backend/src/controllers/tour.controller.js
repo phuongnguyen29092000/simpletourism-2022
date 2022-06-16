@@ -108,7 +108,30 @@ const createTour = catchAsync(async (req, res, next) => {
 });
 
 const updateTour = catchAsync(async (req, res, next) => {
-  const tour = await TourService.updateTour(req.params.id, req.body);
+  const tourDetail = await TourService.tourDetail(req.params.id)
+  let imageAvatarPath, imageSlide1, imageSlide2, imageSlide3, imageSlidesPath =[]
+  if(req.files){
+    imageAvatarPath = req.files.imageAvatar ? req.files.imageAvatar[0].path  : tourDetail.imageAvatar
+    imageSlide1 = req.files.imageSlide1 ? req.files.imageSlide1[0].path : tourDetail.imageSlide[0]
+    imageSlide2 = req.files.imageSlide2 ? req.files.imageSlide2[0].path : tourDetail.imageSlide[1]
+    imageSlide3 = req.files.imageSlide3 ? req.files.imageSlide3[0].path : tourDetail.imageSlide[2]
+    imageSlidesPath.push(imageSlide1);
+    imageSlidesPath.push(imageSlide2);
+    imageSlidesPath.push(imageSlide3);
+  } else {
+    imageAvatarPath = tourDetail.imageAvatar
+    imageSlide1 = tourDetail.imageSlide[0]
+    imageSlide2 = tourDetail.imageSlide[1]
+    imageSlide3 = tourDetail.imageSlide[2]
+    imageSlidesPath.push(imageSlide1);
+    imageSlidesPath.push(imageSlide2);
+    imageSlidesPath.push(imageSlide3);
+  }
+  const tour = await TourService.updateTour(req.params.id, Object.assign(
+    req.body,
+    { imageAvatar: imageAvatarPath},
+    { imageSlide: imageSlidesPath }
+  ));
   if (!tour) {
     return next(
       new ApiError(

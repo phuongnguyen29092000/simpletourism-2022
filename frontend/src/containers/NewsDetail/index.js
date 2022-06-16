@@ -33,7 +33,7 @@ function NewsDetail(props) {
                         <Grid container style={{ justifyContent: 'center', padding: '20px'}}>
                             <Grid container item md={8} xs={12} style={{ boxShadow: '0 1px 3px -2px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%)', padding: '20px', display:'flex', flexDirection:'column'}}>
                                 <Typography variant='body1' component='div' sx={{marginBottom: '30px', display:'flex', alignItems:'center'}}>
-                                    <span style={{color:'#858585', fontSize:'13px'}}>Đăng lúc {moment(newsDetail.createdAt).format('DD/MM/YYYY')}</span>
+                                    <span style={{color:'#858585', fontSize:'13px'}}>Đăng lúc {moment(newsDetail.createdAt).format('DD/MM/YYYY LTS')}</span>
                                     <div style={{marginLeft: '30px', display: 'flex', alignItems: 'center'}}>
                                         <VisibilityIcon color='action'></VisibilityIcon>
                                         <span style={{marginLeft: '8px',color:'#858585', fontSize:'13px'}}>{newsDetail?.viewer} lượt xem</span>

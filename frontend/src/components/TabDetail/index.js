@@ -59,7 +59,7 @@ const Feedback = ({list, handleSendFeedback}) => {
                 list?.map((fb, index) => (
                     <Box key={index} style={{ marginBottom:'10px',padding:'10px'}}>
                         <Typography gutterBottom variant="body1" component="div" align='left' style={{margin:'0 0px', display:'flex', fontSize:'larger', color:'#106e99'}}>
-                           <PersonIcon color='inherit' fontSize='large'/> {fb.email}
+                           <PersonIcon color='inherit' fontSize='large'/> {fb.customer.email}
                         </Typography>
                         <Typography gutterBottom component="div" variant="body1" color="blueviolet" align="left" style={{margin:'0 30px'}}>
                             <StyledRating

@@ -11,6 +11,11 @@
         }
     }
     &__listtour{
+        .text-ellipsis {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
         overflow-x: auto;
         table{
             width: 100%;
@@ -31,13 +36,25 @@
                 .th-2{
                     min-width: 90px;
                 }
+                .th-title{
+                    max-width: 200px;
+                }
+                .th-description{
+                    max-width: 400px;
+                }
             }
             tbody{
                 tr{
                     background-color: #f6f6f6cf;
                     border-bottom: 2px solid #fff;
+                    .th-title{
+                        max-width: 200px;
+                    }
+                    .th-description{
+                        max-width: 400px;
+                    }
                     td{
-                        padding: 5px 10px;
+                        padding: 8px 10px;
                         text-align: left;
                         line-height: 1;
                         font-size: 14px;
@@ -82,3 +99,4 @@
         }
     }
 }
+
