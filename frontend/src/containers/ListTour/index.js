@@ -13,6 +13,7 @@ import PaginationCustom from 'components/common/PaginationCustom'
 import RegardPrice from 'LogicResolve/RegardPrice'
 import { ROUTE_LIST_TICKET } from '../../route/type';
 import { getUser } from 'hooks/localAuth'
+import useNotification from 'hooks/notification'
 
 function ListTour({keySearch = ''}) {
     const [open, setOpen] = useState(false) 
@@ -35,7 +36,7 @@ function ListTour({keySearch = ''}) {
 
     useEffect(() => {
         setListAll(listTourOwner)
-    },[listTourOwner])
+    },[])
 
     const handleOnChange = (e, value) => {
         let start = (value - 1) * 10;
@@ -51,8 +52,9 @@ function ListTour({keySearch = ''}) {
     }, [listTourOwner, listAll])
 
     const getTickerPerTour = (id) => {
-        dispatch(getTicketPerTour(id,navigate(`${ROUTE_LIST_TICKET}`)))
-        
+        dispatch(getTicketPerTour(id,() => {
+            navigate(`${ROUTE_LIST_TICKET}`)
+        }))
     }
     
     const handleDelete = () => {

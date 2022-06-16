@@ -39,6 +39,7 @@
     "react-hook-form": "^7.22.5",
     "react-notifications-component": "^4.0.1",
     "react-noty": "^1.0.12",
+    "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",

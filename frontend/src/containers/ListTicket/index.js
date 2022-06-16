@@ -8,6 +8,7 @@ import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { getUser } from 'hooks/localAuth'
 import moment from 'moment'
+import _ from 'lodash'
 
 function ListTicket(props) {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function ListTicket(props) {
     const [ticketDelete, setTicketDelete] = useState({})
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
     let {list_ticket, listTicketPerTour} = useSelector((store) => store.listTicket)
-    let {account} = useSelector((store) => store.user)
+    const {account} = useSelector((store) => store.user)
     const [ticketData, setTicketData] = useState([])
     const [objTotal, setObjTotal] = useState({})
     
@@ -23,13 +24,14 @@ function ListTicket(props) {
         setOpen(!open);
     }
     useEffect(()=>{
-        console.log(list_ticket.length);
+        console.log({listTicketPerTour});
         if(listTicketPerTour.length === 0) dispatch(getAllTicket(getUser()._id, (data) => {
             setTicketData(data)
+            console.log(">>>>>0");
         }))
-        else setTicketData([...listTicketPerTour])
+        else setTicketData(_.cloneDeep(listTicketPerTour))
         // if(!list_ticket.loading) setObjTotal(calucateTotalPriceTicket(list_ticket))
-    },[listTicketPerTour, list_ticket])
+    },[listTicketPerTour])
 
     const handleDelete = () => {
         dispatch(deleteTicket(ticketDelete.id,()=>setOpenConfirmModal(false)))

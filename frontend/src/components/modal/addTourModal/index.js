@@ -10,10 +10,6 @@ const AddTourModal = ({ open, handleClose, tour, action }) => {
     const [submit, setSubmit] = useState(false) 
     const {listTour} = useSelector((store)=>store.listTour)
 
-    useEffect(()=>{
-        dispatch(getAllTour())
-    },[])
-
     const style = {
         position: 'absolute',
         top: '50%',

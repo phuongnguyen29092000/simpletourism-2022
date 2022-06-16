@@ -8,7 +8,6 @@ const getAllTour = (callback = ()=>{}) => {
         API.getAllTour()
         // .then((response)=>response.json())
         .then((result)=>{
-            console.log(result)
             if(result.status === 200){
                 dispatch({
                     type: types.GET_TOUR_SUCCESS,

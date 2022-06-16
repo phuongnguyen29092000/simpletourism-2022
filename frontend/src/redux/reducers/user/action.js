@@ -21,7 +21,6 @@ const loginWithGoogle = (info, callback = ()=>{}) => {
         // .then((response) => response.json())
               .then((result) => {
                 if (result) {
-                  console.log(result)
                   setAccessToken(result.data.tokenAuth.access.token)
                   setRefreshToken(result.data.tokenAuth.refresh.token)
                   setTimeRefresh(new Date(result.data.tokenAuth.refresh.expires).getTime()+"")
@@ -29,7 +28,7 @@ const loginWithGoogle = (info, callback = ()=>{}) => {
                   if(result.data.profile.role === "owner") {
                     callback()
                   }
-                //   else window.location.reload()
+                  window.location.reload()
                   dispatch({
                       type: types.SET_ACCOUNT_INFO,
                       payload: result.data.profile
@@ -39,7 +38,6 @@ const loginWithGoogle = (info, callback = ()=>{}) => {
                   //   title: 'Message',
                   //   message: result.message,
                   // })
-                  console.log(result.message)
                 }
               })
                 .catch((error) =>
@@ -72,7 +70,6 @@ const getAllCustomerBooked= (idOwner, callback = ()=>{}) => {
       // .then((response)=>response.json())
       .then((result=>{
           if(result.status === 200){
-            console.log(result);
               dispatch({
                   type: types.GET_USER_OWNER_SUCCESS,
                   payload: [...result.data.allCustomerBookedTour]
