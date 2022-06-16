@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -23,6 +24,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.simpletouristapp.databinding.ActivityMainLoggedBinding;
+import com.example.simpletouristapp.model.RefreshTokenResponse;
+import com.example.simpletouristapp.service.AccountApiService;
 import com.example.simpletouristapp.ui.home.FilterFragment;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -43,6 +46,15 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivityLogged extends AppCompatActivity {
 
@@ -196,5 +208,41 @@ public class MainActivityLogged extends AppCompatActivity {
             }
         });
         sharedPref.edit().clear().commit();
+    }
+    public void getAccessInfo(){
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SharedPreferences preferences2 = getSharedPreferences("Token", MODE_PRIVATE);
+        String expires = preferences2.getString("access_expires","");
+        try {
+            Date access_expires = simpleDateFormat1.parse(expires);
+            Date currentDate = Calendar.getInstance().getTime();
+            Log.d("Date",simpleDateFormat1.format(access_expires));
+            Log.d("Current Date",simpleDateFormat1.format(currentDate));
+            if(access_expires.after(currentDate)){
+                AccountApiService accountApiService = new AccountApiService();
+                Call<RefreshTokenResponse> call = accountApiService.getAccessInfo(preferences2.getString("refresh_token",""));
+                call.enqueue(new Callback<RefreshTokenResponse>() {
+                    @Override
+                    public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
+                        if(response.code() == 200){
+                            RefreshTokenResponse refreshTokenResponse = response.body();
+                            SharedPreferences.Editor editor = preferences2.edit();
+                            editor.putString("access_token",refreshTokenResponse.getAccessInfo().getToken());
+                            editor.putString("access_expires", simpleDateFormat1.format(refreshTokenResponse.getAccessInfo().getExpires()));
+                            editor.remove("refresh_token");
+                            editor.commit();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("ERROR",t.getMessage());
+                    }
+                });
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

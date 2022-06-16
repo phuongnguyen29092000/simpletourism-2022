@@ -1,8 +1,9 @@
 import axiosClient from "./axiosClient"
+import {getHeaderWithToken} from "./getHeaderWithToken"
 
 const createFeedback = (data) => {
     let url = '/feedback'
-    return axiosClient.post(url,data)
+    return axiosClient.post(url,data, {headers: getHeaderWithToken()})
 }
 
 const getFeedbackForTour = (idTour) => {
@@ -12,16 +13,17 @@ const getFeedbackForTour = (idTour) => {
 
 const deleteFeedback = (idFeedback) => {
     let url =`/feedback/${idFeedback}`
-    return axiosClient.delete(url)
+    return axiosClient.delete(url, {headers: getHeaderWithToken()})
 }
 
 const updateFeedback = (idFeedback, data) => {
     let url = `/feedback/${idFeedback}`
-    return axiosClient.patch(url,data)
+    return axiosClient.patch(url,data, {headers: getHeaderWithToken()})
 }
 
 export default {
     createFeedback,
     getFeedbackForTour,
-    deleteFeedback
+    deleteFeedback,
+    updateFeedback
 }

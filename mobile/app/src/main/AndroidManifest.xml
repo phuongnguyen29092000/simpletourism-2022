@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.simpletouristapp">
-
+    <uses-sdk android:minSdkVersion="21"/>
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleTouristApp"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup">
         <activity
             android:name=".FilterResultActivity"
             android:label="@string/title_activity_filter_result"
@@ -35,7 +37,6 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-
             android:name=".LoginGoogleActivity"
             android:exported="false"
             android:label="Login With Google"/>
@@ -43,6 +44,7 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name"
+
             android:theme="@style/Theme.SimpleTouristApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

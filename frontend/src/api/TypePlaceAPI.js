@@ -1,4 +1,5 @@
 import axiosClient from "./axiosClient"
+import {getHeaderWithToken} from "./getHeaderWithToken"
 
 const getAllTypePlace = () => {
     let url = '/typeplace'
@@ -9,7 +10,25 @@ const getCountries = () => {
     return axiosClient.get(url)
 }
 
+const createTypePlace = (data) => {
+    let url = '/typeplace'
+    return axiosClient.post(url, { headers: getHeaderWithToken()})
+}
+
+const updateTypePlace = (id, data) => {
+    let url = `/typeplace/${id}`
+    return axiosClient.put(url, data, { headers: getHeaderWithToken()})
+}
+
+const deleteTypeplace = (id) => {
+    let url = `/typeplace/${id}`
+    return axiosClient.delete(url, { headers: getHeaderWithToken()})
+}
+
 export default {
     getAllTypePlace,
-    getCountries
+    getCountries,
+    createTypePlace,
+    updateTypePlace,
+    deleteTypeplace
 }

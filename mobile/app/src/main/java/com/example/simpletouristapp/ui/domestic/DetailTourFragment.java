@@ -213,6 +213,7 @@ public class DetailTourFragment extends Fragment {
                     });
                     builder.show();
                 }else {
+                    new MainActivityLogged().getAccessInfo();
                     Call<SendFeedbackResponse> call1 = feedBacksApiService.sendFeedback(
                             "Bearer " + sharedPreferences.getString("access_token",""),tourId
                             , sharedPreferences.getString("id_customer",""), binding.edtComment.getText().toString()
@@ -264,7 +265,7 @@ public class DetailTourFragment extends Fragment {
         return root;
     }
 
-    private void refreshFeedBack(){
+    public void refreshFeedBack(){
         Call<FeedBackResponse> call2 = feedBacksApiService.getFeedBackById(tourId);
         call2.enqueue(new Callback<FeedBackResponse>() {
             @Override

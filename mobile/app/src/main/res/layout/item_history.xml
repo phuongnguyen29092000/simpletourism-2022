@@ -24,13 +24,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/tv_name_tour"
+                android:id="@+id/tv_name_tour_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="TextView"
                 android:textSize="20sp"
+                android:fontFamily="@font/nunito_sans_semibold"/>
                 />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,31 +39,33 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp">
                     <TextView
-                        android:id="@+id/tv_pr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:text="Giá: "
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        android:fontFamily="@font/nunito_sans_semibold"/>/>
 
                     <TextView
-                        android:id="@+id/tv_price"
+                        android:id="@+id/tv_price_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
                         android:textSize="20sp"
+                        android:fontFamily="@font/nunito_sans_semibold"/>
                         />
 
                 </LinearLayout>
             <Button
-                android:id="@+id/btn_book_tour_form"
+                android:id="@+id/btn_rate_history"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:text="Đánh giá"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_gravity="right"
-                android:background="@drawable/custombtn2" />
+                android:background="@drawable/custombtn2"
+                android:fontFamily="@font/nunito_sans_semibold"/>/>
             <TextView
                 android:id="@+id/tv_state"
                 android:layout_width="wrap_content"
@@ -71,7 +74,8 @@
                 android:layout_marginRight="20dp"
                 android:layout_gravity="right"
                 android:text="Text View"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:fontFamily="@font/nunito_sans_semibold"/>/>
         </LinearLayout>
 
 

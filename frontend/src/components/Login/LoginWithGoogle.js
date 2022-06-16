@@ -26,7 +26,6 @@ const LoginWithGoogle = () => {
             loginWithGoogle(info,
                 () => {
                     navigate("/owner/list-tour")
-                    console.log(">>>>>>OK")
                 }
             ),
         )

@@ -60,6 +60,7 @@ function NewsList(props) {
                                             path={`/tin-tuc/${item._id}`}
                                             title={item.title}
                                             description={item.description}
+                                            companyName={item?.owner.companyName}
                                             image={`http://localhost:4000${item.imageUrl.slice(6)}`}
                                             key={index}
                                         />

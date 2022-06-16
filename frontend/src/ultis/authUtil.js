@@ -6,41 +6,40 @@ import { ROUTE_HOME } from "../route/type";
 // import { useDispatch } from "react-redux";
 // import { setAccountInfo } from "redux/reducers/user/action";
 
-// export const CheckExpiredToken = () => {
+export const CheckExpiredToken = () => {
  
-//   const now = new Date()
-//   const time_refresh = getTimeRefresh()
-//   const refresh_token = getRefreshToken()
-//   if (now.getTime() >= time_refresh) {
-//     if (refresh_token) {
-//       if (now.getTime() >= time_refresh) {
-//         AuthAPI
-//           .refreshToken()
-//           .then((response) => response.json())
-//           .then(async (result) => {
-//             if (result.status === 200) {
-//               setAccessToken(result.access_token)
-//               setRefreshToken(result.refresh_token)
-//               setTimeRefresh(result.expires_in)
-//               window.location.reload()
-//             } else {
-//               useNotification.Error({
-//                 title: 'Message',
-//                 message: result.message,
-//               })
-//             }
-//           })
-//           .catch((error) =>
-//             useNotification.Error({
-//               title: 'Message',
-//               message: 'Error connection server!',
-//             })
-//           )
-//       }
-//     }
-//     else Logout()
-//   }
-// }
+  const now = new Date()
+  const time_refresh = getTimeRefresh()
+  const refresh_token = getRefreshToken()
+  if (now.getTime() >= time_refresh) {
+    if (refresh_token) {
+      if (now.getTime() >= time_refresh) {
+        AuthAPI
+          .refreshToken({refreshToken: refresh_token})
+          .then((result) => {
+            if (result.status === 200) {
+              // setAccessToken(result.access_token)
+              // setRefreshToken(result.refresh_token)
+              // setTimeRefresh(result.expires_in)
+              window.location.reload()
+            } else {
+              useNotification.Error({
+                title: 'Message',
+                message: result.message,
+              })
+            }
+          })
+          .catch((error) =>
+            useNotification.Error({
+              title: 'Message',
+              message: 'Error connection server!',
+            })
+          )
+      }
+    }
+    else Logout()
+  }
+}
 
 export const Logout = () => {
 

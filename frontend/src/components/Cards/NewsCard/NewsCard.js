@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { Button, CardActions } from '@mui/material';
 
-export default function NewsCard({ title, description, image, path }) {
+export default function NewsCard({ title, description, image, path, companyName }) {
     return (
         <Card
             sx={{
@@ -63,6 +63,20 @@ export default function NewsCard({ title, description, image, path }) {
                     }}
                 >
                     {description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="left"
+                    sx={{
+                        paddingTop: '10px',
+                        overflow: 'hidden',
+                        lineHeight: '1.5',
+                        fontWeight:'600',
+                        fontSize: '14px',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        color: '#99CCFF'
+                    }}
+                >
+                    Tác giả: {companyName}
                 </Typography>
             </CardContent>
             <CardActions>

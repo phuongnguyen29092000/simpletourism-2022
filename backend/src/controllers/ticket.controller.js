@@ -14,7 +14,6 @@ const bookTicket = catchAsync(async (req, res) => {
   const ticketBody = { ...req.body, tour, paymentPrice };
   const ticketInfo = await ticketService.bookTicket(ticketBody);
   if (ticketInfo) await emailBookTicket(ticketInfo);
-
   if (!ticketInfo)
     res.status(httpStatus.BAD_REQUEST).json({
       status: 400,

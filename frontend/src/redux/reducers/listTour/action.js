@@ -1,5 +1,6 @@
 import * as types from './types'
 import API from '../../../api/ListTourAPI'
+import useNotification from 'hooks/notification'
 
 const getAllTour = (callback = ()=>{}) => {
     return (dispatch) => {
@@ -28,8 +29,33 @@ const getAllTour = (callback = ()=>{}) => {
     }
 }
 
+const getTourByOwner = (id,callback = ()=>{}) => {
+    return (dispatch) => {
+        dispatch({type: types.GET_TOUR_BY_OWNER})
+        API.getTourByOwner(id)
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                dispatch({
+                    type: types.GET_TOUR_BY_OWNER_SUCCESS,
+                    payload: {...result.data}
+                })
+                callback(result.data.data)
+            }else{
+                dispatch({
+                    type: types.GET_TOUR_BY_OWNER_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.GET_TOUR_BY_OWNER_FAIL
+            })
+        })
+    }
+}
+
 const addTour = (data, callback=()=>{}) =>{
-    console.log(data)
     return (dispatch) => {
         dispatch({type: types.ADD_TOUR})
         API.addTour(data)
@@ -37,11 +63,16 @@ const addTour = (data, callback=()=>{}) =>{
         .then((result)=>{
             // if(result.status)
             if(result.status === 201){
+                console.log(result);
                 dispatch({
                     type: types.ADD_TOUR_SUCCESS,
-                    payload: {...data}
+                    payload: result.data.data
                 })
                 callback()
+                useNotification.Success({
+                    title: "Thành công!",
+                    message:"Bạn đã thêm tour thành công!"
+                })
             }else{
                 dispatch({
                     type: types.ADD_TOUR_FAIL
@@ -51,6 +82,10 @@ const addTour = (data, callback=()=>{}) =>{
         .catch((error)=>{
             dispatch({
                 type: types.ADD_TOUR_FAIL
+            })
+            useNotification.Error({
+                title: "Lỗi!",
+                message:"Server Error!"
             })
         })
     }
@@ -66,18 +101,30 @@ const deleteTour = (id, callback = ()=>{}) => {
             if(result.status === 204){
                 dispatch({
                     type: types.DELETE_TOUR_SUCCESS,
-                    payload: {...result}
+                    payload: id
                 })
                 callback()
+                useNotification.Success({
+                    title:"Thành công!",
+                    message:"Xóa tour thành công!"
+                })
             }else{
                 dispatch({
                     type: types.DELETE_TOUR_FAIL
+                })
+                useNotification.Success({
+                    title:"Lỗi!",
+                    message:"Server Error!"
                 })
             }
         })
         .catch((error)=>{
             dispatch({
                 type: types.DELETE_TOUR_FAIL
+            })
+            useNotification.Success({
+                title:"Lỗi!",
+                message:"Server Error!"
             })
         })
     }
@@ -149,17 +196,21 @@ const filterTour = (param, callback = ()=>{}) => {
                     type: types.FILTER_TOUR_SUCCESS,
                     payload: [...result.data.data]
                 })
-                callback()
+                callback(result.data.data)
             }else{
+                callback([])
                 dispatch({
                     type: types.FILTER_TOUR_FAIL
                 })
+
             }
         })
         .catch((error)=>{
+            console.log(error);
             dispatch({
                 type: types.FILTER_TOUR_FAIL
             })
+            callback([])
         })
     }
 }
@@ -224,5 +275,6 @@ export {
     getAllTourInternational,
     filterTour,
     getOutstandingTour,
-    getTourById
+    getTourById,
+    getTourByOwner
 }

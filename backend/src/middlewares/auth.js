@@ -5,6 +5,7 @@ const { Token } = require('../models')
 
 const auth = (...roles) => {
     return async(req, res, next) => {
+        console.log(req.headers['authorization']);
         const token = req.headers['authorization'].split(' ')[1]
         if (!token) {
             return res.status(httpStatus.UNAUTHORIZED).json({
@@ -13,11 +14,10 @@ const auth = (...roles) => {
             })
         }
         const accessTokenInfo = await Token.findOne({ token: token, type: tokenTypes.ACCESS })
-        if(!accessTokenInfo) return res.status(httpStatus.UNAUTHORIZED).json({
+        if(!accessTokenInfo) return res.status(httpStatus.FORBIDDEN).json({
             status: 403,
             message: "FORBIDDEN"
         })
-
         try {
             const payload = await tokenService.verifyToken(token, tokenTypes.ACCESS)
             req.userId = payload.user.toString()

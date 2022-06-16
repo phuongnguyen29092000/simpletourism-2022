@@ -1,8 +1,9 @@
 import axiosClient from "./axiosClient";
+import {getHeaderWithToken} from "./getHeaderWithToken"
 
 const addTour = (data) => {
   const url = '/tour';
-  return axiosClient.post(url, data)
+  return axiosClient.post(url, data, {headers: getHeaderWithToken()})
 }
 
 const getAllTour = () => {
@@ -12,7 +13,7 @@ const getAllTour = () => {
 
 const deleteTour = (id) => {
   const url = `/tour/${id}`;
-  return axiosClient.delete(url);
+  return axiosClient.delete(url, {headers: getHeaderWithToken()});
 }
 
 const getOutstandingTour = () => {
@@ -45,6 +46,21 @@ const getTourById = (id) => {
   return axiosClient.get(url)
 }
 
+const searchTour = (param) => {
+  const url ='/tour/search'
+  return axiosClient.get(url, { params: param });
+}
+
+const updateTour = (id) =>{
+  const url = `/tour/${id}`
+  return axiosClient.patch(url, {headers: getHeaderWithToken()})
+}
+
+const getTourByOwner = (id) => {
+  const url = `/tour/owner/${id}`
+  return axiosClient.get(url, {headers: getHeaderWithToken()})
+}
+
 export default {
     getAllTour,
     addTour,
@@ -55,4 +71,7 @@ export default {
     getAllTourDomestic,
     getAllTourInternational,
     getTourById,
+    searchTour,
+    updateTour,
+    getTourByOwner
 }

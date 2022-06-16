@@ -43,7 +43,8 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         ////
-        list_ticket: action.payload,
+        listTicketPerTour: action.payload,
+        list_ticket: [],
         loading: false,
       }
     }
@@ -68,6 +69,12 @@ export const reducer = (state = initialState, action) => {
           action.payload
         ],
         loading: false,
+      }
+    }
+    case types.RESET_TICKET: {
+      return {
+        ...state,
+        listTicketPerTour: []
       }
     }
     default:
