@@ -12,7 +12,7 @@ const getAllTour = async (queryString) => {
   }
   if (!minPrice) minPrice = 0;
   if (!maxPrice) maxPrice = 50000000;
-  
+
   if (queryString.typeplace) typePlace = queryString.typeplace;
   const features = new APIFeatures(Tour.find(), queryString);
   features.filter();
@@ -93,7 +93,7 @@ const getOutstandingTour = async () => {
 const caculateRemainingAmount = async (id) => {
   const tour = await Tour.findById(id);
   let remainingAmount = tour.amount;
-  const ticket = await Ticket.find().populate({ path: "tour" });
+  const ticket = await Ticket.find({ status: 1 }).populate({ path: "tour" });
   ticket.forEach((element) => {
     if (element.tour._id == id) {
       remainingAmount -= element.numberPeople;

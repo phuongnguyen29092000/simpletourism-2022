@@ -1,120 +1,127 @@
-const httpStatus = require('http-status');
-const validator = require('validator')
-const catchAsync = require('../utils/catchAsync')
-const { ticketService, userService, TourService } = require('../services')
-const { emailBookTicket } = require('../config/emailTemplates')
+const httpStatus = require("http-status");
+const validator = require("validator");
+const catchAsync = require("../utils/catchAsync");
+const { ticketService, userService, TourService } = require("../services");
+const { emailBookTicket } = require("../config/emailTemplates");
 
-const bookTicket = catchAsync(async(req, res) => {
-    const tour = req.params.tourId
-    const tourDetail = await TourService.getTour(tour)
-    let {price, discount} = tourDetail.tour
-    let paymentPrice = 0
-    if (!discount) paymentPrice = price
-    else paymentPrice = Math.ceil(price * (1 - discount))
-    const ticketBody = {...req.body, tour, paymentPrice }
-    const ticketInfo = await ticketService.bookTicket(ticketBody)
-    if(ticketInfo) await emailBookTicket(ticketInfo)
+const bookTicket = catchAsync(async (req, res) => {
+  const tour = req.params.tourId;
+  const tourDetail = await TourService.getTour(tour);
+  let { price, discount } = tourDetail.tour;
+  let paymentPrice = 0;
+  if (!discount) paymentPrice = price;
+  else paymentPrice = Math.ceil(price * (1 - discount));
+  const ticketBody = { ...req.body, tour, paymentPrice };
+  const ticketInfo = await ticketService.bookTicket(ticketBody);
+  if (ticketInfo) await emailBookTicket(ticketInfo);
 
-    if (!ticketInfo) res.status(httpStatus.BAD_REQUEST).json({
-        status: 400,
-        message: "Đặt vé không thành công!",
-    })
+  if (!ticketInfo)
+    res.status(httpStatus.BAD_REQUEST).json({
+      status: 400,
+      message: "Đặt vé không thành công!",
+    });
 
-    res.status(httpStatus.CREATED).json({
-        status: 201,
-        message: "Đặt vé thành công!",
-        ticket: ticketInfo
-    })
-})
+  res.status(httpStatus.CREATED).json({
+    status: 201,
+    message: "Đặt vé thành công!",
+    ticket: ticketInfo,
+  });
+});
 
-const getAllTicketCompany = catchAsync(async(req, res) => {
-    const tickets = await ticketService.getAllTicket(req.params.idCompany)
+const getAllTicketCompany = catchAsync(async (req, res) => {
+  const tickets = await ticketService.getAllTicket(req.params.idCompany);
 
-    if (tickets.length == 0) res.status(httpStatus.NOT_FOUND).json({
-        status: 404,
-        message: "Không tìm thấy vé",
-    })
+  if (tickets.length == 0)
+    res.status(httpStatus.NOT_FOUND).json({
+      status: 404,
+      message: "Không tìm thấy vé",
+    });
 
+  res.status(httpStatus.OK).json({
+    status: 200,
+    message: "OK",
+    tickets: tickets,
+  });
+});
+
+const getTicketsHistory = catchAsync(async (req, res) => {
+  const tickets = await ticketService.getTicketsHistory(req.params.id);
+
+  if (tickets.length == 0)
+    res.status(httpStatus.NOT_FOUND).json({
+      status: 404,
+      message: "Không tìm thấy vé",
+    });
+
+  res.status(httpStatus.OK).json({
+    status: 200,
+    message: "OK",
+    tickets: tickets,
+  });
+});
+
+const getTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.getTicketById(req.params.id);
+
+  if (!ticket)
+    res.status(httpStatus.NOT_FOUND).json({
+      status: 404,
+      message: "Không tìm thấy vé",
+    });
+  else
     res.status(httpStatus.OK).json({
-        status: 200,
-        message: "OK",
-        tickets: tickets
-    })
-})
+      status: 200,
+      message: "OK",
+      ticket: ticket,
+    });
+});
 
-const getTicketsHistory = catchAsync(async(req,res) =>{
-    const tickets = await ticketService.getTicketsHistory(req.params.id)
-    
-    if (tickets.length == 0) res.status(httpStatus.NOT_FOUND).json({
-        status: 404,
-        message: "Không tìm thấy vé",
-    })
+const getTicketPerTour = catchAsync(async (req, res) => {
+  const tickets = await ticketService.getTicketPerTour(req.params.idTour);
 
-    res.status(httpStatus.OK).json({
-        status: 200,
-        message: "OK",
-        tickets: tickets
-    })
-})
+  if (tickets.length == 0)
+    res.status(httpStatus.NOT_FOUND).json({
+      status: 404,
+      message: "Không tìm thấy vé",
+    });
 
-const getTicketById = catchAsync(async(req, res) => {
-    const ticket = await ticketService.getTicketById(req.params.id)
+  res.status(httpStatus.OK).json({
+    status: 200,
+    message: "OK",
+    tickets: tickets,
+  });
+});
 
-    if (!ticket) res.status(httpStatus.NOT_FOUND).json({
-        status: 404,
-        message: "Không tìm thấy vé"
-    }) 
-    else res.status(httpStatus.OK).json({
-        status: 200,
-        message: "OK",
-        ticket: ticket
-    })
-})
+const updateTicketById = catchAsync(async (req, res) => {
+  const ticket = await ticketService.updateTicketById(req.params.id, req.body);
 
-const getTicketPerTour = catchAsync(async(req, res) => {
-    const tickets = await ticketService.getTicketPerTour(req.params.idTour)
+  if (!ticket)
+    res.status(httpStatus.BAD_REQUEST).json({
+      status: 400,
+      message: "Cập nhật vé không thành công!",
+    });
 
-    if (tickets.length == 0) res.status(httpStatus.NOT_FOUND).json({
-        status: 404,
-        message: "Không tìm thấy vé"
-    })
+  res.status(httpStatus.OK).json({
+    status: 200,
+    message: "OK",
+    ticket: ticket,
+  });
+});
 
-    res.status(httpStatus.OK).json({
-        status: 200,
-        message: "OK",
-        tickets: tickets
-    })
-})
-
-const updateTicketById = catchAsync(async(req, res) => {
-    const ticket = await ticketService.updateTicketById(req.params.id, req.body)
-
-    if (!ticket) res.status(httpStatus.BAD_REQUEST).json({
-        status: 400,
-        message: "Cập nhật vé không thành công!"
-    })
-
-    res.status(httpStatus.OK).json({
-        status: 200,
-        message: 'OK',
-        ticket: ticket
-    })
-})
-
-const deleteTicketById = catchAsync(async(req, res) => {
-    await ticketService.deleteTicketById(req.params.id)
-    res.status(httpStatus.NO_CONTENT).json({
-        status: 204,
-        message: "Xóa vé thành công!"
-    })
-})
+const deleteTicketById = catchAsync(async (req, res) => {
+  await ticketService.deleteTicketById(req.params.id);
+  res.status(httpStatus.NO_CONTENT).json({
+    status: 204,
+    message: "Xóa vé thành công!",
+  });
+});
 
 module.exports = {
-    bookTicket,
-    getAllTicketCompany,
-    getTicketById,
-    updateTicketById,
-    deleteTicketById,
-    getTicketPerTour,
-    getTicketsHistory
-}
+  bookTicket,
+  getAllTicketCompany,
+  getTicketById,
+  updateTicketById,
+  deleteTicketById,
+  getTicketPerTour,
+  getTicketsHistory,
+};
