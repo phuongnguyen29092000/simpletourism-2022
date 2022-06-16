@@ -110,7 +110,7 @@ public class PaymentMethodFragment extends Fragment {
         binding.btnPaymentLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MainActivityLogged().getAccessInfo();
+                MainActivityLogged.getAccessInfo(getContext());
                 Call<TicketResponse> call = toursApiService.bookTour("Bearer " + sharedPref.getString("access_token",""),informationBookTour.get("idTour")
                         ,sharedPref.getString("id_customer",""),binding.tvPhoneNumber.getText().toString()
                         , Integer.parseInt(binding.tvAmount.getText().toString()));
@@ -176,55 +176,55 @@ public class PaymentMethodFragment extends Fragment {
 
     }
     private void Checkout(){
-        binding.btnPaymentPaypal.setup(
-                new CreateOrder() {
-                    @Override
-                    public void create(@NotNull CreateOrderActions createOrderActions) {
-                        ArrayList<PurchaseUnit> purchaseUnits = new ArrayList<>();
-                        purchaseUnits.add(
-                                new PurchaseUnit.Builder()
-                                        .amount(
-                                                new Amount.Builder()
-                                                        .currencyCode(CurrencyCode.USD)
-                                                        .value("10.00")
-                                                        .build()
-                                        )
-                                        .build()
-                        );
-                        Order order = new Order(
-                                OrderIntent.CAPTURE,
-                                new AppContext.Builder()
-                                        .userAction(UserAction.PAY_NOW)
-                                        .build(),
-                                purchaseUnits
-                        );
-                        createOrderActions.create(order, (CreateOrderActions.OnOrderCreated) null);
-                    }
-                },
-                new OnApprove() {
-                    @Override
-                    public void onApprove(@NotNull Approval approval) {
-                        approval.getOrderActions().capture(new OnCaptureComplete() {
-                            @Override
-                            public void onCaptureComplete(@NotNull CaptureOrderResult result) {
-                                Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
-                            }
-                        });
-                    }
-                },
-                new OnCancel() {
-                    @Override
-                    public void onCancel() {
-                        Log.d("OnCancel", "Buyer cancelled the PayPal experience.");
-                    }
-                },
-                new OnError() {
-                    @Override
-                    public void onError(@NotNull ErrorInfo errorInfo) {
-                        Log.d("OnError", String.format("Error: %s", errorInfo));
-                    }
-                }
-        );
+//        binding.btnPaymentPaypal.setup(
+//                new CreateOrder() {
+//                    @Override
+//                    public void create(@NotNull CreateOrderActions createOrderActions) {
+//                        ArrayList<PurchaseUnit> purchaseUnits = new ArrayList<>();
+//                        purchaseUnits.add(
+//                                new PurchaseUnit.Builder()
+//                                        .amount(
+//                                                new Amount.Builder()
+//                                                        .currencyCode(CurrencyCode.USD)
+//                                                        .value("10.00")
+//                                                        .build()
+//                                        )
+//                                        .build()
+//                        );
+//                        Order order = new Order(
+//                                OrderIntent.CAPTURE,
+//                                new AppContext.Builder()
+//                                        .userAction(UserAction.PAY_NOW)
+//                                        .build(),
+//                                purchaseUnits
+//                        );
+//                        createOrderActions.create(order, (CreateOrderActions.OnOrderCreated) null);
+//                    }
+//                },
+//                new OnApprove() {
+//                    @Override
+//                    public void onApprove(@NotNull Approval approval) {
+//                        approval.getOrderActions().capture(new OnCaptureComplete() {
+//                            @Override
+//                            public void onCaptureComplete(@NotNull CaptureOrderResult result) {
+//                                Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
+//                            }
+//                        });
+//                    }
+//                },
+//                new OnCancel() {
+//                    @Override
+//                    public void onCancel() {
+//                        Log.d("OnCancel", "Buyer cancelled the PayPal experience.");
+//                    }
+//                },
+//                new OnError() {
+//                    @Override
+//                    public void onError(@NotNull ErrorInfo errorInfo) {
+//                        Log.d("OnError", String.format("Error: %s", errorInfo));
+//                    }
+//                }
+//        );
     }
 
     @Override

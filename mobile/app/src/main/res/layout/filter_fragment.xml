@@ -227,7 +227,7 @@
                             app:values="@array/initial_slider_values"
                             android:stepSize="1"
                             android:valueFrom="0"
-                            android:valueTo="10000000"
+                            android:valueTo="50000000"
                             app:haloColor="@color/teal_200"
                             app:thumbColor="#2196F3"
                             app:tickColor ="@color/teal_200"

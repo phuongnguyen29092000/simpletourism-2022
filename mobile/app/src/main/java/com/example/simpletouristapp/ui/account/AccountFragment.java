@@ -43,22 +43,6 @@ public class AccountFragment extends Fragment {
         View root = binding.getRoot();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
         Picasso.get().load(sharedPref.getString("photo_url","")).into(binding.imageDetail);
-        binding.btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("IdTour", "123");
-                Navigation.findNavController(view).navigate(R.id.action_nav_account_to_nav_profile,bundle);
-            }
-        });
-        binding.btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("IdTour", "123");
-                Navigation.findNavController(view).navigate(R.id.action_nav_account_to_nav_change_password,bundle);
-            }
-        });
         binding.btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

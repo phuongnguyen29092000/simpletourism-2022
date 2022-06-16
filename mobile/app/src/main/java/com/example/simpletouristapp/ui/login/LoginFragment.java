@@ -62,59 +62,6 @@ public class LoginFragment extends Fragment {
 
         googleService = new LoginGoogleApiService();
 
-        String email = binding.edtEmailLogin.getText().toString().trim();
-
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.[a-z]+";
-
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!binding.edtEmailLogin.getText().toString().equals("") && !binding.edtPasswordLogin.getText().toString().equals("")){
-                    if (!isEmailValid(binding.edtEmailLogin.getText().toString()))
-                    {
-                        binding.validateEmail.setText("Email phải đúng định dạng abc@abc.abc");
-                        binding.validateEmail.setVisibility(View.VISIBLE);
-                    }
-                    else
-                    {
-                        performLogin();
-                    }
-
-                }else {
-                    if(!binding.edtEmailLogin.getText().toString().equals("") && binding.edtPasswordLogin.getText().toString().equals("")){
-                        if (!isEmailValid(binding.edtEmailLogin.getText().toString()))
-                        {
-                            binding.validateEmail.setText("Email phải đúng định dạng abc@abc.abc");
-                            binding.validateEmail.setVisibility(View.VISIBLE);
-                        }else {
-                            binding.validateEmail.setVisibility(View.GONE);
-                        }
-                        binding.validatePassword.setText("Bạn phải nhập password");
-                        binding.validatePassword.setVisibility(View.VISIBLE);
-                    }else {
-                        if(binding.edtEmailLogin.getText().toString().equals("") && !binding.edtPasswordLogin.getText().toString().equals("")){
-                            binding.validateEmail.setText("Bạn phải nhập email");
-                            binding.validateEmail.setVisibility(View.VISIBLE);
-                            binding.validatePassword.setVisibility(View.GONE);
-                        }else {
-                            binding.validateEmail.setText("Bạn phải nhập email");
-                            binding.validateEmail.setVisibility(View.VISIBLE);
-                            binding.validatePassword.setText("Bạn phải nhập password");
-                            binding.validatePassword.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                }
-
-
-            }
-        });
-        binding.register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_register);
-            }
-        });
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.DRIVE_APPFOLDER))
@@ -132,19 +79,6 @@ public class LoginFragment extends Fragment {
             }
         });
         return root;
-    }
-    private void performLogin(){
-        String email = binding.edtEmailLogin.getText().toString();
-        String password = binding.edtPasswordLogin.getText().toString();
-        Log.d("email", email);
-        Log.d("password", password);
-        if(!email.equals("") && !password.equals("")){
-            Toast.makeText(getContext(), "Login Success",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivityLogged.class);
-            startActivity(intent);
-        }else {
-            Toast.makeText(getContext(), "Please enter email and password",Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -180,7 +114,11 @@ public class LoginFragment extends Fragment {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                Log.d("googleId",account.getId());
+                Log.d("Email",account.getEmail());
+                Log.d("Email", String.valueOf(account.getPhotoUrl()));
                 Log.d("auth_code",account.getServerAuthCode());
+                final String[] access = {""};
                 Call<TokenResponse> call = googleService.getAccessToken(account.getServerAuthCode()
                         ,getString(R.string.server_client_id),getString(R.string.server_client_secret)
                         ,"","authorization_code");
@@ -190,6 +128,7 @@ public class LoginFragment extends Fragment {
                     public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                         if(response.code() == 200){
                             TokenResponse tokenResponse = response.body();
+                            access[0] = tokenResponse.getAccessToken();
                             Log.d("access_token",tokenResponse.getAccessToken());
                             Log.d("expires_in", String.valueOf(tokenResponse.getExpiresIn()));
 //                            Log.d("refresh_token",tokenResponse.getRefreshToken());
@@ -206,7 +145,8 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
-                Call<LoginResponse> call1 = toursApiService.postFormLogin("","","","","","", account.getIdToken());
+                Call<LoginResponse> call1 = toursApiService.postFormLogin(account.getId(),account.getEmail(),account.getGivenName()
+                                                                        ,account.getFamilyName(), String.valueOf(account.getPhotoUrl()),access[0], account.getIdToken());
                 call1.enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

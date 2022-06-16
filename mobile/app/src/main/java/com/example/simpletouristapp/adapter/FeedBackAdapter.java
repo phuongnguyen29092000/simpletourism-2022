@@ -20,8 +20,10 @@ import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.service.FeedBacksApiService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,6 +79,7 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.FeedBa
         holder.tvName.setText(feedBack.getCustomer().getGivenName() + " " + feedBack.getCustomer().getFamilyName());
         holder.rating.setRating(feedBack.getRating());
         holder.comment.setText(feedBack.getComment());
+        Picasso.get().load(feedBack.getCustomer().getPhotoUrl()).into(holder.imageAvatar);
         if(sharedPref.getString("id_customer","").equals(feedBack.getCustomer().getId())){
             holder.btnDelete.setVisibility(View.VISIBLE);
         }
@@ -134,6 +137,7 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.FeedBa
     }
 
     public class FeedBackViewHolder extends RecyclerView.ViewHolder{
+        private ShapeableImageView imageAvatar;
         private TextView tvName;
         private RatingBar rating;
         private TextView comment;
@@ -144,6 +148,7 @@ public class FeedBackAdapter extends RecyclerView.Adapter<FeedBackAdapter.FeedBa
             rating = itemView.findViewById(R.id.rating_feedback);
             comment = itemView.findViewById(R.id.txt_cmt_account);
             btnDelete = itemView.findViewById(R.id.btn_delete);
+            imageAvatar = itemView.findViewById(R.id.image_avatar);
         }
     }
 }

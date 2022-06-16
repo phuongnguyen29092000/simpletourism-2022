@@ -104,11 +104,11 @@ public class FilterFragment extends DialogFragment {
                 NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
                 numberFormat.setMaximumFractionDigits(0);
                 numberFormat.setCurrency(Currency.getInstance(lc));
-                return numberFormat.format(value).substring(1) + "đ";
+                return numberFormat.format(value);
             }
         });
         priceMin = 0;
-        priceMax = 10000000;
+        priceMax = 50000000;
         binding.rangeSlider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @SuppressLint("RestrictedApi")
             @Override
@@ -179,7 +179,7 @@ public class FilterFragment extends DialogFragment {
             @Override
             public void onFailure(Call<TypePlaceResponse> call, Throwable t) {
 //                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//                Log.d("TAG",t.getMessage());
+                Log.d("TAG",t.getMessage());
             }
         });
 

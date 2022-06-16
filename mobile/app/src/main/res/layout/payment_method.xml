@@ -153,13 +153,12 @@
                 android:background="@drawable/custombtn2"
                 app:backgroundTint="#5584AC"
                 android:fontFamily="@font/nunito_sans_semibold"/>
-            <com.paypal.checkout.paymentbutton.PayPalButton
-                android:id="@+id/btn_payment_paypal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-            </com.paypal.checkout.paymentbutton.PayPalButton>
+<!--            <com.paypal.checkout.paymentbutton.PayPalButton-->
+<!--                android:id="@+id/btn_payment_paypal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                >-->
+<!--            </com.paypal.checkout.paymentbutton.PayPalButton>-->
             <Button
                 style="@style/Widget.AppCompat.Light.ActionButton"
 
@@ -171,7 +170,8 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/custombtn2"
                 app:backgroundTint="#5584AC"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 

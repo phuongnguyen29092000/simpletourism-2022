@@ -54,7 +54,7 @@ public class NewsFragment extends Fragment {
         rvNews = binding.rvNews;
         newsList = new ArrayList<>();
         newsRepository = new NewsRepository(getActivity().getApplication());
-        newsAdapter = new NewsAdapter(getContext(),newsList);
+        newsAdapter = new NewsAdapter(getContext(),newsList,"news");
         rvNews.setLayoutManager(new GridLayoutManager(getContext(),2));
         newsViewModel.getAllNews().observe(getViewLifecycleOwner(), new Observer<List<News>>() {
             @Override
