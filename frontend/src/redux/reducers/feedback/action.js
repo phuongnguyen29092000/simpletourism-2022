@@ -1,8 +1,11 @@
 import * as types from './types'
 import API from '../../../api/FeedbackAPI'
+import { CheckExpiredToken } from 'ultis/authUtil'
+import useNotification from 'hooks/notification'
 
 const getFeedbackForTour = (idTour, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.GET_FEEDBACK})
         API.getFeedbackForTour(idTour)
         // .then((response)=>response.json())
@@ -29,16 +32,22 @@ const getFeedbackForTour = (idTour, callback = ()=>{}) => {
 
 const createFeedback = (data, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.CREATE_FEEDBACK})
         API.createFeedback(data)
         // .then((response)=>response.json())
         .then((result=>{
+            console.log({result});
             if(result.status === 201){
                 dispatch({
                     type: types.CREATE_FEEDBACK_SUCCESS,
-                    payload: [...result.data]
+                    payload: result.data.data
                 })
                 callback()
+                useNotification.Success({
+                    title:'Thành công!',
+                    message:'Cảm ơn bạn đã đánh giá!'
+                })
             }else{
                 dispatch({
                     type: types.CREATE_FEEDBACK_FAIL
@@ -49,12 +58,17 @@ const createFeedback = (data, callback = ()=>{}) => {
             dispatch({
                 type: types.CREATE_FEEDBACK_FAIL
             })
+            useNotification.Error({
+                title:'Lỗi!',
+                message:'Server Error!'
+            })
         })
     }
 }
 
 const updateFeedback = (data, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.UPDATE_FEEDBACK})
         API.updateFeedback(data)
         // .then((response)=>response.json())
@@ -81,6 +95,7 @@ const updateFeedback = (data, callback = ()=>{}) => {
 
 const deleteFeedback = (id, callback = ()=>{}) => {
     return (dispatch) => {
+        CheckExpiredToken()
         dispatch({type: types.DELETE_FEEDBACK})
         API.deleteFeedback(id)
         // .then((response)=>response.json())

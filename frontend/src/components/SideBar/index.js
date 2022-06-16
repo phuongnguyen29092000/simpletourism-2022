@@ -12,6 +12,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, Typography } from '@mui/material';
 import { logoutGoogle } from 'redux/reducers/user/action';
 import { useDispatch } from 'react-redux';
+import { resetTicket } from 'redux/reducers/listTicket/action';
 function SideBar(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -40,7 +41,7 @@ function SideBar(props) {
                         </div>
                     </Link>
                     <Link to={ROUTE_LIST_TICKET}>
-                        <div className='menu-item list-ticket'>
+                        <div className='menu-item list-ticket' onClick={dispatch(resetTicket())}>
                             <div className='menu-item__icon'>
                                 <img src={IconTicket} />
                                 <div className='menu-item__title'>

@@ -19,10 +19,9 @@ const TourResult = () => {
         for (const [key, value] of searchParagram.entries()) {
             param[key] = value
         }
-        console.log(param);
+
         if(Object.keys(param).length > 1){
-            dispatch(filterTour(param))
-            setDataResult(listTourResult)
+            dispatch(filterTour(param,(data) => setDataResult(data)))
         }else{
             ListTourAPI.searchTour(param)
                 .then((rs) => {
@@ -36,6 +35,11 @@ const TourResult = () => {
                 })
         }
     }, [search])
+    
+    useEffect(() => {
+        setDataResult(listTourResult)
+    }, listTourResult)
+
     useEffect(() => {
         document.title = 'Simple Tourism | kết quả'
     }, [])

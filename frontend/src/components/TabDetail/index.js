@@ -9,6 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from "@mui/material/styles";
 import PersonIcon from '@mui/icons-material/Person';
+import FeedbackForm from 'components/Form/FeedbackForm';
 // import FeedbackForm from  '../Forms/FeedbackForm'
 const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
@@ -51,10 +52,11 @@ const Detail = ({ detail }) => {
 }
 
 const Feedback = ({list, handleSendFeedback}) => {
+    console.log({list});
     return (
         <div className='feedback-tab' style={{ padding: '0 30px' }}>
             {   list.length === 0 ? <h2>HÃY LÀ NGƯỜI ĐẦU TIÊN ĐÁNH GIÁ!</h2>:
-                list.map((fb, index) => (
+                list?.map((fb, index) => (
                     <Box key={index} style={{ marginBottom:'10px',padding:'10px'}}>
                         <Typography gutterBottom variant="body1" component="div" align='left' style={{margin:'0 0px', display:'flex', fontSize:'larger', color:'#106e99'}}>
                            <PersonIcon color='inherit' fontSize='large'/> {fb.email}
@@ -79,7 +81,7 @@ const Feedback = ({list, handleSendFeedback}) => {
                 ))
             }
         <Box style={{border:'2px solid orange',boxSizing:'border-box', padding:'20px'}}>
-            {/* <FeedbackForm handleSendFeedback={handleSendFeedback}/> */}
+            <FeedbackForm handleSendFeedback={handleSendFeedback}/>
         </Box>
         </div>
     );

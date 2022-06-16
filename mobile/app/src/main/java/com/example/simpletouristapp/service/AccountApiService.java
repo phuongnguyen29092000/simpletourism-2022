@@ -2,6 +2,7 @@ package com.example.simpletouristapp.service;
 
 import com.example.simpletouristapp.api.AccountApi;
 import com.example.simpletouristapp.model.HistoryTicketResponse;
+import com.example.simpletouristapp.model.RefreshTokenResponse;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -19,5 +20,9 @@ public class AccountApiService {
     }
     public Call<HistoryTicketResponse> getHistoryTicket(String auth,String idCustomer){
         return accountApi.getHistoryTicket(auth, idCustomer);
+    }
+
+    public Call<RefreshTokenResponse> getAccessInfo(String refreshToken){
+        return accountApi.getAccessInfo(refreshToken);
     }
 }

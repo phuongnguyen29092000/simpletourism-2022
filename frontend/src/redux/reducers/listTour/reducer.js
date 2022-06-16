@@ -2,7 +2,9 @@ import * as types from './types'
 
 const initialState = {
   listTour: [],
+  listTourOwner: [],
   totalTour: 0,
+  totalTourOwner: 0,
   loading: false,
   listTourDomestic: [],
   listTourInternational: [],
@@ -33,6 +35,26 @@ export const reducer = (state = initialState, action) => {
         loading: false,
       }
     }
+    case types.GET_TOUR_BY_OWNER: {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+    case types.GET_TOUR_BY_OWNER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    case types.GET_TOUR_BY_OWNER_SUCCESS: {
+      return {
+        ...state,
+        listTourOwner: action.payload.data,
+        totalTourOwner: action.payload.totalTour,
+        loading: false,
+      }
+    }
     case types.ADD_TOUR: {
       return {
         ...state,
@@ -46,10 +68,11 @@ export const reducer = (state = initialState, action) => {
       }
     }
     case types.ADD_TOUR_SUCCESS: {
+      console.log(action.payload);
       return {
         ...state,
-        listTour: [
-          ...state.listTour,
+        listTourOwner: [
+          ...state.listTourOwner,
           action.payload
         ],
         totalTour: state.totalTour + 1,
@@ -69,13 +92,11 @@ export const reducer = (state = initialState, action) => {
       }
     }
     case types.DELETE_TOUR_SUCCESS: {
+      console.log(">>>>",action.payload);
       return {
         ...state,
         //xử lí xóa
-        listTour: [
-          ...state.listTour,
-          action.payload
-        ],
+        listTourOwner: state.listTourOwner.filter((item) => item._id != action.payload),
         totalTour: state.totalTour-1,
         loading: false,
       }
