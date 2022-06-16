@@ -107,6 +107,10 @@ const deleteTour = async (id) => {
   return rs.deletedCount;
 };
 
+const tourDetail = async(id) =>{
+  return await Tour.findById(id.toString())
+}
+
 const createTour = async (tour) => {
   const newTour = await Tour.create({
     tourName: tour.tourName,
@@ -185,4 +189,5 @@ module.exports = {
   getOutstandingTour,
   caculateRemainingAmount,
   searchByText,
+  tourDetail
 };

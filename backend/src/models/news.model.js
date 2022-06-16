@@ -20,7 +20,6 @@ const newsSchema = mongoose.Schema({
     },
     viewer: {
         type: Number,
-        minlength: 0,
         default: 0
     },
     imageUrl: {

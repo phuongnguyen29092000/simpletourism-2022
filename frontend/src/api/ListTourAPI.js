@@ -51,9 +51,10 @@ const searchTour = (param) => {
   return axiosClient.get(url, { params: param });
 }
 
-const updateTour = (id) =>{
+const updateTour = (id, data) =>{
+  console.log(id);
   const url = `/tour/${id}`
-  return axiosClient.patch(url, {headers: getHeaderWithToken()})
+  return axiosClient.put(url, data, {headers: getHeaderWithToken()})
 }
 
 const getTourByOwner = (id) => {

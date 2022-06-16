@@ -17,7 +17,7 @@ import ConvertToImageURL from '../../../LogicResolve/ConvertToImageURL';
 
 const Discounts = ["10", "20", "30", "40", "50", "60", "70"]
 
-function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
+function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSubmit = ()=>{} }) {
     const {
         register,
         handleSubmit,
@@ -107,19 +107,19 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
 
     const onHandleSubmit = (data) => {
         let formData = new FormData();
-
         for (let key in data) {
             if (key == 'imageAvatar') {
                 formData.append('imageAvatar',imagePreview0)                
+                console.log(formData);
             }
             else if (key == 'imageSlide1'){
                 formData.append('imageSlide1',imagePreview1)
             }
             else if (key == 'imageSlide2'){
-                formData.append('imageSlide2',imagePreview1)
+                formData.append('imageSlide2',imagePreview2)
             }
             else if (key == 'imageSlide3'){
-                formData.append('imageSlide3',imagePreview1)
+                formData.append('imageSlide3',imagePreview3)
             }
             else if(key == 'timeStart'){
                 formData.append('timeStart', format(start, 'yyyy/MM/dd'))
@@ -132,9 +132,11 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
         for (var key of formData.entries()) {
 			console.log(key[0] + ', ' + key[1])
 		}
+
         // const res = APIClient.createTour(formData);
         formData.append("owner", account._id)
-        handleAddTour(formData);
+        if(tour) handleUpdateTour(tour?._id.toString(), formData)
+        else handleAddTour(formData);
         setSubmit(false)
     };
     return (
@@ -340,22 +342,22 @@ function TourForm({ handleAddTour, tour, submit = false, setSubmit = ()=>{} }) {
                         <div className='image-slide__item' onClick={()=>{document.getElementById('image-0').click()}}>
                             {(!imagePreview0 && !tour) && <AddIcon fontSize='large' />}
                             {imagePreview0 && <img src={imagePreview0.preview}/>}
-                            {(!imagePreview0 && tour) && <img src={ConvertToImageURL(tour.imageUrl)}/>}
+                            {(!imagePreview0 && tour) && <img src={ConvertToImageURL(tour?.imageAvatar)}/>}
                         </div>
                         <div className='image-slide__item' onClick={()=>{document.getElementById('image-1').click()}}>
                             {(!imagePreview1 && !tour) && <AddIcon fontSize='large' />}
                             {imagePreview1 && <img src={imagePreview1.preview}/>}
-                            {(!imagePreview1 && tour) && <img src={ConvertToImageURL(tour.imageUrl)}/>}
+                            {(!imagePreview1 && tour) && <img src={ConvertToImageURL(tour?.imageSlide[0])}/>}
                         </div>
                         <div className='image-slide__item' onClick={()=>{document.getElementById('image-2').click()}}>
                             {(!imagePreview2 && !tour) && <AddIcon fontSize='large' />}
                             {imagePreview2 && <img src={imagePreview2.preview}/>}
-                            {(!imagePreview2 && tour) && <img src={ConvertToImageURL(tour.imageUrl)}/>}
+                            {(!imagePreview2 && tour) && <img src={ConvertToImageURL(tour?.imageSlide[1])}/>}
                         </div>
                         <div className='image-slide__item' onClick={()=>{document.getElementById('image-3').click()}}>
                             {(!imagePreview3 && !tour) && <AddIcon fontSize='large' />}
                             {imagePreview3 && <img src={imagePreview3.preview}/>}
-                            {(!imagePreview3 && tour) && <img src={ConvertToImageURL(tour.imageUrl)}/>}
+                            {(!imagePreview3 && tour) && <img src={ConvertToImageURL(tour?.imageSlide[2])}/>}
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,6 @@ function ListUserOwner(props) {
     useEffect(()=>{
         if(listUserOwner?.users?.length === 0) dispatch(getAllCustomerBooked(getUser()._id))
     },[listUserOwner.user])
-    console.log('CCCCCCCCCCC', listUserOwner.users);
 
     return (
         <div className='ticket-manager'>
@@ -40,7 +39,6 @@ function ListUserOwner(props) {
                             listUserOwner?.users &&
                             listUserOwner?.users?.map((user, index) =>(
                                 <tr key={index} style={{borderBottom:'5px solid white'}}>
-                                    {console.log(user?.totalTours.join("\r\n"))}
                                     <td className='td-2'>{user?.givenName}</td>
                                     <td className='td-1'>{user?.phone?.map((phoneItem)=>(
                                         <div style={{margin:'3px 0px'}}>{phoneItem}</div>

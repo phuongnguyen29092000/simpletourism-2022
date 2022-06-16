@@ -115,123 +115,65 @@ const getTicketPerTour = async (id) => {
   return ticketPerTour;
 };
 
-const getTicketsHistory = async (id) => {
-  const ticketsHistoryUnPaid = await Ticket.aggregate([
-    {
-      $lookup: {
-        from: "users",
-        localField: "customer",
-        foreignField: "_id",
-        as: "customer",
-      },
-    },
-    {
-      $lookup: {
-        from: "tours",
-        localField: "tour",
-        foreignField: "_id",
-        as: "tour",
-      },
-    },
-    { $unwind: "$tour" },
-    { $unwind: "$customer" },
-    {
-      $addFields: {
-        idTour: "$tour._id",
-        customerId: "$customer._id",
-        customerName: "$customer.givenName",
-        tourName: "$tour.tourName",
-        email: "$customer.email",
-        imageAvatar: "$tour.imageAvatar",
-        hotelName: "$tour.hotelName",
-      },
-    },
-    {
-      $match: {
-        customerId: new mongoose.Types.ObjectId(id),
-        status: 0,
-      },
-    },
-    {
-      $project: {
-        _id: 1,
-        idTour: 1,
-        customerId: 1,
-        customerName: 1,
-        tourName: 1,
-        phone: 1,
-        email: 1,
-        imageAvatar: 1,
-        numberPeople: 1,
-        paymentPrice: 1,
-        hotelName: 1,
-        status: 1,
-        createdAt: 1,
-        updatedAt: 1,
-      },
-    },
-  ]);
-  const ticketsHistoryPaid = await Ticket.aggregate([
-    {
-      $lookup: {
-        from: "users",
-        localField: "customer",
-        foreignField: "_id",
-        as: "customer",
-      },
-    },
-    {
-      $lookup: {
-        from: "tours",
-        localField: "tour",
-        foreignField: "_id",
-        as: "tour",
-      },
-    },
-    { $unwind: "$tour" },
-    { $unwind: "$customer" },
-    {
-      $addFields: {
-        idTour: "$tour._id",
-        customerId: "$customer._id",
-        customerName: "$customer.givenName",
-        tourName: "$tour.tourName",
-        email: "$customer.email",
-        imageAvatar: "$tour.imageAvatar",
-        hotelName: "$tour.hotelName",
-      },
-    },
-    {
-      $match: {
-        customerId: new mongoose.Types.ObjectId(id),
-        status: 1,
-      },
-    },
-    {
-      $project: {
-        _id: 1,
-        idTour: 1,
-        customerId: 1,
-        customerName: 1,
-        tourName: 1,
-        phone: 1,
-        email: 1,
-        imageAvatar: 1,
-        numberPeople: 1,
-        paymentPrice: 1,
-        hotelName: 1,
-        status: 1,
-        createdAt: 1,
-        updatedAt: 1,
-      },
-    },
-  ]);
 
-  return {
-    ticketsHistoryPaid: ticketsHistoryPaid,
-    ticketsHistoryUnPaid: ticketsHistoryUnPaid,
-  };
-};
+const getTicketsHistory = async(id) =>{
+    const ticketsHistory = await Ticket.aggregate(
+        [
+            {
+                $lookup: {
+                        from: "users",
+                        localField: "customer",
+                        foreignField: "_id",
+                        as: "customer"
+                }
+            },
+            {
+                $lookup: {
+                    from: "tours",
+                    localField: "tour",
+                    foreignField: "_id",
+                    as: "tour"
+                }
+            },
+            { $unwind: '$tour' },
+            { $unwind: '$customer' },
+            {
+                "$addFields": {
+                    "idTour": "$tour._id",
+                    "customerId": "$customer._id",
+                    "customerName": "$customer.givenName",
+                    "tourName": "$tour.tourName",
+                    "email": '$customer.email',
+                    'imageAvatar': "$tour.imageAvatar",
+                    'hotelName': '$tour.hotelName'
+                }
+            },
+            { 
+                $match: { 
+                    customerId: new mongoose.Types.ObjectId(id),
+                } 
+            },
+            { $project: {
+                _id: 1,
+                idTour: 1,
+                customerId: 1,
+                customerName: 1,
+                tourName:1,
+                phone: 1,
+                email: 1,
+                imageAvatar: 1,
+                numberPeople:1,
+                paymentPrice: 1,
+                hotelName: 1,
+                status: 1,
+                createdAt: 1,
+                updatedAt: 1
+            }}
+        ]
+    )
+    
+    return ticketsHistory
+}
 
 const getTicketById = async (id) => {
   const ticket = await Ticket.aggregate([

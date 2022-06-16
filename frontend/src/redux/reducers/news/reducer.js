@@ -42,10 +42,9 @@ export const reducer = (state = initialState, action) => {
       };
     }
     case types.CREATE_NEWS_SUCCESS: {
-      let listNewTemp = [...state?.listNews];
       return {
         ...state,
-        listNews: listNewTemp.push(action.payload),
+        listNewsCompany: [...state.listNewsCompany, action.payload],
         loading: false,
       };
     }
@@ -62,10 +61,10 @@ export const reducer = (state = initialState, action) => {
       };
     }
     case types.DELETE_NEWS_SUCCESS: {
-      let listNewsTemp = [...state?.listNews];
+      let listNewsTemp = [...state?.listNewsCompany];
       return {
         ...state,
-        listNews: listNewsTemp?.filter((news) => news._id !== action.payload),
+        listNewsCompany: listNewsTemp?.filter((news) => news._id.toString() !== action.payload),
         loading: false,
       };
     }
@@ -82,14 +81,13 @@ export const reducer = (state = initialState, action) => {
       };
     }
     case types.UPDATE_NEWS_SUCCESS: {
-      let listNewsTemp = [...state?.listNews];
-      let indexUpdate = listNewsTemp?.find(
-        (news) => news._id === action.payload._id
-      );
-      listNewsTemp = listNewsTemp?.splice(indexUpdate, 1, action.payload);
+      let listNewsTemp = [...state?.listNewsCompany];
+      console.log(listNewsTemp);
+      let indexUpdate = listNewsTemp?.map((news) => news._id).indexOf(action.payload.id);
+      let result = listNewsTemp?.splice(indexUpdate, 1, action.payload.news);
       return {
         ...state,
-        listNews: [...listNewsTemp],
+        listNewsCompany: listNewsTemp,
         loading: false,
       };
     }

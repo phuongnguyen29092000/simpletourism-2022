@@ -5,7 +5,8 @@ const fs = require('fs')
 
 /* create new news */
 const createNews = catchAsync(async(req, res) => {
-    const newsBody = Object.assign(req.body, { imageUrl: req.file.path })
+    const image = req.file ? { imageUrl: req.file.path } : {}
+    const newsBody = Object.assign(req.body, image)
     const news = await newsService.createNews(newsBody)
     if(news) res.status(httpStatus.CREATED).json({
         message: "OK",
@@ -57,9 +58,11 @@ const getNewsById = catchAsync(async(req, res) => {
 
 /* update news detail by params id*/
 const updateNewsById = catchAsync(async(req, res) => {
+    const newsDetail = await newsService.getNewsById(req.params.id)
+    const image = req.file ? { imageUrl: req.file.path } : { imageUrl: newsDetail.imageUrl}
     const newsSingle = await newsService.updateNewsById(
         req.params.id,
-        Object.assign(req.body,{ imageUrl: req.file.path })
+        Object.assign(req.body,image)
     )
     if(!newsSingle) res.status(httpStatus.NOT_FOUND).json({
         message: "Update failed"
