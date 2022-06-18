@@ -1,6 +1,7 @@
 package com.example.simpletouristapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.simpletouristapp.PayPalActivity;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.model.HistoryTicketResponse;
 import com.example.simpletouristapp.service.ToursApiService;
@@ -27,9 +29,9 @@ import java.util.Locale;
 
 public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdapter.HistoryTicketViewHolder>{
     private Context context;
-    private List<HistoryTicketResponse.Ticket.TicketHistory> tickets;
+    private List<HistoryTicketResponse.Ticket> tickets;
 
-    public HistoryTicketAdapter(Context context, List<HistoryTicketResponse.Ticket.TicketHistory> tickets) {
+    public HistoryTicketAdapter(Context context, List<HistoryTicketResponse.Ticket> tickets) {
         this.context = context;
         this.tickets = tickets;
     }
@@ -44,7 +46,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
 
     @Override
     public void onBindViewHolder(@NonNull HistoryTicketViewHolder holder, int position) {
-        HistoryTicketResponse.Ticket.TicketHistory ticket = tickets.get(position);
+        HistoryTicketResponse.Ticket ticket = tickets.get(position);
 
         Locale lc = new Locale("nv","VN");
         NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
@@ -55,8 +57,12 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
         holder.nameTour.setText(ticket.getTourName());
         holder.price.setText(nf.format(ticket.getPaymentPrice()));
         if(ticket.getStatus() == 1){
+            holder.btnRate.setVisibility(View.VISIBLE);
+            holder.btnPayment.setVisibility(View.GONE);
             holder.state.setText("Đã thanh toán");
         }else {
+            holder.btnRate.setVisibility(View.GONE);
+            holder.btnPayment.setVisibility(View.VISIBLE);
             holder.state.setText("Chưa thanh toán");
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +87,14 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
                 Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_detail_tour,bundle);
             }
         });
+        holder.btnPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PayPalActivity.class);
+                intent.putExtra("ticket",ticket);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -94,6 +108,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
         private TextView price;
         private TextView bookingDate;
         private Button btnRate;
+        private Button btnPayment;
         private TextView state;
         public HistoryTicketViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +118,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
             state = itemView.findViewById(R.id.tv_state);
             image = itemView.findViewById(R.id.image_history);
             bookingDate = itemView.findViewById(R.id.tv_booking_date);
+            btnPayment = itemView.findViewById(R.id.btn_payment);
         }
     }
 }

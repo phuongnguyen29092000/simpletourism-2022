@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.example.simpletouristapp.MainActivityLogged;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.FragmentAccountBinding;
 import com.example.simpletouristapp.databinding.NavHeaderMainBinding;
+import com.example.simpletouristapp.service.AccountApiService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,15 +34,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class AccountFragment extends Fragment {
 
     private FragmentAccountBinding binding;
+    private AccountApiService accountApiService;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        accountApiService = new AccountApiService();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
         Picasso.get().load(sharedPref.getString("photo_url","")).into(binding.imageDetail);
         binding.btnHistory.setOnClickListener(new View.OnClickListener() {
@@ -66,15 +75,35 @@ public class AccountFragment extends Fragment {
     }
 
     private void signOut(){
-        MainActivityLogged.gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
+        Log.d("Access",sharedPref.getString("access_token",""));
+        Log.d("Refresh",sharedPref.getString("refresh_token",""));
+
+        Call<ResponseBody> call = accountApiService.logout("Bearer " + sharedPref.getString("access_token","")
+                                    ,sharedPref.getString("access_token",""),sharedPref.getString("refresh_token",""));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
-                sharedPref.edit().clear().commit();
-                getActivity().finish();
-                startActivity(new Intent(getActivity(), MainActivity.class));
-                Toast.makeText(getContext(), "Logout Successful", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.code() == 200){
+                    MainActivityLogged.gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            sharedPref.edit().clear().commit();
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                            Toast.makeText(getContext(), "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else {
+                    Toast.makeText(getContext(), "Đăng xuất thất bại", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
             }
         });
+
     }
 }

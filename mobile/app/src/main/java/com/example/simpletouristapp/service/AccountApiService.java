@@ -4,25 +4,33 @@ import com.example.simpletouristapp.api.AccountApi;
 import com.example.simpletouristapp.model.HistoryTicketResponse;
 import com.example.simpletouristapp.model.RefreshTokenResponse;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.Header;
 
 public class AccountApiService {
     private AccountApi accountApi;
 
-    public AccountApiService(){
+    public AccountApiService() {
         accountApi = new Retrofit.Builder()
                 .baseUrl(ToursApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AccountApi.class);
     }
-    public Call<HistoryTicketResponse> getHistoryTicket(String auth,String idCustomer){
-        return accountApi.getHistoryTicket(idCustomer);
+
+    public Call<HistoryTicketResponse> getHistoryTicket(String auth, String idCustomer) {
+        return accountApi.getHistoryTicket(auth,idCustomer);
     }
 
-    public Call<RefreshTokenResponse> getAccessInfo(String refreshToken){
+    public Call<RefreshTokenResponse> getAccessInfo(String refreshToken) {
         return accountApi.getAccessInfo(refreshToken);
+    }
+
+    public Call<ResponseBody> logout(String auth, String accessToken, String refreshToken) {
+        return accountApi.logout(auth, accessToken, refreshToken);
     }
 }
