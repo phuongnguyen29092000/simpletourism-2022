@@ -91,6 +91,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_gravity="right"
                 android:background="@drawable/custombtn2"
+                app:backgroundTint="#5584AC"
                 android:fontFamily="@font/nunito_sans_semibold"/>
             <Button
                 android:id="@+id/btn_payment"
