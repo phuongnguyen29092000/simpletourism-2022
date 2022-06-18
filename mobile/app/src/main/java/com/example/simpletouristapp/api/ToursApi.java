@@ -47,8 +47,10 @@ public interface ToursApi {
     @GET("tour/tour-noi-bat")
     Call<ToursResponse> getOutStandingTours();
 
+    @FormUrlEncoded
     @POST("payment/create")
-    Call<ResponseBody> postPaypal();
+    Call<ResponseBody> postPaypal(@Field("name") String name, @Field("sku") String sku
+            ,@Field("price") int price, @Field("quantity")int quantity);
 
     @FormUrlEncoded
     @POST("auth/login")

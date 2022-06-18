@@ -38,16 +38,15 @@ public class HistoryFragment extends Fragment {
     private AccountApiService accountApiService;
     private HistoryTicketAdapter historyTicketAdapter;
     private SharedPreferences sharedPreferences;
-    private List<HistoryTicketResponse.Ticket.TicketHistory> ticketHistories;
+    public static Context context;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = HistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        context = getContext();
         accountApiService = new AccountApiService();
 
         sharedPreferences = getActivity().getSharedPreferences("Token", Context.MODE_PRIVATE);
-        ticketHistories = new ArrayList<>();
         rvHistory = binding.rvHistory;
         MainActivityLogged.getAccessInfo(getContext());
         Call<HistoryTicketResponse> call = accountApiService.getHistoryTicket("Bearer " + sharedPreferences.getString("access_token",""),sharedPreferences.getString("id_customer",""));
@@ -56,15 +55,7 @@ public class HistoryFragment extends Fragment {
             public void onResponse(Call<HistoryTicketResponse> call, Response<HistoryTicketResponse> response) {
                 if(response.code() == 200){
                     HistoryTicketResponse historyTicketResponse = response.body();
-                    for (HistoryTicketResponse.Ticket.TicketHistory ticket:historyTicketResponse.getTickets().getTicketsHistoryPaid()
-                         ) {
-                        ticketHistories.add(ticket);
-                    }
-                    for (HistoryTicketResponse.Ticket.TicketHistory ticket:historyTicketResponse.getTickets().getTicketsHistoryUnPaid()
-                    ) {
-                        ticketHistories.add(ticket);
-                    }
-                    historyTicketAdapter = new HistoryTicketAdapter(getContext(),ticketHistories);
+                    historyTicketAdapter = new HistoryTicketAdapter(getContext(),historyTicketResponse.getTickets());
                     rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
                     rvHistory.setAdapter(historyTicketAdapter);
                 }else {
