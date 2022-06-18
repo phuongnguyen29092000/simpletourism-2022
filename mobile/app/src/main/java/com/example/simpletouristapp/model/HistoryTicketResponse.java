@@ -57,6 +57,16 @@ public class HistoryTicketResponse {
         private String imageAvatar;
         @SerializedName("createdAt")
         private Date bookingDate;
+        @SerializedName("hotelName")
+        private String hotelName;
+
+        public String getHotelName() {
+            return hotelName;
+        }
+
+        public void setHotelName(String hotelName) {
+            this.hotelName = hotelName;
+        }
 
         public String getImageAvatar() {
             return imageAvatar;

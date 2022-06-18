@@ -51,13 +51,14 @@ public class DetailTourFragment extends Fragment {
     private RecyclerView rvFeedback;
     private FeedBacksApiService feedBacksApiService;
     private SharedPreferences sharedPreferences;
-
+    private Integer status;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             tourId = (String) getArguments().getSerializable("IdTour");
+            status = (Integer) getArguments().getSerializable("Status");
         }
     }
 
@@ -262,6 +263,13 @@ public class DetailTourFragment extends Fragment {
                 }
             }
         });
+        try {
+            if (status == 1){
+                binding.edtComment.setFocusable(true);
+                binding.edtComment.requestFocus();
+            }
+        }catch (Exception e){
+        }
         return root;
     }
 

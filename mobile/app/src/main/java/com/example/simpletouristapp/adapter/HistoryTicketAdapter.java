@@ -69,7 +69,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("ticket", (Serializable) ticket);
+                bundle.putSerializable("ticket", ticket);
                 Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_history_detail,bundle);
             }
         });
@@ -84,6 +84,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdTour", ticket.getIdTour());
+                bundle.putSerializable("Status", ticket.getStatus());
                 Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_detail_tour,bundle);
             }
         });
