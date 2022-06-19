@@ -7,8 +7,9 @@ import TourDetail from '../containers/TourDetail';
 import userLayout from '../HOCS/userLayout';
 import HomePage from '../pages/HomePage'
 import NewsList from 'containers/ListNews';
-import { ROUTE_HOME, ROUTE_TOUR_DETAIL, ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_FILTER, ROUTE_TOUR_INTERNATIONAL, ROUTE_USER_NEWS, ROUTE_USER_NEWS_DETAIL} from './type';
+import { ROUTE_HOME, ROUTE_TOUR_DETAIL, ROUTE_TOUR_DOMESTIC, ROUTE_TOUR_FILTER, ROUTE_TOUR_INTERNATIONAL, ROUTE_USER_CONTACT, ROUTE_USER_NEWS, ROUTE_USER_NEWS_DETAIL} from './type';
 import NewsDetail from 'containers/NewsDetail';
+import Contact from 'pages/Contact';
 
 const userRoutes = () => {
     return (
@@ -66,6 +67,12 @@ const userRoutes = () => {
                 path={ROUTE_USER_NEWS_DETAIL}
                 element = {userLayout({
                     Component: NewsDetail
+                })}
+            />
+            <Route
+                path={ROUTE_USER_CONTACT}
+                element = {userLayout({
+                    Component: Contact
                 })}
             />
         </Routes>

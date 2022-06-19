@@ -36,8 +36,8 @@ export default function HistoryList({onClose}) {
     }, [])
 
     return (
-        <div>
-            <h3 style={{ padding: '20px', textAlign: 'center', width: '100%' }}>TOUR CỦA BẠN</h3>
+        <div style={{width: '493px', overflowX:'hidden'}}>
+            <h3 style={{ padding: '20px', textAlign: 'center' }}>TOUR CỦA BẠN</h3>
             {histories?.length > 0 ?
                 <Timeline position="right">
                     {
@@ -106,7 +106,9 @@ export default function HistoryList({onClose}) {
                 </Timeline>
                 : <h5>BẠN CHƯA ĐẶT TOUR NÀO :D</h5>
             }
-            <PaymentModal open={showPayment} handleClose={()=>setShowPayment(false)} infoPayment={dataPayment} onClose={onClose}/>
+            {
+                dataPayment && <PaymentModal open={showPayment} handleClose={()=>setShowPayment(false)} infoPayment={dataPayment} onClose={onClose}/>
+            }
         </div>
     );
 }
