@@ -77,7 +77,6 @@ const getAllCustomer = async () => {
 };
 
 const becomeOwner = async (req) => {
-  console.log(req.params.customerId, req.body.companyName);
   const newOwner = await User.findOneAndUpdate(
     { _id: req.params.customerId },
     { role: "owner", companyName: req.body.companyName},
@@ -119,15 +118,19 @@ const getAllCustomerBookedTour = async (idOwner) => {
 					"idTour": "$tour._id",
 					"customerId": "$customer._id",
 					"customerName": "$customer.givenName",
+					"customerFamilyName": "$customer.familyName",
 					"tourName": "$tour.tourName",
 					"email": '$customer.email',
+          "photoUrl": "$customer.photoUrl",
 					"totalPrice": { "$multiply": ["$numberPeople", "$paymentPrice"] }
 			}
 		},
 		{
 			$group: {
 				_id: "$customerId",
+				photoUrl: { $first: "$photoUrl" },
 				givenName: { $first: "$customerName" },
+				familyName: { $first: "$customerFamilyName" },
 				email: { $first: "$email" },
 				phone: { $addToSet: "$phone" },
 				totalTickets: { $sum: "$numberPeople" },
@@ -145,6 +148,16 @@ const getAllCustomerBookedTour = async (idOwner) => {
 	return users
 };
 
+const setActiveUser = async(id) =>{
+  const user = await getUserById(id)
+  const userUpdated = await User.findOneAndUpdate(
+    { _id: id },
+    { active: !user.active},
+    { new: true }
+  );
+  return userUpdated;
+}
+
 module.exports = {
   createUser,
   getUserByRole,
@@ -155,5 +168,6 @@ module.exports = {
   getAllOwner,
   getAllCustomer,
   becomeOwner,
-	getAllCustomerBookedTour
+	getAllCustomerBookedTour,
+  setActiveUser
 };

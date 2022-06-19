@@ -41,7 +41,6 @@ const generateAccessRefreshToken = async(id, isRefresh = false) => {
 
     const refreshTokenExpires = moment().add(parseInt(process.env.JWT_REFRESH_EXPIRATION_DAYS), 'days')
     const refreshToken = generateToken(id, refreshTokenExpires, tokenTypes.REFRESH, process.env.JWT_SECRET)
-
     await saveToken(accessToken, id, accessTokenExpires, tokenTypes.ACCESS)
     if(!isRefresh) await saveToken(refreshToken, id, refreshTokenExpires, tokenTypes.REFRESH)
     return {

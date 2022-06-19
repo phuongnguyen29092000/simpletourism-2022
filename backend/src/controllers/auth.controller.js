@@ -51,7 +51,6 @@ const loginGoogle = catchAsync(async(req, res)=>{
 })
 
 const logout = catchAsync(async(req, res) => {
-    console.log(req.body.refreshToken);
     if(!req.body.refreshToken) return res.status(httpStatus.FORBIDDEN).json({
         status: 403,
         message: "FORBIDDEN"

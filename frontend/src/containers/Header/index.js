@@ -94,7 +94,7 @@ const getCurrentUrl = (url) => {
 const Header = () => {
     const classes = useStyles();
     const { search } = useLocation();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const {account} = useSelector((store) => store.user)
     console.log(account)
@@ -267,8 +267,7 @@ const Header = () => {
                             <Typography textAlign="center">Tour của bạn</Typography>
                         </MenuItem>
                         <MenuItem onClick={() =>{
-                            dispatch(logoutGoogle())
-                            window.location.reload()
+                            dispatch(logoutGoogle(()=>navigate('/')))
                         }}>
                             <Typography textAlign="center">Đăng xuất</Typography>
                         </MenuItem>

@@ -26,20 +26,24 @@ function ListUserOwner(props) {
             <div className='ticket-manager__listticket'>
                 <table>
                     <thead>
+                        <th className='th-2'>Ảnh đại diện</th>
                         <th className='th-2'>Tên khách hàng</th>
                         <th className='th-2'>Điện thoại</th>
                         <th className='th-1'>Email</th>
                         <th className='th-1'>Danh sách tour</th>
                         <th className='th-2'>Tổng vé đã đặt</th>
                         <th className='th-2'>Tổng tiền (VND)</th>
-                        <th className='th-2'></th>
+                        {/* <th className='th-2'></th> */}
                     </thead>
                     <tbody>
                         {
                             listUserOwner?.users &&
                             listUserOwner?.users?.map((user, index) =>(
                                 <tr key={index} style={{borderBottom:'5px solid white'}}>
-                                    <td className='td-2'>{user?.givenName}</td>
+                                    <td className='td-2' style={{display:'flex', alignItems:'center', justifyContent:'center', padding:'20px'}}>
+                                        <img style={{width:'70px', height:'70px'}}src={user?.photoUrl} alt=''/>
+                                    </td>
+                                    <td className='td-2'>{user?.familyName}{' '}{user?.givenName}</td>
                                     <td className='td-1'>{user?.phone?.map((phoneItem)=>(
                                         <div style={{margin:'3px 0px'}}>{phoneItem}</div>
                                     ))}</td>
@@ -49,13 +53,13 @@ function ListUserOwner(props) {
                                     ))}</td>
                                     <td className='td-2' style={{textAlign:'center'}}>{user?.totalTickets}</td>
                                     <td className='td-3' style={{textAlign:'right'}}>{user?.totalPrice.toLocaleString().split(',').join('.')} đ</td>
-                                    <td>
+                                    {/* <td>
                                         <div className='action-col'>
                                             <div className='btn-action btn-edit'>
                                                 <EditIcon fontSize='15px'/>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))
                         }

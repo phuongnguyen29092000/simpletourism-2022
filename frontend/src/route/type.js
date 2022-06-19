@@ -18,3 +18,8 @@ export const ROUTE_TOUR_DETAIL = '/tour-chi-tiet/:id'
 
 export const ROUTE_USER_NEWS ='/news'
 export const ROUTE_USER_NEWS_DETAIL ='/tin-tuc/:id'
+
+export const ROUTE_ADMIN_CUSTOMER = '/admin/customer'
+export const ROUTE_ADMIN_OWNER = '/admin/owner'
+export const ROUTE_ADMIN_TYPE_PLACE = '/admin/typeplace'
+export const ROUTE_ADMIN_STATISTIC = '/admin/statistic'

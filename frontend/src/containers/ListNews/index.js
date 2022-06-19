@@ -39,7 +39,6 @@ function NewsList(props) {
         window.scrollTo(0, 0)
     })
     
-    console.log(">>>", listNews)
     return (
         <div className='news-list-wrapper' style={{ paddingTop: '70px',
             backgroundImage: "url('https://images.pexels.com/photos/2147486/pexels-photo-2147486.jpeg')",
