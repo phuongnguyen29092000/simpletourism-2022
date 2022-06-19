@@ -52,6 +52,7 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                     if (a.name.common < b.name.common) return -1;
                     return 0;
                 })]
+                console.log(result.data);
                 setCountries([...dataTem])
             }
         })

@@ -16,8 +16,20 @@ const logout = (data) => {
     return axiosClient.post(url, data, {headers: getHeaderWithToken()})
 }
 
+const getPaypalInfor = (id) => {
+    let url = `/payment/owner/account/${id}`
+    return axiosClient.get(url, {headers: getHeaderWithToken()})
+}
+
+const paymentSuccess = (id) => {
+    let url = `/payment/success/${id}`
+    return axiosClient.patch(url, {headers: getHeaderWithToken()})
+}
+
 export default {
     loginWithGoogle,
     refreshToken,
-    logout
+    logout,
+    getPaypalInfor,
+    paymentSuccess
 }
