@@ -34,12 +34,12 @@ const getAllTour = async (queryString) => {
 };
 
 const getDomesticTour = async () => {
-  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } }).populate("typePlace owner")
+  const tours = await Tour.find({ countryName: { $eq: "Vietnam" } }).populate("typePlace owner")
   return tours;
 };
 
 const getInternationalTour = async () => {
-  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } }).populate("typePlace owner")
+  const tours = await Tour.find({ countryName: { $ne: "Vietnam" } }).populate("typePlace owner")
   // .populate([{
   //   path: "typePlace"}, {path: "owner"}])
   return tours;
@@ -166,6 +166,7 @@ const searchByText = async (text) => {
   tours = Array.from(uniqueSet).map(JSON.parse);
   return tours;
 };
+
 
 module.exports = {
   getAllTour,

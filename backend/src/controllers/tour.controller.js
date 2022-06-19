@@ -175,6 +175,14 @@ const searchByText = catchAsync(async (req, res, next) => {
   }
 });
 
+const updateMany = catchAsync (async (req, res) => {
+  const updateTours = await TourService.updateMany(req.body);
+  if(updateTours.length == 0) res.status(400).json({
+    message: "nhu c"
+  });
+  else res.status(200).json(updateTours);
+})
+
 module.exports = {
   getAllTour,
   getDomesticTour,
@@ -185,5 +193,5 @@ module.exports = {
   updateTour,
   getTourByOwner,
   getOutStandingTours,
-  searchByText,
+  searchByText
 };
