@@ -100,7 +100,7 @@ public class MainActivityLogged extends AppCompatActivity {
         name = (TextView) header.findViewById(R.id.name);
         email = (TextView) header.findViewById(R.id.email);
 
-        if(account != null){
+        if (account != null) {
             String personName = account.getDisplayName();
             String personEmail = account.getEmail();
             Picasso.get().load(account.getPhotoUrl()).into(imageView);
@@ -110,7 +110,7 @@ public class MainActivityLogged extends AppCompatActivity {
             Log.w("email", account.getEmail());
             Log.w("photoUrl", String.valueOf(account.getPhotoUrl()));
             Log.w("GoogleId", account.getId());
-            if(account.getIdToken() != null){
+            if (account.getIdToken() != null) {
                 Log.w("TokenId", account.getIdToken());
             }
             Log.w("Scope", String.valueOf(account.getRequestedScopes()));
@@ -119,21 +119,19 @@ public class MainActivityLogged extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        sharedPref = getSharedPreferences("Token",Context.MODE_PRIVATE);
-        String accessToken = sharedPref.getString("access_token","");
-        String id = sharedPref.getString("id_customer","");
-        Log.d("AccessToken",accessToken);
-        Log.d("id_customer",id);
+        sharedPref = getSharedPreferences("Token", Context.MODE_PRIVATE);
+        String accessToken = sharedPref.getString("access_token", "");
+        String id = sharedPref.getString("id_customer", "");
+        Log.d("AccessToken", accessToken);
+        Log.d("id_customer", id);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_domestic, R.id.nav_international, R.id.nav_news, R.id.nav_account)
+                R.id.nav_home, R.id.nav_domestic, R.id.nav_international, R.id.nav_news, R.id.nav_account, R.id.nav_contact)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_activity_logged);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-
 
 
     }
@@ -151,7 +149,7 @@ public class MainActivityLogged extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra("searchResult",s);
+                intent.putExtra("searchResult", s);
                 startActivity(intent);
                 return true;
             }
@@ -163,24 +161,24 @@ public class MainActivityLogged extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
         }
-        if(id == R.id.action_filter){
+        if (id == R.id.action_filter) {
             FilterFragment filterFragment = new FilterFragment();
-            filterFragment.show(getSupportFragmentManager(),"Filter");
+            filterFragment.show(getSupportFragmentManager(), "Filter");
         }
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         // close search view on back button pressed
@@ -209,27 +207,28 @@ public class MainActivityLogged extends AppCompatActivity {
         });
         sharedPref.edit().clear().commit();
     }
-    public static void getAccessInfo(Context context){
+
+    public static void getAccessInfo(Context context) {
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SharedPreferences preferences2 = context.getSharedPreferences("Token", MODE_PRIVATE);
-        String expires = preferences2.getString("access_expires","");
+        String expires = preferences2.getString("access_expires", "");
         try {
             Date access_expires = simpleDateFormat1.parse(expires);
             Date currentDate = Calendar.getInstance().getTime();
-            Log.d("Date",simpleDateFormat1.format(access_expires));
-            Log.d("Current Date",simpleDateFormat1.format(currentDate));
+            Log.d("Date", simpleDateFormat1.format(access_expires));
+            Log.d("Current Date", simpleDateFormat1.format(currentDate));
             Log.d("Check", String.valueOf(currentDate.after(access_expires)));
-            if(currentDate.after(access_expires)){
+            if (currentDate.after(access_expires)) {
                 AccountApiService accountApiService = new AccountApiService();
-                Log.d("Refresh", preferences2.getString("refresh_token",""));
-                Call<RefreshTokenResponse> call = accountApiService.getAccessInfo(preferences2.getString("refresh_token",""));
+                Log.d("Refresh", preferences2.getString("refresh_token", ""));
+                Call<RefreshTokenResponse> call = accountApiService.getAccessInfo(preferences2.getString("refresh_token", ""));
                 call.enqueue(new Callback<RefreshTokenResponse>() {
                     @Override
                     public void onResponse(Call<RefreshTokenResponse> call, Response<RefreshTokenResponse> response) {
-                        if(response.code() == 200){
+                        if (response.code() == 200) {
                             RefreshTokenResponse refreshTokenResponse = response.body();
                             SharedPreferences.Editor editor = preferences2.edit();
-                            editor.putString("access_token",refreshTokenResponse.getAccessInfo().getToken());
+                            editor.putString("access_token", refreshTokenResponse.getAccessInfo().getToken());
                             editor.putString("access_expires", simpleDateFormat1.format(refreshTokenResponse.getAccessInfo().getExpires()));
                             editor.commit();
                         }
@@ -238,7 +237,7 @@ public class MainActivityLogged extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<RefreshTokenResponse> call, Throwable t) {
                         Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.d("ERROR",t.getMessage());
+                        Log.d("ERROR", t.getMessage());
                     }
                 });
             }

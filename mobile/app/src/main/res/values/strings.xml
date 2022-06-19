@@ -26,6 +26,7 @@
     <string name="book_tour_title">Đặt tour</string>
     <string name="payment_title">Thanh toán</string>
     <string name="detail_news_title">Chi tiết Tin tức</string>
+    <string name="contact_title">Liên hệ</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

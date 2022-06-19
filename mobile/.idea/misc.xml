@@ -71,6 +71,8 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/app_bar_main_logged.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/change_password.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/content_filter_result.xml" value="0.1" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/content_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/content_main_activity_logged.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/detail_history.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/detail_news.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/detail_tour.xml" value="0.22826086956521738" />
@@ -80,6 +82,7 @@
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/filter_fragment.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/form_book_tour.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/fragment_account.xml" value="0.22826086956521738" />
+        <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/fragment_contact.xml" value="0.2" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/history.xml" value="0.22826086956521738" />
         <entry key="..\:/My Sefl/DACNPM/simpletourism-2022/mobile/app/src/main/res/layout/international_fragment.xml" value="0.1" />

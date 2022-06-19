@@ -78,10 +78,6 @@ public class InternationalFragment extends Fragment {
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
                 Log.d("TAG",response.code()+"");
                 ToursResponse tourResponse = response.body();
-//                Integer totalResult = tourResponse.totalResult;
-//                TourAdapter tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"international");
-//                rvInternationalTour.setLayoutManager(new GridLayoutManager(getContext(),2));
-//                rvInternationalTour.setAdapter(tourAdapter);
                 tourRepository.deleteInternationalTour();
                 tourRepository.insert(tourResponse.getData());
             }
