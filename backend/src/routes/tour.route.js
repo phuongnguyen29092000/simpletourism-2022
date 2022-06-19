@@ -7,6 +7,7 @@ const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
+
 router.route("/trong-nuoc").get(TourController.getDomesticTour);
 router.route("/quoc-te").get(TourController.getInternationalTour);
 router.route("/tour-noi-bat").get(TourController.getOutStandingTours);
@@ -44,5 +45,7 @@ router
 router
   .route("/owner/:ownerId")
   .get(auth('owner'),TourController.getTourByOwner);
+
+
 
 module.exports = router;
