@@ -9,7 +9,6 @@ import ListUserOwner from 'containers/ListUser/ListUserOwner';
 import OwnerNews from 'containers/News/OwnerNews';
 
 function OwnerRoutes(props) {
-    console.log(ROUTE_LIST_CUSTOMER);
     return (
         <Routes>
             <Route

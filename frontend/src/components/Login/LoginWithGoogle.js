@@ -24,8 +24,9 @@ const LoginWithGoogle = () => {
         // console.log(info);
         dispatch(
             loginWithGoogle(info,
-                () => {
-                    navigate("/owner/list-tour")
+                (res) => {
+                    if(res.role === 'admin') navigate("/admin/owner")
+                    else if(res.role === 'owner') navigate('/owner/list-tour')
                 }
             ),
         )

@@ -23,7 +23,7 @@ const StyledRating = styled(Rating)({
     }
 });
 
-export default function TourCard({ _id, tourName, description, imageAvatar, rating = 0, price, discount = 0, timeStart = 0 }) {
+export default function TourCard({ _id, tourName, description,companyName, imageAvatar,active, rating = 0, price, discount = 0, timeStart = 0 }) {
     const [shadow, setShadow] = React.useState(false);
     const onMouseOver = () => setShadow(true);
     const onMouseOut = () => setShadow(false);
@@ -53,7 +53,7 @@ export default function TourCard({ _id, tourName, description, imageAvatar, rati
                     cursor: 'pointer',
                     borderRadius: '10px',
                     maxWidth: 300,
-                    height: 450,
+                    height: 490,
                     marginLeft: 'auto',
                     marginRight: 'auto',
                     minWidth: 150,
@@ -94,6 +94,11 @@ export default function TourCard({ _id, tourName, description, imageAvatar, rati
                             size="medium"
                         />
                     </Typography>
+                    <Typography gutterBottom variant="h7" component="div" align='left' style={{ fontFamily: 'Dosis', display:'flex', height:'20px'}}>
+                        {!active ? <h4 style={{textDecoration:'line-through', color:"#858585", marginTop:'5px'}}>{companyName}</h4> : 
+                            <h4 style={{color:"#858585", marginTop:'5px'}}>{companyName}</h4>    
+                        }
+                    </Typography>
                     <Typography variant="body2" color="text.secondary" align="left"
                         sx={{
                             overflow: 'hidden',
@@ -110,7 +115,7 @@ export default function TourCard({ _id, tourName, description, imageAvatar, rati
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" disabled = {!getUser()} color="info" variant="outlined" onClick={() => handleOnClick()}
+                    <Button size="small" disabled = {!getUser() || !active} color="info" variant="outlined" onClick={() => handleOnClick()}
                     // disabled = {(new Date().getTime() + 86400000*2) > (new Date(timeStart).getTime())}
                     >
                         Đặt

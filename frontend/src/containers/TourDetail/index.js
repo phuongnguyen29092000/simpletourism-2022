@@ -26,7 +26,7 @@ import SpinnerLoading from 'components/SpinnerLoading';
 import { getUser } from 'hooks/localAuth';
 import BookTourModal from 'components/modal/BookTourModal';
 
-const StyledRating = styled(Rating)({
+const StyledRating = styled(Rating)({   
     "& .MuiRating-iconFilled": {
         color: "#ff6d75"
     },
@@ -206,7 +206,10 @@ function TourDetail() {
                                 </Grid>
                                 <Grid item md={6} xs={12} className='tour-info-wrapper'>
                                     <Typography gutterBottom variant="h4" component="div" align='left' style={{ fontFamily: 'Dosis' }}>
-                                        {tourDetail.tourName}
+                                        {tourDetail.tourName} 
+                                    </Typography>
+                                    <Typography gutterBottom variant="h7" component="div" align='left' style={{ fontFamily: 'Dosis', display:'flex'}}>
+                                        {tourDetail.owner?.companyName}{' '}{!tourDetail.owner?.active && <h4 style={{marginLeft:'10px',textDecoration:'line-through', color:"#858585"}}> Tạm ngừng hoạt động</h4>}
                                     </Typography>
                                     <Typography gutterBottom variant="body1" component="div" align='left' color="secondary">
                                         <PriceDiscount valueDiscount={tourDetail.discount} valuePrice={tourDetail.price} />
@@ -251,7 +254,7 @@ function TourDetail() {
                                     <Typography gutterBottom variant="button" component="div" align='left'>
                                         <Button variant="contained" color="info"
                                             // disabled={(new Date().getTime() + 86400000 * 2) > (new Date(tourDetail.timeStart).getTime())}
-                                            disabled={!getUser()}
+                                            disabled={!getUser() || !tourDetail?.owner?.active}
                                             onClick={() => handleOnClick()}>
                                             Đặt Tour</Button>
                                     </Typography>
@@ -296,6 +299,8 @@ function TourDetail() {
                                                         rating={tour.ratingsAverage}
                                                         price={tour.price}
                                                         discount={tour?.discount}
+                                                        companyName={tour?.owner?.companyName}
+                                                        active={tour?.owner?.active}
                                                     />
                                                 ))
                                             }

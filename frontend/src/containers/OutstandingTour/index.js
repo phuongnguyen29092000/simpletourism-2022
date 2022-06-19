@@ -127,6 +127,8 @@ function OutstandingTour({tourlist}) {
                                     rating = {tour.ratingsAverage}
                                     price = {tour.price}
                                     discount = {tour?.discount}
+                                    companyName={tour?.owner?.companyName}
+                                    active={tour?.owner?.active}
                                 />
                             ))
                         }

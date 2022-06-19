@@ -117,9 +117,20 @@ const updateTicketStatusWithPaymentSuccess = async (idTicket) => {
   });
   return updatedTicket;
 };
+
+const createPaymentInfo = async(id, body) =>{
+  const payment = await PaypalClient.create({
+    owner: id,
+    client_id: body.client_id,
+    client_secret: body.client_secret
+  })
+  return payment
+}
+
 module.exports = {
   createPayment,
   getSuccessPayment,
   getPayPalAccountOfOwner,
   updateTicketStatusWithPaymentSuccess,
+  createPaymentInfo
 };

@@ -10,7 +10,7 @@ export default function PaymentWithPaypal({totalPrice, clientId, idTicket='',han
           clientId: 'ASS_8O5eFQRyvhd2qtkCPyF5f2w6LK04611nwbm8hiQkWtPlCO8XotEl2HhI2PVCu3KXrC7kfYW9ScEZ',
           currency: "USD",
         }}
-        amount={Math.round(totalPrice*100/23)/100}
+        amount={Math.round(totalPrice*100/23000)/100}
         onSuccess={(details, data) => {
           onClose()
           useNotification.Success({
