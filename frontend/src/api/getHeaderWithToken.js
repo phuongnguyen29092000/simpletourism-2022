@@ -1,4 +1,4 @@
-import { getAccessToken } from "hooks/localAuth"
+import { getAccessToken, getRefreshToken } from "hooks/localAuth"
 
 const getHeaderWithToken = () => {
     const token = getAccessToken()
@@ -8,6 +8,12 @@ const getHeaderWithToken = () => {
     }
 }
 
+const refreshTokenValue = () =>{
+    const refreshToken = getRefreshToken()
+    return { refreshToken : refreshToken}
+}
+
 export {
-    getHeaderWithToken
+    getHeaderWithToken,
+    refreshTokenValue
 }

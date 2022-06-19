@@ -8,6 +8,7 @@ import { Provider, useDispatch } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import OwnerRoutes from './route/ownerRoutes'
 import UserRoutes from './route/userRoutes'
+import AdminRoutes from 'route/AdminRoutes'
 import './styles/index.scss'
 import React, { useEffect } from 'react'
 import {gapi} from 'gapi-script'
@@ -38,8 +39,9 @@ function App() {
           <Routes>
             {/* <Route path="/" exact element={<SideBar />} /> */}
           </Routes>
-        <OwnerRoutes/>
-        <UserRoutes/>
+          <OwnerRoutes/>
+          <UserRoutes/>
+          <AdminRoutes/>
           {/* <Header /> */}
           {/* <HomePage/> */}
         </div>

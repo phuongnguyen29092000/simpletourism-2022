@@ -4,8 +4,8 @@ import { CheckExpiredToken } from 'ultis/authUtil'
 import useNotification from 'hooks/notification'
 
 const getAllTicket = (id,callback = ()=>{}) => {
-    return (dispatch) => {
-        CheckExpiredToken()
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.GET_TICKET})
         API.getAllTicket(id)
         // .then((response)=>response.json())
@@ -31,8 +31,8 @@ const getAllTicket = (id,callback = ()=>{}) => {
 }
 
 const getTicketPerTour = (id, callback = ()=>{}) => {
-    return (dispatch) => {
-        CheckExpiredToken()
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.GET_TICKET_PER_TOUR})
         API.getTicketPerTour(id)
         // .then((response)=>response.json())
@@ -64,8 +64,8 @@ const getTicketPerTour = (id, callback = ()=>{}) => {
 }
 
 const deleteTicket = (id, callback = ()=>{}) => {
-    return (dispatch) => {
-        CheckExpiredToken()
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.DELETE_TICKET})
         API.deleteTicket(id)
         // .then((response)=>response.json())

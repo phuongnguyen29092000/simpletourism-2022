@@ -82,7 +82,6 @@ export const reducer = (state = initialState, action) => {
     }
     case types.UPDATE_NEWS_SUCCESS: {
       let listNewsTemp = [...state?.listNewsCompany];
-      console.log(listNewsTemp);
       let indexUpdate = listNewsTemp?.map((news) => news._id).indexOf(action.payload.id);
       let result = listNewsTemp?.splice(indexUpdate, 1, action.payload.news);
       return {

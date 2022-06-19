@@ -34,26 +34,22 @@ const getAllTour = async (queryString) => {
 };
 
 const getDomesticTour = async () => {
-  const tours = await Tour.find({ countryName: { $eq: "Việt Nam" } }).populate({
-    path: "typePlace",
-  });
+  const tours = await Tour.find({ countryName: { $eq: "Vietnam" } }).populate("typePlace owner")
   return tours;
 };
 
 const getInternationalTour = async () => {
-  const tours = await Tour.find({ countryName: { $ne: "Việt Nam" } }).populate({
-    path: "typePlace",
-  });
+  const tours = await Tour.find({ countryName: { $ne: "Vietnam" } }).populate("typePlace owner")
+  // .populate([{
+  //   path: "typePlace"}, {path: "owner"}])
   return tours;
 };
 
 const getTour = async (id) => {
-  const tour = await Tour.findById(id).populate({ path: "typePlace" });
+  const tour = await Tour.findById(id).populate("typePlace owner")
   if (tour) {
     let similarTour = (
-      await Tour.find({ typePlace: { $eq: tour.typePlace } }).populate({
-        path: "typePlace",
-      })
+      await Tour.find({ typePlace: { $eq: tour.typePlace } }).populate("typePlace owner")
     ).filter((ele) => {
       return ele._id != id;
     });
@@ -62,9 +58,8 @@ const getTour = async (id) => {
     } else {
       let temp1SimilarTour = await Tour.find({
         countryName: { $eq: tour.countryName },
-      }).populate({
-        path: "typePlace",
-      });
+      }).populate("typePlace owner")
+
       let temp2SimilarTour = [...similarTour, ...temp1SimilarTour];
       similarTour = temp2SimilarTour
         .filter((ele) => {
@@ -84,7 +79,7 @@ const getTour = async (id) => {
 
 const getOutstandingTour = async () => {
   const allTours = await Tour.find()
-    .populate({ path: "typePlace" })
+    .populate("typePlace owner")
     .sort({ ratingsAverage: -1 });
   const outstandingTour = allTours.splice(0, 6);
   return outstandingTour;
@@ -135,7 +130,7 @@ const createTour = async (tour) => {
 const updateTour = async (id, tour) => {
   const updatedTour = await Tour.findOneAndUpdate({ _id: id }, tour, {
     new: true,
-  }).populate({ path: "typePlace" });
+  }).populate.populate("typePlace owner")
   return updatedTour;
 };
 
@@ -143,9 +138,7 @@ const getTourByOwner = async (idOwner) => {
   const tours = await Tour.find({
     owner: { $eq: idOwner },
   })
-    .populate({
-      path: "typePlace",
-    })
+    .populate("typePlace owner")
     .select("-owner -__v");
   return tours;
 };
@@ -157,25 +150,23 @@ const searchByText = async (text) => {
   text = text.replace("+", " ");
   const searchByName = await Tour.find({
     tourName: { $regex: text, $options: "i" },
-  }).populate({
-    path: "typePlace",
-  });
+  }).populate("typePlace owner")
+
   const searchByDescription = await Tour.find({
     description: { $regex: text, $options: "i" },
-  }).populate({
-    path: "typePlace",
-  });
+  }).populate("typePlace owner")
+
   const searchBySlug = await Tour.find({
     slug: { $regex: textSlug, $options: "i" },
-  }).populate({
-    path: "typePlace",
-  });
+  }).populate("typePlace owner")
+
   let arr = [...searchByName, ...searchByDescription, ...searchBySlug];
   let jsonObject = arr.map(JSON.stringify);
   let uniqueSet = new Set(jsonObject);
   tours = Array.from(uniqueSet).map(JSON.parse);
   return tours;
 };
+
 
 module.exports = {
   getAllTour,

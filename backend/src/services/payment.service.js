@@ -7,7 +7,6 @@ const createPayment = async (req, res, items, total, idTicket) => {
   const idTour = (await Ticket.findById(idTicket)).tour;
   totalPayment = total;
   const ownerId = (await Tour.findById(idTour)).owner;
-  console.log(ownerId);
   var client_id = (await PaypalClient.findOne({ owner: { $eq: ownerId } }))
     .client_id;
   var client_secret = (
@@ -92,7 +91,46 @@ const getSuccessPayment = async (payerId, paymentId, req, res) => {
     }
   );
 };
+
+const getPayPalAccountOfOwner = async (idTicket) => {
+  const idTour = (await Ticket.findById(idTicket)).tour;
+  const idOwner = (await Tour.findById(idTour)).owner;
+  var client_id = (await PaypalClient.findOne({ owner: { $eq: idOwner } }))
+    .client_id;
+  var client_secret = (
+    await PaypalClient.findOne({
+      owner: { $eq: idOwner },
+    })
+  ).client_secret;
+  return {
+    client_id,
+    client_secret,
+  };
+};
+
+const updateTicketStatusWithPaymentSuccess = async (idTicket) => {
+  let ticketBody = {
+    status: 1,
+  };
+  updatedTicket = await Ticket.findByIdAndUpdate(idTicket, ticketBody, {
+    new: true,
+  });
+  return updatedTicket;
+};
+
+const createPaymentInfo = async(id, body) =>{
+  const payment = await PaypalClient.create({
+    owner: id,
+    client_id: body.client_id,
+    client_secret: body.client_secret
+  })
+  return payment
+}
+
 module.exports = {
   createPayment,
   getSuccessPayment,
+  getPayPalAccountOfOwner,
+  updateTicketStatusWithPaymentSuccess,
+  createPaymentInfo
 };

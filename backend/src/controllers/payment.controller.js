@@ -29,7 +29,46 @@ const getSuccessPayment = catchAsync(async (req, res) => {
     res
   );
 });
+
+const getPayPalAccountOfOwner = catchAsync(async (req, res, next) => {
+  const { client_id, client_secret } =
+    await PaypalService.getPayPalAccountOfOwner(req.params.ticketId);
+  if (!client_id || !client_secret) {
+    return next(
+      new ApiError(
+        `Không thể tìm thấy account với id:  ${req.params.ownerId}!`,
+        404
+      )
+    );
+  } else {
+    res.status(200).json({
+      client_id,
+      client_secret,
+    });
+  }
+});
+
+const updateTicketStatusWithPaymentSuccess = catchAsync(
+  async (req, res, next) => {
+    const updatedTicket =
+      await PaypalService.updateTicketStatusWithPaymentSuccess(
+        req.params.idTicket
+      );
+    if (!updatedTicket)
+      return next(
+        new ApiError(`Không thể cập nhật trạng thái vé, hãy kiểm tra lại!`, 404)
+      );
+    else {
+      res.status(200).json({
+        message: "Cập nhật trạng thái vé thành công!",
+        updatedTicket,
+      });
+    }
+  }
+);
 module.exports = {
   createPayment,
   getSuccessPayment,
+  getPayPalAccountOfOwner,
+  updateTicketStatusWithPaymentSuccess,
 };

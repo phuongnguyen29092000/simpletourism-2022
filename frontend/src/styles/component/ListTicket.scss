@@ -39,6 +39,11 @@
                 tr{
                     background-color: #f6f6f6cf;
                     border-bottom: 2px solid #fff;
+                    .td-switch {
+                        label {
+                            margin: 0px 0px !important;
+                        }
+                    }
                     td{
                         padding: 5px 10px;
                         text-align: left;

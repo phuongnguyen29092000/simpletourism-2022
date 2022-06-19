@@ -11,8 +11,9 @@ const getCountries = () => {
 }
 
 const createTypePlace = (data) => {
-    let url = '/typeplace'
-    return axiosClient.post(url, { headers: getHeaderWithToken()})
+    let url = '/typeplace/create'
+    console.log(getHeaderWithToken());
+    return axiosClient.post(url, data, { headers: getHeaderWithToken()})
 }
 
 const updateTypePlace = (id, data) => {

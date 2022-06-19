@@ -62,7 +62,7 @@ function CarouselInstroduce(props) {
     const settings = {
         className: `${classes.slider}`,
         dots: true,
-        // autoplay: true,
+        autoplay: true,
         arrows: true,
         infinite: true,
         speed: 500,

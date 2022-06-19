@@ -1,10 +1,11 @@
 import * as types from './types'
 import API from '../../../api/NewsAPI'
 import useNotification from 'hooks/notification'
+import { CheckExpiredToken } from 'ultis/authUtil'
 
 const addNews = (data, callback=()=>{}) =>{
-    console.log(data)
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.CREATE_NEWS})
         API.addNews(data)
         // .then((response)=>response.json())
@@ -65,7 +66,8 @@ const getAllNews = (callback = ()=>{}) => {
 }
 
 const getNewsPerCompany = (id, callback = ()=>{}) => {
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.GET_NEWS_COMPANY})
         API.getNewsPerCompany(id)
         // .then((response)=>response.json())
@@ -118,7 +120,8 @@ const getNewsDetail = (id, callback = ()=>{}) => {
 }
 
 const deleteNews = (id, callback = ()=>{}) => {
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.DELETE_NEWS})
         API.deleteNews(id)
         // .then((response)=>response.json())
@@ -153,7 +156,8 @@ const deleteNews = (id, callback = ()=>{}) => {
 
 
 const updateNews = (id,data, callback = ()=>{}) => {
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.UPDATE_NEWS})
         API.updateNews(id, data)
         // .then((response)=>response.json())
