@@ -3,25 +3,25 @@ import AuthAPI from "../api/AuthAPI";
 import useNotification from "../hooks/notification";
 import Cookies from "js-cookie";
 import { ROUTE_HOME } from "../route/type";
+import moment from "moment";
 // import { useDispatch } from "react-redux";
 // import { setAccountInfo } from "redux/reducers/user/action";
 
-export const CheckExpiredToken = () => {
- 
-  const now = new Date()
+export const CheckExpiredToken = async() => {
+  const now = Date.now()
   const time_refresh = getTimeRefresh()
   const refresh_token = getRefreshToken()
-  if (now.getTime() >= time_refresh) {
+  console.log('xxxxx',now >= time_refresh);
+  if (now >= time_refresh) {
     if (refresh_token) {
-      if (now.getTime() >= time_refresh) {
-        AuthAPI
+      if (now >= time_refresh) {
+        await AuthAPI
           .refreshToken({refreshToken: refresh_token})
           .then((result) => {
             if (result.status === 200) {
-              // setAccessToken(result.access_token)
-              // setRefreshToken(result.refresh_token)
-              // setTimeRefresh(result.expires_in)
-              window.location.reload()
+              setAccessToken(result.data.accessInfo.token)
+              setTimeRefresh(result.data.accessInfo.expires)
+              // window.location.reload()
             } else {
               useNotification.Error({
                 title: 'Message',

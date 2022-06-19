@@ -1,9 +1,8 @@
 const httpStatus = require('http-status');
-const { TypePlace } = require('../models');
+const { TypePlace, Tour } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const createTypePlace = async(typePlaceBody) => {
-    console.log(typePlaceBody);
     const typePlace = await TypePlace.create(typePlaceBody)
     return typePlace
 }
@@ -29,10 +28,16 @@ const deleteTypePlaceById = async(id) => {
     return typePlace
 }
 
+const checkExistTypePlaceInTour = async(id) =>{
+    const tours = await Tour.find({typePlace: id})
+    return tours.length
+}
+
 module.exports = {
     createTypePlace,
     getAllTypePlace,
     getTypePlaceById,
     updateTypePlaceById,
-    deleteTypePlaceById
+    deleteTypePlaceById,
+    checkExistTypePlaceInTour
 }

@@ -30,11 +30,18 @@ const deleteUser = (idUser) => {
     const url = `/user/${idUser}`
     return axiosClient.delete(url, {headers: getHeaderWithToken()})
 }
+
+const setActiveUser = (id) =>{
+    const url = `/user/set_active/${id}`
+    return axiosClient.put(url, {}, {headers: getHeaderWithToken()})
+}
+
 export default {
     getListOwner,
     getListCustomer, 
     getAllCustomerBooked,
     getInfoUser, 
     becomeOwner,
-    deleteUser
+    deleteUser,
+    setActiveUser
 }

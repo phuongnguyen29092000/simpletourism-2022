@@ -5,8 +5,8 @@ export const setAccessToken = (token) => Cookies.set('token', token)
 export const setRefreshToken = (token) => Cookies.set('refresh_token', token)
 export const setUser = (user) => Cookies.set('user', user)
 export const setTimeRefresh = (expires_in) => {
-  const time = new Date()
-  const time_refresh = time.getTime() + expires_in * 1000
+  const time = new Date(expires_in)
+  const time_refresh = time.getTime()
   return Cookies.set('time_refresh', time_refresh)
 }
 

@@ -1,8 +1,9 @@
 const catchAsync = require("../utils/catchAsync");
 const httpStatus = require("http-status");
 const validator = require("validator");
-const { userService } = require("../services");
+const { userService, PaypalService } = require("../services");
 const ApiError = require("../utils/ApiError");
+const { emailBecomeOwner } = require("../config/emailTemplates");
 
 /* create new user */
 const createUser = catchAsync(async (req, res) => {
@@ -97,6 +98,7 @@ const getAllCustomer = catchAsync(async (req, res, next) => {
 
 const becomeOwner = catchAsync(async (req, res, next) => {
   const newOwner = await userService.becomeOwner(req);
+  const paymentInfo = await PaypalService.createPaymentInfo(req.params.customerId, req.body)
   if (!newOwner) {
     return next(
       new ApiError(
@@ -105,6 +107,7 @@ const becomeOwner = catchAsync(async (req, res, next) => {
       )
     );
   } else {
+    if(newOwner) await emailBecomeOwner(newOwner, req.body.client_id, req.body.client_secret)
     res.status(200).json({
       message: "Cấp quyền Owner thành công!",
       data: newOwner,
@@ -123,6 +126,21 @@ const getAllCustomerBookedTour = catchAsync(async(req, res)=> {
   })
 })
 
+const setActiveUser = catchAsync(async(req,res) =>{
+  const user = await userService.setActiveUser(req.params.userId)
+  if (!user)
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: 500,
+      message: "Failed",
+    });
+  else
+    res.status(200).json({
+      status: 200,
+      message: "OK",
+      user: user,
+    });
+})
+
 module.exports = {
   createUser,
   getUserByRole,
@@ -132,5 +150,6 @@ module.exports = {
   getAllOwner,
   getAllCustomer,
   becomeOwner,
-  getAllCustomerBookedTour
+  getAllCustomerBookedTour,
+  setActiveUser
 };

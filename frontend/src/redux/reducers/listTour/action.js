@@ -1,6 +1,7 @@
 import * as types from './types'
 import API from '../../../api/ListTourAPI'
 import useNotification from 'hooks/notification'
+import { CheckExpiredToken } from 'ultis/authUtil'
 
 const getAllTour = (callback = ()=>{}) => {
     return (dispatch) => {
@@ -29,7 +30,8 @@ const getAllTour = (callback = ()=>{}) => {
 }
 
 const getTourByOwner = (id,callback = ()=>{}) => {
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.GET_TOUR_BY_OWNER})
         API.getTourByOwner(id)
         // .then((response)=>response.json())
@@ -55,7 +57,8 @@ const getTourByOwner = (id,callback = ()=>{}) => {
 }
 
 const addTour = (data, callback=()=>{}) =>{
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.ADD_TOUR})
         API.addTour(data)
         // .then((response)=>response.json())
@@ -91,7 +94,8 @@ const addTour = (data, callback=()=>{}) =>{
 }
 
 const deleteTour = (id, callback = ()=>{}) => {
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.DELETE_TOUR})
         API.deleteTour(id)
         // .then((response)=>response.json())
@@ -130,7 +134,8 @@ const deleteTour = (id, callback = ()=>{}) => {
 }
 
 const updateTour = (id, data,callback = ()=>{}) => {
-    return (dispatch) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
         dispatch({type: types.UPDATE_TOUR})
         API.updateTour(id, data)
         // .then((response)=>response.json())

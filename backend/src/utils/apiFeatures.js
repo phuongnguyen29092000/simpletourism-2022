@@ -54,7 +54,7 @@ class APIFeatures {
   sort() {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(",").join(" ");
-      this.query = this.query.sort(sortBy).populate({ path: "typePlace" });
+      this.query = this.query.sort(sortBy).populate("typePlace owner");
     }
     return this;
   }
@@ -62,7 +62,7 @@ class APIFeatures {
   fieldLimit() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(",").join(" ");
-      this.query = this.query.select(fields).populate({ path: "typePlace" });
+      this.query = this.query.select(fields).populate("typePlace owner");
     }
     return this;
   }
@@ -74,7 +74,7 @@ class APIFeatures {
     this.query = this.query
       .skip(skip)
       .limit(limit)
-      .populate({ path: "typePlace" });
+      .populate("typePlace owner");
     return this;
   }
 }

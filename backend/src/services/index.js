@@ -1,4 +1,3 @@
-const { modelName } = require("../models/ticket.model");
 
 module.exports.typePlaceService = require("./typeplace.service");
 module.exports.TourService = require("./tour.service");
