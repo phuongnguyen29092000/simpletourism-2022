@@ -1,5 +1,6 @@
 const { Ticket, Tour } = require("../models");
 const mongoose = require("mongoose");
+const moment = require('moment')
 
 const bookTicket = async (ticketBody) => {
   const ticket = await Ticket.create(ticketBody)
@@ -172,7 +173,6 @@ const getTicketsHistory = async(id) =>{
             }}
         ]
     )
-    
     return ticketsHistory
 }
 
@@ -243,6 +243,36 @@ const deleteTicketById = async (id) => {
   return ticket;
 };
 
+
+const autoDeleteTicketsUnpaid = async(idCustomer) => {
+  const ticketsUnpaid = await Ticket.aggregate([
+    {
+      $match: {
+        customer: new mongoose.Types.ObjectId(idCustomer),
+        status: 0
+      },
+    },  
+    {
+      $lookup: {
+        from: "tours",
+        localField: "tour",
+        foreignField: "_id",
+        as: "tour",
+      },
+    },
+    { $unwind: "$tour" },
+  ])
+
+  const arrayIdDelete = ticketsUnpaid.filter((ticket)=>
+    moment(ticket.createdAt).add(3, 'days').toDate().getTime() < Date.now() || 
+    moment(ticket.tour.timeStart).subtract(5, 'days').toDate().getTime() <  Date.now()
+  ).map((ticket=> ticket._id.toString()))
+
+  const deleteManyTicket = await Ticket.deleteMany({ _id: { $in: arrayIdDelete}})
+  
+  return deleteManyTicket
+}
+
 module.exports = {
   bookTicket,
   getAllTicket,
@@ -251,4 +281,5 @@ module.exports = {
   deleteTicketById,
   getTicketPerTour,
   getTicketsHistory,
+  autoDeleteTicketsUnpaid
 };
