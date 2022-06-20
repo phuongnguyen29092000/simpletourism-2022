@@ -51,8 +51,7 @@ const getTicketsHistory = catchAsync(async (req, res) => {
       status: 404,
       message: "Không tìm thấy vé",
     });
-
-  res.status(httpStatus.OK).json({
+  else res.status(httpStatus.OK).json({
     status: 200,
     message: "OK",
     tickets: tickets,
@@ -115,6 +114,11 @@ const deleteTicketById = catchAsync(async (req, res) => {
   });
 });
 
+const autoDeleteTicketUnpaid = catchAsync(async(req, res) =>{
+  const rs = await ticketService.autoDeleteTicketsUnpaid(req.params.id)
+  res.status(200).json({ rs : rs})
+})
+
 module.exports = {
   bookTicket,
   getAllTicketCompany,
@@ -123,4 +127,5 @@ module.exports = {
   deleteTicketById,
   getTicketPerTour,
   getTicketsHistory,
+  autoDeleteTicketUnpaid
 };

@@ -130,7 +130,7 @@ const createTour = async (tour) => {
 const updateTour = async (id, tour) => {
   const updatedTour = await Tour.findOneAndUpdate({ _id: id }, tour, {
     new: true,
-  }).populate.populate("typePlace owner")
+  }).populate("typePlace owner")
   return updatedTour;
 };
 

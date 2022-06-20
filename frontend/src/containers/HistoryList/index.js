@@ -41,14 +41,18 @@ export default function HistoryList({onClose}) {
             {histories?.length > 0 ?
                 <Timeline position="right">
                     {
-                        histories.map((item, index) => (
+                        histories.sort((a, b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                        ?.map((item, index) => (
                             <TimelineItem key={index}>
                                 <TimelineOppositeContent sx={{maxWidth:'130px', color:'#cc2f2f'}}>
                                     {moment(item?.createdAt).format('YYYY-MM-DD LTS')}
                                 </TimelineOppositeContent>
                                 <TimelineSeparator>
                                     <TimelineDot />
-                                    <TimelineConnector />
+                                    {
+                                        index != histories.length-1 && 
+                                        <TimelineConnector />
+                                    }
                                 </TimelineSeparator>
                                 <TimelineContent sx={{ color: 'gray', fontSize:'14px', marginBottom:'20px' }}>
                                     <Box  onClick={() => navigate(`/tour-chi-tiet/${item.idTour}`)}>
@@ -63,6 +67,10 @@ export default function HistoryList({onClose}) {
                                         <div>
                                             <div>Số lượng: {item.numberPeople}</div>
                                             <div>Tổng tiền: ₫{RegardPrice(item.numberPeople * item.paymentPrice)}</div>
+                                            {
+                                                item?.status == 0 && 
+                                                <div>Thời hạn thanh toán:<br></br> {moment(moment(item.createdAt).add(3, 'days').toDate()).format('YYYY-MM-DD LTS')}</div>
+                                            }
                                         </div>
                                         {
                                             item.status == 0 ?

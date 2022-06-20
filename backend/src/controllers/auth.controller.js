@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync')
 const passport = require("passport")
+const {ticketService} = require('../services')
 
 const { User } = require('../models')
 const { userService, tokenService, authService } = require('../services')
@@ -37,7 +38,8 @@ const loginGoogle = catchAsync(async(req, res)=>{
             })  
         }
         const tokenAuth = await tokenService.generateAccessRefreshToken(user._id.toString())
-        console.log(tokenAuth.access.token);
+        const autoDeleteTicket = await ticketService.autoDeleteTicketsUnpaid(user._id.toString())
+        console.log(autoDeleteTicket.deletedCount);
         res.status(httpStatus.OK).json({
             status: 200,
             message: "Đăng nhập thành công!",
@@ -92,6 +94,7 @@ const getRole = catchAsync(async(req, res) => {
     })
 
 })
+
 module.exports = {
     loginGoogle,
     logout,

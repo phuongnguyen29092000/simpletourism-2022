@@ -14,6 +14,7 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
     const {account} = useSelector((store)=>store.user)
     const [count, setCount] = useState(1);
     const formRef = useRef(null)
+    const { listTour} = useSelector(store => store.listTour)
     // useEffect(()=>{
     //     dispatch(getAllTour())
     // },[])
@@ -45,10 +46,15 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         })
         .then((result) => {
             if(result.status === 201){
+                // console.log(result.data.ticket.idTour);
+                // const tourInfo = listTour.find(tour=> result.data.ticket.idTour == tour._id)
+                // console.log(listTour);
+                // let timePaymentDeadline = moment(result.data.ticket.createdAt).add(3, 'days').toDate().getTime() < moment(tourInfo.timeStart).subtract(5, 'days').toDate().getTime() ? 
+                //     moment(result.data.ticket.createdAt).add(3, 'days').toDate() : moment(tourInfo.timeStart).subtract(5, 'days').toDate()
                 useNotification.Success({
                     title: "Đặt tour thành công!",
-                    message:`Vui lòng thanh toán trước ${moment(new Date()).format('YYYY-MM-DD LTS')}\nKiểm tra trong tour của bạn."`,
-                    duration: 7000
+                    message:`Vui lòng thanh toán trước ${moment(moment(result.data.ticket.createdAt).add(3, 'days').toDate()).format('YYYY-MM-DD LTS')}\nKiểm tra trong tour của bạn."`,
+                    duration: 8000
                 })
                 reset();
                 handleClose(false);
