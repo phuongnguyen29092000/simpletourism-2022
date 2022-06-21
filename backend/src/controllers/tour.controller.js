@@ -1,6 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
 const ApiError = require("../utils/ApiError");
+const {tourValidation} = require('../validations');
 
 const getAllTour = catchAsync(async (req, res, next) => {
   const tours = await TourService.getAllTour(req.query);
@@ -90,12 +91,15 @@ const createTour = catchAsync(async (req, res, next) => {
   imageSlidesPath.push(imageSlide1);
   imageSlidesPath.push(imageSlide2);
   imageSlidesPath.push(imageSlide3);
+  const createBody = Object.assign(
+    req.body,
+    { imageAvatar: imageAvatarPath },
+    { imageSlide: imageSlidesPath }
+  );
+  const validation = tourValidation.tourCreateSchema.validate(createBody);
+  if(validation.error) console.log(validation.error);
   const tour = await TourService.createTour(
-    Object.assign(
-      req.body,
-      { imageAvatar: imageAvatarPath },
-      { imageSlide: imageSlidesPath }
-    )
+   createBody
   );
   if (!tour) {
     return next(new ApiError("Can Not Create New Tour, Try Again!", 400));

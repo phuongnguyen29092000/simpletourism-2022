@@ -1,0 +1,1 @@
+module.exports.tourValidation = require('./tour.validation');

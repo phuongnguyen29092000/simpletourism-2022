@@ -21,7 +21,7 @@ router
   .route("/")
   .get(TourController.getAllTour)
   .post(
-    auth('owner'),
+    //auth('owner'),
     upLoadImage.fields([
       { name: "imageAvatar", maxCount: 1 },
       { name: "imageSlide1", maxCount: 1 },
