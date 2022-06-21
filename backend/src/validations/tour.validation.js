@@ -13,7 +13,8 @@ const tourCreateSchema = Joi.object({
   timeStart: Joi.date().required(),
   timeEnd: Joi.date().greater(Joi.ref("timeStart")).required(),
   discount: Joi.number().less(1),
-  owner: Joi.objectId(),
+  owner: Joi.objectId().required(),
+  typePlace: Joi.objectId().required(),
 });
 
 const tourUpdateSchema = Joi.object({
