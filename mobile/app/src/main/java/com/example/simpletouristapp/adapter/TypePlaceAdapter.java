@@ -37,8 +37,6 @@ public class TypePlaceAdapter extends RecyclerView.Adapter<TypePlaceAdapter.Type
         this.selectedTypePlace = selectedTypePlace;
     }
 
-
-
     @NonNull
     @Override
     public TypePlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

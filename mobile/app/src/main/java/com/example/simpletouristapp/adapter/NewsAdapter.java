@@ -51,7 +51,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
         holder.title.setText(news.getTitle());
         holder.description.setText(news.getDescription());
-
+        holder.company.setText(news.getCompanyName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,12 +80,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         private TextView title;
         private TextView description;
         private ImageView imageNews;
-        private TextView priceAfterDiscount;
+        private TextView company;
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_title);
             description = itemView.findViewById(R.id.tv_body);
             imageNews = itemView.findViewById(R.id.image_news);
+            company = itemView.findViewById(R.id.tv_company2);
         }
     }
 }

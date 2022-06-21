@@ -156,6 +156,7 @@
             android:text="Thanh toán"
             android:layout_marginBottom="20dp"
             android:textAllCaps="false"
+            app:backgroundTint="#5584AC"
             android:textSize="16dp"
             android:fontFamily="@font/nunito_sans_semibold"
             android:visibility="gone"/>

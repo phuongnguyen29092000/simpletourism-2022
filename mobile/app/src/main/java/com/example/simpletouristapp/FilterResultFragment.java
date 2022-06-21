@@ -67,9 +67,14 @@ public class FilterResultFragment extends Fragment {
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+                    binding.noResult.setVisibility(View.GONE);
                 }else {
+                    ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
                     tourAdapter = new TourAdapter(getContext(),null,null);
                     rvFilterResult.setAdapter(tourAdapter);
+                    binding.noResult.setVisibility(View.VISIBLE);
                 }
             }
 

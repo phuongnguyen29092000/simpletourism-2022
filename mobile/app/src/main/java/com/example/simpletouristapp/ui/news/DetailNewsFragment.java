@@ -61,6 +61,7 @@ public class DetailNewsFragment extends Fragment {
                     Picasso.get().load(ToursApiService.BASE_URL + news.getImageUrl().substring(7)).into(binding.image);
                     binding.view.setText(Integer.toString(news.getViewer()));
                     binding.date.setText(simpleDateFormat.format(news.getDateSubmitted()));
+                    binding.tvCompanyName.setText(news.getOwner().getCompanyName());
                 }
             }
 

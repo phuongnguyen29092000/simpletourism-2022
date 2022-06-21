@@ -21,9 +21,11 @@ import com.example.simpletouristapp.databinding.FragmentHomeBinding;
 import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.NewsResponse;
 import com.example.simpletouristapp.model.PopularPlaces;
+import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.service.NewsApiService;
 import com.example.simpletouristapp.service.ToursApiService;
+import com.paypal.pyplcheckout.pojo.To;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
     private TourAdapter tourAdapter;
     private ToursApiService toursApiService;
     private NewsApiService newsApiService;
+    private List<Tour> tours;
     private List<News> listHotNews;
     private NewsAdapter newsAdapter;
 
@@ -57,6 +60,7 @@ public class HomeFragment extends Fragment {
         rvOutStandingTours =binding.rvItemOutstandingTours;
 
         listHotNews = new ArrayList<>();
+        tours = new ArrayList<>();
         listHotNews.clear();
         Call<ToursResponse> call = toursApiService.getOutStandingTours();
         call.enqueue(new Callback<ToursResponse>() {
@@ -65,8 +69,12 @@ public class HomeFragment extends Fragment {
                 if(response.code() == 200){
                     ToursResponse tourResponse = response.body();
 //                Integer totalResult = tourResponse.totalResult;
-                    tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"out_standing_tour");
-                    tourAdapter.initData();
+                    for (Tour tour: tourResponse.getData()
+                    ) {
+                        tour.setCompanyName(tour.getOwner().getCompanyName());
+                        tours.add(tour);
+                    }
+                    tourAdapter = new TourAdapter(getContext(),tours,"out_standing_tour");
                     rvOutStandingTours.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                     rvOutStandingTours.setAdapter(tourAdapter);
                 }else {
@@ -105,6 +113,7 @@ public class HomeFragment extends Fragment {
                     });
                     Log.d("xxx", news.get(0).getTitle());
                     for (int i = 0; i < 6 ; i++){
+                        news.get(i).setCompanyName(news.get(i).getOwner().getCompanyName());
                         listHotNews.add(news.get(i));
                     }
                     newsAdapter = new NewsAdapter(getContext(),listHotNews,"home");

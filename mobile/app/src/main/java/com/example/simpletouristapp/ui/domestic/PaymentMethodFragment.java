@@ -64,15 +64,6 @@ public class PaymentMethodFragment extends Fragment {
     private ToursApiService toursApiService;
     private HashMap<String ,String> informationBookTour;
 
-        public static final String PAYPAL_CLIENT_ID = "ATZ0O9wPNCsDIse2DfTwLb8_RB31vH0EKmXqAPPhNxlSwm4_eS6xpy90oAPgx86yuADGiYSFOPsvJL8J";
-
-    public static final int PAYPAL_REQUEST_CODE = 123;
-//    public static PayPalConfiguration config = new PayPalConfiguration()
-//            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-//            .clientId(PAYPAL_CLIENT_ID)
-//            .merchantName("Example Merchant")
-//            .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
-//            .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,16 +78,6 @@ public class PaymentMethodFragment extends Fragment {
         binding = PaymentMethodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         context = getActivity();
-
-        CheckoutConfig config = new CheckoutConfig(getActivity().getApplication(), PAYPAL_CLIENT_ID
-                , Environment.SANDBOX,String.format("%s://paypalpay", "com.example.simpletouristapp")
-                , CurrencyCode.USD, UserAction.PAY_NOW, new SettingsConfig(true,false));
-        PayPalCheckout.setConfig(config);
-
-//        Intent intent = new Intent(getContext(),PayPalService.class);
-//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-//        getContext().startService(intent);
-        Checkout();
 
         toursApiService = new ToursApiService();
         SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
@@ -156,99 +137,14 @@ public class PaymentMethodFragment extends Fragment {
                 });
             }
         });
-//        binding.btnPaymentPaypal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getActivity(), PayPalActivity.class);
-////                startActivity(intent);
-//                processPayment();
-//            }
-//        });
         return root;
     }
 
-    private void processPayment(){
-//        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(10),"USD","ABC",PayPalPayment.PAYMENT_INTENT_SALE);
-//        Intent intent = new Intent(getContext(), PaymentActivity.class);
-//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-//        intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
-//        startActivityForResult(intent,PAYPAL_REQUEST_CODE);
-
-    }
-    private void Checkout(){
-//        binding.btnPaymentPaypal.setup(
-//                new CreateOrder() {
-//                    @Override
-//                    public void create(@NotNull CreateOrderActions createOrderActions) {
-//                        ArrayList<PurchaseUnit> purchaseUnits = new ArrayList<>();
-//                        purchaseUnits.add(
-//                                new PurchaseUnit.Builder()
-//                                        .amount(
-//                                                new Amount.Builder()
-//                                                        .currencyCode(CurrencyCode.USD)
-//                                                        .value("10.00")
-//                                                        .build()
-//                                        )
-//                                        .build()
-//                        );
-//                        Order order = new Order(
-//                                OrderIntent.CAPTURE,
-//                                new AppContext.Builder()
-//                                        .userAction(UserAction.PAY_NOW)
-//                                        .build(),
-//                                purchaseUnits
-//                        );
-//                        createOrderActions.create(order, (CreateOrderActions.OnOrderCreated) null);
-//                    }
-//                },
-//                new OnApprove() {
-//                    @Override
-//                    public void onApprove(@NotNull Approval approval) {
-//                        approval.getOrderActions().capture(new OnCaptureComplete() {
-//                            @Override
-//                            public void onCaptureComplete(@NotNull CaptureOrderResult result) {
-//                                Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
-//                            }
-//                        });
-//                    }
-//                },
-//                new OnCancel() {
-//                    @Override
-//                    public void onCancel() {
-//                        Log.d("OnCancel", "Buyer cancelled the PayPal experience.");
-//                    }
-//                },
-//                new OnError() {
-//                    @Override
-//                    public void onError(@NotNull ErrorInfo errorInfo) {
-//                        Log.d("OnError", String.format("Error: %s", errorInfo));
-//                    }
-//                }
-//        );
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-//        getContext().stopService(new Intent(getContext(),PayPalService.class));
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == PAYPAL_REQUEST_CODE){
-            if(resultCode == Activity.RESULT_OK){
-//                PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-//                if(confirmation != null){
-//                    try {
-//                        String paymentDetails = confirmation.toJSONObject().toString(4);
-//                        Intent intent = new Intent(getActivity(), MainActivity.class);
-//                        startActivity(intent);
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-            }
-        }
-    }
 }

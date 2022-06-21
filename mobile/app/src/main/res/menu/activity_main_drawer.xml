@@ -11,9 +11,7 @@
             />
         <item
             android:id="@+id/nav_domestic"
-
             android:icon="@drawable/ic_baseline_house_24"
-
             android:title="@string/menu_domestic"
             />
         <item
@@ -24,6 +22,10 @@
             android:id="@+id/nav_news"
             android:icon="@drawable/ic_baseline_library_books_24"
             android:title="@string/menu_news" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_baseline_contact_page_24"
+            android:title="@string/contact_title" />
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_baseline_login_24"

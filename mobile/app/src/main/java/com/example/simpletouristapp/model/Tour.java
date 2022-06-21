@@ -82,27 +82,28 @@ public class Tour {
     @Ignore
     private TypePlace typePlace;
 
-//    public Tour(String id, String nameTour, String nameCountry, String continent, String description, String imageAvatar
-//            , int price, Date timeStart, Date timeEnd, int amount, int remainingAmount, String nameHotel, String schedule
-//            , float rating, double discount, ArrayList<String> imageSlide, TypePlace typePlace) {
-//        this.id = id;
-//        this.nameTour = nameTour;
-//        this.nameCountry = nameCountry;
-//        this.continent = continent;
-//        this.description = description;
-//        this.imageAvatar = imageAvatar;
-//        this.price = price;
-//        this.timeStart = timeStart;
-//        this.timeEnd = timeEnd;
-//        this.amount = amount;
-//        this.remainingAmount = remainingAmount;
-//        this.nameHotel = nameHotel;
-//        this.schedule = schedule;
-//        this.rating = rating;
-//        this.discount = discount;
-//        this.imageSlide = imageSlide;
-//        this.typePlace = typePlace;
-//    }
+    @SerializedName("owner")
+    @Ignore
+    private Owner owner;
+
+    @ColumnInfo(name = "companyName")
+    private String companyName;
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public double getDiscount() {
         return discount;

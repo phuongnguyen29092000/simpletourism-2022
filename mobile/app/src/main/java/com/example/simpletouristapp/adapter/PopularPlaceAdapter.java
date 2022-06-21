@@ -27,23 +27,6 @@ public class PopularPlaceAdapter extends RecyclerView.Adapter<PopularPlaceAdapte
         this.popularPlaces = popularPlaces;
     }
 
-//    @NonNull
-//    @Override
-//    public com.example.simpletouristapp.ui.domestic.DomesticApdapter.DomesticViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-//        View view = inflater.inflate(R.layout.item_popular_places, parent, false);
-//        return new com.example.simpletouristapp.ui.domestic.DomesticApdapter.DomesticViewHolder(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull com.example.simpletouristapp.ui.domestic.DomesticApdapter.DomesticViewHolder holder, int position) {
-//        PopularPlaces popularPlaces = this.popularPlaces.get(position);
-//
-//        Picasso.get().load(popularPlaces.getUrl_image()).into(holder.imagePlace);
-////        Glide.with(this.context).load(popularPlaces.getUrl_image()).into(holder.imagePlace);
-//        holder.tvNamePlace.setText(popularPlaces.getNamePlace());
-//    }
-
     @NonNull
     @Override
     public PopularPlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

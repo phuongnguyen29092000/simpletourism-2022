@@ -165,4 +165,10 @@
             android:id="@+id/action_nav_history_detail_to_nav_detail_tour"
             app:destination="@id/nav_detail_tour" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.example.simpletouristapp.ui.contact.ContactFragment"
+        android:label="@string/contact_title"
+        tools:layout="@layout/fragment_contact" >
+    </fragment>
 </navigation>

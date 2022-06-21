@@ -12,19 +12,19 @@ import java.util.List;
 
 @Dao
 public interface TourDao {
-    @Query("SELECT * FROM tours WHERE tours.nameCountry = 'Việt Nam'")
+    @Query("SELECT * FROM tours WHERE tours.nameCountry = 'Vietnam'")
     LiveData<List<Tour>> getDomesticTours();
 
-    @Query("SELECT * FROM tours WHERE NOT tours.nameCountry = 'Việt Nam'")
+    @Query("SELECT * FROM tours WHERE NOT tours.nameCountry = 'Vietnam'")
     LiveData<List<Tour>> getInternationalTours();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Tour> tourList);
 
-    @Query("DELETE FROM tours WHERE tours.nameCountry = 'Việt Nam'")
+    @Query("DELETE FROM tours WHERE tours.nameCountry = 'Vietnam'")
     void deleteDomesticTours();
 
-    @Query("DELETE FROM tours WHERE NOT tours.nameCountry = 'Việt Nam'")
+    @Query("DELETE FROM tours WHERE NOT tours.nameCountry = 'Vietnam'")
     void deleteInternationalTours();
 
     @Query("DELETE FROM tours")

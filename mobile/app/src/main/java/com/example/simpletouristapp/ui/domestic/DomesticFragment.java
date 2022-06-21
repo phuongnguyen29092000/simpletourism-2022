@@ -78,21 +78,19 @@ public class DomesticFragment extends Fragment {
     }
     public void getDomesticTours(){
         toursApiService = new ToursApiService();
-
-
-
         Call<ToursResponse> call = toursApiService.getDomesticToursApi();
         call.enqueue(new Callback<ToursResponse>() {
             @Override
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
                 Log.d("TAG",response.code()+"");
                 ToursResponse tourResponse = response.body();
-//                tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"domestic");
-//                tourAdapter.initData();
-//                rvDomesticTour.setLayoutManager(new GridLayoutManager(getContext(),2));
-//                rvDomesticTour.setAdapter(tourAdapter);
                 tourRepository.deleteDomesticTour();
-                tourRepository.insert(tourResponse.getData());
+                for (Tour tour: tourResponse.getData()
+                     ) {
+                    tour.setCompanyName(tour.getOwner().getCompanyName());
+                    tours.add(tour);
+                }
+                tourRepository.insert(tours);
             }
 
             @Override

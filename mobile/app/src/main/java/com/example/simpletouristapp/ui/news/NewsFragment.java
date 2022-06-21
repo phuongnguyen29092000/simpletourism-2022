@@ -76,7 +76,12 @@ public class NewsFragment extends Fragment {
                 if(response.code() == 200){
                     NewsResponse newsResponse = response.body();
                     newsRepository.deleteAll();
-                    newsRepository.insert(newsResponse.getNews());
+                    for (News news: newsResponse.getNews()
+                         ) {
+                        news.setCompanyName(news.getOwner().getCompanyName());
+                        newsList.add(news);
+                    }
+                    newsRepository.insert(newsList);
                 }
             }
 

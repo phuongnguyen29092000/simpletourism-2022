@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
-
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.simpletouristapp.ui.home.HomeFragment"
@@ -96,6 +95,12 @@
         <action
             android:id="@+id/action_nav_register_to_nav_login"
             app:destination="@id/nav_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.example.simpletouristapp.ui.contact.ContactFragment"
+        android:label="@string/contact_title"
+        tools:layout="@layout/fragment_contact" >
     </fragment>
 
 </navigation>

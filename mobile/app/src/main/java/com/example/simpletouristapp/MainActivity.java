@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+
 import androidx.appcompat.widget.SearchView;
 
 import com.example.simpletouristapp.ui.domestic.DomesticFragment;
@@ -40,25 +41,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_domestic, R.id.nav_international, R.id.nav_news, R.id.nav_login, R.id.action_filter)
+                R.id.nav_home, R.id.nav_domestic, R.id.nav_international, R.id.nav_news, R.id.nav_login, R.id.action_filter, R.id.nav_contact)
                 .setOpenableLayout(drawer)
                 .build();
-//        searchView = binding.getRoot().findViewById(R.id.action_search);
-//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.nav_host_fragment);
-//        NavController navCo = navHostFragment.getNavController();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -77,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                intent.putExtra("searchResult",s);
+                intent.putExtra("searchResult", s);
                 startActivity(intent);
                 return true;
             }
@@ -89,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -100,13 +91,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_search) {
             return true;
         }
-        if(id == R.id.action_filter){
+        if (id == R.id.action_filter) {
             FilterFragment filterFragment = new FilterFragment();
-            filterFragment.show(getSupportFragmentManager(),"Filter");
+            filterFragment.show(getSupportFragmentManager(), "Filter");
         }
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         // close search view on back button pressed

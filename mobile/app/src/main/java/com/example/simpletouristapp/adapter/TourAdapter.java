@@ -38,7 +38,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder> implements Filterable {
+public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder> {
 
     private Context context;
     private List<Tour> tours;
@@ -76,6 +76,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         holder.price.setText(nf.format(tour.getPrice()));
         holder.tvDescription.setText(tour.getDescription());
         holder.rating.setRating(tour.getRating());
+        holder.tvCompany.setText(tour.getCompanyName());
         if(tour.getDiscount() != 0){
             holder.cardDiscount.setVisibility(View.VISIBLE);
             holder.tvDiscount.setText("-" + Integer.toString((int)(tour.getDiscount()*100)) + "%");
@@ -123,37 +124,6 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         this.tours = tours;
     }
 
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    Filter filter =new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Tour> filtered = new ArrayList<Tour>();
-            if(charSequence.toString().isEmpty()){
-                filtered.addAll(mTourAll);
-            }else {
-                for(Tour tour : mTourAll){
-                    if(tour.getNameTour().toLowerCase().contains(charSequence.toString().toLowerCase())){
-                        filtered.add(tour);
-                    }
-                }
-            }
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filtered;
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            tours.clear();
-            tours.addAll((Collection<? extends Tour>) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
-
     public class TourViewHolder extends RecyclerView.ViewHolder{
         private TextView nameTour;
         private TextView price;
@@ -161,6 +131,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
         private TextView tvDescription;
         private CardView cardDiscount;
         private TextView tvDiscount;
+        private TextView tvCompany;
         private TextView priceAfterDiscount;
         private RatingBar rating;
         public TourViewHolder(@NonNull View itemView) {
@@ -173,6 +144,7 @@ public class TourAdapter extends RecyclerView.Adapter<TourAdapter.TourViewHolder
             tvDiscount = itemView.findViewById(R.id.tv_discount);
             priceAfterDiscount = itemView.findViewById(R.id.tv_price_after_discount);
             rating = itemView.findViewById(R.id.rating);
+            tvCompany = itemView.findViewById(R.id.tv_company);
         }
     }
 }
