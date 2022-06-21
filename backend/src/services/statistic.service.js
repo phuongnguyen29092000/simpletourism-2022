@@ -16,7 +16,7 @@ const showStatisticPerMonth = async (ownerId, year, month) => {
   const ticketInMonth = await Ticket.aggregate([
     { $addFields: { month: { $month: "$createdAt" } } },
     { $addFields: { year: { $year: "$createdAt" } } },
-    { $match: { month: parseInt(month), year: parseInt(year) } },
+    { $match: { month: parseInt(month), year: parseInt(year), status: 1 } },
   ]);
   ticketInMonth.forEach((ticket) => {
     if (tourOfOwnerId.includes(String(ticket.tour)))
@@ -24,7 +24,7 @@ const showStatisticPerMonth = async (ownerId, year, month) => {
   });
   for (let ticket of ticketInMonthOfOwner) {
     let countryName = (await Tour.findById(ticket.tour)).countryName;
-    if (countryName === "Việt Nam") totalDomesticTour++;
+    if (countryName === "Vietnam") totalDomesticTour++;
     else totalInternationalTour++;
     totalPayment += ticket.paymentPrice * ticket.numberPeople;
     totalPeople += ticket.numberPeople;
@@ -50,7 +50,7 @@ const showStatisticPerYear = async (ownerId, year) => {
   );
   const ticketInYear = await Ticket.aggregate([
     { $addFields: { year: { $year: "$createdAt" } } },
-    { $match: { year: parseInt(year) } },
+    { $match: { year: parseInt(year), status: 1 } },
   ]);
   ticketInYear.forEach((ticket) => {
     if (tourOfOwnerId.includes(String(ticket.tour)))
