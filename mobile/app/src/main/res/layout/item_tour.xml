@@ -1,115 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="184dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/tools"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
+    android:padding="5dp"
     app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
     app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-    android:padding="5dp"
     app:ignore="NamespaceTypo">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/image_tour"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardElevation="100dp"
-                android:visibility="gone"
                 android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                app:cardElevation="100dp"
                 app:cardUseCompatPadding="false">
+
                 <TextView
                     android:id="@+id/tv_discount"
                     android:layout_width="50dp"
                     android:layout_height="35dp"
-                    android:text="-30%"
                     android:background="#EA3333"
                     android:gravity="center_vertical|center"
+                    android:text="-30%"
                     android:textStyle="bold"></TextView>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_name_tour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/nunit_sans_extrabold"/>
-            </LinearLayout>
-            <RatingBar
-                android:id="@+id/rating"
-                style="@style/Widget.AppCompat.RatingBar.Small"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_name_tour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunit_sans_extrabold"
+                android:maxLines="1"
+                android:text="TextView"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-            </RatingBar>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/tv_pr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Giá: "
-                    android:textSize="16sp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
+        <RatingBar
+            android:id="@+id/rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/nunito_sans_semibold"
-                    />
-            </LinearLayout>
-            <LinearLayout
+        </RatingBar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_pr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Giá: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tv_price_after_discount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:text="TextView"
-                    android:visibility="gone"
-                    android:textColor="#F32C2C"
-                    android:textSize="16sp"
-                    />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_price_after_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="TextView"
+                android:textColor="#F32C2C"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Công ty: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:maxLines="1"
+                android:text="TextView"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,11 +155,11 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:justificationMode="inter_word"
                 android:maxLines="3"
                 android:text="TextView"
-                android:justificationMode="inter_word"
-                android:textSize="16sp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
 

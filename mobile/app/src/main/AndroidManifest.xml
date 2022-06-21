@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.simpletouristapp">
-    <uses-sdk android:minSdkVersion="21"/>
+
+    <uses-sdk android:minSdkVersion="21" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -17,12 +20,11 @@
         <activity
             android:name=".FilterResultActivity"
             android:label="@string/title_activity_filter_result"
-            android:theme="@style/Theme.SimpleTouristApp.NoActionBar"/>
+            android:theme="@style/Theme.SimpleTouristApp.NoActionBar" />
         <activity
             android:name=".SearchActivity"
             android:label="@string/title_activity_search"
-            android:theme="@style/Theme.SimpleTouristApp.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.SimpleTouristApp.NoActionBar" />
         <activity
             android:name=".MainActivityLogged"
             android:exported="false"
@@ -39,7 +41,7 @@
         <activity
             android:name=".LoginGoogleActivity"
             android:exported="false"
-            android:label="Login With Google"/>
+            android:label="Login With Google" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -61,6 +63,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

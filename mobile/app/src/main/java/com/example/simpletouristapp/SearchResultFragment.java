@@ -51,9 +51,11 @@ public class SearchResultFragment extends Fragment {
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
                     rvSearch.setLayoutManager(new GridLayoutManager(getContext(), 2));
                     rvSearch.setAdapter(tourAdapter);
+                    binding.noResult.setVisibility(View.GONE);
                 }else {
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+                    binding.noResult.setVisibility(View.VISIBLE);
                     Log.d("TAG", String.valueOf(response.code()));
                     Log.d("TAG", q);
                 }

@@ -105,6 +105,7 @@ public class DetailTourFragment extends Fragment {
                     binding.ratingTour.setRating(tour.getRating());
                     binding.imageSlideDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
                     binding.tvDetailPrice.setText(nf.format(tour.getPrice()));
+                    binding.tvCompanyName.setText(tour.getOwner().getCompanyName());
                     if(tour.getDiscount() != 0){
                         binding.tvDetailPrice.setPaintFlags(binding.tvDetailPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                         binding.tvPriceAfterDiscount.setText(nf.format(tour.getPrice()*(1-tour.getDiscount())));

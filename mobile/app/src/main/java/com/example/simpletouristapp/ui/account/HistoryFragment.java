@@ -25,6 +25,7 @@ import com.example.simpletouristapp.model.HistoryTicketResponse;
 import com.example.simpletouristapp.service.AccountApiService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,7 +56,9 @@ public class HistoryFragment extends Fragment {
             public void onResponse(Call<HistoryTicketResponse> call, Response<HistoryTicketResponse> response) {
                 if(response.code() == 200){
                     HistoryTicketResponse historyTicketResponse = response.body();
-                    historyTicketAdapter = new HistoryTicketAdapter(getContext(),historyTicketResponse.getTickets());
+                    List<HistoryTicketResponse.Ticket> tickets = historyTicketResponse.getTickets();
+                    Collections.reverse(tickets);
+                    historyTicketAdapter = new HistoryTicketAdapter(getContext(),tickets);
                     rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
                     rvHistory.setAdapter(historyTicketAdapter);
                 }else {

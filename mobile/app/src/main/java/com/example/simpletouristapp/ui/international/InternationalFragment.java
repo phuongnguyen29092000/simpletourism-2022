@@ -79,6 +79,11 @@ public class InternationalFragment extends Fragment {
                 Log.d("TAG",response.code()+"");
                 ToursResponse tourResponse = response.body();
                 tourRepository.deleteInternationalTour();
+                for (Tour tour: tourResponse.getData()
+                ) {
+                    tour.setCompanyName(tour.getOwner().getCompanyName());
+                    tours.add(tour);
+                }
                 tourRepository.insert(tourResponse.getData());
             }
 

@@ -19,7 +19,8 @@ public class News {
 
     @SerializedName("owner")
     @ColumnInfo(name = "owner")
-    private String owner;
+    @Ignore
+    private Owner owner;
 
     @SerializedName("title")
     @ColumnInfo(name = "title")
@@ -36,9 +37,21 @@ public class News {
     @SerializedName("viewer")
     @Ignore
     private int viewer;
+
     @SerializedName("createdAt")
     @Ignore
     private Date dateSubmitted;
+
+    @ColumnInfo(name = "companyName")
+    private String companyName;
+
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public String getId() {
         return id;
@@ -46,14 +59,6 @@ public class News {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     public String getTitle() {
@@ -94,5 +99,13 @@ public class News {
 
     public void setDateSubmitted(Date dateSubmitted) {
         this.dateSubmitted = dateSubmitted;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }
