@@ -1,13 +1,20 @@
 const catchAsync = require("../utils/catchAsync");
 const { FeedbackService } = require("../services");
 const ApiError = require("../utils/ApiError");
+const {feedbackSchema} = require('../validations');
 
 const createFeedback = catchAsync(async (req, res, next) => {
-  const feedback = await FeedbackService.createFeedback({
-    ...req.body, 
-    tour: req.body.tourId, 
-    customer: req.body.customerId
-  });
+  const feedbackBody = req.body;
+  const validation = feedbackSchema.validate(feedbackBody);
+  if (validation.error) {
+    return next(
+      new ApiError(
+        "Thông tin nhập vào không hợp lệ, vui lòng kiểm tra lại!",
+        400
+      )
+    );
+  }
+  const feedback = await FeedbackService.createFeedback(feedbackBody);
   if (!feedback) {
     return next(
       new ApiError("Can Not Create New Feedback For This Tour!", 400)

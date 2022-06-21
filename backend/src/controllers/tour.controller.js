@@ -1,6 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
 const ApiError = require("../utils/ApiError");
+const {tourValidation} = require('../validations');
 
 const getAllTour = catchAsync(async (req, res, next) => {
   const tours = await TourService.getAllTour(req.query);
@@ -82,6 +83,9 @@ const deleteTour = catchAsync(async (req, res, next) => {
 });
 
 const createTour = catchAsync(async (req, res, next) => {
+  if(!req.files.imageAvatar || !req.files.imageSlide1 || !req.files.imageSlide2 || !req.files.imageSlide3){
+    return next(new ApiError('Vui lòng chọn ảnh cho tour!', 400));
+  }
   const imageAvatarPath = req.files.imageAvatar[0].path;
   const imageSlide1 = req.files.imageSlide1[0].path;
   const imageSlide2 = req.files.imageSlide2[0].path;
@@ -90,12 +94,22 @@ const createTour = catchAsync(async (req, res, next) => {
   imageSlidesPath.push(imageSlide1);
   imageSlidesPath.push(imageSlide2);
   imageSlidesPath.push(imageSlide3);
+  const createBody = Object.assign(
+    req.body,
+    { imageAvatar: imageAvatarPath },
+    { imageSlide: imageSlidesPath }
+  );
+  const validation = tourValidation.tourCreateSchema.validate(createBody);
+  if (validation.error) {
+    return next(
+      new ApiError(
+        "Thông tin nhập vào không hợp lệ, vui lòng kiểm tra lại!",
+        400
+      )
+    );
+  }
   const tour = await TourService.createTour(
-    Object.assign(
-      req.body,
-      { imageAvatar: imageAvatarPath },
-      { imageSlide: imageSlidesPath }
-    )
+   createBody
   );
   if (!tour) {
     return next(new ApiError("Can Not Create New Tour, Try Again!", 400));
@@ -127,11 +141,21 @@ const updateTour = catchAsync(async (req, res, next) => {
     imageSlidesPath.push(imageSlide2);
     imageSlidesPath.push(imageSlide3);
   }
-  const tour = await TourService.updateTour(req.params.id, Object.assign(
+  const updateBody = Object.assign(
     req.body,
     { imageAvatar: imageAvatarPath},
     { imageSlide: imageSlidesPath }
-  ));
+  );
+  const validation = tourValidation.tourUpdateSchema.validate(updateBody);
+  if (validation.error) {
+    return next(
+      new ApiError(
+        "Thông tin nhập vào không hợp lệ, vui lòng kiểm tra lại!",
+        400
+      )
+    );
+  }
+  const tour = await TourService.updateTour(req.params.id, updateBody);
   if (!tour) {
     return next(
       new ApiError(
