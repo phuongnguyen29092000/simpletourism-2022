@@ -10,17 +10,18 @@ import TourCardMini from 'components/Cards/TourCardMini';
 import ConvertToImageURL from 'LogicResolve/ConvertToImageURL';
 import SpinnerLoading from 'components/SpinnerLoading'
 import { useNavigate } from 'react-router-dom';
+import { CheckExpiredToken } from 'ultis/authUtil';
 const SearchBox = ({ onClose }) => {
     const [listResult, setListResult] = useState([])
     const [moreTour, setMoreTour] = useState(false)
     const [loading, setLoading] = useState(false)
     const [valueInput, setValueInput] = useState('')
     const navigate = useNavigate();
-    const searchTourDebounce = useCallback(debounce((param) => {
+    const searchTourDebounce = useCallback(debounce(async (param) => {
+        await CheckExpiredToken()
         ListTourAPI.searchTour({ q: param })
             .then((rs) => {
                 if (rs.status === 200) {
-                    console.log(rs)
                     if (rs.data.data.length > 6) {
                         setListResult(rs.data.data.slice(0, 6))
                         setMoreTour(true)

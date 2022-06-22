@@ -18,7 +18,6 @@ const initialState = {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_ACCOUNT_INFO :{
-      console.log(action.payload)
       return {
         ...state,
         account: action.payload

@@ -13,7 +13,6 @@ const refreshToken = (data) => {
 }
 
 const logout = () => {
-    console.log('xxx',refreshTokenValue());
     let url = '/auth/logout'
     return axiosClient.post(url, refreshTokenValue(), {headers: getHeaderWithToken()})
 }

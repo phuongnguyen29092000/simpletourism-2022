@@ -39,7 +39,6 @@ const loginGoogle = catchAsync(async(req, res)=>{
         }
         const tokenAuth = await tokenService.generateAccessRefreshToken(user._id.toString())
         const autoDeleteTicket = await ticketService.autoDeleteTicketsUnpaid(user._id.toString())
-        console.log(autoDeleteTicket.deletedCount);
         res.status(httpStatus.OK).json({
             status: 200,
             message: "Đăng nhập thành công!",

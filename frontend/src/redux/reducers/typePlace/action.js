@@ -70,9 +70,7 @@ const updateTypePlace = (id, data, callback = ()=>{}) => {
         await CheckExpiredToken()
         dispatch({type: types.UPDATE_TYPEPLACE})
         API.updateTypePlace(id, data)
-        // .then((response)=>response.json())
         .then((result=>{
-            // console.log(result)  
             if(result.status === 200){
                 dispatch({
                     type: types.UPDATE_TYPEPLACE_SUCCESS,
@@ -109,9 +107,7 @@ const deleteTypePlace = (id, callback = ()=>{}) => {
         await CheckExpiredToken()
         dispatch({type: types.DELETE_TYPEPLACE})
         API.deleteTypeplace(id)
-        // .then((response)=>response.json())
         .then((result=>{
-            // console.log(result)
             if(result.status === 204){
                 dispatch({
                     type: types.DELETE_TYPEPLACE_SUCCESS,

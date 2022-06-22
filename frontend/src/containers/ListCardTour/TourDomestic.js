@@ -10,7 +10,6 @@ const TourDomestic = () => {
     const dispatch = useDispatch()
     const { listTourDomestic, loading } = useSelector((store) => store.listTour)
     const [dataTours, setDataTours] = useState([]);
-    console.log(loading)
     useEffect(() => {
         document.title = 'Simple Tourism | trong nước'
     }, [])
@@ -19,7 +18,6 @@ const TourDomestic = () => {
         setDataTours([...data])
     }
 
-    console.log(">>>", dataTours)
     useEffect(() => {
         if (listTourDomestic.length === 0) dispatch(getAllTourDomestic())
         setDataTours(listTourDomestic)

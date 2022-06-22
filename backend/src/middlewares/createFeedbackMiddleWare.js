@@ -3,8 +3,8 @@ const { FeedbackService} = require('../services')
 
 const createFeedbackMiddleWare = () => {
     return async(req, res, next) => {
-        const { customerId, tourId } = req.body
-        const isAuthoz = await FeedbackService.checkAuthozFeeback(customerId, tourId)
+        const { customer, tour } = req.body
+        const isAuthoz = await FeedbackService.checkAuthozFeeback(customer, tour)
         req.body = req.body
         if(isAuthoz) return next()
         else res.status(httpStatus.UNAUTHORIZED).json({

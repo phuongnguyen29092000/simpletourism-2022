@@ -13,8 +13,6 @@ export default function PaymentWithPaypal({totalPrice, clientId, idTicket='',han
         }}
         amount={Math.round(totalPrice*100/23000)/100}
         onSuccess={(details, data) => {
-          console.log({details});
-          console.log({data});
           onClose()
           AuthAPI.paymentSuccess(idTicket)
           .then((rs) => {

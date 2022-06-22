@@ -39,7 +39,6 @@ export const reducer = (state = initialState, action) => {
             }
         }
         case types.CREATE_FEEDBACK_SUCCESS: {
-            console.log(action.payload);
             let listTemp = [...state?.listFeedback]
             return {
                 ...state,

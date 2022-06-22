@@ -2,7 +2,6 @@ import axiosClient from "./axiosClient";
 import {getHeaderWithToken} from "./getHeaderWithToken";
 
 const addNews = (data) => {
-  console.log(data);
   const url = '/news/create';
   return axiosClient.post(url, data, {headers: getHeaderWithToken()})
 }

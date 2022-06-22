@@ -7,12 +7,13 @@ import Cookies from "js-cookie";
 import useNotification from 'hooks/notification'
 import { CheckExpiredToken } from 'ultis/authUtil';
 
-const setAccountInfo = (account) => {
+const setAccountInfo = (account, callback = ()=> {}) => {
     return (dispatch) => {
         dispatch({
             type: types.SET_ACCOUNT_INFO,
             payload: account
         })
+        callback()
     }
 }
 
