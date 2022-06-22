@@ -23,7 +23,6 @@ const getTicketById = (id) => {
     return axiosClient.get(url)
 }   
 const createTicket = (id, data) => {
-    console.log(data);
     let url = `/ticket/create/${id}`;
     return axiosClient.post(url, data, { headers: getHeaderWithToken()})
 }

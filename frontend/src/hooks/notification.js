@@ -17,7 +17,7 @@ const Success = ({
   title,
   message,
   container = 'top-right',
-  duration = 5000,
+  duration = 8000,
 }) => {
   Store.addNotification({
     title: title,

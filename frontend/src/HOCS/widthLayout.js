@@ -9,7 +9,6 @@ const WidthLayout = ({
     showHeaderSearch = true
 }) => {
     const [keySearch, setKeySearch] = useState('')
-    console.log(keySearch);
     return (
         <div className='layout-app'>
             <SideBar/>
@@ -23,7 +22,7 @@ const WidthLayout = ({
                                 name = {name}
                                 isSearch = {showHeaderSearch}
                             />
-                        </div> //bo sung
+                        </div>
                     )
                 }
                 <Component

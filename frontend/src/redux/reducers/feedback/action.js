@@ -36,7 +36,6 @@ const createFeedback = (data, callback = ()=>{}) => {
         API.createFeedback(data)
         // .then((response)=>response.json())
         .then((result=>{
-            console.log({result});
             if(result.status === 201){
                 dispatch({
                     type: types.CREATE_FEEDBACK_SUCCESS,
@@ -59,7 +58,7 @@ const createFeedback = (data, callback = ()=>{}) => {
             })
             useNotification.Error({
                 title:'Lỗi!',
-                message:'Server Error!'
+                message:'Bạn chưa tham gia tour này!'
             })
         })
     }
@@ -104,6 +103,10 @@ const deleteFeedback = (id, callback = ()=>{}) => {
                     type: types.DELETE_FEEDBACK_SUCCESS,
                     payload: id
                 })
+                useNotification.Success(({
+                    message:'Thành công!',
+                    title:'Xóa đánh giá thành công!'
+                }))
                 callback()
             }else{
                 dispatch({

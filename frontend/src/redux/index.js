@@ -5,6 +5,7 @@ import listTicket from './reducers/listTicket'
 import feedback from './reducers/feedback'
 import user from './reducers/user'
 import news from './reducers/news'
+import statistic from "./reducers/statistic"
 
 const rootReducer = combineReducers({
     listTour,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     listTicket,
     user,
     feedback,
-    news
+    news,
+    statistic
 });
 
 export default rootReducer;

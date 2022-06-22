@@ -10,7 +10,6 @@ const LoginWithGoogle = () => {
     const dispatch = useDispatch()
     const handleLogOutSuccess = (res) => {
         // console.log(info);
-        console.log("logout")
         dispatch(LogoutGoogle())
     }
     const handleLogOutFailure = (res) => {

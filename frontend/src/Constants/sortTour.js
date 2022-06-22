@@ -1,11 +1,11 @@
 export const SORT_OPTIONS = [
     {
         label:'Giá cao',
-        value:'price-asc'
+        value:'price-des'
     },
     {
         label:'Giá thấp',
-        value:'price-des'
+        value:'price-asc'
     },
     {
         label:'Ngày tăng',

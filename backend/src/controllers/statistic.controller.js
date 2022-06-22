@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 
 const showStatisticPerMonth = catchAsync(async (req, res, next) => {
   const result = await StatisticService.showStatisticPerMonth(
-    req.body.ownerId,
+    req.params.ownerId,
     req.params.year,
     req.params.month
   );
@@ -24,7 +24,7 @@ const showStatisticPerMonth = catchAsync(async (req, res, next) => {
 
 const showStatisticPerYear = catchAsync(async (req, res, next) => {
   const result = await StatisticService.showStatisticPerYear(
-    req.body.ownerId,
+    req.params.ownerId,
     req.params.year
   );
   if (!result) {

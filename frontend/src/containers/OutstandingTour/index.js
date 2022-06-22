@@ -17,7 +17,7 @@ const PreArrow = (props) => {
             className={className}
             onClick={onClick}
             style={{
-                ...style, zIndex: 10, overflow: 'hidden', left: '-5px', width: '24px', height: '24px', backgroundColor: 'white', borderRadius: '20%',
+                ...style, zIndex: 10, overflow: 'hidden', left: '-5px', width: '24px', height: '24px',
             }}
         >
             <ArrowBackIosNewIcon
@@ -43,7 +43,7 @@ const NextArrow = (props) => {
             className={className}
             onClick={onClick}
             style={{
-                ...style, zIndex: 10, overflow: 'hidden', right: '-5px', width: '24px', height: '24px', backgroundColor: 'white', borderRadius: '20%',
+                ...style, zIndex: 10, overflow: 'hidden', right: '-5px', width: '24px', height: '24px',
             }}
         >
             <ArrowForwardIosIcon
@@ -129,6 +129,7 @@ function OutstandingTour({tourlist}) {
                                     discount = {tour?.discount}
                                     companyName={tour?.owner?.companyName}
                                     active={tour?.owner?.active}
+                                    timeStart={tour.timeStart}
                                 />
                             ))
                         }

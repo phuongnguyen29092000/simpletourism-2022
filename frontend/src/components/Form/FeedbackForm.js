@@ -48,20 +48,18 @@ function FeedbackForm({handleSendFeedback}) {
                             control={control}
                             defaultValue={0}
                             render={({ field }) => (
-                                <StyledRating
-                                    name="customized-color"
-                                    defaultValue={0}
-                                    getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
-                                    precision={1}
-                                    value={rating}
-                                    icon={<FavoriteIcon fontSize="inherit" color="error" style={{color:'red'}}/>}
-                                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" style={{color:'red'}}/>}
-                                    onChange={(e,newValue) => {
-                                        field.onChange(newValue)
-                                        setRating(newValue)
-                                    }}
-                                    size="medium"
-                                />
+                                <Rating
+                                 name="customized-color"
+                                defaultValue={0}
+                                max={5}
+                                value={rating}
+                                precision={1}
+                                onChange={(e,newValue) => {
+                                            field.onChange(newValue)
+                                            setRating(newValue)
+                                        }}
+                                size="medium"
+                            />
                             )}
                         />
                     </div>

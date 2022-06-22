@@ -1,6 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
-import React, { useState } from 'react';
+import { debounce } from 'lodash';
+import React, { useCallback, useState } from 'react';
 
 const CommonHeader = ({
     keySearch,
@@ -10,11 +11,9 @@ const CommonHeader = ({
 }) => {
     const [searchValue, setSearchValue] = useState('')
 
-    const handleChange = (value) => {
-        console.log(value);
-        setSearchValue(value)
+    const onChange =  useCallback(debounce((value) => {
         setKeySearch(value)
-    }
+        },500),[])
     return (
         <div className='common-header'>
             <div className='page-name'>
@@ -27,7 +26,10 @@ const CommonHeader = ({
                             <OutlinedInput
                                 id="outlined-adornment-weight"
                                 value={searchValue}
-                                onChange={(e)=>handleChange(e.target.value)}
+                                onChange={(e)=>{ 
+                                    setSearchValue(e.target.value)
+                                    onChange(e.target.value)
+                                }}
                                 endAdornment={<InputAdornment position="end"><SearchIcon/></InputAdornment>}
                                 aria-describedby="outlined-searh"
                                 inputProps={{

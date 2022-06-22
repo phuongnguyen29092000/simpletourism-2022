@@ -16,6 +16,7 @@
 @import './component/SearchBox.scss';
 @import './component/CardTour.scss';
 @import './component/Contact.scss';
+@import './component/SlideCustom.scss';
 
 @font-face {
 	font-family: "HKGroteskPro-Regular";
@@ -29,6 +30,19 @@ body {
       sans-serif;
     -webkit-font-smoothing: antialiased; */
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Nunito Sans', sans-serif;
+    *{
+      font-family: 'Nunito Sans', sans-serif !important;
+    }
   }
-  
+.alert{
+  font-size: 12px;
+  color: red;
+}
+.icon-bar{
+  svg{
+    color: #fff !important;
+  }
+}
+.rnc__notification-title, .rnc__notification-message {
+  text-align: left;
+}

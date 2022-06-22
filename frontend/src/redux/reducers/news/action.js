@@ -70,7 +70,6 @@ const getNewsPerCompany = (id, callback = ()=>{}) => {
         await CheckExpiredToken()
         dispatch({type: types.GET_NEWS_COMPANY})
         API.getNewsPerCompany(id)
-        // .then((response)=>response.json())
         .then((result=>{
             if(result.status === 200){
                 dispatch({
@@ -96,9 +95,7 @@ const getNewsDetail = (id, callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.GET_NEWS_DETAIL})
         API.getNewById(id)
-        // .then((response)=>response.json())
         .then((result)=>{
-            console.log(result)
             if(result.status === 200){
                 dispatch({
                     type: types.GET_NEWS_DETAIL_SUCCESS,

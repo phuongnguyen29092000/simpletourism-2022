@@ -74,7 +74,6 @@ function NewsDetail(props) {
                                                         sx={{
                                                             marginLeft: '10px',
                                                             overflow: 'hidden',
-                                                            fontFamily: 'Roboto Mono',
                                                             lineHeight: '1.3',
                                                             fontSize: '12px',
                                                             height: '33px',

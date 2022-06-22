@@ -11,7 +11,6 @@ export const CheckExpiredToken = async() => {
   const now = Date.now()
   const time_refresh = getTimeRefresh()
   const refresh_token = getRefreshToken()
-  console.log('xxxxx',now >= time_refresh);
   if (now >= time_refresh) {
     if (refresh_token) {
       if (now >= time_refresh) {
@@ -73,7 +72,6 @@ export const loginWithGoogle = (info) => {
               //   title: 'Message',
               //   message: result.message,
               // })
-              console.log(result.message)
             }
           })
           .catch((error) =>
