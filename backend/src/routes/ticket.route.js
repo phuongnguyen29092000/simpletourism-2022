@@ -19,6 +19,8 @@ router.post("/create/:tourId", ticketController.bookTicket);
 
 router.put("/:id", auth("owner"), ticketController.updateTicketById);
 
+router.put("/complete/:id",  auth("owner"), ticketController.completeTour);
+
 router.delete(
   "/:id",
   auth("owner", "customer"),

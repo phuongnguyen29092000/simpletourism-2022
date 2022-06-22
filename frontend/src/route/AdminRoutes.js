@@ -33,18 +33,18 @@ function AdminRoutes(props) {
                 exact
                 element={WidthLayout({
                     Component: ListTypePlace,
-                    name: 'MANAGE TYPE PLACE'
+                    name: 'MANAGE TYPE PLACE',
+                    showHeaderSearch:false
                 })}
-                showHeaderSearch={false}
             />
             <Route
                 path={ROUTE_ADMIN_STATISTIC}
                 exact
                 element={WidthLayout({
                     Component: ListCustomerAdmin,
-                    name: 'MANAGE STATSTIC'
+                    name: 'MANAGE STATSTIC',
+                    showHeaderSearch: false
                 })}
-                showHeaderSearch={false}
             />
             <Route
                 path={ROUTE_ADMIN_STATISTIC}

@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 
 const showStatisticPerMonth = catchAsync(async (req, res, next) => {
   const result = await StatisticService.showStatisticPerMonth(
-    req.body.ownerId,
+    req.params.ownerId,
     req.params.year,
     req.params.month
   );
@@ -24,9 +24,10 @@ const showStatisticPerMonth = catchAsync(async (req, res, next) => {
 
 const showStatisticPerYear = catchAsync(async (req, res, next) => {
   const result = await StatisticService.showStatisticPerYear(
-    req.body.ownerId,
+    req.params.ownerId,
     req.params.year
   );
+  console.log(req.params.ownerId);
   if (!result) {
     return next(
       new ApiError("Không thể xem thống kê của bạn, hãy thử lại sau!", 400)
@@ -39,7 +40,25 @@ const showStatisticPerYear = catchAsync(async (req, res, next) => {
   }
 });
 
+const getStatisticMonthAdmin = catchAsync(async(req,res) =>{
+  const statisticMonth = await StatisticService.getStatisticMonthAdmin(req.params.year, req.params.month)
+  res.status(200).json({
+    statisticMonth: statisticMonth,
+    message: 'OK'
+  })
+})
+
+const getStatisticYearAdmin = catchAsync(async(req,res) =>{
+  const statisticYear = await StatisticService.getStatisticYearAdmin(req.params.year)
+  res.status(200).json({
+    statisticYear: statisticYear,
+    message: 'OK'
+  })
+})
+
 module.exports = {
   showStatisticPerMonth,
   showStatisticPerYear,
+  getStatisticMonthAdmin,
+  getStatisticYearAdmin
 };

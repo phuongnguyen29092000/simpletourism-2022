@@ -34,7 +34,7 @@ function SideBar(props) {
                 </div>
                 {
                     account.role == "owner" && (
-                        <div className='menu-list-item'>
+                        <div className='menu-list-item' style={{background: '#5584AC'}}>
                             <Link to={ROUTE_LIST_TOUR}>
                                 <div className='menu-item list-tour'>
                                     <div className='menu-item__icon'>
@@ -90,7 +90,7 @@ function SideBar(props) {
                 }
                 {
                     account.role == "admin" && (
-                        <div className='menu-list-item'>
+                        <div className='menu-list-item' style={{background: '#5584AC'}}>
                             <Link to={ROUTE_ADMIN_OWNER}>
                                 <div className='menu-item list-tour'>
                                     <div className='menu-item__icon'>
@@ -131,16 +131,6 @@ function SideBar(props) {
                                     </div>
                                 </div>
                             </Link>
-                            <Link to={ROUTE_ADMIN_STATISTIC}>
-                                <div className='menu-item new'>
-                                    <div className='menu-item__icon'>
-                                        <img src={IconStatistic} />
-                                        <div className='menu-item__title'>
-                                            LIÊN HỆ
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
                         </div>
                     ) 
                 }
@@ -166,7 +156,7 @@ function SideBar(props) {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {["Tài khoản", "Tour của bạn"].map((setting, index) => (
+                                {["Tài khoản"].map((setting, index) => (
                                     <MenuItem key={index} onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center">{setting}</Typography>
                                     </MenuItem>

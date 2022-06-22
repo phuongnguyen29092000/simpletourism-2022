@@ -15,6 +15,7 @@ const tourCreateSchema = Joi.object({
   discount: Joi.number().less(1),
   owner: Joi.objectId().required(),
   typePlace: Joi.objectId().required(),
+  amount: Joi.number().max(50)
 });
 
 const tourUpdateSchema = Joi.object({
@@ -27,6 +28,9 @@ const tourUpdateSchema = Joi.object({
   imageSlide: Joi.array().items(Joi.string()).max(3),
   price: Joi.number().greater(0).less(500000000),
   discount: Joi.number().less(1),
+  typePlace: Joi.objectId().required(),
+  amount: Joi.number().max(50),
+  schedule: Joi.string().min(20).max(1024).required(),
 });
 
 let tourValidation = {

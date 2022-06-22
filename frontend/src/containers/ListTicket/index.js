@@ -3,22 +3,25 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import AddTourModal from '../../components/modal/addTourModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteTicket, getAllTicket } from '../../redux/reducers/listTicket/action'
+import { deleteTicket, getAllTicket ,setComplete} from '../../redux/reducers/listTicket/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { getUser } from 'hooks/localAuth'
 import moment from 'moment'
 import _ from 'lodash'
+import { Button } from '@mui/material';
+import useNotification from 'hooks/notification'
 
 function ListTicket(props) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
     const [ticketDelete, setTicketDelete] = useState({})
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
+    const [openConfirmModalComplete, setOpenConfirmModalComplete] = useState(false)
     let {list_ticket, listTicketPerTour} = useSelector((store) => store.listTicket)
     const {account} = useSelector((store) => store.user)
     const [ticketData, setTicketData] = useState([])
-    const [objTotal, setObjTotal] = useState({})
+    const [tour, setTour] = useState({})
     
     const handleClose = ()=>{
         setOpen(!open);
@@ -27,7 +30,6 @@ function ListTicket(props) {
         console.log({listTicketPerTour});
         if(listTicketPerTour.length === 0) dispatch(getAllTicket(getUser()._id, (data) => {
             setTicketData(data)
-            console.log(">>>>>0");
         }))
         else setTicketData(_.cloneDeep(listTicketPerTour))
         // if(!list_ticket.loading) setObjTotal(calucateTotalPriceTicket(list_ticket))
@@ -35,6 +37,10 @@ function ListTicket(props) {
 
     const handleDelete = () => {
         dispatch(deleteTicket(ticketDelete.id,()=>setOpenConfirmModal(false)))
+    }
+
+    const handleComplete = () => {
+        dispatch(setComplete(tour,()=>setOpenConfirmModalComplete(false)))
     }
 
     const calucateTotalPriceTicket = (tickets) =>{ 
@@ -103,11 +109,37 @@ function ListTicket(props) {
 
     return (
         <div className='ticket-manager'>
+            {console.log(listTicketPerTour)}
             {
                 listTicketPerTour.length !== 0 && 
-                <div style={{width:'170px', margin: '10px 0px 20px 0px', display:'flex', alignItems:'center', cursor:'pointer'}} onClick={()=>handleExportCSVFile(ticketData)}>
-                    <FileDownloadIcon color='action'></FileDownloadIcon>
-                    <span style={{color:'#858585', fontWeight:'700', marginLeft:'10px', fontSize:'14px', cursor:'pointer'}}>Export to CSV File</span>
+                <div style={{width:'100%', margin: '10px 0px 20px 0px',display:'flex', justifyContent:'space-between'}} >
+                    <div style={{display:'flex', alignItems:'center', cursor:'pointer',}} onClick={()=>handleExportCSVFile(ticketData)}>
+                        <FileDownloadIcon color='action'></FileDownloadIcon>
+                        <span style={{color:'#858585', fontWeight:'700', marginLeft:'10px', fontSize:'14px', cursor:'pointer'}}>Export to CSV File</span>
+                    </div>
+                    <div style={{display:'flex', flexDirection:'column', color: "#858585"}}>
+                        <span style={{fontWeight:'600'}}>{listTicketPerTour[0].tourName}</span>
+                        <span style={{fontSize:'13px'}}>{moment(listTicketPerTour[0].timeStart).format('DD/MM/YYYY')} {' -> '} {moment(listTicketPerTour[0].timeEnd).format('DD/MM/YYYY')}</span>
+                    </div>
+                    <Button 
+                        sx={{fontSize:'11px', padding: '5px 10px', height: '30px'}} 
+                        variant='contained' 
+                        color='success'
+                        onClick={() => {
+                            if(new Date(listTicketPerTour[0].timeEnd).getTime() < Date.now()) {
+                                setOpenConfirmModalComplete(true)
+                                setTour(listTicketPerTour[0])
+                            } else {
+                                useNotification.Error({
+                                    title:'Lỗi!',
+                                    message:`Tour ${listTicketPerTour[0].tourName} chưa kết thúc.\n Không thể xác nhận hoàn thành!`
+                                })
+                            }
+                        }     
+                        }
+                    >
+                        Hoàn thành Tour
+                    </Button>
                 </div>
             }
             <div className='ticket-manager__listticket'>
@@ -121,7 +153,6 @@ function ListTicket(props) {
                         <th className='th-2'>Trạng thái</th>
                         <th className='th-2'>Số vé</th>
                         <th className='th-2'>Tổng tiền (VND)</th>
-                        <th className='th-2'></th>
                     </thead>
                     <tbody>
                         {
@@ -136,17 +167,17 @@ function ListTicket(props) {
                                     <td className='td-3'>{ticket?.status==0 ? "Chưa thanh toán" : 'Đã thanh toán'}</td>
                                     <td className='td-3' style={{textAlign:'right'}}>{ticket?.numberPeople}</td>
                                     <td className='td-5' style={{textAlign:'right'}}>{(parseInt(ticket?.paymentPrice*ticket?.numberPeople).toLocaleString().split(',').join('.'))} đ</td>
-                                    <td>
-                                        <div className='action-col'>
-                                            <div className='btn-action btn-delete' 
-                                                onClick={()=>{
-                                                    // setTicketDelete({id: _tour._id, tourName: _tour.tourName})
-                                                    // setOpenConfirmModal(true)
-                                                }}>
-                                                <DeleteOutlineIcon fontSize='15px'/>
+                                        {/* <td>
+                                            <div className='action-col'>
+                                                <div className='btn-action btn-delete' 
+                                                    onClick={()=>{
+                                                        // setTicketDelete({id: _tour._id, tourName: _tour.tourName})
+                                                        // setOpenConfirmModal(true)
+                                                    }}>
+                                                    <DeleteOutlineIcon fontSize='15px'/>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td> */}
                                 </tr>
                             ))
                         }
@@ -165,7 +196,6 @@ function ListTicket(props) {
                                 <div style={{marginBottom:'15px', fontWeight:'700'}}>Tổng tiền:</div>
                                 <span>{calucateTotalPriceTicket(ticketData)?.totalPrice?.toLocaleString().split(',').join('.')} đ</span>    
                             </td>
-                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -177,6 +207,13 @@ function ListTicket(props) {
                 setOpenConfirmModal = {setOpenConfirmModal}
                 title= "Xác nhận"
                 openConfirmModal={openConfirmModal}
+            />
+            <ConfirmModal 
+                handleAction={handleComplete} 
+                content={`Bạn có chắc muốn kết thúc tour ${tour?.tourName} không?`} 
+                setOpenConfirmModal = {setOpenConfirmModalComplete}
+                title= "Xác nhận"
+                openConfirmModal={openConfirmModalComplete}
             />
         </div>
     );

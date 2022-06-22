@@ -71,6 +71,26 @@ export const reducer = (state = initialState, action) => {
         loading: false,
       }
     }
+    case types.SET_COMPLETE_TICKET: {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+    case types.SET_COMPLETE_TICKET_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      }
+    }
+    case types.SET_COMPLETE_TICKET_SUCCESS: {
+      return {
+        ...state,
+        //xử lí xóa
+        listTicketPerTour: [],
+        loading: false,
+      }
+    }
     case types.RESET_TICKET: {
       return {
         ...state,

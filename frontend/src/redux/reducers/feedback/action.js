@@ -59,7 +59,7 @@ const createFeedback = (data, callback = ()=>{}) => {
             })
             useNotification.Error({
                 title:'Lỗi!',
-                message:'Server Error!'
+                message:'Bạn chỉ có thể đánh giá tour khi đã đi tour và thanh toán!'
             })
         })
     }

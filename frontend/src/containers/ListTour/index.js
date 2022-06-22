@@ -30,13 +30,17 @@ function ListTour({keySearch = ''}) {
     let { listTourOwner } = useSelector((store) => store.listTour)
 
     useEffect(() => {
-        dispatch(getTourByOwner(getUser()._id,(data) => setListAll([...data?.filter((item) => item?.tourName?.toLowerCase().includes(keySearch.toLowerCase()))])))
+        setListAll([...listTourOwner?.filter((item) => item?.tourName?.toLowerCase().includes(keySearch.toLowerCase()))])
         
-    }, [keySearch, dispatch])
+    }, [keySearch])
 
     useEffect(() => {
         setListAll(listTourOwner)
-    },[])
+    },[listTourOwner])
+
+    useEffect(()=>{
+        if(!listTourOwner.length) dispatch(getTourByOwner(getUser()._id))
+    }, [])
 
     const handleOnChange = (e, value) => {
         let start = (value - 1) * 10;

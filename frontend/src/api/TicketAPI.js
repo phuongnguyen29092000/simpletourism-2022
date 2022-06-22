@@ -31,11 +31,17 @@ const getHistoryTicket = (id) => {
     let url = `/ticket/history/${id}`;
     return axiosClient.get(url, { headers: getHeaderWithToken()})
 }
+
+const setCompleteTour = (id) => {
+    let url = `/ticket/complete/${id}`;
+    return axiosClient.put(url,{}, { headers: getHeaderWithToken()})
+}
 export default {
     getAllTicket,
     getTicketPerTour,
     deleteTicket,
     getTicketById,
     createTicket,
-    getHistoryTicket
+    getHistoryTicket,
+    setCompleteTour
 }

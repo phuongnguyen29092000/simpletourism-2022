@@ -34,18 +34,18 @@ function OwnerRoutes(props) {
                 exact
                 element={WidthLayout({
                     Component: ListUserOwner,
-                    name: 'MANAGE CUSTOMER'
+                    name: 'MANAGE CUSTOMER',
+                    showHeaderSearch: false
                 })}
-                showHeaderSearch={false}
             />
              <Route
                 path={ROUTE_OWNER_NEWS}
                 exact
                 element={WidthLayout({
                     Component: OwnerNews,
-                    name: 'MANAGE NEWS'
+                    name: 'MANAGE NEWS',
+                    showHeaderSearch:false
                 })}
-                showHeaderSearch={false}
             />
         </Routes>
     );
