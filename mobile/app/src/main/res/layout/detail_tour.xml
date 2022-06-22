@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.domestic.DetailTourFragment"
-    android:background="@color/black_detail">
+    android:background="@color/black_detail"
+    tools:context=".ui.domestic.DetailTourFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="12dp">
+
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slide_detail"
                 android:layout_width="match_parent"
@@ -25,16 +28,16 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/nav_header_desc"
                 app:iss_auto_cycle="true"
-                app:iss_period="2000"
-                />
+                app:iss_period="2000" />
         </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/name_tour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
             android:layout_marginLeft="30dp"
-            android:fontFamily="@font/nunit_sans_extrabold"/>
+            android:fontFamily="@font/nunit_sans_extrabold"
+            android:textSize="25dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,28 +47,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giá: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Giá: "
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/tv_detail_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_price_after_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:textColor="#F40D0D"
                 android:textSize="@dimen/text_size"
-                android:visibility="gone"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:visibility="gone" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,17 +80,18 @@
                 android:id="@+id/rating_tour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:numStars="5"
-                android:isIndicator="true"
                 android:layout_marginLeft="30dp"
-                />
+                android:isIndicator="true"
+                android:numStars="5" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,18 +100,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thời gian: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Thời gian: "
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_time_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,18 +122,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Khách sạn: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Khách sạn: "
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_hotel_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,18 +144,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Công ty: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Công ty: "
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_company_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,18 +166,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Số lượng: "
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_amount_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -174,18 +188,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng còn: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Số lượng còn: "
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_amount_remain_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -194,75 +210,81 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Loại hình: "
-                android:textSize="@dimen/text_size"
                 android:layout_marginLeft="30dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Loại hình: "
+                android:textSize="@dimen/text_size" />
+
             <TextView
                 android:id="@+id/tv_type_place"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/nunito_sans_semibold"
             android:text="Mô tả: "
-            android:textSize="@dimen/text_size"
-            android:layout_marginLeft="30dp"
-            android:fontFamily="@font/nunito_sans_semibold"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mô tả: "
-                    android:textSize="@dimen/text_size"
-                    android:justificationMode="inter_word"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-                <Button
-                    android:id="@+id/see_more_description"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="22dp"
-                    android:text="Xem thêm"
-                    android:textColor="#3B9EED"
-                    >
+            android:textSize="@dimen/text_size" />
 
-                </Button>
-                <Button
-                    android:id="@+id/hide_description"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="22dp"
-                    android:visibility="gone"
-                    android:text="Ẩn bớt"
-                    android:textColor="#3B9EED"/>
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:justificationMode="inter_word"
+                android:maxLines="2"
+                android:text="Mô tả: "
+                android:textSize="@dimen/text_size" />
+
+            <Button
+                android:id="@+id/see_more_description"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:layout_weight="1"
+                android:text="Xem thêm"
+                android:textColor="#3B9EED">
+
+            </Button>
+
+            <Button
+                android:id="@+id/hide_description"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="22dp"
+                android:text="Ẩn bớt"
+                android:textColor="#3B9EED"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lịch trình: "
-            android:layout_marginTop="20dp"
-            android:textSize="@dimen/text_size"
             android:layout_marginLeft="30dp"
-            android:fontFamily="@font/nunito_sans_semibold"/>
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Lịch trình: "
+            android:textSize="@dimen/text_size" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -274,12 +296,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:justificationMode="inter_word"
                 android:ellipsize="end"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:justificationMode="inter_word"
                 android:maxLines="2"
                 android:text="Lịch trình: "
-                android:textSize="@dimen/text_size"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:textSize="@dimen/text_size" />
 
             <Button
                 android:id="@+id/see_more"
@@ -287,12 +309,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_weight="1"
                 android:layout_marginLeft="22dp"
+                android:layout_weight="1"
                 android:text="Xem thêm"
                 android:textColor="#3B9EED">
 
             </Button>
+
             <Button
                 android:id="@+id/hide"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -300,57 +323,62 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="22dp"
-                android:visibility="gone"
                 android:text="Ẩn bớt"
-                android:textColor="#3B9EED">
+                android:textColor="#3B9EED"
+                android:visibility="gone">
 
             </Button>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_book_tour"
-            android:background="@drawable/custombtn2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
+            android:background="@drawable/custombtn2"
             android:text="Đặt tour"
             android:textAllCaps="false"
             android:textSize="16dp"
-            app:backgroundTint="#5584AC"/>
+            app:backgroundTint="#5584AC" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đánh giá"
-            android:textSize="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/nunito_sans_semibold"/>
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Đánh giá"
+            android:textSize="30dp" />
+
         <View
             android:layout_width="390dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="#473B3B"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:background="#473B3B" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_feedback"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </androidx.recyclerview.widget.RecyclerView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="10dp"
-            app:cardCornerRadius="10dp"
             android:layout_margin="10dp"
+            android:padding="10dp"
             app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
             app:cardMaxElevation="12dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            android:padding="10dp">
+            app:cardUseCompatPadding="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -359,75 +387,79 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/nunito_sans_semibold"
                     android:text="Gửi đánh giá"
                     android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
+                    android:textStyle="bold" />
+
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:hint="Email"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    android:hint="Email">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/nunito_sans_semibold"/>
+                        android:fontFamily="@font/nunito_sans_semibold" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <RatingBar
                     android:id="@+id/rating_feedback"
                     style="@android:style/Widget.Material.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginLeft="20dp"
-                    android:stepSize="1"
+                    android:layout_marginTop="15dp"
                     android:isIndicator="false"
+                    android:stepSize="1"
                     tools:ignore="NewApi" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edt_comment_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Đánh giá"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginBottom="5dp"
+                    android:hint="Đánh giá">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edt_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:lines="4"
+                        android:fontFamily="@font/nunito_sans_semibold"
                         android:gravity="top"
-                        android:fontFamily="@font/nunito_sans_semibold"/>
+                        android:inputType="textMultiLine"
+                        android:lines="4" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_comment"
-                    android:background="@drawable/custombtn2"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
+                    android:background="@drawable/custombtn2"
                     android:text="Đánh giá"
                     android:textAllCaps="false"
                     android:textSize="16dp"
-                    app:backgroundTint="#5584AC"/>
+                    app:backgroundTint="#5584AC" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
 
 
 </ScrollView>

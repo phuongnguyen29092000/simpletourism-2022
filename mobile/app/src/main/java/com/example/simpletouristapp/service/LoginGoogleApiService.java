@@ -11,7 +11,7 @@ public class LoginGoogleApiService {
     private static final String BASE_URL = "https://oauth2.googleapis.com/";
     private LoginGoogleApi googleApi;
 
-    public LoginGoogleApiService(){
+    public LoginGoogleApiService() {
         googleApi = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -19,7 +19,7 @@ public class LoginGoogleApiService {
                 .create(LoginGoogleApi.class);
     }
 
-    public Call<TokenResponse> getAccessToken(String code,String clientId,String clientSecret,String redirectId,String grantType){
-        return googleApi.getAccessToken(code,clientId,clientSecret,redirectId,grantType);
+    public Call<TokenResponse> getAccessToken(String code, String clientId, String clientSecret, String redirectId, String grantType) {
+        return googleApi.getAccessToken(code, clientId, clientSecret, redirectId, grantType);
     }
 }

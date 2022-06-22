@@ -12,8 +12,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.simpletouristapp.databinding.FragmentContactBinding;
 
-public class ContactFragment extends Fragment{
+public class ContactFragment extends Fragment {
     private FragmentContactBinding binding;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentContactBinding.inflate(inflater, container, false);
@@ -22,12 +23,13 @@ public class ContactFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+binding.phoneNumber.getText().toString().replace(" ","")));
+                intent.setData(Uri.parse("tel:" + binding.phoneNumber.getText().toString().replace(" ", "")));
                 startActivity(intent);
             }
         });
         return root;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.simpletouristapp.MainActivity;
@@ -87,28 +88,28 @@ public class DetailTourFragment extends Fragment {
         call.enqueue(new Callback<TourResponse>() {
             @Override
             public void onResponse(Call<TourResponse> call, Response<TourResponse> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     TourResponse tourResponse = response.body();
                     Tour tour = tourResponse.data;
 
-                    Locale lc = new Locale("nv","VN");
+                    Locale lc = new Locale("nv", "VN");
                     NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
                     String pattern = "dd/MM/yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(tour.getNameTour());
-                    slideModelList.add(new SlideModel(ToursApiService.BASE_URL + tour.getImageAvatar().substring(7),null));
-                    for (String slide: tour.getImageSlide()
+                    slideModelList.add(new SlideModel(ToursApiService.BASE_URL + tour.getImageAvatar().substring(7), null));
+                    for (String slide : tour.getImageSlide()
                     ) {
-                        slideModelList.add(new SlideModel(ToursApiService.BASE_URL + slide.substring(7),null));
+                        slideModelList.add(new SlideModel(ToursApiService.BASE_URL + slide.substring(7), null));
                     }
                     binding.nameTour.setText(tour.getNameTour());
                     binding.ratingTour.setRating(tour.getRating());
                     binding.imageSlideDetail.setImageList(slideModelList, ScaleTypes.CENTER_CROP);
                     binding.tvDetailPrice.setText(nf.format(tour.getPrice()));
                     binding.tvCompanyName.setText(tour.getOwner().getCompanyName());
-                    if(tour.getDiscount() != 0){
+                    if (tour.getDiscount() != 0) {
                         binding.tvDetailPrice.setPaintFlags(binding.tvDetailPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        binding.tvPriceAfterDiscount.setText(nf.format(tour.getPrice()*(1-tour.getDiscount())));
+                        binding.tvPriceAfterDiscount.setText(nf.format(tour.getPrice() * (1 - tour.getDiscount())));
                         binding.tvPriceAfterDiscount.setVisibility(View.VISIBLE);
                     }
                     binding.tvTimeDetail.setText(simpleDateFormat.format(tour.getTimeStart()) + " - " + simpleDateFormat.format(tour.getTimeEnd()));
@@ -118,25 +119,26 @@ public class DetailTourFragment extends Fragment {
                     binding.tvTypePlace.setText(tour.getTypePlace().getName());
                     binding.description.setText(tour.getDescription());
                     binding.schedule.setText(tour.getSchedule());
-                    if(getActivity().getClass() == MainActivityLogged.class){
-                        binding.edtEmail.setText(sharedPreferences.getString("email",""));
+                    if (getActivity().getClass() == MainActivityLogged.class) {
+                        binding.edtEmail.setText(sharedPreferences.getString("email", ""));
                     }
-                }else {
+                } else {
                     Toast.makeText(getContext(), "Wrong Id Tour", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<TourResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG",t.getMessage());
+                Log.d("TAG", t.getMessage());
             }
         });
-        Log.d("tourId",tourId);
+        Log.d("tourId", tourId);
         binding.btnBookTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("TAG", String.valueOf(getActivity()));
-                if(getActivity().getClass() == MainActivity.class){
+                if (getActivity().getClass() == MainActivity.class) {
                     builder.setTitle("Bạn cần phải đăng nhập trước khi đặt tour");
                     builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                         @Override
@@ -151,12 +153,12 @@ public class DetailTourFragment extends Fragment {
                         }
                     });
                     builder.show();
-                }else {
+                } else {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("tourName", binding.nameTour.getText().toString());
                     bundle.putSerializable("idTour", tourId);
                     bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
-                    Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour, bundle);
                 }
 
             }
@@ -199,7 +201,7 @@ public class DetailTourFragment extends Fragment {
         binding.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity().getClass() == MainActivity.class){
+                if (getActivity().getClass() == MainActivity.class) {
                     builder.setTitle("Bạn cần phải đăng nhập trước khi đánh giá");
                     builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                         @Override
@@ -214,16 +216,16 @@ public class DetailTourFragment extends Fragment {
                         }
                     });
                     builder.show();
-                }else {
+                } else {
                     MainActivityLogged.getAccessInfo(getContext());
                     Call<SendFeedbackResponse> call1 = feedBacksApiService.sendFeedback(
-                            "Bearer " + sharedPreferences.getString("access_token",""),tourId
-                            , sharedPreferences.getString("id_customer",""), binding.edtComment.getText().toString()
+                            "Bearer " + sharedPreferences.getString("access_token", ""), tourId
+                            , sharedPreferences.getString("id_customer", ""), binding.edtComment.getText().toString()
                             , (int) binding.ratingFeedback.getRating());
                     call1.enqueue(new Callback<SendFeedbackResponse>() {
                         @Override
                         public void onResponse(Call<SendFeedbackResponse> call, Response<SendFeedbackResponse> response) {
-                            if(response.code() == 201){
+                            if (response.code() == 201) {
                                 refreshFeedBack();
                                 builder.setTitle("Đánh giá thành công");
                                 builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
@@ -235,7 +237,7 @@ public class DetailTourFragment extends Fragment {
                                 });
                                 builder.show();
                                 binding.edtComment.setText("");
-                            }else {
+                            } else {
                                 builder.setTitle("Bạn cần đặt tour và thanh toán trước khi đánh giá");
                                 builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                                     @Override
@@ -258,30 +260,30 @@ public class DetailTourFragment extends Fragment {
                                 }
                             });
                             builder.show();
-                            Log.d("rate_error",t.getMessage());
+                            Log.d("rate_error", t.getMessage());
                         }
                     });
                 }
             }
         });
         try {
-            if (status == 1){
+            if (status == 1) {
                 binding.edtComment.setFocusable(true);
                 binding.edtComment.requestFocus();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         return root;
     }
 
-    public void refreshFeedBack(){
+    public void refreshFeedBack() {
         Call<FeedBackResponse> call2 = feedBacksApiService.getFeedBackById(tourId);
         call2.enqueue(new Callback<FeedBackResponse>() {
             @Override
             public void onResponse(Call<FeedBackResponse> call, Response<FeedBackResponse> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     FeedBackResponse feedBackResponse = response.body();
-                    feedBackAdapter = new FeedBackAdapter(getContext(),feedBackResponse.getData());
+                    feedBackAdapter = new FeedBackAdapter(getContext(), feedBackResponse.getData());
 
                     rvFeedback.setAdapter(feedBackAdapter);
                 }
@@ -290,7 +292,7 @@ public class DetailTourFragment extends Fragment {
             @Override
             public void onFailure(Call<FeedBackResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("feedbackerror",t.getMessage());
+                Log.d("feedbackerror", t.getMessage());
             }
         });
     }

@@ -1,37 +1,25 @@
 package com.example.simpletouristapp.ui.domestic;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.adapter.TourAdapter;
-import com.example.simpletouristapp.adapter.TypePlaceAdapter;
 import com.example.simpletouristapp.databinding.DomesticFragmentBinding;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
-import com.example.simpletouristapp.model.TypePlace;
 import com.example.simpletouristapp.repository.TourRepository;
 import com.example.simpletouristapp.service.ToursApiService;
-import com.example.simpletouristapp.ui.international.InternationalViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +51,8 @@ public class DomesticFragment extends Fragment {
 
         tours = new ArrayList<>();
         tourRepository = new TourRepository(getActivity().getApplication());
-        tourAdapter = new TourAdapter(getContext(),tours,"domestic");
-        rvDomesticTour.setLayoutManager(new GridLayoutManager(getContext(),2));
+        tourAdapter = new TourAdapter(getContext(), tours, "domestic");
+        rvDomesticTour.setLayoutManager(new GridLayoutManager(getContext(), 2));
         domesticViewModel.getDomesticTours().observe(getViewLifecycleOwner(), new Observer<List<Tour>>() {
             @Override
             public void onChanged(List<Tour> tourList) {
@@ -76,17 +64,18 @@ public class DomesticFragment extends Fragment {
 
         return root;
     }
-    public void getDomesticTours(){
+
+    public void getDomesticTours() {
         toursApiService = new ToursApiService();
         Call<ToursResponse> call = toursApiService.getDomesticToursApi();
         call.enqueue(new Callback<ToursResponse>() {
             @Override
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
-                Log.d("TAG",response.code()+"");
+                Log.d("TAG", response.code() + "");
                 ToursResponse tourResponse = response.body();
                 tourRepository.deleteDomesticTour();
-                for (Tour tour: tourResponse.getData()
-                     ) {
+                for (Tour tour : tourResponse.getData()
+                ) {
                     tour.setCompanyName(tour.getOwner().getCompanyName());
                     tours.add(tour);
                 }
@@ -96,10 +85,11 @@ public class DomesticFragment extends Fragment {
             @Override
             public void onFailure(Call<ToursResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG",t.getMessage());
+                Log.d("TAG", t.getMessage());
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -1,6 +1,5 @@
 package com.example.simpletouristapp.api;
 
-import com.example.simpletouristapp.model.FeedBackResponse;
 import com.example.simpletouristapp.model.LoginResponse;
 import com.example.simpletouristapp.model.TicketResponse;
 import com.example.simpletouristapp.model.TourResponse;
@@ -10,13 +9,10 @@ import com.example.simpletouristapp.model.TypePlaceResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -41,8 +37,8 @@ public interface ToursApi {
     Call<ToursResponse> getToursByTypePlace(@Query("typePlace") String typePlace);
 
     @GET("tour")
-    Call<ToursResponse> getToursFilter(@Query("continent") String continent,@Query("typeplace") String typePlace
-            ,@Query("sort") String sort,@Query("price[gte]") int priceMin,@Query("price[lte]") int priceMax,@Query("discount") String discount);
+    Call<ToursResponse> getToursFilter(@Query("continent") String continent, @Query("typeplace") String typePlace
+            , @Query("sort") String sort, @Query("price[gte]") int priceMin, @Query("price[lte]") int priceMax, @Query("discount") String discount);
 
     @GET("tour/tour-noi-bat")
     Call<ToursResponse> getOutStandingTours();
@@ -50,17 +46,17 @@ public interface ToursApi {
     @FormUrlEncoded
     @POST("payment/create")
     Call<ResponseBody> postPaypal(@Field("name") String name, @Field("sku") String sku
-            ,@Field("price") int price, @Field("quantity")int quantity);
+            , @Field("price") int price, @Field("quantity") int quantity);
 
     @FormUrlEncoded
     @POST("auth/login")
     Call<LoginResponse> postFormLogin(@Field("googleId") String googleId, @Field("email") String email
             , @Field("givenName") String givenName, @Field("familyName") String familyName
-            , @Field("photoUrl") String photoUrl, @Field("accessToken") String accessToken, @Field("id_token") String idToken,@Field("type")String type);
+            , @Field("photoUrl") String photoUrl, @Field("accessToken") String accessToken, @Field("id_token") String idToken, @Field("type") String type);
 
     @FormUrlEncoded
     @POST("ticket/create/{id}")
-    Call<TicketResponse> bookTour(@Header("Authorization") String auth,@Path("id") String id, @Field("customer") String customer, @Field("phone") String phone
+    Call<TicketResponse> bookTour(@Header("Authorization") String auth, @Path("id") String id, @Field("customer") String customer, @Field("phone") String phone
             , @Field("numberPeople") int numberPeople);
 
     @GET("tour/search")

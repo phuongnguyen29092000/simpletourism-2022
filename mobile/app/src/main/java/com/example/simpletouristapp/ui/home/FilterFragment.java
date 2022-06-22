@@ -1,19 +1,8 @@
 package com.example.simpletouristapp.ui.home;
 
-import androidx.fragment.app.DialogFragment;
-
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,19 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.simpletouristapp.FilterResultActivity;
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.adapter.TypePlaceAdapter;
 import com.example.simpletouristapp.databinding.FilterFragmentBinding;
-import com.example.simpletouristapp.databinding.NewsFragmentBinding;
 import com.example.simpletouristapp.model.TypePlaceResponse;
 import com.example.simpletouristapp.service.ToursApiService;
-import com.example.simpletouristapp.ui.news.NewsViewModel;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 
@@ -77,22 +66,22 @@ public class FilterFragment extends DialogFragment {
         View root = binding.getRoot();
         selectedTypePlace = new HashSet<>();
         params = new HashMap<>();
-        HashMap<String,String> continents = new HashMap<String, String>();
+        HashMap<String, String> continents = new HashMap<String, String>();
         final String[] typePlace = {""};
         final String[] continent = {""};
         final String[] sort = {""};
 
-        continents.put("Châu Á","asia");
-        continents.put("Châu Âu","europe");
-        continents.put("Châu Mỹ","americas");
-        continents.put("Châu Phi","africa");
-        continents.put("Châu Úc","australia");
+        continents.put("Châu Á", "asia");
+        continents.put("Châu Âu", "europe");
+        continents.put("Châu Mỹ", "americas");
+        continents.put("Châu Phi", "africa");
+        continents.put("Châu Úc", "australia");
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.contient, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.contient, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerContinent.setAdapter(adapter);
 
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),R.array.sort_by, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(), R.array.sort_by, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerSort.setAdapter(adapter1);
 
@@ -100,7 +89,7 @@ public class FilterFragment extends DialogFragment {
             @NonNull
             @Override
             public String getFormattedValue(float value) {
-                Locale lc = new Locale("nv","VN");
+                Locale lc = new Locale("nv", "VN");
                 NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
                 numberFormat.setMaximumFractionDigits(0);
                 numberFormat.setCurrency(Currency.getInstance(lc));
@@ -122,8 +111,8 @@ public class FilterFragment extends DialogFragment {
                 Log.d("end", String.valueOf(slider.getValues()));
                 priceMin = slider.getValues().get(0);
                 priceMax = slider.getValues().get(1);
-                Log.d("end", String.valueOf((int)priceMin));
-                Log.d("end", String.valueOf((int)priceMax));
+                Log.d("end", String.valueOf((int) priceMin));
+                Log.d("end", String.valueOf((int) priceMax));
             }
         });
 
@@ -154,7 +143,6 @@ public class FilterFragment extends DialogFragment {
         });
 
 
-
         binding.dialogClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,9 +156,9 @@ public class FilterFragment extends DialogFragment {
         call.enqueue(new Callback<TypePlaceResponse>() {
             @Override
             public void onResponse(Call<TypePlaceResponse> call, Response<TypePlaceResponse> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     TypePlaceResponse typePlaceResponse = response.body();
-                    typePlaceAdapter = new TypePlaceAdapter(getActivity(),typePlaceResponse.getTypePlaces(),selectedTypePlace);
+                    typePlaceAdapter = new TypePlaceAdapter(getActivity(), typePlaceResponse.getTypePlaces(), selectedTypePlace);
                     rvTypePlace.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
                     rvTypePlace.setAdapter(typePlaceAdapter);
                 }
@@ -178,34 +166,33 @@ public class FilterFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<TypePlaceResponse> call, Throwable t) {
-//                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG",t.getMessage());
+                Log.d("TAG", t.getMessage());
             }
         });
 
         binding.dialogAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(String i : continents.keySet()){
-                    if(i.equals(continent[0])){
-                        params.put("continent",continents.get(i));
+                for (String i : continents.keySet()) {
+                    if (i.equals(continent[0])) {
+                        params.put("continent", continents.get(i));
                     }
                 }
-                for (String place: selectedTypePlace){
+                for (String place : selectedTypePlace) {
                     typePlace[0] += place + ",";
                 }
-                params.put("typeplace",typePlace[0].replaceAll(",$",""));
-                if(sort[0].equals("Giá")){
-                    params.put("sort","price");
-                }else {
-                    params.put("sort","rating");
+                params.put("typeplace", typePlace[0].replaceAll(",$", ""));
+                if (sort[0].equals("Giá")) {
+                    params.put("sort", "price");
+                } else {
+                    params.put("sort", "rating");
                 }
-                params.put("priceMin", String.valueOf((int)priceMin));
-                params.put("priceMax", String.valueOf((int)priceMax));
-                if(binding.discount.isChecked()){
-                    params.put("discount","true");
-                }else {
-                    params.put("discount","");
+                params.put("priceMin", String.valueOf((int) priceMin));
+                params.put("priceMax", String.valueOf((int) priceMax));
+                if (binding.discount.isChecked()) {
+                    params.put("discount", "true");
+                } else {
+                    params.put("discount", "");
                 }
 
                 Bundle bundle = new Bundle();

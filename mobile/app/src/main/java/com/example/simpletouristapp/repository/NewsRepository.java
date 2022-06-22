@@ -16,23 +16,27 @@ public class NewsRepository {
     private LiveData<List<News>> allNews;
 
 
-    public NewsRepository(Application application){
+    public NewsRepository(Application application) {
         newsDatabase = NewsDatabase.getInstance(application);
         allNews = newsDatabase.newsDao().getAllNews();
     }
-    public void insert(List<News> newsList){
+
+    public void insert(List<News> newsList) {
         new NewsRepository.InsertAsyncTask(newsDatabase).execute(newsList);
     }
-    public void deleteAll(){
+
+    public void deleteAll() {
         new NewsRepository.DeleteAsyncTask(newsDatabase).execute();
     }
-    public  LiveData<List<News>> getAllNews(){
+
+    public LiveData<List<News>> getAllNews() {
         return allNews;
     }
 
-    class DeleteAsyncTask extends AsyncTask<Void,Void,Void> {
+    class DeleteAsyncTask extends AsyncTask<Void, Void, Void> {
         private NewsDao newsDao;
-        DeleteAsyncTask(NewsDatabase newsDatabase){
+
+        DeleteAsyncTask(NewsDatabase newsDatabase) {
             newsDao = newsDatabase.newsDao();
         }
 
@@ -42,12 +46,15 @@ public class NewsRepository {
             return null;
         }
     }
-    class InsertAsyncTask extends AsyncTask<List<News>,Void,Void>{
+
+    class InsertAsyncTask extends AsyncTask<List<News>, Void, Void> {
 
         private NewsDao newsDao;
-        InsertAsyncTask(NewsDatabase newsDatabase){
+
+        InsertAsyncTask(NewsDatabase newsDatabase) {
             newsDao = newsDatabase.newsDao();
         }
+
         @Override
         protected Void doInBackground(List<News>... lists) {
             newsDao.insert(lists[0]);

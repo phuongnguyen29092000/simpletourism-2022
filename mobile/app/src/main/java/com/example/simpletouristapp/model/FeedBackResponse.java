@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class FeedBackResponse{
+public class FeedBackResponse {
 
     @SerializedName("status")
     private int status;
@@ -88,7 +88,7 @@ public class FeedBackResponse{
             this.comment = comment;
         }
 
-        public class Customer{
+        public class Customer {
             @SerializedName("_id")
             private String id;
             @SerializedName("givenName")

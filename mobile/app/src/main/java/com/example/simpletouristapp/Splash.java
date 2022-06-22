@@ -6,12 +6,11 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Splash extends AppCompatActivity {
-    private static  int SPlASH_SCREEN = 5000;
+    private static final int SPlASH_SCREEN = 4000;
     Animation topAnim, bottomAnim;
     ImageView image;
     ImageView logo;
