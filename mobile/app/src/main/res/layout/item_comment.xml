@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="#ffff">
+    android:background="#ffff"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-            app:strokeWidth="1dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:adjustViewBounds="true"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:scaleType="fitXY"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="30dp"
-            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24"
+            app:strokeWidth="1dp" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/txt_email_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email: "
-                    android:textSize="20dp"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/nunit_sans_extrabold"/>
+                    android:fontFamily="@font/nunit_sans_extrabold"
+                    android:text="Email: "
+                    android:textSize="20dp" />
 
                 <RatingBar
                     android:id="@+id/rating_feedback"
                     style="@android:style/Widget.Material.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:isIndicator="true"/>
+                    android:isIndicator="true" />
+
                 <TextView
                     android:id="@+id/txt_cmt_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comment: "
-                    android:textSize="20dp"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
+                    android:fontFamily="@font/nunito_sans_semibold"
+                    android:text="Comment: "
+                    android:textSize="20dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="right">
+                android:gravity="right"
+                android:orientation="horizontal">
+
                 <ImageButton
                     android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:src="@drawable/ic_baseline_delete_24"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

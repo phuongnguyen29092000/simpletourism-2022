@@ -49,7 +49,7 @@ public class LoginResponse {
         this.profile = profile;
     }
 
-    public class Profile{
+    public class Profile {
 
         @SerializedName("_id")
         private String id;
@@ -85,7 +85,7 @@ public class LoginResponse {
         }
     }
 
-    public class TokenAuth{
+    public class TokenAuth {
 
         @SerializedName("access")
         private Access access;
@@ -109,7 +109,7 @@ public class LoginResponse {
             this.refresh = refresh;
         }
 
-        public class Access{
+        public class Access {
 
             @SerializedName("token")
             private String token;
@@ -133,7 +133,8 @@ public class LoginResponse {
                 this.expires = expires;
             }
         }
-        public class Refresh{
+
+        public class Refresh {
 
             @SerializedName("token")
             private String token;

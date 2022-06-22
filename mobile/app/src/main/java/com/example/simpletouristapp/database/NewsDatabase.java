@@ -17,14 +17,16 @@ import org.jetbrains.annotations.NotNull;
 @Database(entities = {News.class}, version = 1)
 public abstract class NewsDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "news";
+
     public abstract NewsDao newsDao();
 
     private static volatile NewsDatabase INSTANCE;
-    public static NewsDatabase getInstance(Context context){
-        if(INSTANCE == null){
-            synchronized (NewsDatabase.class){
-                if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context, NewsDatabase.class,DATABASE_NAME)
+
+    public static NewsDatabase getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (NewsDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context, NewsDatabase.class, DATABASE_NAME)
                             .addCallback(callback)
                             .build();
                 }
@@ -41,12 +43,14 @@ public abstract class NewsDatabase extends RoomDatabase {
         }
     };
 
-    static class PopulateAsyncTask extends AsyncTask<Void,Void,Void> {
+    static class PopulateAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private NewsDao newsDao;
-        PopulateAsyncTask(NewsDatabase newsDatabase){
+
+        PopulateAsyncTask(NewsDatabase newsDatabase) {
             newsDao = newsDatabase.newsDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
             newsDao.deleteAll();

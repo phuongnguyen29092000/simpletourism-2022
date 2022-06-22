@@ -9,12 +9,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.simpletouristapp.adapter.NewsAdapter;
 import com.example.simpletouristapp.databinding.DetailNewsBinding;
 import com.example.simpletouristapp.model.News;
-import com.example.simpletouristapp.model.NewsResponse;
 import com.example.simpletouristapp.model.NewsSingleResponse;
 import com.example.simpletouristapp.service.NewsApiService;
 import com.example.simpletouristapp.service.ToursApiService;
@@ -51,7 +48,7 @@ public class DetailNewsFragment extends Fragment {
         call.enqueue(new Callback<NewsSingleResponse>() {
             @Override
             public void onResponse(Call<NewsSingleResponse> call, Response<NewsSingleResponse> response) {
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     NewsSingleResponse newsSingleResponse = response.body();
                     News news = newsSingleResponse.getNews();
                     String pattern = "dd/MM/yyyy";
@@ -68,7 +65,7 @@ public class DetailNewsFragment extends Fragment {
             @Override
             public void onFailure(Call<NewsSingleResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG",t.getMessage());
+                Log.d("TAG", t.getMessage());
             }
         });
         return root;

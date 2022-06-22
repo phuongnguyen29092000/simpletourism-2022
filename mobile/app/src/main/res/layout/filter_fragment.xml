@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.home.FilterFragment">
 
@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -35,10 +36,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/dialog_close"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:text="Filter"
                 android:textColor="#37393A"
-                android:textSize="20sp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/dialog_action"
@@ -48,28 +49,31 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
                 android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:padding="8dp"
                 android:text="Apply"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:textSize="20sp" />
         </RelativeLayout>
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_type_place"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content">-->
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/rv_type_place"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content">-->
 
-<!--        </androidx.recyclerview.widget.RecyclerView>-->
+        <!--        </androidx.recyclerview.widget.RecyclerView>-->
 
     </androidx.cardview.widget.CardView>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/continent"
                 android:layout_width="match_parent"
@@ -77,18 +81,19 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:paddingTop="8dp"
                 android:text="Châu lục"
                 android:textColor="@android:color/black"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <View
                 android:layout_width="390dp"
-                android:layout_gravity="center"
                 android:layout_height="1dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/continent" />
@@ -101,7 +106,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:contentDescription="@string/menu_domestic"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold" />
+
             <TextView
                 android:id="@+id/type_place"
                 android:layout_width="match_parent"
@@ -109,6 +115,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="Loại hình"
@@ -116,8 +123,8 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <View
                 android:layout_width="390dp"
                 android:layout_height="1dp"
@@ -125,26 +132,28 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/type_place" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_type_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
+
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/discount"
-                android:checked="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:checked="false"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="Giảm giá"
-                android:textSize="20dp"
-                android:fontFamily="@font/nunito_sans_semibold"
-                />
+                android:textSize="20dp" />
+
             <View
                 android:layout_width="390dp"
                 android:layout_height="1dp"
@@ -152,6 +161,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/discount" />
+
             <TextView
                 android:id="@+id/sort"
                 android:layout_width="match_parent"
@@ -159,6 +169,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:fontFamily="@font/nunito_sans_semibold"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="Sort By"
@@ -166,8 +177,8 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                app:layout_constraintTop_toTopOf="parent" />
+
             <View
                 android:layout_width="390dp"
                 android:layout_height="1dp"
@@ -175,6 +186,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintTop_toBottomOf="@+id/sort" />
+
             <Spinner
                 android:id="@+id/spinner_sort"
                 android:layout_width="wrap_content"
@@ -182,7 +194,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,11 +207,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/nunito_sans_semibold"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:text="Giá"
@@ -206,8 +221,8 @@
                         android:textSize="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:fontFamily="@font/nunito_sans_semibold"/>
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <View
                         android:layout_width="390dp"
                         android:layout_height="1dp"
@@ -215,27 +230,28 @@
                         android:layout_marginTop="8dp"
                         android:background="@android:color/darker_gray"
                         app:layout_constraintTop_toBottomOf="@+id/price" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="4">
+
                         <com.google.android.material.slider.RangeSlider
                             android:id="@+id/range_slider"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:values="@array/initial_slider_values"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="20dp"
                             android:stepSize="1"
                             android:valueFrom="0"
                             android:valueTo="50000000"
                             app:haloColor="@color/teal_200"
                             app:thumbColor="#2196F3"
-                            app:tickColor ="@color/teal_200"
+                            app:tickColor="@color/teal_200"
                             app:trackColor="@color/teal_200"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="20dp"
-                            />
+                            app:values="@array/initial_slider_values" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -243,7 +259,6 @@
 
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </LinearLayout>

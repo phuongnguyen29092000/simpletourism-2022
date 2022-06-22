@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     private Context context;
     private List<News> newsList;
@@ -46,8 +46,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         try {
             Picasso.get().load(ToursApiService.BASE_URL + news.getImageUrl().substring(7)).into(holder.imageNews);
 
-        }catch (Exception e){
-            Log.d("error",e.getMessage());
+        } catch (Exception e) {
+            Log.d("error", e.getMessage());
         }
         holder.title.setText(news.getTitle());
         holder.description.setText(news.getDescription());
@@ -57,10 +57,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdNews", news.getId());
-                if(fragment.equals("home")){
-                    Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_news_detail,bundle);
-                }else {
-                    Navigation.findNavController(view).navigate(R.id.action_nav_news_to_nav_news_detail,bundle);
+                if (fragment.equals("home")) {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_home_to_nav_news_detail, bundle);
+                } else {
+                    Navigation.findNavController(view).navigate(R.id.action_nav_news_to_nav_news_detail, bundle);
                 }
 
             }
@@ -72,15 +72,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return newsList == null ? 0 : newsList.size();
     }
 
-    public void getAllNews(List<News> newsList){
+    public void getAllNews(List<News> newsList) {
         this.newsList = newsList;
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder{
+    public class NewsViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView description;
         private ImageView imageNews;
         private TextView company;
+
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_title);

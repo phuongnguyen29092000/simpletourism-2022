@@ -21,13 +21,12 @@ import com.example.simpletouristapp.model.HistoryTicketResponse;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdapter.HistoryTicketViewHolder>{
+public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdapter.HistoryTicketViewHolder> {
     private Context context;
     private List<HistoryTicketResponse.Ticket> tickets;
 
@@ -48,7 +47,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
     public void onBindViewHolder(@NonNull HistoryTicketViewHolder holder, int position) {
         HistoryTicketResponse.Ticket ticket = tickets.get(position);
 
-        Locale lc = new Locale("nv","VN");
+        Locale lc = new Locale("nv", "VN");
         NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
 
         String pattern = "dd/MM/yyyy";
@@ -56,11 +55,11 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
 
         holder.nameTour.setText(ticket.getTourName());
         holder.price.setText(nf.format(ticket.getPaymentPrice()));
-        if(ticket.getStatus() == 1){
+        if (ticket.getStatus() == 1) {
             holder.btnRate.setVisibility(View.VISIBLE);
             holder.btnPayment.setVisibility(View.GONE);
             holder.state.setText("Đã thanh toán");
-        }else {
+        } else {
             holder.btnRate.setVisibility(View.GONE);
             holder.btnPayment.setVisibility(View.VISIBLE);
             holder.state.setText("Chưa thanh toán");
@@ -70,14 +69,14 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("ticket", ticket);
-                Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_history_detail,bundle);
+                Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_history_detail, bundle);
             }
         });
         holder.bookingDate.setText(simpleDateFormat.format(ticket.getBookingDate()));
         try {
             Picasso.get().load(ToursApiService.BASE_URL + ticket.getImageAvatar().substring(7)).into(holder.image);
-        }catch (Exception e){
-            Log.d("error",e.getMessage());
+        } catch (Exception e) {
+            Log.d("error", e.getMessage());
         }
         holder.btnRate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,14 +84,14 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("IdTour", ticket.getIdTour());
                 bundle.putSerializable("Status", ticket.getStatus());
-                Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_detail_tour,bundle);
+                Navigation.findNavController(view).navigate(R.id.action_nav_history_to_nav_detail_tour, bundle);
             }
         });
         holder.btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, PayPalActivity.class);
-                intent.putExtra("ticket",ticket);
+                intent.putExtra("ticket", ticket);
                 context.startActivity(intent);
             }
         });
@@ -103,7 +102,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
         return tickets.size();
     }
 
-    public class HistoryTicketViewHolder extends RecyclerView.ViewHolder{
+    public class HistoryTicketViewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
         private TextView nameTour;
         private TextView price;
@@ -111,6 +110,7 @@ public class HistoryTicketAdapter extends RecyclerView.Adapter<HistoryTicketAdap
         private Button btnRate;
         private Button btnPayment;
         private TextView state;
+
         public HistoryTicketViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTour = itemView.findViewById(R.id.tv_name_tour_history);

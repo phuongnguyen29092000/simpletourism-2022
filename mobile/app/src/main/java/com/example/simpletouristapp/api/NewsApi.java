@@ -1,6 +1,5 @@
 package com.example.simpletouristapp.api;
 
-import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.NewsResponse;
 import com.example.simpletouristapp.model.NewsSingleResponse;
 

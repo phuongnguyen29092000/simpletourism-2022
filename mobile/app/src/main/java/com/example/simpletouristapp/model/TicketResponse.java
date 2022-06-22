@@ -35,7 +35,7 @@ public class TicketResponse {
         this.ticket = ticket;
     }
 
-    private class Ticket{
+    private class Ticket {
         @SerializedName("_id")
         private String id;
         @SerializedName("tour")

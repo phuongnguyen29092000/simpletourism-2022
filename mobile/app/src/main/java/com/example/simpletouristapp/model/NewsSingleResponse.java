@@ -2,8 +2,6 @@ package com.example.simpletouristapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-
-
 public class NewsSingleResponse {
     @SerializedName("message")
     private String message;

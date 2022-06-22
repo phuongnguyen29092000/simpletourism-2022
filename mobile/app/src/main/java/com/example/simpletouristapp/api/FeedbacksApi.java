@@ -23,5 +23,5 @@ public interface FeedbacksApi {
             , @Field("customerId") String customer, @Field("comment") String comment, @Field("rating") int rating);
 
     @DELETE("feedback/{id}")
-    Call<ResponseBody> deleteFeedback(@Header("Authorization") String auth,@Path("id") String id);
+    Call<ResponseBody> deleteFeedback(@Header("Authorization") String auth, @Path("id") String id);
 }

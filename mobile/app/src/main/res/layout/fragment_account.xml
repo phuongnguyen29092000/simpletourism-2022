@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.account.AccountFragment"
-    android:background="@color/black_200">
+    android:background="@color/black_200"
+    tools:context=".ui.account.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_detail"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-            app:strokeWidth="1dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:contentDescription="@string/nav_header_desc"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24"
+            app:strokeWidth="1dp" />
+
         <TextView
             android:id="@+id/email_account"
             android:layout_width="wrap_content"
@@ -31,56 +32,31 @@
             android:layout_gravity="center"
             android:textSize="25dp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_profile"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="73dp"-->
-<!--            android:fontFamily="sans-serif-black"-->
-<!--            android:lineSpacingExtra="24sp"-->
-<!--            android:text="Thông tin cá nhân"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#576567"-->
-<!--            android:textSize="20sp" />-->
-<!--        <Button-->
-<!--            android:id="@+id/btn_change_password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="73dp"-->
-<!--            android:fontFamily="sans-serif-black"-->
-<!--            android:lineSpacingExtra="24sp"-->
-<!--            android:text="Đổi mật khẩu"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#576567"-->
-<!--            android:textSize="20sp"-->
-<!--            android:backgroundTint="@color/white"-->
-<!--            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>-->
         <Button
             android:id="@+id/btn_history"
             android:layout_width="match_parent"
             android:layout_height="73dp"
+            android:backgroundTint="@color/white"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="24sp"
-            android:backgroundTint="@color/white"
             android:text="Lịch sử đặt tour"
             android:textAlignment="center"
             android:textColor="#576567"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+            android:textSize="20sp" />
+
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="73dp"
+            android:backgroundTint="@color/white"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:fontFamily="sans-serif-black"
             android:lineSpacingExtra="24sp"
-            android:backgroundTint="@color/white"
             android:text="Đăng xuất"
             android:textAlignment="center"
             android:textColor="#576567"
-            android:textSize="20sp"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"/>
-
-
+            android:textSize="20sp" />
 
 
     </LinearLayout>

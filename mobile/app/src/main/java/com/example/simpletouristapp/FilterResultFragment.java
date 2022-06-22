@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,26 +51,25 @@ public class FilterResultFragment extends Fragment {
         toursApiService = new ToursApiService();
 
 
-
-        Call<ToursResponse> call = toursApiService.getToursFilter(params.get("continent"),params.get("typeplace")
-                ,params.get("sort"),Integer.parseInt(params.get("priceMin")),Integer.parseInt(params.get("priceMax")),params.get("discount"));
+        Call<ToursResponse> call = toursApiService.getToursFilter(params.get("continent"), params.get("typeplace")
+                , params.get("sort"), Integer.parseInt(params.get("priceMin")), Integer.parseInt(params.get("priceMax")), params.get("discount"));
         call.enqueue(new Callback<ToursResponse>() {
             @Override
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
-                if(response.code() == 200){
+                if (response.code() == 200) {
                     ToursResponse tourResponse = response.body();
-                    tourAdapter = new TourAdapter(getContext(),tourResponse.getData(),"filter");
-                    rvFilterResult.setLayoutManager(new GridLayoutManager(getContext(),2));
+                    tourAdapter = new TourAdapter(getContext(), tourResponse.getData(), "filter");
+                    rvFilterResult.setLayoutManager(new GridLayoutManager(getContext(), 2));
                     rvFilterResult.setAdapter(tourAdapter);
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
                     binding.noResult.setVisibility(View.GONE);
-                }else {
+                } else {
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-                    tourAdapter = new TourAdapter(getContext(),null,null);
+                    tourAdapter = new TourAdapter(getContext(), null, null);
                     rvFilterResult.setAdapter(tourAdapter);
                     binding.noResult.setVisibility(View.VISIBLE);
                 }
@@ -81,13 +78,14 @@ public class FilterResultFragment extends Fragment {
             @Override
             public void onFailure(Call<ToursResponse> call, Throwable t) {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("TAG",t.getMessage());
+                Log.d("TAG", t.getMessage());
             }
         });
 
         return binding.getRoot();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mobile_navigation_logged"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_logged"
     app:startDestination="@+id/nav_home">
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.simpletouristapp.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_detail_tour"
             app:destination="@id/nav_detail_tour" />
@@ -31,7 +31,7 @@
         android:id="@+id/nav_detail_tour"
         android:name="com.example.simpletouristapp.ui.domestic.DetailTourFragment"
         android:label="@string/detail_tour"
-        tools:layout="@layout/detail_tour" >
+        tools:layout="@layout/detail_tour">
         <action
             android:id="@+id/action_nav_detail_tour_to_nav_domestic"
             app:destination="@id/nav_domestic" />
@@ -58,7 +58,7 @@
         android:id="@+id/nav_international"
         android:name="com.example.simpletouristapp.ui.international.InternationalFragment"
         android:label="@string/menu_international"
-        tools:layout="@layout/international_fragment" >
+        tools:layout="@layout/international_fragment">
         <action
             android:id="@+id/action_international_to_detailTour"
             app:destination="@id/nav_detail_tour" />
@@ -67,7 +67,7 @@
         android:id="@+id/nav_news"
         android:name="com.example.simpletouristapp.ui.news.NewsFragment"
         android:label="@string/menu_news"
-        tools:layout="@layout/news_fragment" >
+        tools:layout="@layout/news_fragment">
         <action
             android:id="@+id/action_nav_news_to_nav_news_detail"
             app:destination="@id/nav_news_detail" />
@@ -76,7 +76,7 @@
         android:id="@+id/nav_news_detail"
         android:name="com.example.simpletouristapp.ui.news.DetailNewsFragment"
         android:label="@string/detail_news_title"
-        tools:layout="@layout/detail_news" >
+        tools:layout="@layout/detail_news">
         <action
             android:id="@+id/action_nav_news_detail_to_nav_news"
             app:destination="@id/nav_news" />
@@ -90,38 +90,14 @@
         android:label="@string/account"
         tools:layout="@layout/fragment_account">
         <action
-            android:id="@+id/action_nav_account_to_nav_profile"
-            app:destination="@id/nav_profile" />
-        <action
-            android:id="@+id/action_nav_account_to_nav_change_password"
-            app:destination="@id/nav_change_password" />
-        <action
             android:id="@+id/action_nav_account_to_nav_history"
             app:destination="@id/nav_history" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.simpletouristapp.ui.account.ProfileFragment"
-        android:label="@string/profile_title"
-        tools:layout="@layout/profile" >
-        <action
-            android:id="@+id/action_nav_profile_to_nav_account"
-            app:destination="@id/nav_account" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_change_password"
-        android:name="com.example.simpletouristapp.ui.account.ChangePasswordFragment"
-        android:label="@string/change_password_title"
-        tools:layout="@layout/change_password" >
-        <action
-            android:id="@+id/action_nav_change_password_to_nav_account"
-            app:destination="@id/nav_account" />
     </fragment>
     <fragment
         android:id="@+id/nav_history"
         android:name="com.example.simpletouristapp.ui.account.HistoryFragment"
         android:label="@string/history_title"
-        tools:layout="@layout/history" >
+        tools:layout="@layout/history">
         <action
             android:id="@+id/action_nav_history_to_nav_account"
             app:destination="@id/nav_account" />
@@ -136,7 +112,7 @@
         android:id="@+id/nav_book_tour"
         android:name="com.example.simpletouristapp.ui.domestic.FormBookTourFragment"
         android:label="@string/book_tour_title"
-        tools:layout="@layout/form_book_tour" >
+        tools:layout="@layout/form_book_tour">
         <action
             android:id="@+id/action_nav_book_tour_to_nav_detail_tour"
             app:destination="@id/nav_detail_tour" />
@@ -148,7 +124,7 @@
         android:id="@+id/nav_payment"
         android:name="com.example.simpletouristapp.ui.domestic.PaymentMethodFragment"
         android:label="@string/payment_title"
-        tools:layout="@layout/payment_method" >
+        tools:layout="@layout/payment_method">
         <action
             android:id="@+id/action_nav_payment_to_nav_book_tour"
             app:destination="@id/nav_book_tour" />
@@ -157,7 +133,7 @@
         android:id="@+id/nav_history_detail"
         android:name="com.example.simpletouristapp.ui.account.DetailHistoryFragment"
         android:label="@string/history_title"
-        tools:layout="@layout/detail_history" >
+        tools:layout="@layout/detail_history">
         <action
             android:id="@+id/action_nav_history_detail_to_nav_history"
             app:destination="@id/nav_history" />
@@ -169,6 +145,5 @@
         android:id="@+id/nav_contact"
         android:name="com.example.simpletouristapp.ui.contact.ContactFragment"
         android:label="@string/contact_title"
-        tools:layout="@layout/fragment_contact" >
-    </fragment>
+        tools:layout="@layout/fragment_contact"></fragment>
 </navigation>
