@@ -22,6 +22,7 @@ import { getUser } from 'hooks/localAuth';
 import BookTourModal from 'components/modal/BookTourModal';
 import _ from 'lodash';
 import moment from 'moment';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
 
 const useStyles = makeStyles({
     avatar: {
@@ -122,7 +123,12 @@ function TourDetail() {
         }
         setSlides([tourDetail.imageAvatar,...temp])
     }, [tourDetail])
-
+    
+    useEffect(() => {
+        dispatch(setActiveUrl(''))
+        document.title = 'Simple Tourism | chi tiết'
+    }, [])
+    
     const onHandleSendFeedback = (data) => {
         dispatch(createFeedback({
             tour: id,

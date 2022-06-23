@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import PersonAddDisabledIcon from '@mui/icons-material/PersonAddDisabled';
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllOwnerAdmin, setActive } from '../../redux/reducers/user/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import moment from 'moment';
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
  
 function ListOwnerAdmin({keySearch = ''}) {
     const dispatch = useDispatch();
@@ -15,12 +13,17 @@ function ListOwnerAdmin({keySearch = ''}) {
     const [updateActiveUser, setUpdateActiveUser] = useState('')
     let {listOwnerAdmin} = useSelector((store) => store.user)
     const [listAll, setListAll] = useState([])
+
+    useEffect(() => {
+        document.title = 'Simple Tourism | Quản lý công ty'
+        dispatch(setActiveUrl('company'))
+    },[])
     
     const handleClose = ()=>{
         setOpen(!open)
     }
+    
     useEffect(()=>{
-        document.title = 'Simple Tourism | Quản lý công ty'
         setListAll([...listOwnerAdmin?.owners.filter((customer)=> customer?.email?.toLowerCase().includes(keySearch.toLowerCase()))])
     },[keySearch])
 

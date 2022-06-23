@@ -42,12 +42,10 @@ const useStyles = makeStyles({
         overflow: 'visible',
         transition: '0.4s'
     },
-    activeTab: {
-        color: 'orange'
-    },
     item: {
         "&:hover": {
-            color: 'orange !important',
+            color: '#faffaf !important',
+            backgroundColor: '#1565c059 !important'
         },
     },
     hiddenBox: {
@@ -86,6 +84,7 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const { account } = useSelector((store) => store.user)
+    const { activePage } = useSelector((store) => store.activeUrl)
     const [openSideBar, setOpenSideBar] = React.useState(false);
     const [openDrawerSearch, setOpenDrawerSearch] = React.useState(false);
     const [openDrawerHistory, setOpenDrawerHistory] = React.useState(false);
@@ -126,7 +125,7 @@ const Header = () => {
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center', minHeight: '50px' }}>
                         <Link style={{ textDecoration: 'none' }} to='/'>
                             <Button
-                                className={classes.item}
+                                className={`${classes.item} ${activePage === 'home' ? 'active-user' :''}`}
                                 sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
@@ -136,7 +135,7 @@ const Header = () => {
                         </Link>
                         <Link style={{ textDecoration: 'none' }} to={ROUTE_TOUR_DOMESTIC}>
                             <Button
-                                className={classes.item}
+                                className={`${classes.item} ${activePage === 'domestic' ? 'active-user' :''}`}
                                 sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
@@ -146,7 +145,7 @@ const Header = () => {
                         </Link>
                         <Link style={{ textDecoration: 'none' }} to={ROUTE_TOUR_INTERNATIONAL}>
                             <Button
-                                className={classes.item}
+                                className={`${classes.item} ${activePage === 'international' ? 'active-user' :''}`}
                                 sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
@@ -159,7 +158,7 @@ const Header = () => {
                         </Box>
                         <Link style={{ textDecoration: 'none' }} to='/tin-tuc'>
                             <Button
-                                className={classes.item}
+                                className={`${classes.item} ${activePage === 'news' ? 'active-user' :''}`}
                                 sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>
@@ -169,7 +168,7 @@ const Header = () => {
                         </Link>
                         <Link style={{ textDecoration: 'none' }} to='/lien-he'>
                             <Button
-                                className={classes.item}
+                                className={`${classes.item} ${activePage === 'contact' ? 'active-user' :''}`}
                                 sx={{ color: '#fff', display: 'block', px: 1, mx: 1 }}
                             >
                                 <span className='link-tab'>

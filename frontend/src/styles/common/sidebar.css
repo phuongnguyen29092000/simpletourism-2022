@@ -41,13 +41,29 @@ a{
     text-decoration: none;
 }
 .menu-item.account{
+    min-height: 100px;
     position: fixed;
     bottom: 0;
     padding: 20px 26px;
 }
-.icon-sidebar:hover{
+.menu-item:hover {
+    background-color: #3f6886;
+}
+.menu-item:hover .icon-sidebar{
     fill: #FAFFAF !important;
 }
-/* .menu-item:hover * {
-    color: black;
-} */
+.menu-item:hover .menu-item__title{
+    color: #FAFFAF !important;
+    font-weight: bold;
+}
+
+.menu-item.active .icon-sidebar{
+    fill: #FAFFAF !important;
+}
+.menu-item.active {
+    background-color: #3f6886;
+}
+.menu-item.active .menu-item__title{
+    color: #FAFFAF !important;
+    font-weight: bold;
+}

@@ -11,6 +11,7 @@ import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import PaginationCustom from 'components/common/PaginationCustom'
 import { getUser } from 'hooks/localAuth'
 import moment from 'moment'
+import { setActiveUrl } from 'redux/reducers/activeUrl/action'
 
 function OwnerNews({keySearch = ''}) {
     const [open, setOpen] = useState(false) 
@@ -26,6 +27,11 @@ function OwnerNews({keySearch = ''}) {
     
     let { listNewsCompany } = useSelector((store) => store.news)
 
+    useEffect(() => {
+        document.title = 'Simple Tourism | Quản lý tin tức'
+        dispatch(setActiveUrl('news'))
+    },[])
+    
     useEffect(() => {
         dispatch(getNewsPerCompany(getUser()._id,(data) => setListAll([...data?.filter((item) => item?.title?.toLowerCase().includes(keySearch.toLowerCase()))])))
         

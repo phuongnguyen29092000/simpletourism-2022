@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllCustomerBooked } from '../../redux/reducers/user/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import { getUser } from 'hooks/localAuth'
+import { setActiveUrl } from 'redux/reducers/activeUrl/action'
 
 function ListUserOwner(props) {
     const dispatch = useDispatch();
@@ -17,6 +18,11 @@ function ListUserOwner(props) {
     const handleClose = ()=>{
         setOpen(!open)
     }
+
+    useEffect(() => {
+        dispatch(setActiveUrl('list-customer'))
+    },[])
+
     useEffect(()=>{
         document.title = 'Simple Tourism | Quản lý khách hàng'
         if(listUserOwner?.users?.length === 0) dispatch(getAllCustomerBooked(getUser()._id))

@@ -31,7 +31,6 @@ const WidthLayout = ({
                     name = {name}
                     showHeaderSearch = {showHeaderSearch}
                     keySearch = {keySearch}
-                    setKeySearch = {setKeySearch}
             />
             </div>
         </div>

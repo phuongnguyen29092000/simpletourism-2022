@@ -38,6 +38,9 @@ export default function HistoryList({onClose}) {
                     useNotification.Error("Lỗi!", "Server Error!")
                 }
             })
+            .catch(() => {
+                setLoading(false)
+            })
     }, [])
 
     const caculateDeadline = (infoTicket) =>{
@@ -125,7 +128,7 @@ export default function HistoryList({onClose}) {
                         ))
                     }
                 </Timeline>
-                : <h5>BẠN CHƯA ĐẶT TOUR NÀO :D</h5>
+                : <h5 style={{textAlign:'center', color:'Highlight'}}>BẠN CHƯA ĐẶT TOUR NÀO!</h5>
             }
             {
                 dataPayment && <PaymentModal open={showPayment} handleClose={()=>setShowPayment(false)} infoPayment={dataPayment} onClose={onClose}/>

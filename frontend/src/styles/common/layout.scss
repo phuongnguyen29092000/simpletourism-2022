@@ -24,6 +24,13 @@
         width: calc(100vw - 120px);
         max-width: calc(100vw - 120px);
         overflow: hidden;
+        overflow: hidden;
+        max-height: 100vh;
+    }
+    .list-manager, .manage-statistic-wrapper {
+        overflow-y: auto;
+        max-width: 100%;
+        max-height: calc(100vh - 80px);
     }
 }
 .layout-user-app{
@@ -50,4 +57,8 @@
             }
         }
     }   
+}
+.active-user{
+    color: #faffaf !important;
+    background-color: #1565c059 !important;
 }

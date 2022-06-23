@@ -8,6 +8,7 @@ import ConvertToImageURL from 'LogicResolve/ConvertToImageURL';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import moment from 'moment';
 import NewsAPI from 'api/NewsAPI';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
 
 function NewsDetail(props) {
     const dispatch = useDispatch()
@@ -23,6 +24,7 @@ function NewsDetail(props) {
 
     useEffect(async () => {
         document.title = "Simple Tourism | Tin tức";
+        dispatch(setActiveUrl('news'))
     }, []);
 
     return (

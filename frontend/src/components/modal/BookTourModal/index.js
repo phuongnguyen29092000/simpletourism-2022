@@ -51,7 +51,7 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
                     moment(infoTicket.createdAt).add(3, 'days').toDate() : moment(infoTicket.timeStart).subtract(5, 'days').toDate()
                 useNotification.Success({
                     title: "Đặt tour thành công!",
-                    message:`Vui lòng thanh toán trước ${moment(timePaymentDeadline).format('YYYY-MM-DD LTS')}\nKiểm tra trong tour của bạn."`,
+                    message:`Vui lòng thanh toán trước ${moment(timePaymentDeadline).format('LTS YYYY-MM-DD')}\nKiểm tra trong tour của bạn."`,
                     duration: 8000
                 })
                 reset();

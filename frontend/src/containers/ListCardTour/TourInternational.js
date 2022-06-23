@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListCard from 'components/ListCard';
 import { getAllTourInternational } from 'redux/reducers/listTour/action'
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
 
 const TourDomestic = () => {
     const dispatch = useDispatch()
@@ -15,6 +16,7 @@ const TourDomestic = () => {
     // },[listTourInternational])
 
     useEffect(() => {
+        dispatch(setActiveUrl('international'))
         document.title = 'Simple Tourism | quốc tế'
     }, [])
 
