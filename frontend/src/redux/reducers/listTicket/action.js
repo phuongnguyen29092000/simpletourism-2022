@@ -88,6 +88,37 @@ const deleteTicket = (id, callback = ()=>{}) => {
     }
 }
 
+const setComplete = (tour, callback = ()=>{}) => {
+    return async(dispatch) => {
+        await CheckExpiredToken()
+        dispatch({type: types.SET_COMPLETE_TICKET})
+        API.setCompleteTour(tour?.idTour)
+        // .then((response)=>response.json())
+        .then((result)=>{
+            if(result.status === 200){
+                dispatch({
+                    type: types.SET_COMPLETE_TICKET_SUCCESS,
+                    payload: {...result}
+                })
+                callback()
+                useNotification.Success({
+                    message:"Thông báo",
+                    title:`Bạn đã hoàn thành chuyến tham quan ${tour?.tourName}!`
+                })
+            }else{
+                dispatch({
+                    type: types.SET_COMPLETE_TICKET_FAIL
+                })
+            }
+        })
+        .catch((error)=>{
+            dispatch({
+                type: types.SET_COMPLETE_TICKET_FAIL
+            })
+        })
+    }
+}
+
 const resetTicket = () => {
     return (dispatch) => {
         dispatch({type: types.RESET_TICKET})
@@ -97,5 +128,6 @@ export {
     getAllTicket,
     getTicketPerTour,
     deleteTicket,
-    resetTicket
+    resetTicket,
+    setComplete
 }

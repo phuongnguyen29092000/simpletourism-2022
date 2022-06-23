@@ -8,19 +8,28 @@ import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import moment from 'moment';
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
  
-function ListOwnerAdmin(props) {
+function ListOwnerAdmin({keySearch = ''}) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
     const [updateActiveUser, setUpdateActiveUser] = useState('')
     let {listOwnerAdmin} = useSelector((store) => store.user)
+    const [listAll, setListAll] = useState([])
     
     const handleClose = ()=>{
         setOpen(!open)
     }
     useEffect(()=>{
-        if(listOwnerAdmin?.owners?.length === 0) dispatch(getAllOwnerAdmin())
-    },[listOwnerAdmin?.owners?.length])
+        setListAll([...listOwnerAdmin?.owners.filter((customer)=> customer?.email?.toLowerCase().includes(keySearch.toLowerCase()))])
+    },[keySearch])
+
+    useEffect(() => {
+        setListAll(listOwnerAdmin?.owners)
+    },[listOwnerAdmin?.owners])
+
+    useEffect(()=>{
+        if(!listOwnerAdmin?.owners.length) dispatch(getAllOwnerAdmin())
+    }, [])
 
     const handleChangeActive = () =>{
         dispatch(setActive(updateActiveUser,()=> setOpenConfirmModal(false)))
@@ -38,12 +47,12 @@ function ListOwnerAdmin(props) {
                         <th className='th-1'>Quyền hạn</th>
                         <th className='th-2'>Ngày tạo</th>
                         <th className='th-2'>Hoạt động</th>
-                        <th className='th-2'>Xóa</th>
+                        {/* <th className='th-2'>Xóa</th> */}
                     </thead>
                     <tbody>
                         {
-                            listOwnerAdmin.owners &&
-                            listOwnerAdmin?.owners?.map((user, index) =>(
+                            listAll &&
+                            listAll?.map((user, index) =>(
                                 <tr key={index} style={{borderBottom:'5px solid white'}}>
                                     <td className='td-2' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                                         <img style={{width:'70px', height:'70px'}}src={user?.photoUrl} alt=''/>
@@ -64,13 +73,13 @@ function ListOwnerAdmin(props) {
                                             />
                                         </FormGroup>
                                     </td>
-                                    <td style={{margin:'0px 0px 20px 0px'}}>
+                                    {/* <td style={{margin:'0px 0px 20px 0px'}}>
                                         <div className='action-col' style={{display:'flex', justifyContent:'center'}}>
                                             <div className='btn-action btn-delete'>
                                                 <DeleteOutlineIcon fontSize='15px'/>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))
                         }

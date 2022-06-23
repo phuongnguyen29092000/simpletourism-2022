@@ -1,5 +1,6 @@
 const {transporter} = require('./node_mailer_setup')
 const adminEmail = process.env.EMAIL
+const moment = require('moment')
 
 const emailBookTicket = async(infoTicket) =>{
     transporter.sendMail({
@@ -17,9 +18,13 @@ const emailBookTicket = async(infoTicket) =>{
                 <li>Đơn giá: <b>${infoTicket.paymentPrice}</b></li>
                 <li>Tổng tiền: <b>${parseInt(infoTicket.paymentPrice*infoTicket.numberPeople)} VNĐ.</b></li>
                 <li>Trạng thái vé: <b>Đã thanh toán!</b></li>
+                <li>Thời gian đi tour: <b>${moment(infoTicket.timeStart).format('DD/MM/YYYY')} -> ${moment(infoTicket.timeEnd).format('DD/MM/YYYY')}</b></li>
+                <li>Lịch trình: <b>${infoTicket.schedule}</b></li>
+
             </ul>
             <p>Chúng tôi sẽ liên hệ với bạn trong thời gian ngắn nhất thông qua số điện thoại ở phía trên. Xin cảm ơn!</p>
             <p><i>Nếu có thông tin gì cần thay đổi mong bạn liên hệ lại với chúng tôi theo email này hoặc số điện thoại: <b>0395360327.</b></i></p>
+
             `
     }, 
     (error) => {

@@ -8,19 +8,28 @@ import { getAllCustomerAdmin } from '../../redux/reducers/user/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import moment from 'moment';
  
-function ListCustomerAdmin(props) {
+function ListCustomerAdmin({keySearch = ''}) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
     const [customer, setCustomer]= useState({})
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
+    const [listAll, setListAll] = useState([])
     let {listCustomerAdmin} = useSelector((store) => store.user)
     
     const handleClose = ()=>{
         setOpen(!open)
     }
     useEffect(()=>{
-        if(listCustomerAdmin?.customers?.length === 0) dispatch(getAllCustomerAdmin())
-    },[listCustomerAdmin?.customers?.length])
+        setListAll([...listCustomerAdmin?.customers.filter((customer)=> customer?.email?.toLowerCase().includes(keySearch.toLowerCase()))])
+    },[keySearch])
+
+    useEffect(() => {
+        setListAll(listCustomerAdmin?.customers)
+    },[listCustomerAdmin?.customers])
+
+    useEffect(()=>{
+        if(!listCustomerAdmin?.customers.length) dispatch(getAllCustomerAdmin())
+    }, [])
 
     return (
         <div className='ticket-manager'>
@@ -36,8 +45,8 @@ function ListCustomerAdmin(props) {
                     </thead>
                     <tbody>
                         {
-                            listCustomerAdmin.customers &&
-                            listCustomerAdmin?.customers?.map((user, index) =>(
+                            listAll &&
+                            listAll?.map((user, index) =>(
                                 <tr key={index} style={{borderBottom:'5px solid white'}}>
                                     <td className='td-2' style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                                         <img style={{width:'70px'}}src={user?.photoUrl} alt=''/>

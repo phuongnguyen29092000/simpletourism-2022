@@ -101,6 +101,7 @@ const createTour = catchAsync(async (req, res, next) => {
   );
   const validation = tourValidation.tourCreateSchema.validate(createBody);
   if (validation.error) {
+    console.log(validation.error);
     return next(
       new ApiError(
         "Thông tin nhập vào không hợp lệ, vui lòng kiểm tra lại!",
@@ -148,6 +149,7 @@ const updateTour = catchAsync(async (req, res, next) => {
   );
   const validation = tourValidation.tourUpdateSchema.validate(updateBody);
   if (validation.error) {
+    console.log(validation.error);
     return next(
       new ApiError(
         "Thông tin nhập vào không hợp lệ, vui lòng kiểm tra lại!",

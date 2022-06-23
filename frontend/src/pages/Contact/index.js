@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -9,6 +9,9 @@ import CarouselInstroduce from 'components/Carousel/CarouselInstroduce';
 import AdvantageCard from 'components/AdvantageCard';
 
 const Contact = () => {
+    useEffect(()=>{
+        document.title = "Liên hệ"
+    })
     return (
         <div className='contact-component'>
             {/* <CarouselInstroduce /> */}

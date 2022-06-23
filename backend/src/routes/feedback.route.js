@@ -11,7 +11,7 @@ router
   .route("/")
   .post(
     auth("customer"),
-    createFeedbackMiddleWare(),
+    // createFeedbackMiddleWare(),
     FeedbackController.createFeedback
   )
   .get(auth("admin"), FeedbackController.getAllFeedback);

@@ -35,7 +35,7 @@ function SideBar(props) {
                 </div>
                 {
                     account.role == "owner" && (
-                        <div className='menu-list-item'>
+                        <div className='menu-list-item' style={{background: '#5584AC'}}>
                             <Link to={ROUTE_LIST_TOUR}>
                                 <div className='menu-item list-tour'>
                                     <div className='menu-item__icon'>
@@ -91,7 +91,7 @@ function SideBar(props) {
                 }
                 {
                     account.role == "admin" && (
-                        <div className='menu-list-item'>
+                        <div className='menu-list-item' style={{background: '#5584AC'}}>
                             <Link to={ROUTE_ADMIN_OWNER}>
                                 <div className='menu-item list-tour'>
                                     <div className='menu-item__icon'>
@@ -132,24 +132,41 @@ function SideBar(props) {
                                     </div>
                                 </div>
                             </Link>
-                            <Link to={ROUTE_ADMIN_STATISTIC}>
-                                <div className='menu-item new'>
-                                    <div className='menu-item__icon'>
-                                        <img src={IconStatistic} />
-                                        <div className='menu-item__title'>
-                                            LIÊN HỆ
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
                         </div>
                     )
                 }
-                <div className='menu-item account'>
-                    <div className='menu-item__icon' onClick={handleOpenUserMenu} style={{ cursor: 'pointer' }}>
-                        <img src={account?.photoUrl} style={{ borderRadius: '50%', width: '50px' }} />
-                        <div className='menu-item__title' style={{ fontSize: '14px', width: '68px', maxWidth: '68px' }}>
-                            {account?.givenName}
+                    <div className='menu-item account'>
+                        <div className='menu-item__icon' onClick={handleOpenUserMenu} style={{cursor: 'pointer'}}>
+                            <img src={account?.photoUrl} style={{borderRadius:'50%', width:'50px'}}/>
+                            <div className='menu-item__title' style={{fontSize:'14px', width:'68px', maxWidth:'68px'}}>
+                                {account?.givenName}
+                            </div>
+                            <Menu
+                                sx={{ mt: '-35px' }}
+                                id="menu-profile"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {["Tài khoản"].map((setting, index) => (
+                                    <MenuItem key={index} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">{setting}</Typography>
+                                    </MenuItem>
+                                ))}
+                                <MenuItem onClick={() => {
+                                    dispatch(logoutGoogle())
+                                    navigate('/')
+                                }}><Typography textAlign="center">Đăng xuất</Typography></MenuItem>
+                            </Menu>
                         </div>
                         <Menu
                             sx={{ mt: '-35px' }}
@@ -178,7 +195,7 @@ function SideBar(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        // </div>
     );
 }
 

@@ -35,6 +35,10 @@ const ticketSchema = mongoose.Schema({
         max: 1,
         default: 0,
     },
+    visit: {
+        type: Boolean,
+        default: false,
+    },
 }, {
     timestamps: true,
 });
