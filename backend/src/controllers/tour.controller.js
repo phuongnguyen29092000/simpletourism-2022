@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const { TourService } = require("../services");
 const ApiError = require("../utils/ApiError");
-const {tourValidation} = require('../validations');
+const { tourValidation } = require("../validations");
 
 const getAllTour = catchAsync(async (req, res, next) => {
   const tours = await TourService.getAllTour(req.query);
@@ -83,8 +83,13 @@ const deleteTour = catchAsync(async (req, res, next) => {
 });
 
 const createTour = catchAsync(async (req, res, next) => {
-  if(!req.files.imageAvatar || !req.files.imageSlide1 || !req.files.imageSlide2 || !req.files.imageSlide3){
-    return next(new ApiError('Vui lòng chọn ảnh cho tour!', 400));
+  if (
+    !req.files.imageAvatar ||
+    !req.files.imageSlide1 ||
+    !req.files.imageSlide2 ||
+    !req.files.imageSlide3
+  ) {
+    return next(new ApiError("Vui lòng chọn ảnh cho tour!", 400));
   }
   const imageAvatarPath = req.files.imageAvatar[0].path;
   const imageSlide1 = req.files.imageSlide1[0].path;
@@ -99,7 +104,7 @@ const createTour = catchAsync(async (req, res, next) => {
     { imageAvatar: imageAvatarPath },
     { imageSlide: imageSlidesPath }
   );
-  const validation = tourValidation.tourCreateSchema.validate(createBody);
+  const validation = tourValidation.validate(createBody);
   if (validation.error) {
     console.log(validation.error);
     return next(
@@ -109,9 +114,7 @@ const createTour = catchAsync(async (req, res, next) => {
       )
     );
   }
-  const tour = await TourService.createTour(
-   createBody
-  );
+  const tour = await TourService.createTour(createBody);
   if (!tour) {
     return next(new ApiError("Can Not Create New Tour, Try Again!", 400));
   } else {
@@ -123,31 +126,43 @@ const createTour = catchAsync(async (req, res, next) => {
 });
 
 const updateTour = catchAsync(async (req, res, next) => {
-  const tourDetail = await TourService.tourDetail(req.params.id)
-  let imageAvatarPath, imageSlide1, imageSlide2, imageSlide3, imageSlidesPath =[]
-  if(req.files){
-    imageAvatarPath = req.files.imageAvatar ? req.files.imageAvatar[0].path  : tourDetail.imageAvatar
-    imageSlide1 = req.files.imageSlide1 ? req.files.imageSlide1[0].path : tourDetail.imageSlide[0]
-    imageSlide2 = req.files.imageSlide2 ? req.files.imageSlide2[0].path : tourDetail.imageSlide[1]
-    imageSlide3 = req.files.imageSlide3 ? req.files.imageSlide3[0].path : tourDetail.imageSlide[2]
+  const tourDetail = await TourService.tourDetail(req.params.id);
+  let imageAvatarPath,
+    imageSlide1,
+    imageSlide2,
+    imageSlide3,
+    imageSlidesPath = [];
+  if (req.files) {
+    imageAvatarPath = req.files.imageAvatar
+      ? req.files.imageAvatar[0].path
+      : tourDetail.imageAvatar;
+    imageSlide1 = req.files.imageSlide1
+      ? req.files.imageSlide1[0].path
+      : tourDetail.imageSlide[0];
+    imageSlide2 = req.files.imageSlide2
+      ? req.files.imageSlide2[0].path
+      : tourDetail.imageSlide[1];
+    imageSlide3 = req.files.imageSlide3
+      ? req.files.imageSlide3[0].path
+      : tourDetail.imageSlide[2];
     imageSlidesPath.push(imageSlide1);
     imageSlidesPath.push(imageSlide2);
     imageSlidesPath.push(imageSlide3);
   } else {
-    imageAvatarPath = tourDetail.imageAvatar
-    imageSlide1 = tourDetail.imageSlide[0]
-    imageSlide2 = tourDetail.imageSlide[1]
-    imageSlide3 = tourDetail.imageSlide[2]
+    imageAvatarPath = tourDetail.imageAvatar;
+    imageSlide1 = tourDetail.imageSlide[0];
+    imageSlide2 = tourDetail.imageSlide[1];
+    imageSlide3 = tourDetail.imageSlide[2];
     imageSlidesPath.push(imageSlide1);
     imageSlidesPath.push(imageSlide2);
     imageSlidesPath.push(imageSlide3);
   }
   const updateBody = Object.assign(
     req.body,
-    { imageAvatar: imageAvatarPath},
+    { imageAvatar: imageAvatarPath },
     { imageSlide: imageSlidesPath }
   );
-  const validation = tourValidation.tourUpdateSchema.validate(updateBody);
+  const validation = tourValidation.validate(updateBody);
   if (validation.error) {
     console.log(validation.error);
     return next(
@@ -201,13 +216,14 @@ const searchByText = catchAsync(async (req, res, next) => {
   }
 });
 
-const updateMany = catchAsync (async (req, res) => {
+const updateMany = catchAsync(async (req, res) => {
   const updateTours = await TourService.updateMany(req.body);
-  if(updateTours.length == 0) res.status(400).json({
-    message: "nhu c"
-  });
+  if (updateTours.length == 0)
+    res.status(400).json({
+      message: "nhu c",
+    });
   else res.status(200).json(updateTours);
-})
+});
 
 module.exports = {
   getAllTour,
@@ -219,5 +235,5 @@ module.exports = {
   updateTour,
   getTourByOwner,
   getOutStandingTours,
-  searchByText
+  searchByText,
 };
