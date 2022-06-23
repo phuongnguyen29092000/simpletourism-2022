@@ -88,7 +88,7 @@ const getOutstandingTour = async () => {
 const caculateRemainingAmount = async (id) => {
   const tour = await Tour.findById(id);
   let remainingAmount = tour.amount;
-  const ticket = await Ticket.find({ status: 1 }).populate({ path: "tour" });
+  const ticket = await Ticket.find({ status: 1, visit: false}).populate({ path: "tour" });
   ticket.forEach((element) => {
     if (element.tour._id == id) {
       remainingAmount -= element.numberPeople;

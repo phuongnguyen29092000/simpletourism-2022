@@ -81,7 +81,7 @@ export default function AdminStatistic({list}) {
 
     useEffect(() => {
         document.title = "SimpleTourism | Thống kê Admin";
-        if(!Object.keys(statisticAdminPerMonth).length) dispatch(getStatisticAdminPerMonth(2022, 6, (res)=>{
+        if(!Object.keys(statisticAdminPerMonth).length) dispatch(getStatisticAdminPerMonth(2022, Number(month)+ 1, (res)=>{
             setDataTable(res.tour)
             setDataChart(covertToDataChart(res))}))
         dispatch(getStatisticAdminPerYear(2022,(res)=> {
@@ -185,6 +185,7 @@ export default function AdminStatistic({list}) {
                                 <th className='th-2'>Email</th>
                                 <th className='th-1'>Danh sách tour</th>
                                 <th className='th-2'>Tổng vé đã bán</th>
+                                <th className='th-2'>Số lượng người</th>
                                 <th className='th-2'>Doanh thu (VND)</th>
                                 {/* <th className='th-2'></th> */}
                             </thead>
@@ -202,6 +203,7 @@ export default function AdminStatistic({list}) {
                                             <td className='td-3'>{item?.totalTours?.map((tour)=>(
                                                 <div style={{margin:'3px 0px'}}>{tour}</div>
                                             ))}</td>
+                                            <td className='td-2' style={{textAlign:'center'}}>{item?.totalTours.length}</td>
                                             <td className='td-2' style={{textAlign:'center'}}>{item?.totalTickets}</td>
                                             <td className='td-3' style={{textAlign:'right'}}>{item?.totalPrice.toLocaleString().split(',').join('.')} đ</td>
                                            

@@ -157,7 +157,10 @@ const getTicketsHistory = async(id) =>{
                     "tourName": "$tour.tourName",
                     "email": '$customer.email',
                     'imageAvatar': "$tour.imageAvatar",
-                    'hotelName': '$tour.hotelName'
+                    'hotelName': '$tour.hotelName',
+                    timeStart: '$tour.timeStart',
+                    timeEnd: '$tour.timeEnd',
+                    
                 }
             },
             { 
@@ -179,7 +182,9 @@ const getTicketsHistory = async(id) =>{
                 hotelName: 1,
                 status: 1,
                 createdAt: 1,
-                updatedAt: 1
+                updatedAt: 1,
+                timeStart: 1,
+                timeEnd: 1
             }}
         ]
     )

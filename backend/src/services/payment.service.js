@@ -1,6 +1,7 @@
 const { PaypalClient, Tour, Ticket } = require("../models");
-const { updateTicketById } = require("./ticket.service");
+const { updateTicketById, getTicketById } = require("./ticket.service");
 var paypal = require("paypal-rest-sdk");
+const { emailBookTicket } = require("../config/emailTemplates");
 
 var totalPayment = 0;
 const createPayment = async (req, res, items, total, idTicket) => {
@@ -83,6 +84,8 @@ const getSuccessPayment = async (payerId, paymentId, req, res) => {
         };
         let idTicket = req.originalUrl.slice(9, 33);
         await Ticket.findByIdAndUpdate(idTicket, ticketBody);
+        const infoTicket = await getTicketById(idTicket);
+        if (infoTicket) await emailBookTicket(infoTicket);
         res.json({
           status: 200,
           message: "Thanh toán thành công!",

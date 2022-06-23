@@ -1,12 +1,20 @@
 const catchAsync = require('../utils/catchAsync');
 const httpStatus = require('http-status');
 const {newsService} = require('../services')
-const fs = require('fs')
+const { newsSchema} = require('../validations')
 
 /* create new news */
 const createNews = catchAsync(async(req, res) => {
     const image = req.file ? { imageUrl: req.file.path } : {}
     const newsBody = Object.assign(req.body, image)
+    const validation = await newsSchema.validate(newsBody)
+    if (validation.error) {
+        const errorMessage = validation.error.details[0].message
+        return res.status(httpStatus.BAD_REQUEST).json({
+            message: errorMessage
+        })
+    }
+
     const news = await newsService.createNews(newsBody)
     if(news) res.status(httpStatus.CREATED).json({
         message: "OK",
