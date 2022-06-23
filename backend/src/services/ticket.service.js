@@ -94,9 +94,13 @@ const getTicketPerTour = async (id) => {
         customerName: "$customer.givenName",
         tourName: "$tour.tourName",
         email: "$customer.email",
+        timeStart: "$tour.timeStart",
+        timeEnd: "$tour.timeEnd",
       },
     },
-    { $match: { idTour: new mongoose.Types.ObjectId(id) } },
+    { $match: { idTour: new mongoose.Types.ObjectId(id),
+              visit: false
+        } },
     {
       $project: {
         _id: 1,
@@ -111,6 +115,8 @@ const getTicketPerTour = async (id) => {
         status: 1,
         createdAt: 1,
         updatedAt: 1,
+        timeStart: 1,
+        timeEnd: 1
       },
     },
   ]);
@@ -203,6 +209,9 @@ const getTicketById = async (id) => {
         customerName: "$customer.givenName",
         tourName: "$tour.tourName",
         email: "$customer.email",
+        schedule: '$tour.schedule',
+        timeStart: '$tour.timeStart',
+        timeEnd: '$tour.timeEnd',
       },
     },
     {
@@ -224,6 +233,9 @@ const getTicketById = async (id) => {
         status: 1,
         createdAt: 1,
         updatedAt: 1,
+        schedule: 1,
+        timeStart: 1,
+        timeEnd: 1
       },
     },
   ]);
@@ -273,6 +285,16 @@ const autoDeleteTicketsUnpaid = async(idCustomer) => {
   return deleteManyTicket
 }
 
+
+const setVisitedTicketPerTourFinish = async(id) => {
+  const arrayId = (await getTicketPerTour(id)).map((tour)=> tour._id.toString())
+  const updateManyTicket = await Ticket.updateMany({ _id: { $in: arrayId}},
+      { $set: { visit: true}},
+      { multi: true},)
+  
+  return updateManyTicket
+}
+
 module.exports = {
   bookTicket,
   getAllTicket,
@@ -281,5 +303,6 @@ module.exports = {
   deleteTicketById,
   getTicketPerTour,
   getTicketsHistory,
-  autoDeleteTicketsUnpaid
+  autoDeleteTicketsUnpaid,
+  setVisitedTicketPerTourFinish
 };

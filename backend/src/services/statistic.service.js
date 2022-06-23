@@ -1,5 +1,6 @@
-const { Ticket, Tour } = require("../models");
+const { Ticket, Tour, User } = require("../models");
 const { TourService } = require("./index");
+const userService = require("./user.service");
 
 const showStatisticPerYear = async (ownerId, year) => {
   let ticketInMonthOfOwner = [];
@@ -65,6 +66,193 @@ const showStatisticPerYear = async (ownerId, year) => {
   });
 };
 
+const getStatisticMonthAdmin = async (year, month) => {
+  let statisticTour = [];
+
+  const tour = await Ticket.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "customer",
+        foreignField: "_id",
+        as: "customer",
+      },
+    },
+    {
+      $lookup: {
+        from: "tours",
+        localField: "tour",
+        foreignField: "_id",
+        as: "tour",
+      },
+    },
+    { $unwind: "$customer" },
+    { $unwind: "$tour" },
+    {
+      $addFields: {
+        month: { $month: "$createdAt" },
+        year: { $year: "$createdAt" },
+        customerId: "$customer._id",
+        tourName: "$tour.tourName",
+        ownerId: "$tour.owner",
+        totalPrice: { $multiply: ["$numberPeople", "$paymentPrice"] },
+      },
+    },
+    {
+      $match: {
+        status: 1,
+        month: Number(month),
+        year: Number(year),
+      },
+    },
+    {
+      $group: {
+        _id: "$ownerId",
+        totalTickets: { $sum: "$numberPeople" },
+        totalTours: { $push: "$tourName" },
+        totalPrice: { $sum: "$totalPrice" },
+      },
+    },
+  ]);
+
+  for (let i = 0; i < tour.length; i++) {
+    statisticTour.push({
+      ...tour[i],
+      infoCompany: await userService.getUserById(tour[i]._id),
+    });
+  }
+
+  const customers = await User.aggregate([
+    {
+      $addFields: {
+        month: { $month: "$createdAt" },
+        year: { $year: "$createdAt" },
+      },
+    },
+    {
+      $match: {
+        role: "customer",
+        month: Number(month),
+        year: Number(year),
+      },
+    },
+  ]);
+
+  const owners = await User.aggregate([
+    {
+      $addFields: {
+        month: { $month: "$updatedAt" },
+        year: { $year: "$updatedAt" },
+      },
+    },
+    {
+      $match: {
+        role: "owner",
+        month: Number(month),
+        year: Number(year),
+      },
+    },
+  ]);
+
+  return {
+    tour: statisticTour,
+    customers: customers.length,
+    owners: owners.length,
+  };
+};
+
+const getStatisticYearAdmin = async (year) => {
+  let statisticTour = [];
+
+  const tour = await Ticket.aggregate([
+    {
+      $lookup: {
+        from: "users",
+        localField: "customer",
+        foreignField: "_id",
+        as: "customer",
+      },
+    },
+    {
+      $lookup: {
+        from: "tours",
+        localField: "tour",
+        foreignField: "_id",
+        as: "tour",
+      },
+    },
+    { $unwind: "$customer" },
+    { $unwind: "$tour" },
+    {
+      $addFields: {
+        month: { $month: "$createdAt" },
+        year: { $year: "$createdAt" },
+        customerId: "$customer._id",
+        tourName: "$tour.tourName",
+        ownerId: "$tour.owner",
+        totalPrice: { $multiply: ["$numberPeople", "$paymentPrice"] },
+      },
+    },
+    {
+      $match: {
+        status: 1,
+        year: Number(year),
+      },
+    },
+    {
+      $group: {
+        _id: "$ownerId",
+        totalTickets: { $sum: "$numberPeople" },
+        totalTours: { $push: "$tourName" },
+        totalPrice: { $sum: "$totalPrice" },
+      },
+    },
+  ]);
+
+  for (let i = 0; i < tour.length; i++) {
+    statisticTour.push({
+      ...tour[i],
+      infoCompany: await userService.getUserById(tour[i]._id),
+    });
+  }
+
+  const customers = await User.aggregate([
+    {
+      $addFields: {
+        year: { $year: "$createdAt" },
+      },
+    },
+    {
+      $match: {
+        role: "customer",
+        year: Number(year),
+      },
+    },
+  ]);
+
+  const owners = await User.aggregate([
+    {
+      $addFields: {
+        year: { $year: "$updatedAt" },
+      },
+    },
+    {
+      $match: {
+        role: "owner",
+        year: Number(year),
+      },
+    },
+  ]);
+
+  return {
+    tour: statisticTour,
+    customers: customers.length,
+    owners: owners.length,
+  };
+};
+
 module.exports = {
   showStatisticPerYear,
+  getStatisticMonthAdmin,
+  getStatisticYearAdmin,
 };

@@ -17,6 +17,29 @@ const showStatisticPerYear = catchAsync(async (req, res, next) => {
   }
 });
 
+const getStatisticMonthAdmin = catchAsync(async (req, res) => {
+  const statisticMonth = await StatisticService.getStatisticMonthAdmin(
+    req.params.year,
+    req.params.month
+  );
+  res.status(200).json({
+    statisticMonth: statisticMonth,
+    message: "OK",
+  });
+});
+
+const getStatisticYearAdmin = catchAsync(async (req, res) => {
+  const statisticYear = await StatisticService.getStatisticYearAdmin(
+    req.params.year
+  );
+  res.status(200).json({
+    statisticYear: statisticYear,
+    message: "OK",
+  });
+});
+
 module.exports = {
   showStatisticPerYear,
+  getStatisticMonthAdmin,
+  getStatisticYearAdmin,
 };

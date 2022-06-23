@@ -156,11 +156,12 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                 </div>
                 <div className="form-group col-1">
                     <label>Loại hình:</label>
-                    <select {...register("typePlace", { required: "* Chọn loại hình" })} placeholder='category' defaultValue={tour && tour.typePlace}>
+                    {console.log(tour?.typePlace.name)}
+                    <select {...register("typePlace", { required: "* Chọn loại hình" })} placeholder='category' defaultValue={tour && tour.typePlace.name}>
                         <option value="" hidden>Choose...</option>
                         {
                             listTypePlace.map((value, index) => (
-                                <option value={value._id} key={index} selected={tour ? tour.typePlace === value : false}>{value.name}</option>
+                                <option value={value._id} key={index} selected={tour ? tour.typePlace.name === value.name : false}>{value.name}</option>
                             ))
                         }
                     </select>
@@ -185,7 +186,7 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                         <input type='text' />
                         {
                             countries.map((value, index) => (
-                                <option value={value.name.common} key={index} selected={tour ? tour.countryName === index + 1 : false}>{value.name.common}</option>
+                                <option value={value.name.common} key={index} selected={tour ? tour.countryName === value.name.common : false}>{value.name.common}</option>
                             ))
                         }
                     </select>

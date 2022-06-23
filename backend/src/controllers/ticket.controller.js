@@ -13,7 +13,6 @@ const bookTicket = catchAsync(async (req, res) => {
   else paymentPrice = Math.ceil(price * (1 - discount));
   const ticketBody = { ...req.body, tour, paymentPrice };
   const ticketInfo = await ticketService.bookTicket(ticketBody);
-  if (ticketInfo) await emailBookTicket(ticketInfo);
   if (!ticketInfo)
     res.status(httpStatus.BAD_REQUEST).json({
       status: 400,
@@ -36,7 +35,7 @@ const getAllTicketCompany = catchAsync(async (req, res) => {
       message: "Không tìm thấy vé",
     });
 
-  res.status(httpStatus.OK).json({
+   else res.status(httpStatus.OK).json({
     status: 200,
     message: "OK",
     tickets: tickets,
@@ -82,8 +81,7 @@ const getTicketPerTour = catchAsync(async (req, res) => {
       status: 404,
       message: "Không tìm thấy vé",
     });
-
-  res.status(httpStatus.OK).json({
+  else res.status(httpStatus.OK).json({
     status: 200,
     message: "OK",
     tickets: tickets,
@@ -99,7 +97,7 @@ const updateTicketById = catchAsync(async (req, res) => {
       message: "Cập nhật vé không thành công!",
     });
 
-  res.status(httpStatus.OK).json({
+  else res.status(httpStatus.OK).json({
     status: 200,
     message: "OK",
     ticket: ticket,
@@ -119,6 +117,13 @@ const autoDeleteTicketUnpaid = catchAsync(async(req, res) =>{
   res.status(200).json({ rs : rs})
 })
 
+
+const completeTour = catchAsync(async(req, res) =>{
+  const rs = await ticketService.setVisitedTicketPerTourFinish(req.params.id)
+  console.log(rs);
+  res.status(200).json({ rs : rs})
+})
+
 module.exports = {
   bookTicket,
   getAllTicketCompany,
@@ -127,5 +132,6 @@ module.exports = {
   deleteTicketById,
   getTicketPerTour,
   getTicketsHistory,
-  autoDeleteTicketUnpaid
+  autoDeleteTicketUnpaid,
+  completeTour
 };

@@ -12,6 +12,7 @@ const checkAuthozFeeback = async(customerId, tourId) => {
       { customer: new mongoose.Types.ObjectId(customerId),
         tour: new mongoose.Types.ObjectId(tourId),
         status: 1,
+        visit: true,
       },
     },
   ])
@@ -21,7 +22,6 @@ const checkAuthozFeeback = async(customerId, tourId) => {
 
 const getAllFeedback = async () => {
   const feedbacks = await Feedback.find()
-    .populate({ path: "customer" })
     .populate({ path: "customer" });
   return feedbacks;
 };

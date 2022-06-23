@@ -16,6 +16,7 @@ const tourSchema = Joi.object({
   discount: Joi.number().less(1),
   owner: Joi.objectId().required(),
   typePlace: Joi.objectId().required(),
+  amount: Joi.number().max(50),
 });
 
 module.exports = tourSchema;

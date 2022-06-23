@@ -9,6 +9,7 @@ import ListOwnerAdmin from 'containers/ListUser/ListOwnerAdmin';
 import { useDispatch } from 'react-redux';
 import { setAccountInfo } from 'redux/reducers/user/action';
 import { getUser } from 'hooks/localAuth';
+import AdminStatistic from 'containers/Statistic/AdminStatistic';
 
 function AdminRoutes(props) {
     const navigate = useNavigate()
@@ -43,15 +44,17 @@ function AdminRoutes(props) {
                 exact
                 element={WidthLayout({
                     Component: ListTypePlace,
-                    name: 'MANAGE TYPE PLACE'
+                    name: 'MANAGE TYPE PLACE',
+                    showHeaderSearch:false
                 })}
             />
             <Route
                 path={ROUTE_ADMIN_STATISTIC}
                 exact
                 element={WidthLayout({
-                    Component: ListCustomerAdmin,
-                    name: 'MANAGE STATSTIC'
+                    Component: AdminStatistic,
+                    name: 'MANAGE STATSTIC',
+                    showHeaderSearch: false
                 })}
             />
             <Route

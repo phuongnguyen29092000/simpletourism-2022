@@ -114,7 +114,7 @@ const deleteTour = (id, callback = ()=>{}) => {
                 dispatch({
                     type: types.DELETE_TOUR_FAIL
                 })
-                useNotification.Success({
+                useNotification.Error({
                     title:"Lỗi!",
                     message:"Server Error!"
                 })
@@ -124,7 +124,7 @@ const deleteTour = (id, callback = ()=>{}) => {
             dispatch({
                 type: types.DELETE_TOUR_FAIL
             })
-            useNotification.Success({
+            useNotification.Error({
                 title:"Lỗi!",
                 message:"Server Error!"
             })
@@ -165,9 +165,9 @@ const updateTour = (id, data,callback = ()=>{}) => {
         })
         .catch((error)=>{
             dispatch({
-                type: types.DELETE_TOUR_FAIL
+                type: types.UPDATE_TOUR_FAIL
             })
-            useNotification.Success({
+            useNotification.Error({
                 title:"Lỗi!",
                 message:"Server Error!"
             })
@@ -306,6 +306,7 @@ const getTourById = (id, callback = ()=>{}) => {
         })
     }
 }
+
 
 export {
     getAllTour,

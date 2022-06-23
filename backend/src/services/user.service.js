@@ -112,9 +112,14 @@ const getAllCustomerBookedTour = async (idOwner) => {
       },
     },
 		{ $unwind: '$tour' },
+    {
+      $match: {
+        status: 1
+      },
+    },
 		{
 			"$addFields": {
-					"idTour": "$tour._id",
+					"idTour": "$tour._id",  
 					"customerId": "$customer._id",
 					"customerName": "$customer.givenName",
 					"customerFamilyName": "$customer.familyName",
@@ -168,5 +173,5 @@ module.exports = {
   getAllCustomer,
   becomeOwner,
 	getAllCustomerBookedTour,
-  setActiveUser
+  setActiveUser,
 };

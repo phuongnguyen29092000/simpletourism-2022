@@ -12,7 +12,19 @@ const getStatisticYear = (year) => {
     return axiosClient.get(url,{headers: getHeaderWithToken()})
 }
 
+
+const getStatisticAdminPerMonth = (year, month) => {
+    const url =`/statistic/admin/${year}/${month}`
+    return axiosClient.get(url,{headers: getHeaderWithToken()})
+}
+
+const getStatisticAdminYear = (year) => {
+    const url =`/statistic/admin/${year}`
+    return axiosClient.get(url,{headers: getHeaderWithToken()})
+}
 export default {
     getStatisticPerMonth,
-    getStatisticYear
+    getStatisticYear,
+    getStatisticAdminPerMonth,
+    getStatisticAdminYear
 }
