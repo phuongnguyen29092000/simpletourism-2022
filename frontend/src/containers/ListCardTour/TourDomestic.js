@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ListCard from 'components/ListCard';
 import SpinnerLoading from 'components/SpinnerLoading';
 import { getAllTourDomestic } from 'redux/reducers/listTour/action'
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
 
 const TourDomestic = () => {
     const dispatch = useDispatch()
@@ -12,6 +13,7 @@ const TourDomestic = () => {
     const [dataTours, setDataTours] = useState([]);
     useEffect(() => {
         document.title = 'Simple Tourism | trong nước'
+        dispatch(setActiveUrl('domestic'))
     }, [])
 
     const handleSortData = (data) => {

@@ -14,6 +14,7 @@ import RegardPrice from 'LogicResolve/RegardPrice'
 import { ROUTE_LIST_TICKET } from '../../route/type';
 import { getUser } from 'hooks/localAuth'
 import useNotification from 'hooks/notification'
+import { setActiveUrl } from 'redux/reducers/activeUrl/action'
 
 function ListTour({keySearch = ''}) {
     const [open, setOpen] = useState(false) 
@@ -26,7 +27,10 @@ function ListTour({keySearch = ''}) {
     const [dataList, setDataList] = useState([])
     const [listAll, setListAll] = useState([])
     let navigate = useNavigate();
-    
+    useEffect(() => {
+        document.title = 'Simple Tourism | Quản lý tour'
+        dispatch(setActiveUrl('list-tour'))
+    },[])
     let { listTourOwner } = useSelector((store) => store.listTour)
 
     useEffect(() => {

@@ -11,6 +11,7 @@ import moment from 'moment'
 import _ from 'lodash'
 import { Button } from '@mui/material';
 import useNotification from 'hooks/notification'
+import {setActiveUrl} from 'redux/reducers/activeUrl/action'
 
 function ListTicket({keySearch}) {
     const dispatch = useDispatch();
@@ -23,6 +24,11 @@ function ListTicket({keySearch}) {
     const [ticketData, setTicketData] = useState([])
     const [tour, setTour] = useState({})
     
+    useEffect(() => {
+        document.title = 'Simple Tourism | Quản lý vé'
+        dispatch(setActiveUrl('list-ticket'))
+    },[])
+
     const handleClose = ()=>{
         setOpen(!open);
     }
@@ -119,7 +125,6 @@ function ListTicket({keySearch}) {
 
     return (
         <div className='ticket-manager'>
-            {console.log(listTicketPerTour)}
             {
                 listTicketPerTour.length !== 0 && 
                 <div style={{width:'100%', margin: '10px 0px 20px 0px',display:'flex', justifyContent:'space-between'}} >

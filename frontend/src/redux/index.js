@@ -6,6 +6,7 @@ import feedback from './reducers/feedback'
 import user from './reducers/user'
 import news from './reducers/news'
 import statistic from "./reducers/statistic"
+import activeUrl from "./reducers/activeUrl"
 
 const rootReducer = combineReducers({
     listTour,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     user,
     feedback,
     news,
-    statistic
+    statistic,
+    activeUrl
 });
 
 export default rootReducer;

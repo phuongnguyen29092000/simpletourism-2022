@@ -11,6 +11,7 @@ import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import PaginationCustom from 'components/common/PaginationCustom'
 import { getUser } from 'hooks/localAuth'
 import moment from 'moment'
+import { setActiveUrl } from 'redux/reducers/activeUrl/action'
 
 function ListTypePlace() {
     const [open, setOpen] = useState(false) 
@@ -25,9 +26,13 @@ function ListTypePlace() {
     let navigate = useNavigate();
     
     let { listTypePlace, error } = useSelector((store) => store.typePlace)
+    
+    useEffect(() => {
+        document.title = 'Simple Tourism | Loại hình du lịch'
+        dispatch(setActiveUrl('typeplace'))
+    },[])
 
     useEffect(() => {
-        document.title = 'Simple Tourism | Quản lý Typeplace'
         dispatch(getTypePlace())
     }, [dispatch])
 

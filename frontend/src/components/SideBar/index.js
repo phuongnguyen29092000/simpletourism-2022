@@ -1,11 +1,5 @@
 import React from 'react';
-import IconAddTour from '../../assets/icons/icon-addtour.svg'
-import IconListTour from '../../assets/icons/icon-list-tour.svg'
-import IconTicket from '../../assets/icons/icon-ticket.svg'
-import IconCustomer from '../../assets/icons/icon-customer.svg'
-import IconAccount from '../../assets/icons/icon-account.svg'
-import IconNews from '../../assets/icons/icon-news.svg'
-import IconStatistic from '../../assets/icons/icon-statistic.svg'
+// import IconListTour from '../../assets/icons/icon-list-tour.svg'
 import IconTypeplace from 'assets/icons/icon_moutain.svg'
 import logo from '../../public/logo-spt.png';
 import { ROUTE_LIST_CUSTOMER, ROUTE_LIST_TICKET, ROUTE_LIST_TOUR, ROUTE_OWNER_ACCOUNT, ROUTE_OWNER_NEWS, ROUTE_ADMIN_CUSTOMER, ROUTE_ADMIN_OWNER, ROUTE_ADMIN_STATISTIC, ROUTE_ADMIN_TYPE_PLACE, ROUTE_OWNER_STATISTIC } from '../../route/type';
@@ -15,11 +9,13 @@ import { logoutGoogle } from 'redux/reducers/user/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetTicket } from 'redux/reducers/listTicket/action';
 import { getUser } from 'hooks/localAuth';
+import { IconCustomer, IconListTicket, IconListTour, IconNews, IconStatistic } from 'assets/icons/icons';
 // import 
 function SideBar(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const {activePage} = useSelector(store => store.activeUrl)
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -37,9 +33,9 @@ function SideBar(props) {
                     account.role == "owner" && (
                         <div className='menu-list-item' style={{background: '#5584AC'}}>
                             <Link to={ROUTE_LIST_TOUR}>
-                                <div className='menu-item list-tour'>
+                                <div className={`menu-item list-tour ${activePage === 'list-tour' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconListTour} />
+                                        <IconListTour/>
                                         <div className='menu-item__title'>
                                             TOUR
                                         </div>
@@ -47,9 +43,9 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_LIST_TICKET}>
-                                <div className='menu-item list-ticket' onClick={() => dispatch(resetTicket())}>
+                                <div className={`menu-item list-ticket ${activePage === 'list-ticket' ? 'active' : ''}`} onClick={() => dispatch(resetTicket())}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconTicket} />
+                                        <IconListTicket/>
                                         <div className='menu-item__title'>
                                             VÉ
                                         </div>
@@ -57,9 +53,9 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_LIST_CUSTOMER}>
-                                <div className='menu-item list-customer'>
+                                <div className={`menu-item list-customer ${activePage === 'list-customer' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconCustomer} />
+                                        <IconCustomer/>
                                         <div className='menu-item__title'>
                                             KHÁCH HÀNG
                                         </div>
@@ -67,9 +63,9 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_OWNER_NEWS}>
-                                <div className='menu-item new'>
+                                <div className={`menu-item news ${activePage === 'news' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconNews} />
+                                        <IconNews/>
                                         <div className='menu-item__title'>
                                             TIN TỨC
                                         </div>
@@ -77,9 +73,9 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_OWNER_STATISTIC}>
-                                <div className='menu-item statistic'>
+                                <div className={`menu-item statistic ${activePage === 'statistic' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconStatistic} />
+                                        <IconStatistic/>
                                         <div className='menu-item__title'>
                                             THỐNG KÊ
                                         </div>
@@ -93,9 +89,9 @@ function SideBar(props) {
                     account.role == "admin" && (
                         <div className='menu-list-item' style={{background: '#5584AC'}}>
                             <Link to={ROUTE_ADMIN_OWNER}>
-                                <div className='menu-item list-tour'>
+                                <div className={`menu-item company ${activePage === 'company' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconCustomer} />
+                                        <IconCustomer/>
                                         <div className='menu-item__title'>
                                             CÔNG TY
                                         </div>
@@ -103,9 +99,9 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_ADMIN_CUSTOMER}>
-                                <div className='menu-item list-ticket' onClick={() => dispatch(resetTicket())}>
+                                <div className={`menu-item list-customer ${activePage === 'list-customer' ? 'active' : ''}`} onClick={() => dispatch(resetTicket())}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconCustomer} />
+                                        <IconCustomer/>
                                         <div className='menu-item__title'>
                                             KHÁCH HÀNG
                                         </div>
@@ -113,7 +109,7 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_ADMIN_TYPE_PLACE}>
-                                <div className='menu-item list-customer'>
+                                <div className={`menu-item typeplace ${activePage === 'typeplace' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
                                         <img src={IconTypeplace} />
                                         <div className='menu-item__title'>
@@ -123,9 +119,9 @@ function SideBar(props) {
                                 </div>
                             </Link>
                             <Link to={ROUTE_ADMIN_STATISTIC}>
-                                <div className='menu-item new'>
+                                <div className={`menu-item statistic ${activePage === 'statistic' ? 'active' : ''}`}>
                                     <div className='menu-item__icon'>
-                                        <img src={IconStatistic} />
+                                        <IconStatistic/>
                                         <div className='menu-item__title'>
                                             THỐNG KÊ
                                         </div>

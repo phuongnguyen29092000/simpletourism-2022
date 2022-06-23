@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllCustomerAdmin } from '../../redux/reducers/user/action'
 import ConfirmModal from '../../components/modal/ConfirmModal/ConfirmModal'
 import moment from 'moment';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
  
 function ListCustomerAdmin({keySearch = ''}) {
     const dispatch = useDispatch();
@@ -16,11 +17,15 @@ function ListCustomerAdmin({keySearch = ''}) {
     const [listAll, setListAll] = useState([])
     let {listCustomerAdmin} = useSelector((store) => store.user)
     
+    useEffect(() => {
+        document.title = 'Simple Tourism | Quản lý khách hàng'
+        dispatch(setActiveUrl('list-customer'))
+    },[])
+
     const handleClose = ()=>{
         setOpen(!open)
     }
     useEffect(()=>{
-        document.title = 'Simple Tourism | Quản lý khách hàng'
         setListAll([...listCustomerAdmin?.customers.filter((customer)=> customer?.email?.toLowerCase().includes(keySearch.toLowerCase()))])
     },[keySearch])
 

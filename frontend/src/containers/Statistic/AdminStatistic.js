@@ -15,6 +15,7 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const months = [
@@ -78,9 +79,12 @@ export default function AdminStatistic({list}) {
     const [dataTable, setDataTable] = useState([]);
     const [dataChart, setDataChart] = useState({})
 
+    useEffect(() => {
+        document.title = 'Simple Tourism | Thống kê'
+        dispatch(setActiveUrl('statistic'))
+    },[])
 
     useEffect(() => {
-        document.title = "SimpleTourism | Thống kê Admin";
         if(!Object.keys(statisticAdminPerMonth).length) dispatch(getStatisticAdminPerMonth(2022, 6, (res)=>{
             setDataTable(res.tour)
             setDataChart(covertToDataChart(res))}))

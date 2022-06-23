@@ -4,6 +4,7 @@ import FilterTour from 'components/FilterTour';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
 import ListCard from '../../components/ListCard';
 import SpinnerLoading from '../../components/SpinnerLoading';
 import { filterTour } from '../../redux/reducers/listTour/action'
@@ -42,6 +43,7 @@ const TourResult = () => {
 
     useEffect(() => {
         document.title = 'Simple Tourism | kết quả'
+        dispatch(setActiveUrl(''))
     }, [])
 
     return (

@@ -7,11 +7,15 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import BgContact from 'assets/icons/bg-contact.svg'
 import CarouselInstroduce from 'components/Carousel/CarouselInstroduce';
 import AdvantageCard from 'components/AdvantageCard';
+import { setActiveUrl } from 'redux/reducers/activeUrl/action';
+import { useDispatch } from 'react-redux';
 
 const Contact = () => {
+    const dispatch = useDispatch()
     useEffect(()=>{
-        document.title = "Liên hệ"
-    })
+        document.title = "Simple Tourism | Liên hệ";
+        dispatch(setActiveUrl('contact'))
+    },[])
     return (
         <div className='contact-component'>
             {/* <CarouselInstroduce /> */}

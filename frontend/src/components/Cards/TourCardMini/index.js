@@ -5,7 +5,7 @@ import { ROUTE_TOUR_DETAIL } from 'route/type';
 const TourCardMini = ({ name, img, rating, _id }) => {
 
     return (
-            <Card sx={{ display: 'flex' }}>
+            <Card sx={{ display: 'flex'}} className='tour-card-mini'>
                 <CardMedia
                     component="img"
                     sx={{ width: 70, minWidth: 70, maxHeight: '60px', height:'60px' }}

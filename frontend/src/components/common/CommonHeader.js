@@ -13,7 +13,7 @@ const CommonHeader = ({
 
     const onChange =  useCallback(debounce((value) => {
         setKeySearch(value)
-        },500),[])
+    },500),)
     return (
         <div className='common-header'>
             <div className='page-name'>
