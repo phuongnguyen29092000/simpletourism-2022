@@ -37,9 +37,7 @@ const getTicketPerTour = (id, callback = ()=>{}) => {
         API.getTicketPerTour(id)
         // .then((response)=>response.json())
         .then((result)=>{
-            console.log(result);
             if(result.status === 200){
-                console.log(result.data.tickets);
                 dispatch({
                     type: types.GET_TICKET_PER_TOUR_SUCCESS,
                     payload: [...result.data.tickets]

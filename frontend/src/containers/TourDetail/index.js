@@ -8,10 +8,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import PriceDiscount from '../components/RegardPrice/PriceDiscount'
 import Rating from "@mui/material/Rating";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from "@mui/material/styles";
 import ConvertToImageURL from '../../LogicResolve/ConvertToImageURL'
 import { getTourById } from '../../redux/reducers/listTour/action';
@@ -20,20 +17,12 @@ import { makeStyles } from '@mui/styles';
 import PriceDiscount from '../../LogicResolve/PriceDiscount';
 import TourCard from '../../components/Cards/TourCard';
 import TabDetail from '../../components/TabDetail';
-import AuthAPI from '../../api/AuthAPI';
-import StarIcon from '@mui/icons-material/Star';
 import SpinnerLoading from 'components/SpinnerLoading';
 import { getUser } from 'hooks/localAuth';
 import BookTourModal from 'components/modal/BookTourModal';
+import _ from 'lodash';
+import moment from 'moment';
 
-const StyledRating = styled(Rating)({   
-    "& .MuiRating-iconFilled": {
-        color: "#ff6d75"
-    },
-    "& .MuiRating-iconHover": {
-        color: "#ff3d47"
-    }
-});
 const useStyles = makeStyles({
     avatar: {
         positionSize: 'cover',
@@ -52,7 +41,7 @@ const PreArrow = (props) => {
             className={className}
             onClick={onClick}
             style={{
-                ...style, zIndex: 10, overflow: 'hidden', left: '-5px', width: '24px', height: '24px', backgroundColor: 'white', borderRadius: '20%',
+                ...style, zIndex: 10, overflow: 'hidden', left: '-5px', width: '24px', height: '24px',
             }}
         >
             <ArrowBackIosNewIcon
@@ -78,7 +67,7 @@ const NextArrow = (props) => {
             className={className}
             onClick={onClick}
             style={{
-                ...style, zIndex: 10, overflow: 'hidden', right: '-5px', width: '24px', height: '24px', backgroundColor: 'white', borderRadius: '20%',
+                ...style, zIndex: 10, overflow: 'hidden', right: '-5px', width: '24px', height: '24px',
             }}
         >
             <ArrowForwardIosIcon
@@ -101,8 +90,8 @@ function TourDetail() {
 
     const classes = useStyles();
     const { id } = useParams();
-    console.log(id)
     const [rating, setRating] = useState(0);
+    const [slides, setSlides] = useState([]);
     const dispatch = useDispatch();
     const { loading, tourDetail, similarTour } = useSelector((store) => store.listTour)
     const { listFeedback } = useSelector((store) => store.feedback)
@@ -126,11 +115,18 @@ function TourDetail() {
     useEffect(() => {
         setRating(tourDetail.ratingsAverage)
     }, [listFeedback, tourDetail])
+    useEffect(() => {
+        let temp = []
+        if(tourDetail?.imageSlide){
+            temp = _.cloneDeep(tourDetail.imageSlide)
+        }
+        setSlides([tourDetail.imageAvatar,...temp])
+    }, [tourDetail])
 
     const onHandleSendFeedback = (data) => {
         dispatch(createFeedback({
-            tourId: id,
-            customerId: getUser()._id,
+            tour: id,
+            customer: getUser()._id,
             comment: data.comment,
             rating: data.rating
         }))
@@ -138,11 +134,11 @@ function TourDetail() {
     const settings = {
         className: classes.sliderContainer,
         dots: false,
-        // arrows: true,
+        arrows: true,
         infinite: true,
         autoplay: true,
-        speed: 2000,
-        autoplaySpeed: 5000,
+        speed: 500,
+        autoplaySpeed: 3000,
         slidesToShow: 3,
         slidesToScroll: 1,
         pauseOnHover: true,
@@ -171,7 +167,10 @@ function TourDetail() {
         customPaging: function (i) {
             return (
                 <a>
-                    <img className='image-dot-slide' src={ConvertToImageURL(tourDetail?.imageSlide[i])} />
+                    {
+                        slides.length > 0 && <img className='image-dot-slide' src={ConvertToImageURL(slides[i])} />
+
+                    }
                 </a>
             );
         },
@@ -180,23 +179,21 @@ function TourDetail() {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        prevArrow: <PreArrow />,
+        nextArrow: <NextArrow />,
     }
     return (
         <div className='tour-detail-wrapper'>
             {loading ? <SpinnerLoading /> :
                 (tourDetail &&
                     <Container maxWidth="lg">
-                        <Box sx={{ marginTop: '70px', paddingLeft: { md: '60px' }, paddingRight: { md: '60px' } }}>
+                        <Box sx={{ paddingTop: '70px', paddingLeft: { md: '60px' }, paddingRight: { md: '60px' } }}>
                             <Grid container spacing={2}>
                                 <Grid className='tour-slide-wrapper' item md={6} xs={12} style={{ position: "relative", marginBottom: '70px', }}>
-                                    {/* <img className={classes.avatar} src={ConvertToImageURL(tourDetail.imageAvatar)} />
-                                {tourDetail.discount != '0' && <div style={{ position: 'absolute', zIndex: 100, top: '8px', left: '20px', height: '40px', lineHeight: '40px', width: '60px', backgroundColor: 'red', color: 'white' }}>
-                                    -{new Number(tourDetail.discount) * 100}%
-                                </div>} */}
                                     <Slider {...settingSlideImage}>
                                         {
-                                            tourDetail?.imageSlide?.map((image, index) => (
+                                            slides.map((image, index) => (
                                                 <div key={index}>
                                                     <img src={ConvertToImageURL(image)} />
                                                 </div>
@@ -205,26 +202,16 @@ function TourDetail() {
                                     </Slider>
                                 </Grid>
                                 <Grid item md={6} xs={12} className='tour-info-wrapper'>
-                                    <Typography gutterBottom variant="h4" component="div" align='left' style={{ fontFamily: 'Dosis' }}>
+                                    <Typography gutterBottom variant="h4" component="div" align='left'>
                                         {tourDetail.tourName} 
                                     </Typography>
-                                    <Typography gutterBottom variant="h7" component="div" align='left' style={{ fontFamily: 'Dosis', display:'flex'}}>
+                                    <Typography gutterBottom variant="h6" component="div" align='left' style={{display:'flex'}}>
                                         {tourDetail.owner?.companyName}{' '}{!tourDetail.owner?.active && <h4 style={{marginLeft:'10px',textDecoration:'line-through', color:"#858585"}}> Tạm ngừng hoạt động</h4>}
                                     </Typography>
                                     <Typography gutterBottom variant="body1" component="div" align='left' color="secondary">
                                         <PriceDiscount valueDiscount={tourDetail.discount} valuePrice={tourDetail.price} />
                                     </Typography>
                                     <Typography gutterBottom component="div" variant="body1" align="left" style={{ display: 'flex', fontFamily: 'system-ui', color: 'gray' }}>
-                                        {/* <StyledRating
-                                        name="customized-color"
-                                        value={tourDetail.ratingsAverage}
-                                        getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
-                                        precision={0.1}
-                                        icon={<FavoriteIcon fontSize="inherit" style={{ color: 'red' }} />}
-                                        emptyIcon={<FavoriteBorderIcon fontSize="inherit" style={{ color: 'red' }} />}
-                                        readOnly
-                                        size="medium"
-                                    /> */}
                                         <Rating name="customized-rating"
                                             defaultValue={tourDetail.ratingsAverage}
                                             value={rating}
@@ -233,9 +220,8 @@ function TourDetail() {
                                             readOnly
                                             size="medium"
                                         />
-                                        {/* &nbsp;{`${parseFloat(tourDetail.ratingsAverage).toFixed(1)} | ${tourDetail.listFeedback.length} đánh giá`} */}
                                     </Typography>
-                                    <Typography gutterBottom variant="body1" component="div" align='left' style={{ fontFamily: 'Roboto Mono' }}>
+                                    <Typography gutterBottom variant="body1" component="div" align='left'>
                                         {`"${tourDetail.description}"`}
                                     </Typography>
                                     <Typography gutterBottom variant="body1" component="div" align='left'>
@@ -253,8 +239,7 @@ function TourDetail() {
                                     </Typography>
                                     <Typography gutterBottom variant="button" component="div" align='left'>
                                         <Button variant="contained" color="info"
-                                            // disabled={(new Date().getTime() + 86400000 * 2) > (new Date(tourDetail.timeStart).getTime())}
-                                            disabled={!getUser() || !tourDetail?.owner?.active}
+                                            disabled={!getUser() || !tourDetail?.owner?.active || moment(tourDetail.timeStart).subtract(5, 'days').toDate().getTime() <  Date.now()}
                                             onClick={() => handleOnClick()}>
                                             Đặt Tour</Button>
                                     </Typography>
@@ -301,6 +286,7 @@ function TourDetail() {
                                                         discount={tour?.discount}
                                                         companyName={tour?.owner?.companyName}
                                                         active={tour?.owner?.active}
+                                                        timeStart={tour.timeStart}
                                                     />
                                                 ))
                                             }

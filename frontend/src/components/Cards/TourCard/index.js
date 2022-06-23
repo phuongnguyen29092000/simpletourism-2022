@@ -7,12 +7,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import PriceDiscount from '../../../LogicResolve/PriceDiscount';
 import Rating from "@mui/material/Rating";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from "@mui/material/styles";
 import { Link } from 'react-router-dom';
 import BookTourModal from 'components/modal/BookTourModal';
 import { getUser } from 'hooks/localAuth';
+import moment from 'moment';
 
 const StyledRating = styled(Rating)({
     "& .MuiRating-iconFilled": {
@@ -115,13 +114,15 @@ export default function TourCard({ _id, tourName, description,companyName, image
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" disabled = {!getUser() || !active} color="info" variant="outlined" onClick={() => handleOnClick()}
+                    <Button size="small" 
+                        disabled = {!getUser() || !active || moment(timeStart).subtract(5, 'days').toDate().getTime() <  Date.now()}
+                    color="info" variant="outlined" onClick={() => handleOnClick()}
                     // disabled = {(new Date().getTime() + 86400000*2) > (new Date(timeStart).getTime())}
                     >
                         Đặt
                     </Button>
                     <Link style={{ textDecoration: 'none' }} to={`/tour-chi-tiet/${_id}`}>
-                        <Button size="small" color="info" variant="outlined">Xem thêm</Button>
+                        <Button size="small" color="info" variant="outlined" sx={{ml:'10px'}}>Xem thêm</Button>
                     </Link>
                 </CardActions>
             </Card>

@@ -193,6 +193,7 @@ public class Tour {
     public void setPrice(int price) {
         this.price = price;
     }
+
     public Date getTimeStart() {
         return timeStart;
     }

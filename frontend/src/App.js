@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import './styles/common/sidebar.css'
 import SideBar from './components/SideBar'
@@ -18,6 +18,7 @@ import { ReactNotifications } from 'react-notifications-component'
 
 function App() {
   const dispatch = useDispatch()
+  // const navigate = useNavigate()
   useEffect(() => {
     function start(){
       gapi.client.init({
@@ -27,11 +28,6 @@ function App() {
     }
     gapi.load('client:auth2', start)
   })
-  useEffect(() => {
-    let account = getUser();
-    console.log(account)
-    if(account) dispatch(setAccountInfo(account))
-  },[])
   return (
       <BrowserRouter>
         <div className="App">

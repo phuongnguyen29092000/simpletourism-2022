@@ -52,7 +52,6 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                     if (a.name.common < b.name.common) return -1;
                     return 0;
                 })]
-                // console.log(result.data);
                 setCountries([...dataTem])
             }
         })
@@ -111,7 +110,6 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
         for (let key in data) {
             if (key == 'imageAvatar') {
                 formData.append('imageAvatar',imagePreview0)                
-                console.log(formData);
             }
             else if (key == 'imageSlide1'){
                 formData.append('imageSlide1',imagePreview1)
@@ -130,10 +128,6 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
             }
             else formData.append(key, data[key])
         }
-        for (var key of formData.entries()) {
-			console.log(key[0] + ', ' + key[1])
-		}
-
         // const res = APIClient.createTour(formData);
         formData.append("owner", account._id)
         if(tour) handleUpdateTour(tour?._id.toString(), formData)
@@ -150,6 +144,10 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                         maxLength: {
                             value: 100,
                             message: '* Nhập tên quá dài.'
+                        },
+                        minLength: {
+                            value: 5,
+                            message: '* Tên quá ngắn.'
                         }
                     })}
                         defaultValue={tour && tour.tourName}
@@ -167,11 +165,11 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                             ))
                         }
                     </select>
-                    {errors.region && <div className="alert">{errors.region.message}</div>}
+                    {errors.region && <div className="alert">{errors.typePlace.message}</div>}
                 </div>
                 <div className="form-group col-1">
                     <label>Châu lục:</label>
-                    <select {...register("continent", { required: "* Chọn châu lục" })} placeholder='category' defaultValue={tour && tour.continent}>
+                    <select {...register("continent", { required: "* Chọn châu lục" })} placeholder='continent' defaultValue={tour && tour.continent}>
                         <option value="" hidden>Choose...</option>
                         {
                             CONTINENTS.map((item, index) => (
@@ -183,7 +181,7 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                 </div>
                 <div className="form-group col-1">
                     <label>Quốc gia:</label>
-                    <select {...register("countryName", { required: "* Chọn châu lục" })} placeholder='category' defaultValue={tour && tour.countryName} className='country-select'>
+                    <select {...register("countryName", { required: "* Chọn quốc gia" })} placeholder='category' defaultValue={tour && tour.countryName} className='country-select'>
                         <option value="" hidden>Choose...</option>
                         <input type='text' />
                         {
@@ -299,6 +297,10 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                         maxLength: {
                             value: 100,
                             message: "* Tên quá dài!"
+                        },
+                        minLength: {
+                            value: 5,
+                            message: "* Tên quá ngắn!"
                         }
                     })} />
                     {errors.hotelName && <div className="alert">{errors.hotelName.message}</div>}
@@ -312,7 +314,7 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                             message: "* Thêm thông tin lịch trình",
                         },
                         maxLength: {
-                            value: 1024,
+                            value: 2024,
                             message: "* Thông tin quá dài!"
                         }
                     })} />
@@ -321,12 +323,13 @@ function TourForm({ handleAddTour, handleUpdateTour, tour, submit = false, setSu
                 <div className="form-group col-2">
                     <label>Mô tả: </label>
                     <textarea style={{ height: '150px' }}  {...register("description", {
+                        required: "* Nhập mô tả!",
                         minLength: {
                             value: 20,
                             message: "* Nhập thêm thông tin mô tả",
                         },
                         maxLength: {
-                            value: 1024,
+                            value: 2024,
                             message: "* Mô tả quá dài!"
                         }
                     })}

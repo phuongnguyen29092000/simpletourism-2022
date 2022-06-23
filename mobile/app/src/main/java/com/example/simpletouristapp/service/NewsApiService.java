@@ -1,7 +1,6 @@
 package com.example.simpletouristapp.service;
 
 import com.example.simpletouristapp.api.NewsApi;
-import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.NewsResponse;
 import com.example.simpletouristapp.model.NewsSingleResponse;
 import com.google.gson.Gson;
@@ -15,7 +14,7 @@ public class NewsApiService {
 
     private NewsApi newsApi;
 
-    public NewsApiService (){
+    public NewsApiService() {
 
         Gson gson = new GsonBuilder().setLenient().create();
         newsApi = new Retrofit.Builder()
@@ -25,10 +24,12 @@ public class NewsApiService {
                 .create(NewsApi.class);
 
     }
-    public Call<NewsResponse> getAllNews(){
+
+    public Call<NewsResponse> getAllNews() {
         return newsApi.getAllNews();
     }
-    public Call<NewsSingleResponse> getNewsById(String id){
+
+    public Call<NewsSingleResponse> getNewsById(String id) {
         return newsApi.getNewsById(id);
     }
 }

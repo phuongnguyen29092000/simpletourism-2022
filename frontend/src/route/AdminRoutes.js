@@ -1,13 +1,26 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import WidthLayout from '../HOCS/widthLayout';
 import { ROUTE_ADMIN_CUSTOMER, ROUTE_ADMIN_OWNER, ROUTE_ADMIN_STATISTIC, ROUTE_ADMIN_TYPE_PLACE} from './type';
 import ListTypePlace from 'containers/ListTypePlace';
 import ListTicket from '../containers/ListTicket';
 import ListCustomerAdmin from 'containers/ListUser/ListCustomerAdmin';
 import ListOwnerAdmin from 'containers/ListUser/ListOwnerAdmin';
+import { useDispatch } from 'react-redux';
+import { setAccountInfo } from 'redux/reducers/user/action';
+import { getUser } from 'hooks/localAuth';
+import AdminStatistic from 'containers/Statistic/AdminStatistic';
 
 function AdminRoutes(props) {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        let account = getUser();
+        if(account) dispatch(setAccountInfo(account, () => {
+          if(account.role === 'admin') navigate('/admin/owner')
+        }))
+        else navigate('/')
+      },[])
     return (
         <Routes>
             <Route
@@ -17,7 +30,6 @@ function AdminRoutes(props) {
                     Component: ListOwnerAdmin,
                     name: 'MANAGE OWNER'
                 })}
-                showHeaderSearch={false}
             />
             <Route
                 path={ROUTE_ADMIN_CUSTOMER}
@@ -26,7 +38,6 @@ function AdminRoutes(props) {
                     Component: ListCustomerAdmin,
                     name: 'MANAGE CUSTOMER'
                 })}
-                showHeaderSearch={false}
             />
             <Route
                 path={ROUTE_ADMIN_TYPE_PLACE}
@@ -41,7 +52,7 @@ function AdminRoutes(props) {
                 path={ROUTE_ADMIN_STATISTIC}
                 exact
                 element={WidthLayout({
-                    Component: ListCustomerAdmin,
+                    Component: AdminStatistic,
                     name: 'MANAGE STATSTIC',
                     showHeaderSearch: false
                 })}
@@ -53,7 +64,6 @@ function AdminRoutes(props) {
                     Component: ListCustomerAdmin,
                     name: 'CONTACT'
                 })}
-                showHeaderSearch={false}
             />
         </Routes>
     );

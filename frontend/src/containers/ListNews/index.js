@@ -24,7 +24,6 @@ function NewsList(props) {
     const handleOnChange = (e, value) => {
         let start = (value-1)*6; 
         let end = start + 6 < listNews.length ? start + 6 : listNews.length;
-        console.log(start, end)
         setDataListNews([...listNews.slice(start, end)])
         setPage(value)
     }

@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.FormBookTourBinding;
-import com.example.simpletouristapp.databinding.NewsFragmentBinding;
-import com.example.simpletouristapp.ui.news.NewsViewModel;
 
 import java.util.HashMap;
 
@@ -25,6 +20,7 @@ public class FormBookTourFragment extends Fragment {
     private String idTour;
     private String price;
     private HashMap<String, String> informationBookTour;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,18 +41,18 @@ public class FormBookTourFragment extends Fragment {
         binding.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(binding.amount.getText().toString().equals("")){
+                if (binding.amount.getText().toString().equals("")) {
                     binding.amount.setText("1");
-                }else {
-                    binding.amount.setText(Integer.toString((Integer.parseInt(binding.amount.getText().toString())+1)));
+                } else {
+                    binding.amount.setText(Integer.toString((Integer.parseInt(binding.amount.getText().toString()) + 1)));
                 }
             }
         });
         binding.btnDecrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!binding.amount.getText().toString().equals("") && !binding.amount.getText().toString().equals("0")){
-                    binding.amount.setText(Integer.toString((Integer.parseInt(binding.amount.getText().toString())-1)));
+                if (!binding.amount.getText().toString().equals("") && !binding.amount.getText().toString().equals("0")) {
+                    binding.amount.setText(Integer.toString((Integer.parseInt(binding.amount.getText().toString()) - 1)));
                 }
             }
         });
@@ -66,31 +62,31 @@ public class FormBookTourFragment extends Fragment {
         binding.btnBookTourForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(binding.amount.getText().toString().trim().equals("")){
+                if (binding.amount.getText().toString().trim().equals("")) {
                     binding.validateAmount.setVisibility(View.VISIBLE);
                     binding.validateAmount.setText("Bạn cần phải nhập số lượng");
-                }else {
+                } else {
                     binding.validateAmount.setVisibility(View.GONE);
                 }
-                if(binding.phoneNumber.getText().toString().trim().equals("")){
+                if (binding.phoneNumber.getText().toString().trim().equals("")) {
                     binding.validatePhoneNumber.setVisibility(View.VISIBLE);
                     binding.validatePhoneNumber.setText("Bạn cần phải nhập số điện thoại");
-                }else {
+                } else {
                     binding.validatePhoneNumber.setVisibility(View.GONE);
                 }
-                if(!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")){
+                if (!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")) {
                     informationBookTour = new HashMap<>();
-                    informationBookTour.put("idTour",idTour);
-                    informationBookTour.put("nameTour",tourName);
-                    informationBookTour.put("Amount",binding.amount.getText().toString());
+                    informationBookTour.put("idTour", idTour);
+                    informationBookTour.put("nameTour", tourName);
+                    informationBookTour.put("Amount", binding.amount.getText().toString());
                     informationBookTour.put("Price", price);
-                    informationBookTour.put("Phone",binding.phoneNumber.getText().toString());
+                    informationBookTour.put("Phone", binding.phoneNumber.getText().toString());
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("information", informationBookTour);
-                    Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment,bundle);
+                    Navigation.findNavController(view).navigate(R.id.action_nav_book_tour_to_nav_payment, bundle);
 
-                }else {
-                    if(binding.amount.getText().toString().trim().equals("") && binding.phoneNumber.getText().toString().trim().equals("")){
+                } else {
+                    if (binding.amount.getText().toString().trim().equals("") && binding.phoneNumber.getText().toString().trim().equals("")) {
                         binding.validateAmount.setVisibility(View.VISIBLE);
                         binding.validateAmount.setText("Bạn cần phải nhập số lượng");
                         binding.validatePhoneNumber.setVisibility(View.VISIBLE);
@@ -109,6 +105,7 @@ public class FormBookTourFragment extends Fragment {
         });
         return root;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.LoginFragment"
-    android:orientation="vertical"
     android:background="#fff"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".ui.login.LoginFragment">
 
     <ImageView
         android:id="@+id/logo_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:transitionName="logo_image"
         android:layout_gravity="center"
-        android:src="@drawable/icon_logo"/>
+        android:src="@drawable/icon_logo"
+        android:transitionName="logo_image" />
+
     <TextView
         android:id="@+id/slogan_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/nunito_sans_semibold"
         android:text="Sign In to continue"
-        android:textSize="18sp"
-        android:fontFamily="@font/nunito_sans_semibold"/>
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,85 +32,6 @@
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:hint="Username"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/edt_email_login"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:fontFamily="@font/nunito_sans_semibold"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <TextView-->
-<!--            android:id="@+id/validate_email"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="#F13838"-->
-<!--            android:visibility="gone"/>-->
-
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:hint="Password"-->
-<!--            app:passwordToggleEnabled="true"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
-
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/edt_password_login"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="textPassword"-->
-<!--                android:fontFamily="@font/nunito_sans_semibold"/>-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--        <TextView-->
-<!--            android:id="@+id/validate_password"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="#F13838"-->
-<!--            android:visibility="gone"/>-->
-
-<!--        <Button-->
-<!--            style="@style/Widget.AppCompat.Light.ActionButton"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="right"-->
-<!--            android:layout_margin="5dp"-->
-<!--            android:background="#00000000"-->
-<!--            android:elevation="0dp"-->
-<!--            android:text="Quên mật khẩu?"-->
-<!--            android:textColor="#000"-->
-<!--            android:fontFamily="@font/nunito_sans_semibold"/>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_login"-->
-<!--            style="@style/Widget.AppCompat.Light.ActionButton"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:background="@drawable/custombtn1"-->
-<!--            android:text="Sign in"-->
-<!--            android:textColor="#fff"-->
-<!--            app:backgroundTint="#5584AC"-->
-<!--            android:fontFamily="@font/nunito_sans_semibold"/>-->
-
-<!--        <Button-->
-<!--            android:id="@+id/register"-->
-<!--            style="@style/Widget.AppCompat.Light.ActionButton"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="right"-->
-<!--            android:layout_margin="5dp"-->
-<!--            android:background="#00000000"-->
-<!--            android:elevation="0dp"-->
-<!--            android:text="Bạn chưa có tài khoản? Đăng ký"-->
-<!--            android:textColor="#000"-->
-<!--            android:fontFamily="@font/nunito_sans_semibold"/>-->
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_google"
             android:layout_width="match_parent"

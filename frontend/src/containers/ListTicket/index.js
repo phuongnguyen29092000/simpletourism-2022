@@ -12,7 +12,7 @@ import _ from 'lodash'
 import { Button } from '@mui/material';
 import useNotification from 'hooks/notification'
 
-function ListTicket(props) {
+function ListTicket({keySearch}) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
     const [ticketDelete, setTicketDelete] = useState({})
@@ -27,13 +27,23 @@ function ListTicket(props) {
         setOpen(!open);
     }
     useEffect(()=>{
-        console.log({listTicketPerTour});
         if(listTicketPerTour.length === 0) dispatch(getAllTicket(getUser()._id, (data) => {
             setTicketData(data)
         }))
         else setTicketData(_.cloneDeep(listTicketPerTour))
-        // if(!list_ticket.loading) setObjTotal(calucateTotalPriceTicket(list_ticket))
     },[listTicketPerTour])
+
+    useEffect(() => {
+        if(keySearch === ''){
+            if(listTicketPerTour.length)  setTicketData(_.cloneDeep(listTicketPerTour))
+            else setTicketData(_.cloneDeep(list_ticket))
+        }
+        else {
+            if(listTicketPerTour.length) {
+                setTicketData(listTicketPerTour?.filter((item)=> item?.phone?.toString().includes(keySearch+'')))
+            }else setTicketData(list_ticket?.filter((item)=> item?.phone?.toString().includes(keySearch+'')))
+        }
+    },[keySearch])
 
     const handleDelete = () => {
         dispatch(deleteTicket(ticketDelete.id,()=>setOpenConfirmModal(false)))

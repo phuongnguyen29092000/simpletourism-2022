@@ -1,177 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#fff"
-    android:padding="30dp"
-    >
+    android:orientation="vertical"
+    android:padding="30dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            >
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên tour: "
-                android:textSize="25dp"
                 android:layout_marginLeft="10dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Tên tour: "
+                android:textSize="25dp" />
+
             <TextView
                 android:id="@+id/tv_name_tour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="25dp" />
         </LinearLayout>
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="45dp"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            >-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Tên của bạn: "-->
-<!--                android:textSize="25dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--            <TextView-->
-<!--                android:id="@+id/tv_full_name"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:textSize="30dp"/>-->
-<!--        </LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            >
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng: "
-                android:textSize="25dp"
                 android:layout_marginLeft="10dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Số lượng: "
+                android:textSize="25dp" />
+
             <TextView
                 android:id="@+id/tv_amount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="25dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="25dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            >
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="Giá: "
-                android:textSize="25dp"
-                android:layout_marginLeft="10dp"/>
+                android:textSize="25dp" />
+
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="25dp"
-                android:fontFamily="@font/nunito_sans_semibold" />
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="25dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            >
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số điện thoại: "
-                android:textSize="25dp"
                 android:layout_marginLeft="10dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Số điện thoại: "
+                android:textSize="25dp" />
+
             <TextView
                 android:id="@+id/tv_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="25dp"
-                android:fontFamily="@font/nunito_sans_semibold"/>
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="25dp" />
         </LinearLayout>
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="45dp"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            >-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Email: "-->
-<!--                android:textSize="25dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--            <TextView-->
-<!--                android:id="@+id/tv_email"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:textSize="30dp"/>-->
-<!--        </LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <Button
-                style="@style/Widget.AppCompat.Light.ActionButton"
                 android:id="@+id/btn_payment_later"
+                style="@style/Widget.AppCompat.Light.ActionButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Thanh toán sau"
-                android:textAllCaps="false"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/custombtn2"
-                app:backgroundTint="#5584AC"
-                android:fontFamily="@font/nunito_sans_semibold"/>
-<!--            <com.paypal.checkout.paymentbutton.PayPalButton-->
-<!--                android:id="@+id/btn_payment_paypal"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                >-->
-<!--            </com.paypal.checkout.paymentbutton.PayPalButton>-->
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Đặt tour"
+                android:textAllCaps="false"
+                app:backgroundTint="#5584AC" />
+
             <Button
                 style="@style/Widget.AppCompat.Light.ActionButton"
 
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Thanh toán bằng PayPal"
-                android:textAllCaps="false"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/custombtn2"
-                app:backgroundTint="#5584AC"
                 android:fontFamily="@font/nunito_sans_semibold"
-                android:visibility="invisible"/>
+                android:text="Thanh toán bằng PayPal"
+                android:textAllCaps="false"
+                android:visibility="invisible"
+                app:backgroundTint="#5584AC" />
         </LinearLayout>
     </LinearLayout>
 

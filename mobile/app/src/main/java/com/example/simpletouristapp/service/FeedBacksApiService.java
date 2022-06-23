@@ -8,12 +8,11 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Path;
 
 public class FeedBacksApiService {
-    private FeedbacksApi feedbacksApi;
+    private final FeedbacksApi feedbacksApi;
 
-    public FeedBacksApiService(){
+    public FeedBacksApiService() {
         feedbacksApi = new Retrofit.Builder()
                 .baseUrl(ToursApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -21,15 +20,15 @@ public class FeedBacksApiService {
                 .create(FeedbacksApi.class);
     }
 
-    public Call<FeedBackResponse> getFeedBackById(String tourId){
+    public Call<FeedBackResponse> getFeedBackById(String tourId) {
         return feedbacksApi.getFeedBackById(tourId);
     }
 
-    public Call<SendFeedbackResponse> sendFeedback(String auth, String tour, String customer, String comment, int rating){
-        return feedbacksApi.sendFeedback(auth,tour,customer,comment,rating);
+    public Call<SendFeedbackResponse> sendFeedback(String auth, String tour, String customer, String comment, int rating) {
+        return feedbacksApi.sendFeedback(auth, tour, customer, comment, rating);
     }
 
-    public Call<ResponseBody> deleteFeedback(String auth,String id){
-        return feedbacksApi.deleteFeedback(auth,id);
+    public Call<ResponseBody> deleteFeedback(String auth, String id) {
+        return feedbacksApi.deleteFeedback(auth, id);
     }
 }

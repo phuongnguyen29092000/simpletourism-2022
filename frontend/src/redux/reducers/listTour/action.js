@@ -65,7 +65,6 @@ const addTour = (data, callback=()=>{}) =>{
         .then((result)=>{
             // if(result.status)
             if(result.status === 201){
-                console.log(result);
                 dispatch({
                     type: types.ADD_TOUR_SUCCESS,
                     payload: result.data.data
@@ -180,11 +179,8 @@ const getAllTourDomestic = (callback = ()=>{}) => {
     return (dispatch) => {
         dispatch({type: types.GET_TOUR_DOMESTIC})
         API.getAllTourDomestic()
-        // .then((response)=>response.json())
         .then((result)=>{
-            console.log(result)
             if(result.status === 200){
-                console.log(result.data.data)
                 dispatch({
                     type: types.GET_TOUR_DOMESTIC_SUCCESS,
                     payload: [...result.data.data]
@@ -211,7 +207,6 @@ const getAllTourInternational = (callback = ()=>{}) => {
         // .then((response)=>response.json())
         .then((result)=>{
             if(result.status === 200){
-                console.log(result.data.data)
                 dispatch({
                     type: types.GET_TOUR_INTERNATIONAL_SUCCESS,
                     payload: [...result.data.data]
@@ -252,7 +247,6 @@ const filterTour = (param, callback = ()=>{}) => {
             }
         })
         .catch((error)=>{
-            console.log(error);
             dispatch({
                 type: types.FILTER_TOUR_FAIL
             })

@@ -1,0 +1,6 @@
+.slick-prev::before{
+    content: "" !important;
+}
+.slick-prev:before, .slick-next:before{
+    opacity: 0 !important;
+}

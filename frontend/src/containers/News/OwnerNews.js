@@ -50,7 +50,6 @@ function OwnerNews({keySearch = ''}) {
     
     const handleDelete = () => {
         dispatch(deleteNews(newsDelete.id,(res)=>{
-            console.log(openConfirmModal);
             if(res) setOpenConfirmModal(false)
         }
         ))

@@ -17,14 +17,16 @@ import org.jetbrains.annotations.NotNull;
 @Database(entities = {Tour.class}, version = 1)
 public abstract class TourDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "tours";
+
     public abstract TourDao tourDao();
 
     private static volatile TourDatabase INSTANCE;
-    public static TourDatabase getInstance(Context context){
-        if(INSTANCE == null){
-            synchronized (TourDatabase.class){
-                if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context, TourDatabase.class,DATABASE_NAME)
+
+    public static TourDatabase getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (TourDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context, TourDatabase.class, DATABASE_NAME)
                             .addCallback(callback)
                             .build();
                 }
@@ -41,12 +43,14 @@ public abstract class TourDatabase extends RoomDatabase {
         }
     };
 
-    static class PopulateAsyncTask extends AsyncTask<Void,Void,Void> {
+    static class PopulateAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private TourDao tourDao;
-        PopulateAsyncTask(TourDatabase tourDatabase){
+
+        PopulateAsyncTask(TourDatabase tourDatabase) {
             tourDao = tourDatabase.tourDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
             tourDao.deleteAll();

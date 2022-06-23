@@ -93,7 +93,6 @@ export const reducer = (state = initialState, action) => {
       }
     }
     case types.DELETE_TOUR_SUCCESS: {
-      console.log(">>>>",action.payload);
       let listTourTemp = [...state?.listTourOwner];
 
       return {

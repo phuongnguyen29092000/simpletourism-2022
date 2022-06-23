@@ -17,15 +17,20 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import PaymentModal from 'components/modal/PaymentModal';
+import SpinnerLoading from 'components/SpinnerLoading';
+import { CheckExpiredToken } from 'ultis/authUtil';
 
 export default function HistoryList({onClose}) {
-    const [histories, setHistories] = React.useState([])
+    const [histories, setHistories] = useState([])
     const navigate = useNavigate()
     const [showPayment, setShowPayment] = useState(false)
     const [dataPayment, setDataPayment] = useState(false)
-    React.useEffect(() => {
+    const [loading, setLoading] = useState(true)
+    React.useEffect(async() => {
+        await CheckExpiredToken()
         TicketAPI.getHistoryTicket(getUser()._id)
             .then(rs => {
+                setLoading(false)
                 if (rs.status === 200) {
                     setHistories(rs.data.tickets)
                 }
@@ -37,14 +42,16 @@ export default function HistoryList({onClose}) {
 
     return (
         <div style={{width: '493px', overflowX:'hidden'}}>
-            <h3 style={{ padding: '20px', textAlign: 'center' }}>TOUR CỦA BẠN</h3>
+            {loading ? <SpinnerLoading/>:
+            <>
+            <h2 style={{ padding: '20px', textAlign: 'center' }}>TOUR CỦA BẠN</h2>
             {histories?.length > 0 ?
                 <Timeline position="right">
                     {
                         histories.sort((a, b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                         ?.map((item, index) => (
                             <TimelineItem key={index}>
-                                <TimelineOppositeContent sx={{maxWidth:'130px', color:'#cc2f2f'}}>
+                                <TimelineOppositeContent sx={{maxWidth:'130px', color:'#cc2f2f', fontSize:'14px'}}>
                                     {moment(item?.createdAt).format('YYYY-MM-DD LTS')}
                                 </TimelineOppositeContent>
                                 <TimelineSeparator>
@@ -54,7 +61,7 @@ export default function HistoryList({onClose}) {
                                         <TimelineConnector />
                                     }
                                 </TimelineSeparator>
-                                <TimelineContent sx={{ color: 'gray', fontSize:'14px', marginBottom:'20px' }}>
+                                <TimelineContent sx={{ color: 'black', fontSize:'14px', marginBottom:'20px' }}>
                                     <Box  onClick={() => navigate(`/tour-chi-tiet/${item.idTour}`)}>
                                         <TourCardMini
                                             name={item.tourName}
@@ -117,6 +124,8 @@ export default function HistoryList({onClose}) {
             {
                 dataPayment && <PaymentModal open={showPayment} handleClose={()=>setShowPayment(false)} infoPayment={dataPayment} onClose={onClose}/>
             }
+            </>
+        }
         </div>
     );
 }

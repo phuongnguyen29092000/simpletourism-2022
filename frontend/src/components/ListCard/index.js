@@ -16,7 +16,6 @@ const ListCard = ({ data }) => {
     const handleOnChange = (e, value) => {
         let start = (value - 1) * 6;
         let end = start + 6 < data.length ? start + 6 : data.length;
-        console.log(start, end)
         setDataListCard([...data.slice(start, end)])
         setPage(value)
     }
@@ -53,6 +52,7 @@ const ListCard = ({ data }) => {
                                                     discount={tour?.discount}
                                                     companyName={tour?.owner?.companyName}
                                                     active={tour?.owner?.active}
+                                                    timeStart={tour.timeStart}
                                                 />
                                             </Grid>
                                         ))
@@ -62,7 +62,7 @@ const ListCard = ({ data }) => {
                                 <Grid item xs={12} md={3}>
                                     <h4>TIN NỔI BẬT</h4>
                                     {
-                                        listNews && listNews.slice(0, 6).map((item, index) => (
+                                        listNews && listNews.sort((a,b) => b.viewer - a.viewer).slice(0, 4).map((item, index) => (
                                             <Link to={`/tin-tuc/${item._id}`} style={{ textDecoration: 'none' }} key={index}>
                                                 <Divider style={{ margin: '5px 0' }} />
                                                 <Grid container item xs={12} key={index} style={{ padding: '10px', color: "#000" }}>

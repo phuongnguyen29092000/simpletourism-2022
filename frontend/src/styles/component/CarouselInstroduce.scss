@@ -9,3 +9,30 @@
         }
     }
 }
+.slide-root {
+    position: relative;
+    .text-introduce-1 {
+        position: absolute;
+        bottom: 20%;
+        right: 10%;
+        * {
+            color: #fff;
+        }
+    }
+    .text-introduce-0 {
+        position: absolute;
+        top: 40%;
+        left: 20%;
+        * {
+            color: black;
+        }
+    }
+    .text-introduce-2 {
+        position: absolute;
+        top: 20%;
+        left: 5%;
+        * {
+            color: rgb(0, 3, 66);
+        }
+    }
+}

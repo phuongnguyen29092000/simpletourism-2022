@@ -52,7 +52,6 @@ const searchTour = (param) => {
 }
 
 const updateTour = (id, data) =>{
-  console.log(id);
   const url = `/tour/${id}`
   return axiosClient.put(url, data, {headers: getHeaderWithToken()})
 }

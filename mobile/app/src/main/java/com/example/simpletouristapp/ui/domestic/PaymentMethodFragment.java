@@ -1,12 +1,8 @@
 package com.example.simpletouristapp.ui.domestic;
 
-import android.app.Activity;
 import android.content.Context;
-
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.fragment.app.Fragment;
 
 import com.example.simpletouristapp.MainActivityLogged;
@@ -24,34 +18,7 @@ import com.example.simpletouristapp.databinding.PaymentMethodBinding;
 import com.example.simpletouristapp.model.TicketResponse;
 import com.example.simpletouristapp.service.ToursApiService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.paypal.checkout.PayPalCheckout;
-import com.paypal.checkout.approve.Approval;
-import com.paypal.checkout.approve.OnApprove;
-import com.paypal.checkout.cancel.OnCancel;
-import com.paypal.checkout.config.CheckoutConfig;
-import com.paypal.checkout.config.Environment;
-import com.paypal.checkout.config.SettingsConfig;
-import com.paypal.checkout.createorder.CreateOrder;
-import com.paypal.checkout.createorder.CreateOrderActions;
-import com.paypal.checkout.createorder.CurrencyCode;
-import com.paypal.checkout.createorder.OrderIntent;
-import com.paypal.checkout.createorder.UserAction;
-import com.paypal.checkout.error.ErrorInfo;
-import com.paypal.checkout.error.OnError;
-import com.paypal.checkout.order.Amount;
-import com.paypal.checkout.order.AppContext;
-import com.paypal.checkout.order.CaptureOrderResult;
-import com.paypal.checkout.order.OnCaptureComplete;
-import com.paypal.checkout.order.Order;
-import com.paypal.checkout.order.PurchaseUnit;
-import com.paypal.pyplcheckout.BuildConfig;
 
-
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -59,16 +26,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentMethodFragment extends Fragment {
-    private PaymentMethodBinding binding;
     public static Context context;
+    private PaymentMethodBinding binding;
     private ToursApiService toursApiService;
-    private HashMap<String ,String> informationBookTour;
+    private HashMap<String, String> informationBookTour;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            informationBookTour = (HashMap<String ,String>) getArguments().getSerializable("information");
+            informationBookTour = (HashMap<String, String>) getArguments().getSerializable("information");
         }
     }
 
@@ -80,7 +47,7 @@ public class PaymentMethodFragment extends Fragment {
         context = getActivity();
 
         toursApiService = new ToursApiService();
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("Token",Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("Token", Context.MODE_PRIVATE);
 
         binding.tvNameTour.setText(informationBookTour.get("nameTour"));
         binding.tvAmount.setText(informationBookTour.get("Amount"));
@@ -92,13 +59,13 @@ public class PaymentMethodFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MainActivityLogged.getAccessInfo(getContext());
-                Call<TicketResponse> call = toursApiService.bookTour("Bearer " + sharedPref.getString("access_token",""),informationBookTour.get("idTour")
-                        ,sharedPref.getString("id_customer",""),binding.tvPhoneNumber.getText().toString()
+                Call<TicketResponse> call = toursApiService.bookTour("Bearer " + sharedPref.getString("access_token", ""), informationBookTour.get("idTour")
+                        , sharedPref.getString("id_customer", ""), binding.tvPhoneNumber.getText().toString()
                         , Integer.parseInt(binding.tvAmount.getText().toString()));
                 call.enqueue(new Callback<TicketResponse>() {
                     @Override
                     public void onResponse(Call<TicketResponse> call, Response<TicketResponse> response) {
-                        if(response.code() == 201){
+                        if (response.code() == 201) {
                             TicketResponse ticketResponse = response.body();
                             builder.setTitle("Thành công");
                             builder.setMessage("Bạn đã đặt tour thành công");
@@ -110,7 +77,7 @@ public class PaymentMethodFragment extends Fragment {
                                 }
                             });
                             builder.show();
-                        }else {
+                        } else {
                             builder.setTitle("Thất bại");
                             builder.setMessage("Bạn đã đặt tour thất bại");
                             builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
@@ -132,7 +99,7 @@ public class PaymentMethodFragment extends Fragment {
                                 dialogInterface.dismiss();
                             }
                         });
-                        Log.d("TAG",t.getMessage());
+                        Log.d("TAG", t.getMessage());
                     }
                 });
             }

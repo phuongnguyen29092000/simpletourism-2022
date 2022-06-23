@@ -1,165 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/name_tour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Text View"
-            android:textSize="30dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/nunit_sans_extrabold"/>
+            android:fontFamily="@font/nunit_sans_extrabold"
+            android:text="Text View"
+            android:textSize="30dp" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="30dp"
+            app:cardCornerRadius="12dp">
+
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Giá: "
-                    android:textSize="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-                <TextView
-                    android:id="@+id/tv_price_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thời gian: "
-                    android:textSize="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-                <TextView
-                    android:id="@+id/tv_time_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Khách sạn: "
-                    android:textSize="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-                <TextView
-                    android:id="@+id/hotel_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số người: "
-                    android:textSize="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-                <TextView
-                    android:id="@+id/number_people"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/nunito_sans_semibold"/>
-
-            </LinearLayout>
             <TextView
-                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trạng thái: "
-                android:textSize="20dp"
-                android:layout_marginLeft="30dp"/>
-            <Button
-                android:id="@+id/btn_detail_tour"
-                android:background="@drawable/custombtn2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Xem chi tiết tour"
-                android:textAllCaps="false"
-                android:textSize="16dp"
                 android:fontFamily="@font/nunito_sans_semibold"
-                app:backgroundTint="#5584AC"/>
-            <Button
-                android:id="@+id/btn_comment_tour"
-                android:background="@drawable/custombtn2"
+                android:text="Giá: "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tv_price_detail"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:text="Đánh giá"
-                android:layout_marginBottom="20dp"
-                android:textAllCaps="false"
-                android:textSize="16dp"
+                android:layout_height="match_parent"
                 android:fontFamily="@font/nunito_sans_semibold"
-                app:backgroundTint="#5584AC"/>
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Thời gian: "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tv_time_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Khách sạn: "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/hotel_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Số người: "
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/number_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Trạng thái: "
+            android:textSize="20dp" />
+
         <Button
-            android:id="@+id/btn_payment"
+            android:id="@+id/btn_detail_tour"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
             android:background="@drawable/custombtn2"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Xem chi tiết tour"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            app:backgroundTint="#5584AC" />
+
+        <Button
+            android:id="@+id/btn_comment_tour"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:text="Thanh toán"
             android:layout_marginBottom="20dp"
-            android:textAllCaps="false"
-            app:backgroundTint="#5584AC"
-            android:textSize="16dp"
+            android:background="@drawable/custombtn2"
             android:fontFamily="@font/nunito_sans_semibold"
-            android:visibility="gone"/>
+            android:text="Đánh giá"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            app:backgroundTint="#5584AC" />
+
+        <Button
+            android:id="@+id/btn_payment"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custombtn2"
+            android:fontFamily="@font/nunito_sans_semibold"
+            android:text="Thanh toán"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:visibility="gone"
+            app:backgroundTint="#5584AC" />
     </LinearLayout>
 
 </ScrollView>

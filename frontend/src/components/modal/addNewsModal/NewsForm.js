@@ -56,9 +56,7 @@ function NewsForm({ handleAddNews, handleUpdateNews, news, submit = false, setSu
 
         for (let key in data) {
             if (key == 'imageUrl') {
-                console.log(123);
                 formData.append('imageUrl',imagePreview)    
-                console.log(formData);            
             }
             else formData.append(key, data[key])
         }

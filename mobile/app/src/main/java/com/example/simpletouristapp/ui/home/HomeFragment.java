@@ -8,27 +8,21 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.adapter.NewsAdapter;
-import com.example.simpletouristapp.adapter.PopularPlaceAdapter;
 import com.example.simpletouristapp.adapter.TourAdapter;
 import com.example.simpletouristapp.databinding.FragmentHomeBinding;
 import com.example.simpletouristapp.model.News;
 import com.example.simpletouristapp.model.NewsResponse;
-import com.example.simpletouristapp.model.PopularPlaces;
 import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.service.NewsApiService;
 import com.example.simpletouristapp.service.ToursApiService;
-import com.paypal.pyplcheckout.pojo.To;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

@@ -36,7 +36,7 @@ public class RefreshTokenResponse {
         this.accessInfo = accessInfo;
     }
 
-    public class AccessInfo{
+    public class AccessInfo {
         @SerializedName("token")
         private String token;
         @SerializedName("expires")

@@ -19,7 +19,6 @@ function FilterTour() {
 
     useEffect(()=>{
         if(listTypePlace.length === 0) dispatch(getTypePlace())
-        console.log(listTypePlace)
         // setTypePlaces(listTypePlace)
     },[listTypePlace])
     const {
@@ -54,7 +53,7 @@ function FilterTour() {
     return (
         <div className='filter-box'>
             <Container>
-                <h1 style={{ margin: 0, marginBottom: '20px', fontFamily: "'Roboto Mono', monospace", fontWeight: 'initial', color: 'black' }}>
+                <h1 style={{ margin: 0, marginBottom: '20px', fontWeight: 'initial', color: 'black' }}>
                     Bạn đang tìm kiếm ?
                 </h1>
                 <form action='' onSubmit={handleSubmit(onHandleSubmit)}>
