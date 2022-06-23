@@ -11,7 +11,7 @@ router
   .route("/")
   .post(
     auth("customer"),
-    // createFeedbackMiddleWare(),
+    createFeedbackMiddleWare(),
     FeedbackController.createFeedback
   )
   .get(auth("admin"), FeedbackController.getAllFeedback);
@@ -19,6 +19,6 @@ router
 router.route("/tour/:tourId").get(FeedbackController.getFeedbackOfTour);
 router
   .route("/:feedbackId")
-  .delete(auth("customer", "admin"), FeedbackController.deleteFeedback);
+  .delete(auth("customer"), FeedbackController.deleteFeedback);
 
 module.exports = router;
