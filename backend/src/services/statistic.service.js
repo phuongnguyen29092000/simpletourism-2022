@@ -1,7 +1,7 @@
 const { Ticket, Tour } = require("../models");
 const { TourService } = require("./index");
 
-const showStatisticPerMonth = async (ownerId, year, month) => {
+const showStatisticPerYear = async (ownerId, year) => {
   let ticketInMonthOfOwner = [];
   let totalTicket = 0,
     totalPayment = 0,
@@ -13,60 +13,58 @@ const showStatisticPerMonth = async (ownerId, year, month) => {
       return String(item._id);
     }
   );
-  const ticketInMonth = await Ticket.aggregate([
+  const ticketInYear = await Ticket.aggregate([
     { $addFields: { month: { $month: "$createdAt" } } },
     { $addFields: { year: { $year: "$createdAt" } } },
-    { $match: { month: parseInt(month), year: parseInt(year), status: 1 } },
+    {
+      $addFields: {
+        paymentPricePerTicket: {
+          $multiply: ["$numberPeople", "$paymentPrice"],
+        },
+      },
+    },
+    {
+      $match: {
+        year: parseInt(year),
+        status: 1,
+        visit: true,
+      },
+    },
+    {
+      $group: {
+        _id: { month: "$month" },
+        numberTicket: { $sum: 1 },
+        numberPeople: { $sum: "$numberPeople" },
+        paymentPrice: { $sum: "$paymentPricePerTicket" },
+      },
+    },
+    { $sort: { month: 1 } },
   ]);
-  ticketInMonth.forEach((ticket) => {
-    if (tourOfOwnerId.includes(String(ticket.tour)))
-      ticketInMonthOfOwner.push(ticket);
+  let month = [];
+  let result = ticketInYear.map((item) => {
+    month.push(item._id.month);
+    return {
+      month: item._id.month,
+      numberTicket: item.numberTicket,
+      numberPeople: item.numberPeople,
+      totalPayment: item.paymentPrice,
+    };
   });
-  for (let ticket of ticketInMonthOfOwner) {
-    let countryName = (await Tour.findById(ticket.tour)).countryName;
-    if (countryName === "Vietnam") totalDomesticTour++;
-    else totalInternationalTour++;
-    totalPayment += ticket.paymentPrice * ticket.numberPeople;
-    totalPeople += ticket.numberPeople;
-  }
-  totalTicket = ticketInMonthOfOwner.length;
-  return {
-    totalPayment,
-    totalPeople,
-    totalTicket,
-    totalDomesticTour,
-    totalInternationalTour,
-  };
-};
-
-const showStatisticPerYear = async (ownerId, year) => {
-  let ticketInYearOfOwner = [];
-  let totalPayment = 0,
-    totalTicket = 0;
-  const tourOfOwnerId = (await TourService.getTourByOwner(ownerId)).map(
-    (item) => {
-      return String(item._id);
+  for (let i = 1; i <= 12; i++) {
+    if (!month.includes(i)) {
+      result.push({
+        month: i,
+        numberPeople: 0,
+        numberTicket: 0,
+        totalPayment: 0,
+      });
     }
-  );
-  const ticketInYear = await Ticket.aggregate([
-    { $addFields: { year: { $year: "$createdAt" } } },
-    { $match: { year: parseInt(year), status: 1 } },
-  ]);
-  ticketInYear.forEach((ticket) => {
-    if (tourOfOwnerId.includes(String(ticket.tour)))
-      ticketInYearOfOwner.push(ticket);
-  });
-  for (let ticket of ticketInYearOfOwner) {
-    totalPayment += ticket.paymentPrice * ticket.numberPeople;
   }
-  totalTicket = ticketInYearOfOwner.length;
-  return {
-    totalPayment,
-    totalTicket,
-  };
+  return result.sort(function (a, b) {
+    return a.month - b.month;
+  });
 };
 
 module.exports = {
-  showStatisticPerMonth,
   showStatisticPerYear,
 };
