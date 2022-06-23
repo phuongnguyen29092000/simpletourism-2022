@@ -3,6 +3,7 @@ const validator = require("validator");
 const catchAsync = require("../utils/catchAsync");
 const { ticketService, userService, TourService } = require("../services");
 const { emailBookTicket } = require("../config/emailTemplates");
+const { ticketSchema} = require('../validations')
 
 const bookTicket = catchAsync(async (req, res) => {
   const tour = req.params.tourId;
@@ -12,6 +13,15 @@ const bookTicket = catchAsync(async (req, res) => {
   if (!discount) paymentPrice = price;
   else paymentPrice = Math.ceil(price * (1 - discount));
   const ticketBody = { ...req.body, tour, paymentPrice };
+
+  const validation = await ticketSchema.validate(ticketBody)
+    if (validation.error) {
+        const errorMessage = validation.error.details[0].message
+        return res.status(httpStatus.BAD_REQUEST).json({
+            message: errorMessage
+        })
+  }
+
   const ticketInfo = await ticketService.bookTicket(ticketBody);
   if (!ticketInfo)
     res.status(httpStatus.BAD_REQUEST).json({

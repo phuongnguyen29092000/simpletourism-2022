@@ -104,7 +104,7 @@ function ListTicket({keySearch}) {
           'Ngay dat': `${moment(ticket?.createdAt).format('YYYY-MM-DD')}` || '0000-00-00',
           'Thoi gian dat': `${moment(ticket?.createdAt).format('LTS')}` || '00:00:00',
           'Trang thai ve': 'Da thanh toan' || '',
-          'So luong ve': ticket?.numberPeople || 0,
+          'So luong nguoi': ticket?.numberPeople || 0,
           'Tong tien thanh toan': (parseInt(ticket?.paymentPrice*ticket?.numberPeople).toLocaleString().split(',').join('.')) || 0,
         }))
         temp.forEach(function (row) {
@@ -114,7 +114,7 @@ function ListTicket({keySearch}) {
           csv += '\n'
         })
     
-        let total = `Tong ve: ${calucateTotalPriceTicket(ticketData).totalTicket} \nTong tien: ${calucateTotalPriceTicket(ticketData).totalPrice} VND`
+        let total = `Tong nguoi tham quan: ${calucateTotalPriceTicket(ticketData).totalTicket} \nTong tien: ${calucateTotalPriceTicket(ticketData).totalPrice} VND`
         let hiddenElement = document.createElement('a')
         hiddenElement.href =
           'data:text/csv;charset=utf-8,' + encodeURIComponent(csv+total)
@@ -166,7 +166,7 @@ function ListTicket({keySearch}) {
                         <th className='th-1'>Tên tour</th>
                         <th className='th-2'>Đặt lúc</th>
                         <th className='th-2'>Trạng thái</th>
-                        <th className='th-2'>Số vé</th>
+                        <th className='th-2'>Số người</th>
                         <th className='th-2'>Tổng tiền (VND)</th>
                     </thead>
                     <tbody>
@@ -204,7 +204,7 @@ function ListTicket({keySearch}) {
                             <td className='td-4' style={{minWidth:'180px'}}></td>
                             <td className='td-3'></td>
                             <td className='td-3' style={{textAlign:'right'}}>
-                                <div style={{marginBottom:'15px', fontWeight:'700'}}>Tổng vé:</div>
+                                <div style={{marginBottom:'15px', fontWeight:'700'}}>Tổng người:</div>
                                 <span>{calucateTotalPriceTicket(ticketData)?.totalTicket}</span>  
                             </td>
                             <td className='td-2' style={{textAlign:'right'}}>

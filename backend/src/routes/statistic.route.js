@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 
 router
   .route("/owner/:ownerId/:year/")
-  .get(auth("owner"),StatisticController.showStatisticPerYear);
+  .get(StatisticController.showStatisticPerYear);
 router
   .route("/admin/:year")
   .get(auth("admin"), StatisticController.getStatisticYearAdmin);

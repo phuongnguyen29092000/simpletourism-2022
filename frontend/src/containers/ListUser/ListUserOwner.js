@@ -39,6 +39,7 @@ function ListUserOwner(props) {
                         <th className='th-1'>Email</th>
                         <th className='th-1'>Danh sách tour</th>
                         <th className='th-2'>Tổng vé đã đặt</th>
+                        <th className='th-2'>Số lượng người</th>
                         <th className='th-2'>Tổng tiền (VND)</th>
                         {/* <th className='th-2'></th> */}
                     </thead>
@@ -58,6 +59,7 @@ function ListUserOwner(props) {
                                     <td className='td-3'>{user?.totalTours?.map((tour)=>(
                                         <div style={{margin:'3px 0px'}}>{tour}</div>
                                     ))}</td>
+                                    <td className='td-2' style={{textAlign:'center'}}>{user?.totalTours.length}</td>
                                     <td className='td-2' style={{textAlign:'center'}}>{user?.totalTickets}</td>
                                     <td className='td-3' style={{textAlign:'right'}}>{user?.totalPrice.toLocaleString().split(',').join('.')} đ</td>
                                     {/* <td>

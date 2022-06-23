@@ -43,6 +43,12 @@ export default function HistoryList({onClose}) {
             })
     }, [])
 
+    const caculateDeadline = (infoTicket) =>{
+        let timePaymentDeadline = moment(infoTicket.createdAt).add(3, 'days').toDate().getTime() < moment(infoTicket.timeStart).subtract(5, 'days').toDate().getTime() ? 
+        moment(infoTicket.createdAt).add(3, 'days').toDate() : moment(infoTicket.timeStart).subtract(5, 'days').toDate()
+        return timePaymentDeadline
+    }
+
     return (
         <div style={{width: '493px', overflowX:'hidden'}}>
             {loading ? <SpinnerLoading/>:
@@ -79,7 +85,7 @@ export default function HistoryList({onClose}) {
                                             <div>Tổng tiền: ₫{RegardPrice(item.numberPeople * item.paymentPrice)}</div>
                                             {
                                                 item?.status == 0 && 
-                                                <div>Thời hạn thanh toán:<br></br> {moment(moment(item.createdAt).add(3, 'days').toDate()).format('YYYY-MM-DD LTS')}</div>
+                                                <div>Thời hạn thanh toán:<br></br> {moment(caculateDeadline(item)).format('YYYY-MM-DD LTS')}</div>
                                             }
                                         </div>
                                         {

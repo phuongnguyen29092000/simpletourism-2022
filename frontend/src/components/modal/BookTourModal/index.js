@@ -46,14 +46,12 @@ const BookTourModal = ({ open, handleClose, tour, max = 5 }) => {
         })
         .then((result) => {
             if(result.status === 201){
-                // console.log(result.data.ticket.idTour);
-                // const tourInfo = listTour.find(tour=> result.data.ticket.idTour == tour._id)
-                // console.log(listTour);
-                // let timePaymentDeadline = moment(result.data.ticket.createdAt).add(3, 'days').toDate().getTime() < moment(tourInfo.timeStart).subtract(5, 'days').toDate().getTime() ? 
-                //     moment(result.data.ticket.createdAt).add(3, 'days').toDate() : moment(tourInfo.timeStart).subtract(5, 'days').toDate()
+                let infoTicket = result.data.ticket
+                let timePaymentDeadline = moment(infoTicket.createdAt).add(3, 'days').toDate().getTime() < moment(infoTicket.timeStart).subtract(5, 'days').toDate().getTime() ? 
+                    moment(infoTicket.createdAt).add(3, 'days').toDate() : moment(infoTicket.timeStart).subtract(5, 'days').toDate()
                 useNotification.Success({
                     title: "Đặt tour thành công!",
-                    message:`Vui lòng thanh toán trước ${moment(moment(result.data.ticket.createdAt).add(3, 'days').toDate()).format('LTS YYYY-MM-DD')}\nKiểm tra trong tour của bạn."`,
+                    message:`Vui lòng thanh toán trước ${moment(timePaymentDeadline).format('LTS YYYY-MM-DD')}\nKiểm tra trong tour của bạn."`,
                     duration: 8000
                 })
                 reset();

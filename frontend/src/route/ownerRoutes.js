@@ -37,7 +37,7 @@ function OwnerRoutes(props) {
                 exact
                 element={WidthLayout({
                     Component: ListTicket,
-                    name: 'MANAGE TICKER',
+                    name: 'MANAGE TICKET',
                 })}
             />
             <Route

@@ -162,6 +162,10 @@ const updateTour = catchAsync(async (req, res, next) => {
     { imageAvatar: imageAvatarPath },
     { imageSlide: imageSlidesPath }
   );
+  delete updateBody['imageSlide1']
+  delete updateBody['imageSlide2']
+  delete updateBody['imageSlide3']
+
   const validation = tourValidation.validate(updateBody);
   if (validation.error) {
     console.log(validation.error);
