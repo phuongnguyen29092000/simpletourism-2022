@@ -30,7 +30,7 @@ const showStatisticPerYear = async (ownerId, year) => {
       $match: {
         year: parseInt(year),
         status: 1,
-        visit: true,
+        // visit: true,
         tour: {
           "$in": tourOfOwnerId
         }

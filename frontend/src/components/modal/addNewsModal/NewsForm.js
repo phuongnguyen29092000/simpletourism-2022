@@ -94,7 +94,7 @@ function NewsForm({ handleAddNews, handleUpdateNews, news, submit = false, setSu
                             message: "* Nhập thêm nội dung",
                         },
                         maxLength: {
-                            value: 2048,
+                            value: 4096,
                             message: "*Nội dung tin tức quá dài!"
                         }
                     })}
