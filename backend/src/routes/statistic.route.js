@@ -4,8 +4,8 @@ const { StatisticController } = require("../controllers");
 const auth = require("../middlewares/auth");
 
 router
-  .route("/:year")
-  .get(auth("owner"), StatisticController.showStatisticPerYear);
+  .route("owner/:ownerId/:year/")
+  .get(StatisticController.showStatisticPerYear);
 router
   .route("/admin/:year")
   .get(auth("admin"), StatisticController.getStatisticYearAdmin);

@@ -40,6 +40,8 @@ const getAllTicket = async (idCompany) => {
         customerName: "$customer.givenName",
         tourName: "$tour.tourName",
         email: "$customer.email",
+        timeStart: "$tour.timeStart",
+        timeEnd: "$tour.timeEnd",
       },
     },
     {
@@ -56,6 +58,8 @@ const getAllTicket = async (idCompany) => {
         status: 1,
         createdAt: 1,
         updatedAt: 1,
+        timeStart: 1,
+        timeEnd:1
       },
     },
   ]);
@@ -285,7 +289,6 @@ const autoDeleteTicketsUnpaid = async(idCustomer) => {
   return deleteManyTicket
 }
 
-
 const setVisitedTicketPerTourFinish = async(id) => {
   const arrayId = (await getTicketPerTour(id)).map((tour)=> tour._id.toString())
   const updateManyTicket = await Ticket.updateMany({ _id: { $in: arrayId}},
@@ -294,6 +297,20 @@ const setVisitedTicketPerTourFinish = async(id) => {
   
   return updateManyTicket
 }
+
+const autoDeleteTicketsUnpaidOwner= async(idCompany) => {
+  const listTicketCompany = await getAllTicket(idCompany)
+
+  const arrayIdDelete = listTicketCompany.filter((ticket)=> ticket.status == 0).filter((ticket)=>
+    moment(ticket.createdAt).add(3, 'days').toDate().getTime() < Date.now() || 
+    moment(ticket.timeStart).subtract(5, 'days').toDate().getTime() <  Date.now()
+  ).map((ticket=> ticket._id.toString()))
+
+  const deleteManyTicket = await Ticket.deleteMany({ _id: { $in: arrayIdDelete}})
+  
+  return deleteManyTicket
+}
+
 
 module.exports = {
   bookTicket,
@@ -304,5 +321,6 @@ module.exports = {
   getTicketPerTour,
   getTicketsHistory,
   autoDeleteTicketsUnpaid,
-  setVisitedTicketPerTourFinish
+  setVisitedTicketPerTourFinish,
+  autoDeleteTicketsUnpaidOwner,
 };

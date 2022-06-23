@@ -14,8 +14,8 @@ import { Doughnut } from 'react-chartjs-2';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import AirplaneTicketIcon from '@mui/icons-material/AirplaneTicket';
-import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
-Chart.register(ArcElement);
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const months = [
     {
@@ -75,31 +75,31 @@ export default function AdminStatistic({list}) {
     const dispatch = useDispatch()
     const { statisticAdminPerMonth, loading, statisticAdminPerYear } = useSelector((store) => store.statistic)
     const [data, setData] = useState({});
-    const [dataTable, setDataTable] = useState({});
+    const [dataTable, setDataTable] = useState([]);
     const [dataChart, setDataChart] = useState({})
 
 
     useEffect(() => {
         document.title = "SimpleTourism | Thống kê Admin";
-        if(!Object.keys(statisticAdminPerMonth).length) dispatch(getStatisticAdminPerMonth(2022, 6))
+        if(!Object.keys(statisticAdminPerMonth).length) dispatch(getStatisticAdminPerMonth(2022, 6, (res)=>{
+            setDataTable(res.tour)
+            setDataChart(covertToDataChart(res))}))
         dispatch(getStatisticAdminPerYear(2022,(res)=> {
             setData(res)
             setTotalTicket(caculateTicket(res))
         })      
         )
-    },[statisticAdminPerMonth, statisticAdminPerMonth])
+    },[statisticAdminPerMonth])
     
     const [month, setMonth] = useState(new Date().getMonth());
     const [totalTicket, setTotalTicket] = useState(0)
 
     const handleChangeMonth = (e) => {
         setMonth(e.target.value)
-        console.log(typeof e.target.value);
         dispatch(getStatisticAdminPerMonth(2022, Number(e.target.value) + 1, (res)=> {
-            setDataTable(res)
+            setDataTable(res.tour)
             const rs = covertToDataChart(res)
             setDataChart(rs)
-            console.log('xxxx',dataChart);
         }))
     }
 
@@ -153,15 +153,73 @@ export default function AdminStatistic({list}) {
                             </Grid>
                         </Grid>
                     </Box>
+                    <div className='ticket-manager__listticket' style={{marginTop:'30px',padding:'10px 20px 0px 20px', borderTop:' 3px solid #858585'}}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0' }}>
+                            <h4 style={{ margin:0, color: 'cornflowerblue'}}>BẢNG THỐNG KÊ CÔNG TY THEO:  </h4>
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ marginRight: '30px' }}>
+                                    <FormControl>
+                                        <Select
+                                            labelId="select-month-label"
+                                            id="demo-simple-select"
+                                            value={month}
+                                            label="Month"
+                                            onChange={handleChangeMonth}
+                                            style={{ width: '120px', fontSize: '13px', color: 'cornflowerblue', fontFamily: 'Roboto Mono' }}
+                                        >
+                                            {
+                                                months.map((m, index) => (
+                                                    <MenuItem key={index} value={`${index}`}>{m.label.toLocaleUpperCase()}</MenuItem>
+                                                ))
+                                            }
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                            </Box>
+                        </div>
+                        <table>
+                            <thead>
+                                <th className='th-2'>Ảnh đại diện</th>
+                                <th className='th-2'>Tên công ty</th>
+                                <th className='th-2'>Tên người đại diện</th>
+                                <th className='th-2'>Email</th>
+                                <th className='th-1'>Danh sách tour</th>
+                                <th className='th-2'>Tổng vé đã bán</th>
+                                <th className='th-2'>Doanh thu (VND)</th>
+                                {/* <th className='th-2'></th> */}
+                            </thead>
+                            <tbody>
+                                {
+                                   dataTable &&
+                                   dataTable?.map((item, index) =>(
+                                        <tr key={index} style={{borderBottom:'5px solid white'}}>
+                                            <td className='td-2' style={{display:'flex', alignItems:'center', justifyContent:'center', padding:'20px'}}>
+                                                <img style={{width:'70px', height:'70px'}}src={item?.infoCompany.photoUrl} alt=''/>
+                                            </td>
+                                            <td className='td-2'>{item?.infoCompany.companyName}</td>
+                                            <td className='td-2'>{item?.infoCompany?.familyName}{' '}{item?.infoCompany?.givenName}</td>
+                                            <td className='td-1'>{item?.infoCompany?.email}</td>
+                                            <td className='td-3'>{item?.totalTours?.map((tour)=>(
+                                                <div style={{margin:'3px 0px'}}>{tour}</div>
+                                            ))}</td>
+                                            <td className='td-2' style={{textAlign:'center'}}>{item?.totalTickets}</td>
+                                            <td className='td-3' style={{textAlign:'right'}}>{item?.totalPrice.toLocaleString().split(',').join('.')} đ</td>
+                                           
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                     <Box sx={{ maxWidth: '400px', margin: '0 auto' }}>
-                        <h2 style={{ margin:'20px 0 0', color: 'cornflowerblue', padding: '10px 0' }}>BIỂU ĐỒ DOANH THU CÔNG TY:  </h2>
+                        <h2 style={{ margin:'20px 0 0', color: 'cornflowerblue', padding: '10px 0' }}>BIỂU ĐỒ THEO SỐ LƯỢNG VÉ</h2>
                         <Doughnut data={{
                             maintainAspectRatio: true,
                             responsive: false,
-                            labels: ["Miền bắc", "Miền trung", "Miền Nam"],
+                            labels: dataChart.label,
                             datasets: [
                                 {
-                                    data: [1,2, 3],
+                                    data: dataChart.data,
                                     backgroundColor: [
                                         'rgb(255, 99, 132)',
                                         'rgb(54, 162, 235)',
@@ -177,39 +235,26 @@ export default function AdminStatistic({list}) {
                             borderWidth: 1,
                         }}
                             options={{
-                                plugins: {
-                                    legend: {
-                                        position: 'right'
-                                    },
-                                },
+                                legend: {
+                                    display: true,
+                                    position: 'right',
+                                    labels: {
+                                      fontColor: "#000080",
+                                    }
+                                  },
+                                //   scales: {
+                                //     yAxes: [{
+                                //       ticks: {
+                                //         beginAtZero: true
+                                //       }
+                                //     }]
+                                //   }
                             }}
                         />
                     </Box>
                 </div>
             }
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '20px 0' }}>
-                <h4 style={{ margin:0, color: 'cornflowerblue'}}>BẢNG THỐNG KÊ DOANH THU THEO:  </h4>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <div style={{ marginRight: '30px' }}>
-                        <FormControl>
-                            <Select
-                                labelId="select-month-label"
-                                id="demo-simple-select"
-                                value={month}
-                                label="Month"
-                                onChange={handleChangeMonth}
-                                style={{ width: '120px', fontSize: '13px', color: 'cornflowerblue', fontFamily: 'Roboto Mono' }}
-                            >
-                                {
-                                    months.map((m, index) => (
-                                        <MenuItem key={index} value={`${index}`}>{m.label.toLocaleUpperCase()}</MenuItem>
-                                    ))
-                                }
-                            </Select>
-                        </FormControl>
-                    </div>
-                </Box>
-            </div>
+            
             {/* <Statistic
                 list={data}
             /> */}

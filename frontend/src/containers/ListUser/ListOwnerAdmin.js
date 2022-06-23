@@ -20,6 +20,7 @@ function ListOwnerAdmin({keySearch = ''}) {
         setOpen(!open)
     }
     useEffect(()=>{
+        document.title = 'Simple Tourism | Quản lý công ty'
         setListAll([...listOwnerAdmin?.owners.filter((customer)=> customer?.email?.toLowerCase().includes(keySearch.toLowerCase()))])
     },[keySearch])
 

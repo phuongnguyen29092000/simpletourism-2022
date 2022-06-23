@@ -1,6 +1,7 @@
 const { Ticket, Tour, User } = require("../models");
 const { TourService } = require("./index");
 const userService = require("./user.service");
+const mongoose = require("mongoose");
 
 const showStatisticPerYear = async (ownerId, year) => {
   let ticketInMonthOfOwner = [];
@@ -11,9 +12,10 @@ const showStatisticPerYear = async (ownerId, year) => {
     totalInternationalTour = 0;
   const tourOfOwnerId = (await TourService.getTourByOwner(ownerId)).map(
     (item) => {
-      return String(item._id);
+      return new mongoose.Types.ObjectId(item._id);
     }
   );
+  console.log(tourOfOwnerId);
   const ticketInYear = await Ticket.aggregate([
     { $addFields: { month: { $month: "$createdAt" } } },
     { $addFields: { year: { $year: "$createdAt" } } },
@@ -29,6 +31,9 @@ const showStatisticPerYear = async (ownerId, year) => {
         year: parseInt(year),
         status: 1,
         visit: true,
+        tour: {
+          "$in": tourOfOwnerId
+        }
       },
     },
     {

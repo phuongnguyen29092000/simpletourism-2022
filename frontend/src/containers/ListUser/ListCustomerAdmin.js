@@ -20,6 +20,7 @@ function ListCustomerAdmin({keySearch = ''}) {
         setOpen(!open)
     }
     useEffect(()=>{
+        document.title = 'Simple Tourism | Quản lý khách hàng'
         setListAll([...listCustomerAdmin?.customers.filter((customer)=> customer?.email?.toLowerCase().includes(keySearch.toLowerCase()))])
     },[keySearch])
 

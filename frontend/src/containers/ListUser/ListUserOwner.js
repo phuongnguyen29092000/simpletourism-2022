@@ -18,6 +18,7 @@ function ListUserOwner(props) {
         setOpen(!open)
     }
     useEffect(()=>{
+        document.title = 'Simple Tourism | Quản lý khách hàng'
         if(listUserOwner?.users?.length === 0) dispatch(getAllCustomerBooked(getUser()._id))
     },[listUserOwner.user])
 

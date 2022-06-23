@@ -133,5 +133,5 @@ module.exports = {
   getTicketPerTour,
   getTicketsHistory,
   autoDeleteTicketUnpaid,
-  completeTour
+  completeTour,
 };

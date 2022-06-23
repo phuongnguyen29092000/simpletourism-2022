@@ -27,6 +27,7 @@ function ListTypePlace() {
     let { listTypePlace, error } = useSelector((store) => store.typePlace)
 
     useEffect(() => {
+        document.title = 'Simple Tourism | Quản lý Typeplace'
         dispatch(getTypePlace())
     }, [dispatch])
 
