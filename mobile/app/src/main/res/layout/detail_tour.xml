@@ -223,6 +223,27 @@
                 android:textSize="@dimen/text_size" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:text="Hoạt động: "
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tv_active"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nunito_sans_semibold"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

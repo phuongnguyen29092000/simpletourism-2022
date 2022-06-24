@@ -34,10 +34,14 @@ import com.example.simpletouristapp.service.ToursApiService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,7 +72,12 @@ public class DetailTourFragment extends Fragment {
 
         binding = DetailTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date currentDate = Calendar.getInstance().getTime();
+        String date = simpleDateFormat.format(currentDate);
+        final Date[] date1 = {null};
+        final Date[] date2 = {null};
+        final Date[] date3 = {null};
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
 
         rvFeedback = binding.rvFeedback;
@@ -91,7 +100,7 @@ public class DetailTourFragment extends Fragment {
                 if (response.code() == 200) {
                     TourResponse tourResponse = response.body();
                     Tour tour = tourResponse.data;
-
+                    date2[0] = tour.getTimeStart();
                     Locale lc = new Locale("nv", "VN");
                     NumberFormat nf = NumberFormat.getCurrencyInstance(lc);
                     String pattern = "dd/MM/yyyy";
@@ -119,6 +128,11 @@ public class DetailTourFragment extends Fragment {
                     binding.tvTypePlace.setText(tour.getTypePlace().getName());
                     binding.description.setText(tour.getDescription());
                     binding.schedule.setText(tour.getSchedule());
+                    if (tour.getOwner().isActive()) {
+                        binding.tvActive.setText("Đang hoạt động");
+                    } else {
+                        binding.tvActive.setText("Dừng hoạt động");
+                    }
                     if (getActivity().getClass() == MainActivityLogged.class) {
                         binding.edtEmail.setText(sharedPreferences.getString("email", ""));
                     }
@@ -137,29 +151,60 @@ public class DetailTourFragment extends Fragment {
         binding.btnBookTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", String.valueOf(getActivity()));
-                if (getActivity().getClass() == MainActivity.class) {
-                    builder.setTitle("Bạn cần phải đăng nhập trước khi đặt tour");
-                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+
+                try {
+                    date1[0] = simpleDateFormat.parse(date);
+                    date3[0] = simpleDateFormat.parse(simpleDateFormat.format(date2[0]));
+                    long getDiff = date3[0].getTime() - date1[0].getTime();
+                    long getDaysDiff = getDiff / (24 * 60 * 60 * 1000);
+                    if (getDaysDiff < 5) {
+                        builder.setTitle("Thời gian đặt vé đã hết");
+                        builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        builder.show();
+                    } else {
+                        if (binding.tvActive.getText().toString().equals("Dừng hoạt động")) {
+                            builder.setTitle("Tour đã dừng hoạt động");
+                            builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            builder.show();
+                        } else {
+                            if (getActivity().getClass() == MainActivity.class) {
+                                builder.setTitle("Bạn cần phải đăng nhập trước khi đặt tour");
+                                builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_login);
+                                    }
+                                });
+                                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                                builder.show();
+                            } else {
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("tourName", binding.nameTour.getText().toString());
+                                bundle.putSerializable("idTour", tourId);
+                                bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
+                                Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour, bundle);
+                            }
                         }
-                    });
-                    builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    builder.show();
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("tourName", binding.nameTour.getText().toString());
-                    bundle.putSerializable("idTour", tourId);
-                    bundle.putSerializable("price", binding.tvDetailPrice.getText().toString());
-                    Navigation.findNavController(view).navigate(R.id.action_nav_detail_tour_to_nav_book_tour, bundle);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+
 
             }
         });

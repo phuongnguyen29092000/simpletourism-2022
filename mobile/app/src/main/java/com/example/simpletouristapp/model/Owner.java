@@ -1,5 +1,7 @@
 package com.example.simpletouristapp.model;
 
+import androidx.room.ColumnInfo;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Owner {
@@ -11,6 +13,16 @@ public class Owner {
     private String familyName;
     @SerializedName("companyName")
     private String companyName;
+    @SerializedName("active")
+    private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public String getId() {
         return id;

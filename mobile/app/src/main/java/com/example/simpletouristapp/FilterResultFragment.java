@@ -16,10 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.adapter.TourAdapter;
 import com.example.simpletouristapp.databinding.FragmentFilterResultBinding;
+import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.service.ToursApiService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +36,7 @@ public class FilterResultFragment extends Fragment {
     private RecyclerView rvFilterResult;
     private ToursApiService toursApiService;
     private TourAdapter tourAdapter;
+    private List<Tour> tours;
 
     @Override
     public View onCreateView(
@@ -49,7 +53,7 @@ public class FilterResultFragment extends Fragment {
 
         rvFilterResult = binding.rvFilterResult;
         toursApiService = new ToursApiService();
-
+        tours = new ArrayList<>();
 
         Call<ToursResponse> call = toursApiService.getToursFilter(params.get("continent"), params.get("typeplace")
                 , params.get("sort"), Integer.parseInt(params.get("priceMin")), Integer.parseInt(params.get("priceMax")), params.get("discount"));
@@ -58,7 +62,12 @@ public class FilterResultFragment extends Fragment {
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
                 if (response.code() == 200) {
                     ToursResponse tourResponse = response.body();
-                    tourAdapter = new TourAdapter(getContext(), tourResponse.getData(), "filter");
+                    for (Tour tour : tourResponse.getData()
+                    ) {
+                        tour.setCompanyName(tour.getOwner().getCompanyName());
+                        tours.add(tour);
+                    }
+                    tourAdapter = new TourAdapter(getContext(), tours, "filter");
                     rvFilterResult.setLayoutManager(new GridLayoutManager(getContext(), 2));
                     rvFilterResult.setAdapter(tourAdapter);
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Filter Result");
