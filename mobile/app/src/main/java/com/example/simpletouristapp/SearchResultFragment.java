@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simpletouristapp.adapter.TourAdapter;
 import com.example.simpletouristapp.databinding.FragmentSearchResultBinding;
+import com.example.simpletouristapp.model.Tour;
 import com.example.simpletouristapp.model.ToursResponse;
 import com.example.simpletouristapp.service.ToursApiService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +31,7 @@ public class SearchResultFragment extends Fragment {
     private RecyclerView rvSearch;
     private TourAdapter tourAdapter;
     private ToursApiService toursApiService;
+    private List<Tour> tours;
 
     @Override
     public View onCreateView(
@@ -35,6 +40,7 @@ public class SearchResultFragment extends Fragment {
 
         binding = FragmentSearchResultBinding.inflate(inflater, container, false);
         rvSearch = binding.rvSearch;
+        tours = new ArrayList<>();
         toursApiService = new ToursApiService();
         String q = getActivity().getIntent().getStringExtra("searchResult").trim().replace(" ", "-");
         Call<ToursResponse> call = toursApiService.searchTour(q);
@@ -43,7 +49,12 @@ public class SearchResultFragment extends Fragment {
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
                 if (response.code() == 200) {
                     ToursResponse tourResponse = response.body();
-                    tourAdapter = new TourAdapter(getContext(), tourResponse.getData(), "search");
+                    for (Tour tour : tourResponse.getData()
+                    ) {
+                        tour.setCompanyName(tour.getOwner().getCompanyName());
+                        tours.add(tour);
+                    }
+                    tourAdapter = new TourAdapter(getContext(), tours, "search");
                     ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(getActivity().getIntent().getStringExtra("searchResult"));
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);

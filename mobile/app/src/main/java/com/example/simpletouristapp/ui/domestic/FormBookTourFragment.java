@@ -13,12 +13,14 @@ import com.example.simpletouristapp.R;
 import com.example.simpletouristapp.databinding.FormBookTourBinding;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class FormBookTourFragment extends Fragment {
     private FormBookTourBinding binding;
     private String tourName;
     private String idTour;
     private String price;
+    private String PHONE_PATTERN = "^[0-9]{9,11}$";
     private HashMap<String, String> informationBookTour;
 
     @Override
@@ -36,6 +38,7 @@ public class FormBookTourFragment extends Fragment {
 
         binding = FormBookTourBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        Pattern r = Pattern.compile(PHONE_PATTERN);
 
         binding.nameTour.setText(tourName);
         binding.btnIncrease.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +77,13 @@ public class FormBookTourFragment extends Fragment {
                 } else {
                     binding.validatePhoneNumber.setVisibility(View.GONE);
                 }
-                if (!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")) {
+                if (!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")
+                        && !r.matcher(binding.phoneNumber.getText().toString().trim()).find()){
+                    binding.validatePhoneNumber.setVisibility(View.VISIBLE);
+                    binding.validatePhoneNumber.setText("Số điện thoại phải từ 9 đến 11 số");
+                }
+                if (!binding.amount.getText().toString().trim().equals("") && !binding.phoneNumber.getText().toString().trim().equals("")
+                        && r.matcher(binding.phoneNumber.getText().toString().trim()).find()) {
                     informationBookTour = new HashMap<>();
                     informationBookTour.put("idTour", idTour);
                     informationBookTour.put("nameTour", tourName);

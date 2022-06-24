@@ -74,6 +74,8 @@ public class Tour {
     @ColumnInfo(name = "discount")
     private double discount;
 
+
+
     @SerializedName("imageSlide")
     @Ignore
     private ArrayList<String> imageSlide;
@@ -88,6 +90,7 @@ public class Tour {
 
     @ColumnInfo(name = "companyName")
     private String companyName;
+
 
     public Owner getOwner() {
         return owner;
